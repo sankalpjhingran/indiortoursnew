@@ -1,0 +1,35 @@
+<style>
+.jumbotron {
+  padding: 0.5em 0.6em;
+  h1 {
+      font-size: 2em;
+  }
+  p {
+      font-size: 1.2em;
+      .btn {
+          padding: 0.5em;
+      }
+  }
+}
+</style>
+<div class="container">
+  <div ng-app="clientApp" ng-controller="RegUsersController">
+    <div class="well">
+        <h1>Indior Tour Users</h1>
+        <p>Below is the list of all users in Indior Tours App:</p>
+    </div>
+
+    {{error}}
+    <table class="table table-hover table-bordered" ng-show="!(error)">
+      <th>Id</th>
+      <th>Email</th>
+      <th>User Type</th>
+
+      <tr ng-repeat="x in users">
+        <td>{{ x["id"] }}</td>
+        <td>{{ x["email"] }}</td>
+        <td>{{ x["type"] }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

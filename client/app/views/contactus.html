@@ -1,0 +1,98 @@
+<style>
+.form-horizontal .form-group {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+</style>
+<div ng-app="clientApp" ng-controller="ContactusController">
+  <div class="container">
+      <div class="well">
+        <h1>Contact Us</h1>
+        Have a question or comment? Fill out the following information and we will get back to you as soon as possible.</div>
+      <form class="form-horizontal" method="post" role="form" ng-submit="createLead();">
+        <div class="row">
+          <div class="col">
+              <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                  <label for="exampleInputEmail1">Title</label>
+                  <select class="form-control" ng-model="contactusData.title">
+                      <option>Mr</option>
+                      <option>Miss</option>
+                      <option>Ms</option>
+                      <option>Mrs</option>
+                  </select>
+              </div>
+              <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                  <label for="exampleInputEmail1">Name</label>
+                  <input type="text" ng-model="contactusData.firstname" class="form-control" id="exampleInputEmail1" placeholder="Enter Firstname">
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                  <label for="exampleInputEmail1">Email Address</label>
+                  <input type="email"  ng-model="contactusData.email"  class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
+              </div>
+              <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                  <label for="exampleInputEmail1">Phone</label>
+                  <input type="email" ng-model="contactusData.phone"  class="form-control" id="exampleInputEmail1" placeholder="Enter Phone">
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email"  ng-model="contactusData.email"  class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
+              </div>
+              <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                  <label for="exampleInputEmail1">Arrival Date</label>
+                  <input type="Date" ng-model="contactusData.plannedarrival"  class="form-control" id="exampleInputEmail1" placeholder="Enter Arrival Date">
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                  <label for="exampleInputEmail1">No. of Days</label>
+                  <input type="text"  ng-model="contactusData.numdays"  class="form-control" id="exampleInputEmail1" placeholder="Enter Nunmber of People">
+              </div>
+              <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                  <label for="exampleInputEmail1">Type of Hotel</label>
+                  <select class="form-control" ng-model="contactusData.preferredhoteltype">
+                      <option>High End Hotels</option>
+                      <option>Luxury And Palaces</option>
+                      <option>Medium Budget</option>
+                      <option>Low Budget</option>
+                  </select>
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group col-xs-10 col-sm-8 col-md-8 col-lg-8">
+                  <label for="exampleInputEmail1">Message</label>
+                  <textarea ng-model="contactusData.message" cols="150" rows="5" class="form-control" id="exampleInputEmail1" placeholder="Enter Message"></textarea>
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group col-xs-10 col-sm-10 col-md-4 col-lg-4">
+                  <label for="exampleInputFile">Attach Files</label>
+                  <input type="file" file-input="contactData.attachment" />
+                  <p class="help-block"></p>
+              </div>
+              <div class="clearfix"></div>
+              <div class="col-xs-10 col-sm-2 col-md-2 col-lg-2">
+                  <button type="submit" class="btn btn-success btn-block">Submit</button>
+              </div>
+          <div class="clearfix"></div>
+          <br /><br />
+      </div>
+      <div class="col">
+        <div class="well">
+            <h1>Regd Office:</h1>
+
+            Manager - Tours
+            Indior Tours Pvt. Ltd.
+            M 8 Bhagat Singh Market,
+            Connaught Place,
+            New Delhi - 110001
+
+            Mobile : (+91) 9311463467
+            Phone : +91-11-23361564
+
+            Ask Us :–
+            Email : info@indiortours.in
+        </div>
+      </div>
+  	</div>
+      </form>
+  </div>
+</div>

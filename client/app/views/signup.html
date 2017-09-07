@@ -1,0 +1,171 @@
+<style>
+.form-group.required .control-label:after {
+ content:"*";
+ color:red;
+}
+</style>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+  <div ng-app="clientApp" ng-controller="authcontroller">
+        <div class="login">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Login to IndiorTours.com</b></h4> or go back to our <a href="/">main site</a>.
+            </div>
+            <div class="modal-body" id="mainlogin">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="well">
+                            <form id="loginForm" method="post" role="form" ng-submit="signIn();">
+                                <div class="form-group required">
+                                    <label for="email" class="control-label">Email</label>
+                                    <input type="text" class="form-control" ng-model="signindata.email" name="email" value="" required="true" title="Please enter your email" placeholder="Email">
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="password" class="control-label">Password</label>
+                                    <input type="password" class="form-control" ng-model="signindata.password" name="password" placeholder="Password" value="" required="true" title="Please enter your Password">
+                                    <span class="help-block"></span>
+                                </div>
+                                <div id="loginErrorMsg" class="alert alert-error hide">Wrong username or password</div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="remember" id="remember"> Remember Me
+                                    </label>
+                                    <p class="help-block">(If this is a private computer)</p>
+                                </div>
+                                  <button type="submit" value="login" name="submit" class="btn btn-primary btn-block">Login</button>
+                                  <a ng-href="#" onclick="showForgotPasswordForm();" style="float:right;" class="float-right">Forgot you password?</a>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="lead">Register now for <span class="text-success">FREE</span></p>
+                        <ul class="list-unstyled" style="line-height: 2">
+                            <li><span class="fa fa-check text-success"></span> See all your orders</li>
+                            <li><span class="fa fa-check text-success"></span> Shipping is always free</li>
+                            <li><span class="fa fa-check text-success"></span> Save your favorites</li>
+                            <li><span class="fa fa-check text-success"></span> Fast checkout</li>
+                            <li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
+                            <li><span class="fa fa-check text-success"></span>Holiday discounts up to 30% off</li>
+                        </ul>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6" style="margin-left:0px;padding-left:0px;">
+                          <p><a href="" onclick="showRegistrationForm();" class="btn btn-primary ">Not a Member yet? Sign Up Now!</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" id="forgotpassword">
+              <div class="row">
+                  <div class="col-md-4">
+                    <h4 class="">
+                      Reset Password
+                    </h4>
+                    <form accept-charset="UTF-8" role="form" id="login-recordar" method="post">
+                        <span class="help-block">
+                          Enter the Email you use to log in to your account
+                          <br>
+                          We'll send you an email with instructions to reset the password.
+                        </span>
+                        <div class="form-group input-group">
+                          <span class="input-group-addon">
+                            @
+                          </span>
+                          <input class="form-control" placeholder="Email" name="email" type="email" required="">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="btn-olvidado">
+                          Continue
+                        </button>
+                    </form>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="lead">Register now for <span class="text-success">FREE</span></p>
+                      <ul class="list-unstyled" style="line-height: 2">
+                          <li><span class="fa fa-check text-success"></span> See all your orders</li>
+                          <li><span class="fa fa-check text-success"></span> Shipping is always free</li>
+                          <li><span class="fa fa-check text-success"></span> Save your favorites</li>
+                          <li><span class="fa fa-check text-success"></span> Fast checkout</li>
+                          <li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
+                          <li><span class="fa fa-check text-success"></span>Holiday discounts up to 30% off</li>
+                      </ul>
+                      <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6" style="margin-left:0px;padding-left:0px;">
+                        <p><a href="" onclick="showLoginForm();" class="btn btn-primary ">Done? Login Now</a></p>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-body" id="register">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="well">
+                            <form id="regForm" method="post" role="form" ng-submit="signUp();">
+                              <div class="form-group required">
+                                  <label for="firstname" class="control-label">First Name</label>
+                                  <input type="text" class="form-control" ng-model="signupdata.firstname" name="firstname" value="" required="true" title="Please enter your First Name" placeholder="First Name">
+                                  <span class="help-block"></span>
+                              </div>
+                              <div class="form-group required">
+                                  <label for="lastname" class="control-label">Last Name</label>
+                                  <input type="text" class="form-control" ng-model="signupdata.lastname" name="lastname" value="" required="true" title="Please enter your Last Name" placeholder="Last Name">
+                                  <span class="help-block"></span>
+                              </div>
+                                <div class="form-group required">
+                                    <label for="email" class="control-label">Email(This will be your Username)</label>
+                                    <input type="text" class="form-control" ng-model="signupdata.email" name="email" value="" required="true" title="Please enter your email" placeholder="Email">
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="password" class="control-label">Password</label>
+                                    <input type="password" class="form-control" ng-model="signupdata.password" name="password" placeholder="Password" value="" required="true" title="Please enter your password">
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="confirmpassword" class="control-label">Confirm Password</label>
+                                    <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" value="" required="true" title="Please Confirm your Password">
+                                    <span class="help-block"></span>
+                                </div>
+                                <div id="loginErrorMsg" class="alert alert-error hide">Wrong username or password</div>
+                                <button type="submit" value="login" name="submit" class="btn btn-primary btn-block">Sign Up!</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="lead">Register now for <span class="text-success">FREE</span></p>
+                        <ul class="list-unstyled" style="line-height: 2">
+                            <li><span class="fa fa-check text-success"></span> See all your orders</li>
+                            <li><span class="fa fa-check text-success"></span> Shipping is always free</li>
+                            <li><span class="fa fa-check text-success"></span> Save your favorites</li>
+                            <li><span class="fa fa-check text-success"></span> Fast checkout</li>
+                            <li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
+                            <li><span class="fa fa-check text-success"></span>Holiday discounts up to 30% off</li>
+                        </ul>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6" style="margin-left:0px;padding-left:0px;">
+                          <p><a href="" onclick="showLoginForm();" class="btn btn-primary ">Already Signed Up? Login Now</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#register").hide();
+    $("#forgotpassword").hide();
+  });
+
+  function showLoginForm(){
+    $("#mainlogin").show();
+    $("#register").hide();
+    $("#forgotpassword").hide();
+  }
+  function showRegistrationForm(){
+    $("#mainlogin").hide();
+    $("#register").show();
+    $("#forgotpassword").hide();
+  }
+  function showForgotPasswordForm(){
+    $("#mainlogin").hide();
+    $("#register").hide();
+    $("#forgotpassword").show();
+  }
+</script>
