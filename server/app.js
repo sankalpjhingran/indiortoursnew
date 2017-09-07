@@ -154,6 +154,12 @@ app.use('/api/signin', auth);
 app.use('/api/logout', logout);
 app.use('/api/isAuthenticated', application);
 
+console.log('Calling index.html1===>');
+app.get('/*', function(req, res) {
+  console.log('Calling index.html2===>');
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
+});
+
 // In production, we'll actually serve our angular app from express
 console.log('env is====> ' + app.get('env'));
 if (app.get('env') === 'production') {
@@ -169,12 +175,6 @@ if (app.get('env') === 'production') {
     });
   });
 }
-
-console.log('Calling index.html1===>');
-app.get('/*', function(req, res) {
-  console.log('Calling index.html2===>');
-  res.sendFile(path.join(__dirname + '/dist/index.html'));
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
