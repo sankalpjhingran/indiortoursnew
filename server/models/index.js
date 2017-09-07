@@ -20,7 +20,7 @@ var sequelize = new Sequelize(config.development.url, {
 */
 //var sequelize;
   //Setting up the config
-  var sequelize = new Sequelize('postgres://eqyftdnqqogabd:d1f36b24ce55df93fa72221961b1a9f9328600fceaec3b081c223834a6a65b9b@ec2-23-23-222-147.compute-1.amazonaws.com:5432/de5ml9a574vklj', {
+  var sequelize = new Sequelize('postgres://jkxtgdbxddtbjr:d37db5ebb69fcef1502426a06284894d29c1b1eff1049f98a13db1a6d7dbf122@ec2-107-20-230-243.compute-1.amazonaws.com:5432/df3i6h169jje2t', {
     port: pe.PORT,
     dialect: 'postgres',
     dialectOptions: { ssl: true },
