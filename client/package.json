@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "grunt-clean": "^0.4.0",
-    "grunt-connect": "^0.2.0"
+    "grunt-connect": "^0.2.0",
+    "grunt-copy": "^0.1.0"
   }
 }
