@@ -25,6 +25,7 @@ var app = express();
 /**
  * Module dependencies.
  */
+ console.log('Initializing app.js file====>1');
 var debug = require('debug')('server:server');
 var http = require('http');
 
@@ -35,11 +36,15 @@ var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+console.log('Initializing app.js file====>2');
+
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app);
+
+console.log('Initializing app.js file====>3');
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -150,6 +155,7 @@ app.use('/api/logout', logout);
 app.use('/api/isAuthenticated', application);
 
 // In production, we'll actually serve our angular app from express
+console.log('env is====> ' + app.get('env'));
 if (app.get('env') === 'production') {
   app.use(express.static(path.join(__dirname, '/dist')));
 
@@ -164,8 +170,9 @@ if (app.get('env') === 'production') {
   });
 }
 
+console.log('Calling index.html1===>');
 app.get('/*', function(req, res) {
-  console.log('Calling index.html===>');
+  console.log('Calling index.html2===>');
   res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
