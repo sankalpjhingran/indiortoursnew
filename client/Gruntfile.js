@@ -218,7 +218,7 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app
     wiredep: {
       app: {
-        src: ['<%= yeoman.app %>/index.html', '<%= yeoman.app %>/views/about.html',],
+        src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//
       },
       test: {
@@ -481,12 +481,13 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-connect-proxy');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.registerTask('default', ['compass']);
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-    if (target === 'dist') {
+    //if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
-    }
+    //}
 
     grunt.task.run([
       'clean:server',
