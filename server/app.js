@@ -21,18 +21,21 @@ var tours = require('./routes/tours');
 require('./config/passport')(passport, models.User);
 
 var app = express();
+app.use(cors()) // <--- CORS
+console.log('Initializing app.js file====>2');
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+console.log('Initializing app.js file====>3');
 
-/**
- * Module dependencies.
- */
- console.log('Initializing app.js file====>1');
+
+console.log('Initializing app.js file====>1');
 var debug = require('debug')('server:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -116,11 +119,7 @@ function onListening() {
 
 
 
-var app = express();
 SALT_WORK_FACTOR = 12;
-
-
-app.use(cors()) // <--- CORS
 
 // For Passport
 app.use(require('express-session')({ // session secret
@@ -131,10 +130,6 @@ app.use(require('express-session')({ // session secret
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
