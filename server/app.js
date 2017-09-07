@@ -20,6 +20,8 @@ var tours = require('./routes/tours');
 //load passport strategies
 require('./config/passport')(passport, models.User);
 
+var app = express();
+
 /**
  * Module dependencies.
  */
