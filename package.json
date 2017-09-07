@@ -22,12 +22,13 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "pg": "^6.0.0",
+    "pg": "^6.4.2",
     "pg-hstore": "^2.3.2",
     "pgtools": "0.0.2",
     "pug": "^2.0.0-rc.4",
     "sequelize": "^4.8.0",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "wkx": "^0.4.1"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
