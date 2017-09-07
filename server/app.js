@@ -20,8 +20,6 @@ var tours = require('./routes/tours');
 //load passport strategies
 require('./config/passport')(passport, models.User);
 
-#!/usr/bin/env node
-
 /**
  * Module dependencies.
  */
@@ -162,6 +160,11 @@ if (app.get('env') === 'production') {
     });
   });
 }
+
+app.get('/*', function(req, res) {
+  console.log('Calling index.html===>');
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
