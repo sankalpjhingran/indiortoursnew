@@ -1,0 +1,185 @@
+<style>
+  p.main{
+    text-align:justify;
+  }
+  .panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+.panel-heading a.collapsed:after {
+    content:"\e080";
+}
+
+.scaleTourView{
+  object-fit: cover;
+  object-position: center;
+}
+</style>
+
+<!-- main div -->
+<div ng-controller="TourViewController" ng-init="getTourDetailsWithRelatedModels()">
+  <!-- Tour Name -->
+  <h3>
+    {{tourWithAllRelated[0].name}}
+  </h3>
+
+  <!-- This is a repeat on all locations -->
+  <span ng-repeat="location in tourWithAllRelated[0].location">
+    <span class="h4">
+      {{location.city}} |
+    </span>
+  </span>
+
+  <!-- This is tour description -->
+  <p class="main">
+    {{tourWithAllRelated[0].description}}
+  </p>
+
+  <!-- tabs go here -->
+  <uib-tabset active="activeJustified" justified="true">
+      <!-- Itinerary Start -->
+      <uib-tab index="0" heading="Itinerary">
+        <p>{{tourWithAllRelated[0].description}}</p>
+        <div ng-repeat="itinerary in tourWithAllRelated[0].itinerary">
+          <h4>
+            {{itinerary.day}}
+          </h4>
+          <p>{{itinerary.description}}</p>
+        </div>
+      </uib-tab>
+      <!-- Itinerary End -->
+
+      <!-- Dates & Prices Start -->
+      <uib-tab index="1" heading="Dates &amp; Prices">
+        <table class="table table-hover table-bordered" ng-show="!(error)">
+          <thead>
+            <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">DEPARTURE DATES</th>
+            <tr>
+              <th class="col-xs-1">Month, Year</th>
+              <th class="col-xs-1">Dates</th>
+            </tr>
+          </thead>
+          <tr ng-repeat="x in tourWithAllRelated[0].departuredates">
+            <td>{{ x.month }}, {{ x.year }}</td>
+            <td>{{ x.dates }}</td>
+          </tr>
+        </table>
+
+        <table class="table table-hover table-bordered" ng-show="!(error)">
+            <thead>
+              <th style="text-align:center;color: #ffffff; background-color: #3270bc" colspan="4">TOUR COST</th>
+              <tr ng-repeat="(key, costs) in tourWithAllRelated[0].tourcost |limitTo:3 | groupBy: 'name'">
+                  <th>Net Per Person Cost</th>
+                  <th ng-repeat="(keycost, allcost) in costs | groupBy: 'costtype'">
+                      {{ keycost }}
+                  </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key, costs) in tourWithAllRelated[0].tourcost | groupBy: 'name'">
+                  <td>{{ key }}</td>
+                  <td ng-repeat="(keycost, allcost) in costs | filterBy: ['additionalservicesupplement']:false |  groupBy: 'costtype'">
+                      {{ allcost[0].cost }}
+                  </td>
+              </tr>
+              <tr>
+                <td colspan="2">Airfare: Economy Class</td>
+                <td colspan="2">Not Applicable</td>
+              </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-hover table-bordered" ng-show="!(error)">
+            <thead>
+              <th style="text-align: center;color: #ffffff; background-color: #3270bc" colspan="4">ADDITIONAL SERVICE SUPPLEMENTS</th>
+              <tr ng-repeat="(key, costs) in additionalservicesupplements  |limitTo:3 | groupBy: 'name'">
+                  <th>Net Per Person Cost</th>
+                  <th ng-repeat="(keycost, allcost) in costs | groupBy: 'costtype'">
+                      {{ keycost }}
+                  </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key, costs) in additionalservicesupplements | groupBy: 'name'">
+                  <td>{{ key }}</td>
+                  <td ng-repeat="(keycost, allcost) in costs | groupBy: 'costtype'">
+                      {{ allcost[0].cost }}
+                  </td>
+              </tr>
+              <tr>
+                <td colspan="2">Accompanying language speaking guide</td>
+                <td colspan="2">132</td>
+              </tr>
+          </tbody>
+        </table>
+      </uib-tab>
+      <!-- Dates & Prices End -->
+
+      <!-- Hotels Start -->
+      <uib-tab index="2" heading="Hotels">
+        <table class="table table-hover table-bordered" ng-show="!(error)">
+          <thead>
+            <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">Hotels</th>
+            <tr>
+              <th class="col-xs-2">Name</th>
+              <th class="col-xs-2">Location</th>
+              <th class="col-xs-2">Type</th>
+            </tr>
+          </thead>
+          <tr ng-repeat="x in tourWithAllRelated[0].accomodationHotel">
+            <td>{{ x["name"] }}</td>
+            <td>{{ x["location"] }}</td>
+            <td>{{ x["type"] }}</td>
+          </tr>
+        </table>
+
+        <uib-accordion close-others="false">
+            <div  uib-accordion-group
+                  class="panel-default"
+                  ng-repeat="(key, value) in tourWithAllRelated[0].accomodationHotel | groupBy: 'type'"
+                  heading="{{key}}"
+                  is-open="$first">
+
+              <div ng-repeat="hotel in value">
+                <table>
+                    <tr>
+                        <td style="padding-right:10px;padding-bottom:10px;"><img style="height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView"></td>
+                        <td style="padding-bottom:10px;vertical-align:top"><div ng-bind-html="hotel.description"></div></td>
+                    </tr>
+                </table>
+              </div>
+            </div>
+        </uib-accordion>
+
+      </uib-tab>
+      <!-- Hotels End -->
+
+      <!-- Destinations Start -->
+      <uib-tab index="3" heading="Destinations">
+        <div ng-repeat="x in tourWithAllRelated[0].siteLocation">
+          <h4>
+            {{x.city}}, {{x.country}}
+          </h4>
+          <p>{{x.description}}</p>
+        </div>
+
+      </uib-tab>
+      <!-- Destinations End -->
+
+      <!-- More Info Start -->
+      <uib-tab index="4" heading="More Info">
+        <uib-accordion close-others="false">
+            <div  uib-accordion-group
+                  class="panel-default"
+                  ng-repeat="x in tourWithAllRelated[0].tourNote"
+                  heading="{{x.type}}"
+                  is-open="$first">
+              <div ng-bind-html="x.description" ></div>
+            </div>
+        </uib-accordion>
+      </uib-tab>
+      <!-- More Info End -->
+  </uib-tabset>
+</div>

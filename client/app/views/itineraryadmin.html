@@ -1,0 +1,84 @@
+<div id="allItineraries" ng-controller="ItineraryAdminController" ng-init="loaditineraryData()">
+  <div class="row align-items-center">
+    <div class="col-sm-6 col-auto mr-auto">
+      <h3 class="align-middle">Itineraries</h3>
+    </div>
+    <div class="col-sm-6 col-auto">
+      <div class="text-right align-middle">
+        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <input type="text" class="form-control" placeholder="Search Itineraries..." ng-model="search">
+    </div>
+  </div>
+  <table class="table table-hover table-bordered" ng-show="!(error)">
+    <th>Action</th>
+    <th>Id</th>
+    <th>Tour Name</th>
+    <th>Day</th>
+    <th>Description</th>
+
+    <tr ng-repeat="x in allitinerarys | filter:search">
+      <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateitineraryInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delitinerary(x.id)">Del</a></td>
+      <td>{{ x["id"] }}</td>
+      <td>{{ x["tourname"] }}</td>
+      <td>{{ x["day"] }}</td>
+      <td>{{ x["description"] }}</td>
+    </tr>
+  </table>
+</div>
+
+<!-- New MOdal code using angular-ui -->
+<div class="modal-demo">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Create/Edit Itinerary</h3>
+        </div>
+        <form role="form" method="POST" ng-submit="createUpdateitinerary();">
+          <div class="modal-body" id="modal-body">
+                  <div class="form-group">
+                    <div id="remote">
+                      <label for="tourid">Tour</label>
+                      <!-- uib-typeahead="tour.name for tour in getToursByName($viewValue)" -->
+                      <input type="text"  ng-model="itineraryData.tour"
+                                          placeholder="Search Tours By Name..."
+                                          uib-typeahead="tour as tour.name for tour in allTours | filter: {name:$viewValue}"
+                                          typeahead-wait-ms="1000"
+                                          typeahead-min-length="3"
+                                          typeahead-loading="loadingLocations"
+                                          typeahead-no-results="noResults"
+                                          typeahead-editable=false
+                                          class="form-control"
+                                          value="tour.name">
+                      <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                      <div ng-show="noResults">
+                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="itday">Day</label>
+                    <input type="text" class="form-control input-sm" ng-model="itineraryData.day" id="itday" placeholder="Day">
+                  </div>
+                  <div class="form-group">
+                    <label for="itdescription">Description</label>
+                    <textarea class="form-control input-sm" rows="5" ng-model="itineraryData.description" id="itdescription" placeholder="Description"></textarea>
+                  </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group" role="group" aria-label="footer buttons">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary">Save As</button>
+              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>
+    </script>
+    <div class="modal-parent">
+    </div>
+</div>
+<!--Ends----->

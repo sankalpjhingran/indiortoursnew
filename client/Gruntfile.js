@@ -34,6 +34,7 @@ module.exports = function (grunt) {
     yeoman: appConfig,
 
     // Watches files for changes and runs tasks based on the changed files
+    //Excluding JSHINT: old command: tasks: ['newer:jshint:all', 'newer:jscs:all'],
     watch: {
       bower: {
         files: ['bower.json'],
@@ -41,7 +42,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all', 'newer:jscs:all'],
+        //tasks: ['newer:jscs:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -481,13 +482,12 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-connect-proxy');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.registerTask('default', ['compass']);
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-    //if (target === 'dist') {
+    if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
-    //}
+    }
 
     grunt.task.run([
       'clean:server',
@@ -496,7 +496,8 @@ module.exports = function (grunt) {
       'configureProxies:server', //<-- ADD THIS
       'postcss:server',
       'connect:livereload',
-      'watch'
+      'watch',
+      'uglify',
     ]);
   });
 

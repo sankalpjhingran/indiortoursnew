@@ -10,6 +10,31 @@
 angular.module('clientApp')
 .controller('authcontroller', function ($scope, $http, $location, $rootScope, $window) {
       console.log('In Auth controller');
+
+      $scope.visibility = {
+        isLoginFormOpen: true,
+        isPasswordResetFormOpen: false,
+        isSignUpFormOpen: false
+      };
+
+      $scope.showForgotPasswordForm = function(){
+        $scope.visibility.isPasswordResetFormOpen = true;
+        $scope.visibility.isLoginFormOpen = false;
+        $scope.visibility.isSignUpFormOpen = false;
+      }
+
+      $scope.showLoginForm = function(){
+        $scope.visibility.isPasswordResetFormOpen = false;
+        $scope.visibility.isLoginFormOpen = true;
+        $scope.visibility.isSignUpFormOpen = false;
+      }
+
+      $scope.showRegistrationForm = function(){
+        $scope.visibility.isPasswordResetFormOpen = false;
+        $scope.visibility.isLoginFormOpen = false;
+        $scope.visibility.isSignUpFormOpen = true;
+      }
+
       $scope.signUp = function(){
         console.log('in Signup function...');
         $http.post('/api/signup/', $scope.signupdata).then(function(res, err){
@@ -25,7 +50,11 @@ angular.module('clientApp')
         $http.post('/api/signin/', $scope.signindata).then(function(res, err){
           if(res.status == 200){
               console.log('Authentication Successful...');
-              $location.path('/regusers');
+              $rootScope.loggedInUser = res.data;
+              $scope.loggedInUser = res.data;
+              console.log($rootScope);
+              console.log($scope);
+              $location.path('/myprofile');
           }
         }).catch(function(err){
             console.log(err);

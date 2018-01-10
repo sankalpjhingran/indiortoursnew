@@ -1,0 +1,80 @@
+<div id="allLocations" ng-controller="LocationAdminController" ng-init="loadLocationData()">
+  <div class="row align-items-center">
+    <div class="col-sm-6 col-auto mr-auto">
+      <h3 class="align-middle">Locations</h3>
+    </div>
+    <div class="col-sm-6 col-auto">
+      <div class="text-right align-middle">
+        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <input type="text" class="form-control" placeholder="Search Locations..." ng-model="search">
+    </div>
+  </div>
+  <table class="table table-hover table-bordered" ng-show="!(error)">
+    <th>Action</th>
+    <th>Id</th>
+    <th>City</th>
+    <th>Country</th>
+    <th>Continent</th>
+    <th>Sub Continent</th>
+    <th>Description</th>
+
+    <tr ng-repeat="x in allLocations | filter:search">
+      <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateLocationInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delLocation(x.id)">Del</a></td>
+      <td>{{ x["id"] }}</td>
+      <td>{{ x["city"] }}</td>
+      <td>{{ x["country"] }}</td>
+      <td>{{ x["continent"] }}</td>
+      <td>{{ x["subcontinent"] }}</td>
+      <td>{{ x["description"] }}</td>
+    </tr>
+  </table>
+</div>
+
+<!-- New MOdal code using angular-ui -->
+<div class="modal-demo">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Create/Edit Location</h3>
+        </div>
+        <form role="form" method="POST" ng-submit="createUpdateLocation();">
+          <div class="modal-body" id="modal-body">
+                  <div class="form-group" >
+                    <label for="city">City</label>
+                    <input type="text" class="form-control input-sm" ng-model="locationData.city" id="city" placeholder="City">
+                  </div>
+                  <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" class="form-control input-sm" ng-model="locationData.country" id="country" placeholder="Country">
+                  </div>
+                  <div class="form-group">
+                    <label for="continent">Continent</label>
+                    <input type="text" class="form-control input-sm" ng-model="locationData.continent" id="continent" placeholder="Continent">
+                  </div>
+                  <div class="form-group">
+                    <label for="subcontinent">Sub Continent</label>
+                    <input type="text" class="form-control input-sm" ng-model="locationData.subcontinent" id="subcontinent" placeholder="Sub Continent">
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control input-sm" rows="5" ng-model="locationData.description" id="description" placeholder="Description"></textarea>
+                  </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group" role="group" aria-label="footer buttons">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary" ng-click="saveNew()">Save As</button>
+              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>
+    </script>
+    <div class="modal-parent">
+    </div>
+</div>
+<!--Ends----->

@@ -1,5 +1,59 @@
 @import './libs/bootstrap';
 
+.productbox {
+  border-radius: 4px;
+  background-color:#ffffff;
+  //padding:10px;
+  margin:5px 0;
+  border: 1px solid #cfcfcf;
+  -moz-box-shadow: 2px 2px 4px 0px #cfcfcf;
+  -webkit-box-shadow: 2px 2px 4px 0px #cfcfcf;
+  -o-box-shadow: 2px 2px 4px 0px #cfcfcf;
+  box-shadow: 2px 2px 4px 0px #cfcfcf;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=134, Strength=4);
+}
+
+.img-responsive {
+  border-radius: 4px;
+}
+
+.thumb-post img {
+  object-fit: contain !important; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 100%;
+  max-height: 10px;
+  margin-bottom: 0rem;
+}
+
+.producttitle {
+  font-weight:bold;
+  font-size:1.2em;
+  padding:5px 0 5px 0;
+}
+
+.producttext {
+
+}
+
+.productprice {
+border-top:1px solid #dadada;
+padding-top:5px;
+}
+
+.pricetext {
+font-weight:bold;
+font-size:1em;
+}
+
+#searchForm {
+	position:absolute;
+  	top:40%;
+}
+
+p.main{
+  text-align:justify;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -10,14 +64,23 @@
 body {
   padding: 0;
   background-color: #fff;
-}
 
+}
+//#616161
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
 .footer {
+}
 
+::-moz-selection { /* Code for Firefox */
+  background: #d4d4d4;
+  text-shadow: none;
+}
 
+::selection {
+  background: #d4d4d4;
+  text-shadow: none;
 }
 
 /* Custom page header */
@@ -84,6 +147,37 @@ footer{
   p + h4 {
     margin-top: 28px;
   }
+}
+
+
+/* xs < 768 */
+ @media screen and (max-width: 767px) {
+    body {
+        font-size: 0.9em;
+    }
+}
+/* sm */
+ @media screen and (min-width: 768px) {
+    body {
+        font-size: 1em;
+    }
+}
+/* md */
+ @media screen and (min-width: 992px) {
+    body {
+        font-size: 1.2em;
+    }
+}
+/* lg */
+ @media screen and (min-width: 1200px) {
+    body {
+        font-size: 1.3em;
+    }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
 }
 
 /* Responsive: Portrait tablets and up */
