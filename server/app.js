@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var jade = require('pug');
 
+//Mutler
+//var multer  = require('multer');
+
 var models = require('./models/index');
 var regusers = require('./routes/regusers');
 var contactus = require('./routes/contactus');
@@ -17,6 +20,16 @@ var LocalStrategy = require('passport-local').Strategy;
 var application = require('./routes/application');
 var logout = require('./routes/logout');
 var tours = require('./routes/tours');
+var locations = require('./routes/location');
+var hotels = require('./routes/hotel');
+var itinerary = require('./routes/itinerary');
+var departuredates = require('./routes/departuredates');
+var tourcosts = require('./routes/tourcosts');
+var images = require('./routes/image');
+var notes = require('./routes/tournotes');
+var users = require('./routes/user');
+
+
 //load passport strategies
 require('./config/passport')(passport, models.User);
 
@@ -138,7 +151,18 @@ app.use(logger('production'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
+
+
+/*
+app.post('/api/image', upload.single('file'), function (req, res) {
+    console.log('in image upload route ===>');
+    console.log(req.file);
+    res.end("File uploaded.");
+});
+*/
+
+app.use('/api/image', images);
 
 //app.use('/*', index); //<-- COMMENT THIS
 //app.use('/api/login', login);
@@ -148,7 +172,34 @@ app.use('/api/signup', signup);
 app.use('/api/signin', auth);
 app.use('/api/logout', logout);
 app.use('/api/isAuthenticated', application);
-
+app.use('/api/tours', tours);
+app.use('/api/location', locations);
+app.use('/api/location/all', locations);
+app.use('/api/location/update', locations);
+app.use('/api/hotel', hotels);
+app.use('/api/hotel/all', hotels);
+app.use('/api/hotel/update', hotels);
+app.use('/api/itinerary', itinerary);
+app.use('/api/itinerary/all', itinerary);
+app.use('/api/itinerary/update', itinerary);
+app.use('/api/departuredates', departuredates);
+app.use('/api/departuredates/all', departuredates);
+app.use('/api/departuredates/update', departuredates);
+app.use('/api/tourcosts', tourcosts);
+app.use('/api/tourcosts/all', tourcosts);
+app.use('/api/tourcosts/update', tourcosts);
+app.use('/api/tours/all', tours);
+app.use('/api/tours', tours);
+app.use('/api/tours/find', tours);
+app.use('/api/tours/update', tours);
+app.use('/api/tours/tourwithlocations', tours);
+app.use('/api/tours/alltourswithlocations', tours);
+app.use('/api/tours/tourdetailswithrelatedmodels', tours);
+app.use('/api/tours/alltourswithlocationsandhotels', tours);
+app.use('/api/tournotes', notes);
+app.use('/api/tournotes/all', notes);
+app.use('/api/tournotes/update', notes);
+app.use('/api/users', users);
 
 // In production, we'll actually serve our angular app from express
 console.log('env is====> ' + app.get('env'));

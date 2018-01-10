@@ -20,7 +20,7 @@ module.exports= {
 
   register(req, res){
       User.findOrCreate({
-            where: { email: req.body.email}, // we search for this user
+            where: { email: req.body.email.toLowerCase()}, // we search for this user
             defaults: req.body // if it doesn't exist, we create it with this additional data
           }).then()
           .spread((user, created) => {
@@ -34,13 +34,17 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    User.findOne(req.body.email, {})
-    .then(function (user) {
-      res.status(200).json(user);
-    })
-    .catch(function (error){
-      res.status(500).json(error);
-    });
+    if(req.isAuthenticated()){
+      User.findOne(req.body.email, {})
+      .then(function (user) {
+        res.status(200).json(user);
+      })
+      .catch(function (error){
+        res.status(500).json(error);
+      });
+    }else{
+        res.status(403).json('User not logged in.');
+    }
   },
 
   //Create a new author using model.create()

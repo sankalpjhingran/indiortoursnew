@@ -1,0 +1,159 @@
+<div id="allTours" ng-controller="ToursAdminController as ctrl" ng-init="loadtoursData()">
+  <div class="row align-items-center">
+    <div class="col-sm-6 col-auto mr-auto">
+      <h3 class="align-middle">Tours</h3>
+    </div>
+    <div class="col-sm-6 col-auto">
+      <div class="text-right align-middle">
+        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <input type="text" class="form-control" placeholder="Search Tours..." ng-model="search">
+    </div>
+  </div>
+  <table class="table table-hover table-bordered" ng-show="!(error)">
+    <th>Action</th>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Days</th>
+    <th>Nights</th>
+    <th>Price</th>
+    <th>Tour Type</th>
+
+    <tr ng-repeat="x in allTours | filter:search">
+      <td><a href="" locid="{{x.id}}" ng-click="populatetoursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deltours(x.id)">Del</a></td>
+      <td>{{ x["id"] }}</td>
+      <td>{{ x["name"] }}</td>
+      <td>{{ x["description"] }}</td>
+      <td>{{ x["days"] }}</td>
+      <td>{{ x["nights"] }}</td>
+      <td>{{ x["price"] }}</td>
+      <td>{{ x["tourtype"] }}</td>
+    </tr>
+  </table>
+</div>
+
+<!-- New MOdal code using angular-ui -->
+<div class="modal-demo">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Create/Edit Tour</h3>
+        </div>
+        <form role="form" method="POST" ng-submit="createUpdatetours();">
+          <div class="modal-body" id="modal-body">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input ng-model="tourData.name" type="text" class="form-control input-sm" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea ng-model="tourData.description" class="form-control input-sm" rows="5" id="description" placeholder="Description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="tourtype">Tour Type</label>
+              <input ng-model="tourData.type" type="text" class="form-control input-sm" id="tourtype" placeholder="Tour Type">
+            </div>
+            <div class="form-group">
+              <label for="days">Days</label>
+              <input ng-model="tourData.days" type="text" class="form-control input-sm" id="days" placeholder="Number of Days">
+            </div>
+            <div class="form-group">
+              <label for="nights">Nights</label>
+              <input ng-model="tourData.nights" type="nights" class="form-control input-sm" id="nights" placeholder="Number of Nights">
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <div class="input-group">
+                <span class="input-group-addon">€</span>
+                <input ng-model="tourData.price" type="text" class="form-control input-sm" id="price" placeholder="Price">
+                <span class="input-group-addon">.00</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <div id="remote">
+                  <label for="locationids">Locations</label>
+                  <!-- New locations multi select -->
+                  <ui-select multiple ng-model="tourData.locations" theme="bootstrap" close-on-select="false"  title="Select Locations...">
+                  <ui-select-match placeholder="Select Locations...">{{$item.city}}, {{$item.country}}</ui-select-match>
+                  <ui-select-choices repeat="location in allLocation | propsFilter: {city: $select.search}">
+                    <div ng-bind-html="location.city | highlight: $select.search"></div>
+                    <small>
+                      City: {{location.city}}
+                      Country: <span ng-bind-html="''+location.country | highlight: $select.search"></span>
+                    </small>
+                  </ui-select-choices>
+              </ui-select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div id="remote">
+                  <label for="tourhotels">Hotels</label>
+                  <!-- New locations multi select -->
+                  <ui-select multiple ng-model="tourData.hotels" theme="bootstrap" close-on-select="false"  title="Select Hotels...">
+                  <ui-select-match placeholder="Select Hotels...">{{$item.name}}</ui-select-match>
+                  <ui-select-choices repeat="hotel in allHotels | propsFilter: {name: $select.search}">
+                    <div ng-bind-html="hotel.name | highlight: $select.search"></div>
+                    <small>
+                      Name: {{hotel.name}}
+                      Type: <span ng-bind-html="''+hotel.type | highlight: $select.search"></span>
+                    </small>
+                  </ui-select-choices>
+              </ui-select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div id="remote">
+                  <label for="tourhotels">Notes</label>
+                  <!-- New locations multi select -->
+                  <ui-select multiple ng-model="tourData.notes" theme="bootstrap" close-on-select="false"  title="Select Notes...">
+                  <ui-select-match placeholder="Select Notes...">{{$item.name}}</ui-select-match>
+                  <ui-select-choices repeat="note in allNotes | propsFilter: {name: $select.search}">
+                    <div ng-bind-html="note.name | highlight: $select.search"></div>
+                    <small>
+                      Name: {{note.name}}
+                      Type: <span ng-bind-html="''+note.type | highlight: $select.search"></span>
+                    </small>
+                  </ui-select-choices>
+              </ui-select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div  class="btn btn-default"
+                    ngf-select
+                    ng-model="tourData.images"
+                    ngf-multiple="true"
+                    accept="image/*"
+                    ngf-max-height="2000"
+                    ngf-max-size="10MB"
+                    ngf-keep="distinct"
+                    ngf-capture="camera"
+                    ngf-max-files="5">Select Images (max:5)</div>
+              <br><br>
+              <div>
+                  <span ng-repeat="f in tourData.images">
+                    <img width=20% ngf-thumbnail="f || '/thumb.jpg'" class="thumb">
+                    {{f.$errorParam}}
+                  </span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group" role="group" aria-label="footer buttons">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <!-- <button type="button" class="btn btn-primary">Save As</button> -->
+              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>
+    </script>
+    <div class="modal-parent">
+    </div>
+</div>
+<!--Ends----->

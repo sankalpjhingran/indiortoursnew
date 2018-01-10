@@ -1,0 +1,117 @@
+<div id="allTourCosts" ng-controller="TourCostsController" ng-init="loadtourCosts()">
+  <div class="row align-items-center">
+    <div class="col-sm-6 col-auto mr-auto">
+      <h3 class="align-middle">Tour Costs</h3>
+    </div>
+    <div class="col-sm-6 col-auto">
+      <div class="text-right align-middle">
+        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <input type="text" class="form-control" placeholder="Search Tour Costs..." ng-model="search">
+    </div>
+  </div>
+  <table class="table table-hover table-bordered" ng-show="!(error)">
+    <th>Action</th>
+    <th>Id</th>
+    <th>Tour Name</th>
+    <th>Name</th>
+    <th>Tour Type</th>
+    <th>Cost Type</th>
+    <th>Cost</th>
+    <th>Airfare</th>
+    <th>Notes</th>
+    <th>Is Additional Service Supplement?</th>
+
+    <tr ng-repeat="x in allcostss | filter:search">
+      <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populatecostsInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delcosts(x.id)">Del</a></td>
+      <td>{{ x["id"] }}</td>
+      <td>{{ x["tourname"] }}</td>
+      <td>{{ x["name"] }}</td>
+      <td>{{ x["tourtype"] }}</td>
+      <td>{{ x["costtype"] }}</td>
+      <td>{{ x["cost"] }}</td>
+      <td>{{ x["airfare"] }}</td>
+      <td>{{ x["note"] }}</td>
+      <td>{{ x["additionalservicesupplement"] }}</td>
+    </tr>
+  </table>
+</div>
+
+<!-- New MOdal code using angular-ui -->
+<div class="modal-demo">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Create/Edit Tour Cost</h3>
+        </div>
+        <form role="form" method="POST" ng-submit="createUpdatecosts();">
+          <div class="modal-body" id="modal-body">
+                  <div class="form-group">
+                    <div id="remote">
+                      <label for="tourid">Tour</label>
+                      <!-- uib-typeahead="tour.name for tour in getToursByName($viewValue)" -->
+                      <input type="text"  ng-model="tourCosts.tour"
+                                          placeholder="Search Tours By Name..."
+                                          uib-typeahead="tour as tour.name for tour in allTours | filter: {name:$viewValue}"
+                                          typeahead-wait-ms="1000"
+                                          typeahead-min-length="3"
+                                          typeahead-loading="loadingLocations"
+                                          typeahead-no-results="noResults"
+                                          typeahead-editable=false
+                                          class="form-control"
+                                          value="tour.name">
+                      <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                      <div ng-show="noResults">
+                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control input-sm" ng-model="tourCosts.name" id="name" placeholder="Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="year">Tour Type</label>
+                    <input type="text" class="form-control input-sm" ng-model="tourCosts.tourtype" id="tourtype" placeholder="Tour Type">
+                  </div>
+                  <div class="form-group">
+                    <label for="year">Cost Type</label>
+                    <input type="text" class="form-control input-sm" ng-model="tourCosts.costtype" id="costtype" placeholder="Cost Type">
+                  </div>
+                  <div class="form-group">
+                    <label for="price">Cost</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">$</span>
+                      <input ng-model="tourCosts.cost" type="text" class="form-control input-sm" id="cost" placeholder="Cost">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="year">Airfare</label>
+                    <input type="text" class="form-control input-sm" ng-model="tourCosts.airfare" id="airfare" placeholder="Airfare">
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Note</label>
+                    <textarea class="form-control input-sm" rows="5" ng-model="tourCosts.note" id="note" placeholder="Notes"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="addnlservicesupplement">Is Additional Service Supplement?</label>
+                    <input type="checkbox" class="form-control input-sm" ng-model="tourCosts.additionalservicesupplement" id="addnlservicesupplement">
+                  </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group" role="group" aria-label="footer buttons">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary">Save As</button>
+              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>
+    </script>
+    <div class="modal-parent">
+    </div>
+</div>
+<!--Ends----->
