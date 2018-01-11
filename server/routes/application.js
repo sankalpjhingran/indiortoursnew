@@ -7,11 +7,8 @@ var router = express.Router();
 
 router.get('/', function(req, res){
 	console.log('In application router...');
+	console.log(req);
 	console.log(req.isAuthenticated());
-	if(req.isAuthenticated()){
-		res.json(true);
-	} else {
-		res.json(new Error(401));
-	}
+	res.status(200).json({"isLoggedIn":req.isAuthenticated(), "type": req.user.type});
 });
 module.exports = router;

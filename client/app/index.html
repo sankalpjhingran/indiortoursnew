@@ -24,7 +24,7 @@
   <body ng-app="clientApp" ng-controller="authcontroller">
     <!-- Add your site or application content here -->
     <div class="container">
-      <div style="background-color:#3171bb;" ng-include src="'views/header.html'">
+      <div style="background-color:#3171bb;" ng-include src="'views/header.html'" ng-init="checkAuthenticationStatus">
       </div>
       <div class="row">
         <div ui-view="subheader">
@@ -90,6 +90,7 @@
     <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
     <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
     <script src="bower_components/angular-filter/dist/angular-filter.js"></script>
+    <script src="bower_components/ng-cookies/dist/ng-cookies.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -110,6 +111,7 @@
     <script src="scripts/controllers/TourViewController.js"></script>
     <script src="scripts/controllers/LeadsAdminController.js"></script>
     <script src="scripts/controllers/UserProfileController.js"></script>
+    <script src="scripts/controllers/ApplicationController.js"></script>
     <!-- endbuild -->
 
 </body>

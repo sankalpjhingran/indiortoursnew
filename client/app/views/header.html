@@ -15,11 +15,11 @@
           </div>
         </div>
       </div>
-      <div style="float:right;">
+      <div style="float:right;" ng-controller="ApplicationController">
           <ul class="nav navbar-nav collapse navbar-collapse">
             <li><a ng-href="/contactus" style="color:#ffffff;">Contact Us</a></li>
-            <li><a ng-href="/regusers" style="color:#ffffff;">Registered Users</a></li>
-            <li><a ng-href="/toursadmin" style="color:#ffffff;">Admin</a></li>
+            <li><a ng-show="isAdminLoggedIn" ng-href="/regusers" style="color:#ffffff;">Registered Users</a></li>
+            <li><a ng-show="isAdminLoggedIn" ng-href="/toursadmin" style="color:#ffffff;">Admin</a></li>
             <!-- <li><a ng-href="" ng-show="firstname" style="color:#ffffff;">Welcome {{firstname}}!</a></li> -->
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#ffffff;">My Account

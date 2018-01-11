@@ -16,7 +16,7 @@ angular.module('clientApp')
     var imagesMap = new Map();
 
     $scope.getTourDetailsWithRelatedModels = function(){
-      $http.get('/api/tours/tourdetailswithrelatedmodels', {params: {id: tourId}})
+      $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
        .then(
            function(res){
              // success callback
@@ -27,7 +27,7 @@ angular.module('clientApp')
              $scope.allHotels.forEach(function(tour){
                 hotelids.push({parentobjectname: 'hotel', parentobjectid: tour.id});
              });
-             $http.get('/api/image/all', hotelids)
+             $http.get('/api/image/all/', hotelids)
               .then(function(images){
                   angular.forEach(hotelids, function(hotel){
                       var tempImages = [];
