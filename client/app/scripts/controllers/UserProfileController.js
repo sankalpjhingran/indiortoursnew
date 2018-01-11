@@ -118,5 +118,5 @@ $scope.ngModelOptionsSelected = function(value) {
     getterSetter: true
   };
   */
-  
+
 });

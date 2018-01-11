@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="well">
-                            <form id="loginForm" method="post" role="form" ng-submit="signIn();">
+                            <form method="post" role="form" ng-submit="signIn();">
                                 <div class="form-group required">
                                     <label for="email" class="control-label">Email</label>
                                     <input type="text" class="form-control" ng-model="signindata.email" name="email" value="" required="true" title="Please enter your email" placeholder="Email">
@@ -31,7 +31,7 @@
                                 <div id="loginErrorMsg" class="alert alert-error hide">Wrong username or password</div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember" id="remember"> Remember Me </input>
+                                        <input type="checkbox" name="remember"> Remember Me </input>
                                         <span class="help-block" style="font-size:10px;">(If this is a private computer)</span>
                                     </label>
                                 </div>
@@ -62,7 +62,7 @@
                     <h4 class="">
                       Reset Password
                     </h4>
-                    <form accept-charset="UTF-8" role="form" id="login-recordar" method="post">
+                    <form accept-charset="UTF-8" role="form" method="post">
                         <span class="help-block">
                           Enter the Email you use to log in to your account
                           <br>
@@ -74,7 +74,7 @@
                           </span>
                           <input class="form-control" placeholder="Email" name="email" type="email" required="">
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block" id="btn-olvidado">
+                        <button type="submit" class="btn btn-primary btn-block">
                           Continue
                         </button>
                     </form>
@@ -99,7 +99,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="well">
-                            <form id="regForm" method="post" role="form" ng-submit="signUp();">
+                            <form method="post" role="form" ng-submit="signUp();">
                               <div class="form-group required">
                                   <label for="firstname" class="control-label">First Name</label>
                                   <input type="text" class="form-control" ng-model="signupdata.firstname" name="firstname" value="" required="true" title="Please enter your First Name" placeholder="First Name">

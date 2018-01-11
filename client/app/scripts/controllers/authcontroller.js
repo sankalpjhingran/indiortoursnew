@@ -54,7 +54,7 @@ angular.module('clientApp')
               $scope.loggedInUser = res.data;
               console.log($rootScope);
               console.log($scope);
-              $location.path('/myprofile');
+              $location.path('/');
           }
         }).catch(function(err){
             console.log(err);

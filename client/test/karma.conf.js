@@ -47,6 +47,7 @@ module.exports = function(config) {
       'bower_components/textAngular/dist/textAngular-sanitize.js',
       'bower_components/textAngular/dist/textAngularSetup.js',
       'bower_components/angular-filter/dist/angular-filter.js',
+      'bower_components/ng-cookies/dist/ng-cookies.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

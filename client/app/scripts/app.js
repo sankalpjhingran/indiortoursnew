@@ -26,6 +26,7 @@ angular
     'textAngular',
     'ng.group',
     'angular.filter',
+    'ngCookies'
   ])
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider) {
     $urlRouterProvider.otherwise('/');
