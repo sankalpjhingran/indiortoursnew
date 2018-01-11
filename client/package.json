@@ -43,6 +43,7 @@
     "test": "karma start test/karma.conf.js"
   },
   "dependencies": {
+    "compass": "^0.1.1",
     "connect-livereload": "^0.6.0",
     "grunt-cdnify": "^1.0.2",
     "grunt-clean": "^0.4.0",
