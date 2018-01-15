@@ -6,6 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var jade = require('pug');
+var helmet = require('helmet');
+var compression = require('compression');
+var debug = require('debug')('http');
 
 //Mutler
 //var multer  = require('multer');
@@ -29,13 +32,20 @@ var images = require('./routes/image');
 var notes = require('./routes/tournotes');
 var users = require('./routes/user');
 
-
 //load passport strategies
 require('./config/passport')(passport, models.User);
 
 var app = express();
+
+//Use Helmet for security
+app.use(helmet());
+
+//Use Compression for gzip compression, for Production, use nginx gzip compression
+app.use(compression());
+
 app.use(cors()) // <--- CORS
 console.log('Initializing app.js file====>2');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -138,7 +148,8 @@ SALT_WORK_FACTOR = 12;
 app.use(require('express-session')({ // session secret
     secret: 'keyboard cat',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
 }));
 
 app.use(passport.initialize());

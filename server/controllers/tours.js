@@ -127,52 +127,55 @@ module.exports= {
     Tour.create(req.body, {include: [{ association : 'siteLocation' }, { association : 'accomodationHotel' }, {association: 'tourNote'}]})
     .then(function(tourInstance){
 
-      let noteids = [];
-      req.body.notes.forEach(function(note){
-        noteids.push({id:note.id});
-      });
+      if(req.body.notes.length){
+          let noteids = [];
+          req.body.notes.forEach(function(note){
+            noteids.push({id:note.id});
+          });
 
-      console.log('Calling Note.findAll');
-      Notes.findAll({
-        where: {
-          [Op.or]: noteids
-        }
-      }).then(function(noteInst){
-            console.log('Note Instance====>');
-            console.log(noteInst);
-            tourInstance.setTourNote(noteInst);
-            locationInst
-      });
+          console.log('Calling Note.findAll');
+          Notes.findAll({
+            where: {
+              [Op.or]: noteids
+            }
+          }).then(function(noteInst){
+                console.log('Note Instance====>');
+                console.log(noteInst);
+                tourInstance.setTourNote(noteInst);
+          });
+      }
 
+      if(req.body.locations.length){
+          let locationids = [];
+          req.body.locations.forEach(function(location){
+            locationids.push({id:location.id});
+          });
 
-      let locationids = [];
-      req.body.locations.forEach(function(location){
-        locationids.push({id:location.id});
-      });
+          Location.findAll({
+            where: {
+              [Op.or]: locationids
+            }
+          }).then(function(locationInst){
+                console.log('Location Instance====>');
+                console.log(locationInst);
+                tourInstance.setSiteLocation(locationInst);
+          });
+      }
 
-      Location.findAll({
-        where: {
-          [Op.or]: locationids
-        }
-      }).then(function(locationInst){
-            console.log('Location Instance====>');
-            console.log(locationInst);
-            tourInstance.setSiteLocation(locationInst);
-            locationInst
-      });
+      if(req.body.hotels.length){
+          let hotelIds = [];
+          req.body.hotels.forEach(function(hotel){
+            hotelIds.push({id:hotel.id});
+          });
 
-      let hotelIds = [];
-      req.body.hotels.forEach(function(hotel){
-        hotelIds.push({id:hotel.id});
-      });
-
-      Hotel.findAll({
-        where: {
-          [Op.or]: hotelIds
-        }
-      }).then(function(hotels){
-            tourInstance.setAccomodationHotel(hotels);
-      });
+          Hotel.findAll({
+            where: {
+              [Op.or]: hotelIds
+            }
+          }).then(function(hotels){
+                tourInstance.setAccomodationHotel(hotels);
+          });
+      }
 
         res.status(200).json(tourInstance);
     })
@@ -194,50 +197,56 @@ module.exports= {
       .then(function (updatedTour) {
         console.log('Updated Tour is===> ');
         console.log(updatedTour);
-        let noteids = [];
-        req.body.notes.forEach(function(note){
-          noteids.push({id:note.id});
-        });
 
-        console.log('Calling Note.findAll');
-        Notes.findAll({
-          where: {
-            [Op.or]: noteids
-          }
-        }).then(function(noteInst){
-              console.log('Note Instance====>');
-              console.log(noteInst);
-              updatedTour.setTourNote(noteInst);
-        });
+        if(req.body.notes.length){
+            let noteids = [];
+            req.body.notes.forEach(function(note){
+              noteids.push({id:note.id});
+            });
 
-        let locationids = [];
-        req.body.locations.forEach(function(location){
-          locationids.push({id:location.id});
-        });
+            console.log('Calling Note.findAll');
+            Notes.findAll({
+              where: {
+                [Op.or]: noteids
+              }
+            }).then(function(noteInst){
+                  console.log('Note Instance====>');
+                  console.log(noteInst);
+                  updatedTour.setTourNote(noteInst);
+            });
+        }
 
-        Location.findAll({
-          where: {
-            [Op.or]: locationids
-          }
-        }).then(function(locationInst){
-              updatedTour.setSiteLocation(locationInst);
-        });
+        if(req.body.locations.length){
+            let locationids = [];
+            req.body.locations.forEach(function(location){
+              locationids.push({id:location.id});
+            });
 
-        let hotelIds = [];
-        req.body.hotels.forEach(function(hotel){
-          hotelIds.push({id:hotel.id});
-        });
-
-        Hotel.findAll({
-          where: {
-            [Op.or]: hotelIds
-          }
-        }).then(function(hotels){
-              updatedTour.setAccomodationHotel(hotels);
-        });
-      });
+            Location.findAll({
+              where: {
+                [Op.or]: locationids
+              }
+            }).then(function(locationInst){
+                  updatedTour.setSiteLocation(locationInst);
+            });
+        }
 
 
+        if(req.body.hotels.length){
+            let hotelIds = [];
+            req.body.hotels.forEach(function(hotel){
+              hotelIds.push({id:hotel.id});
+            });
+
+            Hotel.findAll({
+              where: {
+                [Op.or]: hotelIds
+              }
+            }).then(function(hotels){
+                  updatedTour.setAccomodationHotel(hotels);
+            });
+          });
+      }
 
       res.status(200).json(updatedRecords);
 
