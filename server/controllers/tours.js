@@ -245,8 +245,8 @@ module.exports= {
             }).then(function(hotels){
                   updatedTour.setAccomodationHotel(hotels);
             });
-          });
-      }
+        }
+      });
 
       res.status(200).json(updatedRecords);
 

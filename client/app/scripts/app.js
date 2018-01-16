@@ -135,23 +135,6 @@ angular
               }
             }
         })
-        .state('regusers', {
-            url: '/regusers',
-            views:{
-              subheader: {
-                //templateUrl: 'views/homesubheader.html',
-                //controller: 'MainCtrl'
-              },
-              sidesection: {
-                template: 'This is the side section',
-                controller: 'MainCtrl'
-              },
-              mainsection:{
-                templateUrl: 'views/RegUsers.html',
-                controller: 'RegUsersController',
-              }
-            }
-        })
         .state('contactus', {
             url: '/contactus',
             views:{
@@ -237,6 +220,24 @@ angular
               mainsection:{
                 templateUrl: 'views/leadsadmin.html',
                 controller: 'LeadsAdminController'
+              }
+            }
+        })
+        .state('usersadmin', {
+            url: '/usersadmin',
+            views:{
+              subheader: {
+                //No need to show subheader for Admin
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                templateUrl: 'views/adminsidesction.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/usersadmin.html',
+                controller: 'UsersAdminController'
               }
             }
         })

@@ -24,7 +24,7 @@ angular.module('clientApp')
              }else{
                $scope.isAdminLoggedIn = false;
                $scope.isLoggedIn = false;
-             } 
+             }
            },
            function(response){
              //failure call back
