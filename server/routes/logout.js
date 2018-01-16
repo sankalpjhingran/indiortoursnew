@@ -7,8 +7,8 @@ var router = express.Router();
 
 router.post("/", function(req, res){
 	console.log('Logging out user...');
-	req.logOut();
-	req.session.destroy()
+	req.logout();
+	req.session.destroy();
 	res.redirect("/")
 });
 
