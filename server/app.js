@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var jade = require('pug');
 //var helmet = require('helmet');
-var compression = require('compression');
+//var compression = require('compression');
 var debug = require('debug')('http');
 
 //Mutler
@@ -41,7 +41,7 @@ var app = express();
 //app.use(helmet());
 
 //Use Compression for gzip compression, for Production, use nginx gzip compression
-app.use(compression());
+//app.use(compression());
 
 app.use(cors()) // <--- CORS
 console.log('Initializing app.js file====>2');
