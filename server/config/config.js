@@ -13,7 +13,7 @@ module.exports = {
   },
     staging: {
     url: process.env.DATABASE_URL,
-    dialect: 'postgres'
+    dialect: 'mysql'
   },
     test: {
     url: process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/bookmark_test',
