@@ -77,9 +77,10 @@ module.exports= {
 
   //Delete an existing author by the unique ID using model.destroy()
   delete(req, res) {
+    let queryVars = req.query;
     User.destroy({
       where: {
-        id: req.body.id
+        id: queryVars.id
       }
     })
     .then(function (deletedRecords) {

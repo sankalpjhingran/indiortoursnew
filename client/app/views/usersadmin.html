@@ -1,0 +1,87 @@
+<div id="allLocations" ng-controller="UsersAdminController" ng-init="loadUsersData()">
+  <div class="row align-items-center">
+    <div class="col-sm-6 col-auto mr-auto">
+      <h3 class="align-middle">Users</h3>
+    </div>
+    <div class="col-sm-6 col-auto">
+      <div class="text-right align-middle">
+        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <input type="text" class="form-control" placeholder="Search Users..." ng-model="search">
+    </div>
+  </div>
+  <table class="table table-hover table-bordered" ng-show="!(error)">
+    <th>Action</th>
+    <th>Id</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Type</th>
+    <th>Status</th>
+    <th>Created Date</th>
+
+    <tr ng-repeat="x in allUsers | filter:search">
+      <td><a href="" locid="{{x.id}}" ng-click="populateUserInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delLocation(x.id)">Del</a></td>
+      <td>{{ x["id"] }}</td>
+      <td>{{ x["firstname"] }}</td>
+      <td>{{ x["lastname"] }}</td>
+      <td>{{ x["phone"] }}</td>
+      <td>{{ x["email"] }}</td>
+      <td>{{ x["type"] }}</td>
+      <td>{{ x["status"] }}</td>
+      <td>{{ x["createdAt"] | date:"yyyy-MM-dd" }}</td>
+    </tr>
+  </table>
+</div>
+
+<!-- New MOdal code using angular-ui -->
+<div class="modal-demo">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Create/Edit User</h3>
+        </div>
+        <form role="form" method="POST" ng-submit="createUpdateUser();">
+          <div class="modal-body" id="modal-body">
+                  <div class="form-group">
+                    <label for="fname">First Name</label>
+                    <input type="text" class="form-control input-sm" ng-model="userData.firstname" id="fname" placeholder="First Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="lname">Last Name</label>
+                    <input type="text" class="form-control input-sm" ng-model="userData.lastname" id="lname" placeholder="Last Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" class="form-control input-sm" ng-model="userData.phone" id="phone" placeholder="Phone">
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control input-sm" ng-model="userData.email" id="email" placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <label for="type">Type</label>
+                    <select class="form-control form-control input-sm" id="type" ng-model="userData.type">
+                    <option>Admin</option>
+                    <option>Direct Customer</option>
+                    </select>
+                  </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group" role="group" aria-label="footer buttons">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary" ng-click="saveNew()">Save As</button>
+              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>
+    </script>
+    <div class="modal-parent">
+    </div>
+</div>
+<!--Ends----->

@@ -25,6 +25,7 @@ models.TourNote.sync();
 models.Notes.sync();
 models.TourLocation.sync();
 models.TourHotel.sync();
+models.User.sync();
 
 
 console.log('In Tours route');
@@ -33,6 +34,7 @@ router.get('/', toursController.show);
 router.get('/all', toursController.index);
 router.get('/find', toursController.showByName);
 router.get('/tourwithlocations', toursController.getTourWithLocations);
+router.get('/searchtourwithlocations', toursController.searchAllToursWithLocations);
 router.get('/alltourswithlocations', toursController.getAllToursWithLocations);
 router.get('/alltourswithlocationsandhotels', toursController.getAllToursWithLocationsAndHotels);
 router.get('/tourdetailswithrelatedmodels', toursController.getTourWithRelatedModels);

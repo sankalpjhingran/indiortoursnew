@@ -11,6 +11,13 @@
           <p class="main">
             One of the best travel companies offers high quality group tours, private journey's and tailor-made holidays to one of the world's most facinating regions: The Indin Subcontinent covering India, Napal, Bhutan, Sri Lanka, Tibet and Maldives. We offer you a large selection from Economy tours to Luxury holidays, each one planned by experts.
           </p>
+          <!--
+          <div id=searchPanel>
+              <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.id" id="seartourid" placeholder="Tour ID">
+              <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.name" id="seartourname" placeholder="Tour Name">
+              <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.location" id="seartourlocation" placeholder="Tour Location">
+          </div>
+        -->
           <div class="row">
             <div ng-repeat="tour in allTours">
               <div class="col-xs-12 col-sm-4 col-md-4">
@@ -32,8 +39,8 @@
                         </div>
                       </div>
 
-                      <a class="left carousel-control" href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                      <a class="right carousel-control" href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                      <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                      <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 
                     </div>
                     <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}">{{tour.name}}</a></div>

@@ -9,6 +9,12 @@ router.get('/', function(req, res){
 	console.log('In application router...');
 	console.log(req);
 	console.log(req.isAuthenticated());
-	res.status(200).json({"isLoggedIn":req.isAuthenticated(), "type": req.user.type});
+
+	if(req.isAuthenticated()){
+			res.status(200).json({"isLoggedIn":true, "type": req.user.type});
+	}else{
+		res.status(200).json({"isLoggedIn":false, "type": undefined});
+	}
+
 });
 module.exports = router;

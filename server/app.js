@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var jade = require('pug');
-//var helmet = require('helmet');
-//var compression = require('compression');
+var helmet = require('helmet');
+var compression = require('compression');
 var debug = require('debug')('http');
 
 //Mutler
@@ -38,10 +38,10 @@ require('./config/passport')(passport, models.User);
 var app = express();
 
 //Use Helmet for security
-//app.use(helmet());
+app.use(helmet());
 
 //Use Compression for gzip compression, for Production, use nginx gzip compression
-//app.use(compression());
+app.use(compression());
 
 app.use(cors()) // <--- CORS
 console.log('Initializing app.js file====>2');
@@ -207,6 +207,7 @@ app.use('/api/tours/tourwithlocations', tours);
 app.use('/api/tours/alltourswithlocations', tours);
 app.use('/api/tours/tourdetailswithrelatedmodels', tours);
 app.use('/api/tours/alltourswithlocationsandhotels', tours);
+app.use('/api/tours/searchtourwithlocations', tours);
 app.use('/api/tournotes', notes);
 app.use('/api/tournotes/all', notes);
 app.use('/api/tournotes/update', notes);
