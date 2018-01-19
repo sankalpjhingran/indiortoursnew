@@ -34,6 +34,7 @@ router.get('/', toursController.show);
 router.get('/all', toursController.index);
 router.get('/find', toursController.showByName);
 router.get('/tourwithlocations', toursController.getTourWithLocations);
+router.get('/searchtourwithlocations', toursController.searchAllToursWithLocations);
 router.get('/alltourswithlocations', toursController.getAllToursWithLocations);
 router.get('/alltourswithlocationsandhotels', toursController.getAllToursWithLocationsAndHotels);
 router.get('/tourdetailswithrelatedmodels', toursController.getTourWithRelatedModels);

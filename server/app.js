@@ -207,6 +207,7 @@ app.use('/api/tours/tourwithlocations', tours);
 app.use('/api/tours/alltourswithlocations', tours);
 app.use('/api/tours/tourdetailswithrelatedmodels', tours);
 app.use('/api/tours/alltourswithlocationsandhotels', tours);
+app.use('/api/tours/searchtourwithlocations', tours);
 app.use('/api/tournotes', notes);
 app.use('/api/tournotes/all', notes);
 app.use('/api/tournotes/update', notes);

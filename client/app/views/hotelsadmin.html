@@ -1,3 +1,11 @@
+<style>
+.scaleMain{
+  object-fit: scale-down;
+  object-position: center;
+  width:75px;
+  height:50px;
+}
+</style>
 <div id="allHotels" ng-controller="HotelsAdminController" ng-init="loadhotelData()">
   <div class="row align-items-center">
     <div class="col-sm-6 col-auto mr-auto">
@@ -85,13 +93,13 @@
                           ngf-max-size="10MB"
                           ngf-keep="distinct"
                           ngf-capture="camera"
-                          ngf-max-files="5">Select Images (max:5) />
+                          ngf-max-files="5">Select Images (max:5)
                     </div>
                     <br><br>
                     <div>
                         <span ng-repeat="f in hotelData.images">
-                          <img width=20% ngf-thumbnail="f || '/thumb.jpg'" class="thumb">
-                          {{f.$errorParam}}
+                            <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
+                            {{f.$errorParam}}
                         </span>
                     </div>
                   </div>

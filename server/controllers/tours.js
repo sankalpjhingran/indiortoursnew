@@ -64,7 +64,25 @@ module.exports= {
   getAllToursWithLocations(req, res){
         queryVars = req.query;
         Tour.findAll({
-          include: [{ association : 'siteLocation' }]
+          include: [{ association : 'siteLocation'}]
+          })
+          .then(function (authors) {
+            console.log(authors);
+            res.status(200).json(authors);
+          })
+          .catch(function (error) {
+            console.log(error);
+            res.status(500).json(error);
+          });
+  },
+
+  searchAllToursWithLocations(req, res){
+        queryVars = req.query;
+        console.log('Request Query Vars====> ');
+        console.log(queryVars);
+        Tour.findAll({
+          where: { [Op.or]: {id: queryVars.id, name: queryVars.name}},
+          include: [{ association : 'siteLocation', where: { [Op.or]: { city : queryVars.location, city: {[Op.ne]:null} }}}]
           })
           .then(function (authors) {
             console.log(authors);
