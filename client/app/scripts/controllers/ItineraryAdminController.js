@@ -72,6 +72,14 @@ $scope.delitinerary = function(itineraryid){
     }
 }
 
+$scope.saveAs = function(){
+    $scope.itineraryData.id = null;
+    //$scope.cancel();
+    $scope.modalInstance.dismiss('cancel');
+    $scope.showForm(false);
+    console.log('saveAs clicked...');
+}
+
 $scope.showForm = function (isNew) {
     $scope.message = "Show Form Button Clicked";
     console.log($scope.message);
@@ -80,6 +88,7 @@ $scope.showForm = function (isNew) {
       $scope.itineraryData = null;
     }
 
+    //open a new modal instance
     $scope.modalInstance = $uibModal.open({
         templateUrl: 'myModalContent.html',
         controller: 'ItineraryAdminController',
@@ -146,6 +155,6 @@ $scope.ngModelOptionsSelected = function(value) {
       default: 500,
       blur: 250
     },
-    getterSetter: true
+    getterSetter: true,
   };
 });
