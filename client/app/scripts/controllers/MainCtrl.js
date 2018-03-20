@@ -37,19 +37,22 @@ angular.module('clientApp')
              // success callback
              $scope.allTours = res.data;
              var tourids = [];
+
              $scope.allTours.forEach(function(tour){
-                tourids.push({parentobjectname: 'tour', parentobjectid: tour.id});
+                tourids.push(tour.id);
              });
-             $http.get('/api/image/all', tourids)
+
+             console.log(tourids);
+             $http.post('/api/image/all', {tourids: tourids, parentobjectname: 'tour'})
               .then(function(images){
                   angular.forEach(tourids, function(tourid){
                       var tempImages = [];
                       angular.forEach(images.data, function(image){
-                        if(image.parentobjectname == tourid.parentobjectname && image.parentobjectid == tourid.parentobjectid){
+                        if(image.parentobjectname == 'tour' && image.parentobjectid == tourid){
                               tempImages.push(image);
                         }
                       });
-                      imagesMap.set(tourid.parentobjectid, tempImages);
+                      imagesMap.set(tourid, tempImages);
                       angular.forEach($scope.allTours, function(tour){
                         tour.images = imagesMap.get(tour.id);
                       });

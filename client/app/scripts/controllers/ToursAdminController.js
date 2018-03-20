@@ -18,7 +18,44 @@ $scope.populatetoursInstance = function(toursId){
     $scope.tourData.hotels = $scope.tourData.accomodationHotel;
     $scope.tourData.notes = $scope.tourData.tourNote;
 
+    $scope.tourData.newImages = [];
+    var tourids = [];
+    tourids.push(toursId);
+    $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'tour'})
+     .then(function(response){
+          if(response.data.length){
+              angular.forEach(response.data, function(image){
+                    console.log(image);
+                    $scope.tourData.newImages.push(image);
+              });
+          }
+     });
+    console.log($scope.tourData);
+
     $scope.showForm();
+}
+
+$scope.deleteFile = function(idx) {
+     console.log(idx);
+     var file = $scope.tourData.images[idx];
+     console.log(file);
+     if (file) {
+        $scope.tourData.images.splice(idx, 1);
+    }
+}
+
+$scope.deleteUploadedFile = function(idx) {
+     console.log($scope.tourData.newImages[0]);
+
+     var file = $scope.tourData.newImages[idx];
+     console.log(file);
+     if (file && file.id) {
+          $http.delete('/api/image/', {params: {id: file.id}}).then(function(response){
+               if (response.status == 200) {
+                    $scope.tourData.newImages.splice(idx, 1);
+               }
+         });
+      }
 }
 
 //Upload images
@@ -223,7 +260,6 @@ $scope.ngModelOptionsSelected = function(value) {
       // Let the output be the input untouched
       out = items;
     }
-
     return out;
   };
 });

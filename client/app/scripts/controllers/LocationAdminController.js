@@ -44,12 +44,17 @@ $scope.loadLocationData = function(){
           angular.forEach($scope.allLocations, function(location) {
             $scope.locationMap.set(location.id, location);
           });
+          console.log($scope.allLocations);
           return $scope.allLocations;
         },
         function(response){
           // failure call back
         }
      );
+   $http.get('/api/places/all/')
+     .then(function(places){
+       $scope.allPlaces = places.data;
+     });
 }
 
 $scope.delLocation = function(locationid){
@@ -101,6 +106,7 @@ $scope.cancel = function () {
 $scope.createUpdateLocation = function(){
   // Update the location if location id is there
   if($scope.locationData && $scope.locationData.id){
+    console.log($scope.locationData);
     $http.post('/api/location/update/', $scope.locationData).then(function(res, err){
       console.log(res);
       if(res.status == 200){
@@ -112,6 +118,7 @@ $scope.createUpdateLocation = function(){
   }else{
     // create location only if tour id is there
       if($scope.locationData){
+        console.log($scope.locationData);
         $http.post('/api/location/', $scope.locationData).then(function(res, err){
           console.log(res);
           if(res.status == 200){
@@ -141,5 +148,35 @@ $scope.ngModelOptionsSelected = function(value) {
       blur: 250
     },
     getterSetter: true
+  };
+})
+
+.filter('propsFilter', function() {
+  return function(items, props) {
+    var out = [];
+    if (angular.isArray(items)) {
+      var keys = Object.keys(props);
+
+      items.forEach(function(item) {
+        var itemMatches = false;
+
+        for (var i = 0; i < keys.length; i++) {
+          var prop = keys[i];
+          var text = props[prop].toLowerCase();
+          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+            itemMatches = true;
+            break;
+          }
+        }
+
+        if (itemMatches) {
+          out.push(item);
+        }
+      });
+    } else {
+      // Let the output be the input untouched
+      out = items;
+    }
+    return out;
   };
 });

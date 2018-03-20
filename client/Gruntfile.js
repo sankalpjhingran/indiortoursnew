@@ -83,7 +83,7 @@ module.exports = function (grunt) {
         {
           context: '/api',
           host: 'localhost',
-          port: 3000
+          port: 5010
         }
       ],
       livereload: {
@@ -334,7 +334,7 @@ module.exports = function (grunt) {
           ]
          }
       }
-     },
+    },
      uglify: {
        dist: {
          files: {
@@ -450,7 +450,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
-        src: '{,*/}*.css'
+        src: ['{,*/}*.css']
       }
     },
 
@@ -482,6 +482,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-connect-proxy');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('default', ['compass']);
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {

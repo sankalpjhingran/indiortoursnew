@@ -97,9 +97,21 @@
                     </div>
                     <br><br>
                     <div>
-                        <span ng-repeat="f in hotelData.images">
+                        <label>New Images</label>
+                        <span ng-repeat="f in hotelData.images" ng-show="hotelData.images && hotelData.images.length">
                             <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
-                            {{f.$errorParam}}
+                              {{f.$errorParam}}
+                            </img>
+                            <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
+                        </span>
+                    </div>
+                    <div>
+                        <label>Uploaded Images</label>
+                        <span ng-repeat="f in hotelData.newImages" ng-show="hotelData.newImages && hotelData.newImages.length">
+                            <img ng-src="/images/{{f.filename}}" class="thumb scaleMain">
+                              {{f.$errorParam}}
+                            </img>
+                            <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
                         </span>
                     </div>
                   </div>

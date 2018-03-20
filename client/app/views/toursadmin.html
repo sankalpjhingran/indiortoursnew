@@ -1,3 +1,11 @@
+<style>
+.scaleMain{
+  object-fit: scale-down;
+  object-position: center;
+  width:75px;
+  height:50px;
+}
+</style>
 <div id="allTours" ng-controller="ToursAdminController as ctrl" ng-init="loadtoursData()">
   <div class="row align-items-center">
     <div class="col-sm-6 col-auto mr-auto">
@@ -137,9 +145,21 @@
                     ngf-max-files="5">Select Images (max:5)</div>
               <br><br>
               <div>
-                  <span ng-repeat="f in tourData.images">
-                    <img width=20% ngf-thumbnail="f || '/thumb.jpg'" class="thumb">
-                    {{f.$errorParam}}
+                  <label>New Images</label>
+                  <span ng-repeat="f in tourData.images" ng-show="tourData.images && tourData.images.length">
+                      <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
+                        {{f.$errorParam}}
+                      </img>
+                      <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
+                  </span>
+              </div>
+              <div>
+                  <label>Uploaded Images</label>
+                  <span ng-repeat="f in tourData.newImages" ng-show="tourData.newImages && tourData.newImages.length">
+                      <img ng-src="/images/{{f.filename}}" class="thumb scaleMain">
+                        {{f.$errorParam}}
+                      </img>
+                      <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
                   </span>
               </div>
             </div>

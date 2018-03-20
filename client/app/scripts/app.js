@@ -205,6 +205,24 @@ angular
               }
             }
         })
+        .state('placeadmin', {
+            url: '/placeadmin',
+            views:{
+              subheader: {
+                //No need to show subheader for Admin
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                templateUrl: 'views/adminsidesction.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/placesadmin.html',
+                controller: 'PlacesAdminController'
+              }
+            }
+        })
         .state('leadsadmin', {
             url: '/leadsadmin',
             views:{
