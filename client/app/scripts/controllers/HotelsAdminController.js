@@ -38,9 +38,45 @@ $scope.uploadFiles = function(tempHotel) {
   });
 }
 
+$scope.deleteFile = function(idx) {
+     console.log(idx);
+     var file = $scope.hotelData.images[idx];
+     console.log(file);
+     if (file) {
+        $scope.hotelData.images.splice(idx, 1);
+    }
+}
+
+$scope.deleteUploadedFile = function(idx) {
+     console.log($scope.hotelData.newImages[0]);
+
+     var file = $scope.hotelData.newImages[idx];
+     console.log(file);
+     if (file && file.id) {
+          $http.delete('/api/image/', {params: {id: file.id}}).then(function(response){
+               if (response.status == 200) {
+                    $scope.hotelData.newImages.splice(idx, 1);
+               }
+         });
+      }
+}
+
 $scope.populatehotelInstance = function(hotelId){
     $scope.hotelData = $scope.hotelMap.get(hotelId);
     $scope.hotelData.location = $scope.allLocationsMap.get($scope.hotelData.location_id);
+    $scope.hotelData.newImages = [];
+    var tourids = [];
+    tourids.push(hotelId);
+    $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'hotel'})
+     .then(function(response){
+          if(response.data.length){
+              angular.forEach(response.data, function(image){
+                    console.log(image);
+                    $scope.hotelData.newImages.push(image);
+              });
+          }
+     });
+    console.log($scope.hotelData);
     $scope.showForm();
 }
 

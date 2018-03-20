@@ -145,7 +145,7 @@ module.exports= {
     Tour.create(req.body, {include: [{ association : 'siteLocation' }, { association : 'accomodationHotel' }, {association: 'tourNote'}]})
     .then(function(tourInstance){
 
-      if(req.body.notes.length){
+      if(req.body.notes && req.body.notes.length){
           let noteids = [];
           req.body.notes.forEach(function(note){
             noteids.push({id:note.id});
@@ -163,7 +163,7 @@ module.exports= {
           });
       }
 
-      if(req.body.locations.length){
+      if(req.body.locations && req.body.locations.length){
           let locationids = [];
           req.body.locations.forEach(function(location){
             locationids.push({id:location.id});
@@ -180,7 +180,7 @@ module.exports= {
           });
       }
 
-      if(req.body.hotels.length){
+      if(req.body.hotels && req.body.hotels.length){
           let hotelIds = [];
           req.body.hotels.forEach(function(hotel){
             hotelIds.push({id:hotel.id});

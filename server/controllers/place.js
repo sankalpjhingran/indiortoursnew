@@ -1,29 +1,16 @@
 var models  = require('../models/index');
-var Image = models.Image;
-var Sequelize = require('sequelize');
-const Op = Sequelize.Op;
+var Place = models.Place;
 
 module.exports= {
   //Get a list of all authors using model.findAll()
   sync(){
-      Image.sync();
+      Place.sync();
   },
 
   index(req, res) {
-    console.log('images get req====>');
-    console.log(req.body);
-    Image.findAll({
-      where: {
-        [Op.and]: {
-          parentobjectid : {
-              [Op.in]: req.body.tourids
-          },
-          parentobjectname : req.body.parentobjectname
-        }
-      }
-    })
+    Place.findAll({})
       .then(function (authors) {
-            res.status(200).json(authors);
+        res.status(200).json(authors);
       })
       .catch(function (error) {
         res.status(500).json(error);
@@ -32,7 +19,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Image.findById(req.params.id, {})
+    Place.findById(req.params.id, {})
     .then(function (author) {
       res.status(200).json(author);
     })
@@ -43,19 +30,9 @@ module.exports= {
 
   //Create a new author using model.create()
   create(req, res) {
-    console.log("Image upload request reached server succesfully...");
-    console.log('Creating image record...');
     console.log('req===>', req.body);
-    var imageRec = {};
-    imageRec.type = req.file.mimetype;
-    imageRec.path = req.file.path;
-    imageRec.filename = req.file.filename;
-    imageRec.size = req.file.size;
-    imageRec.parentobjectid = req.body.parentobjectid;
-    imageRec.parentobjectname = req.body.parentobjectname;
-
-    Image.create(imageRec).then(function(ImageInstance){
-      res.status(200).json(ImageInstance);
+    Place.create(req.body).then(function(PlaceInstance){
+        res.status(200).json(PlaceInstance);
     })
     .catch(function (error){
       res.status(500).json(error);
@@ -66,7 +43,7 @@ module.exports= {
   update(req, res) {
     console.log('update req===>', req.body);
     queryVars = req.body;
-    Image.update(req.body, {
+    Place.update(req.body, {
       where: {
         id: queryVars.id
       }
@@ -81,10 +58,9 @@ module.exports= {
 
   //Delete an existing author by the unique ID using model.destroy()
   delete(req, res) {
-    console.log('Delete Request is=====>');
-    console.log(req.query);
+    console.log(req);
     queryVars = req.query;
-    Image.destroy({
+    Place.destroy({
       where: {
         id: queryVars.id
       }

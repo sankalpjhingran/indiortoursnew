@@ -26,6 +26,8 @@ models.Notes.sync();
 models.TourLocation.sync();
 models.TourHotel.sync();
 models.User.sync();
+models.Place.sync();
+
 
 
 console.log('In Tours route');

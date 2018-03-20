@@ -26,6 +26,7 @@ $scope.loaditineraryData = function(){
        function(response){
          // success callback
          $scope.allTours = response.data;
+         console.log($scope.allTours);
          angular.forEach($scope.allTours, function(tour) {
            $scope.allToursMap.set(tour.id, tour);
          });

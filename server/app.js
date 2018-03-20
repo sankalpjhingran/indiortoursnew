@@ -31,6 +31,7 @@ var tourcosts = require('./routes/tourcosts');
 var images = require('./routes/image');
 var notes = require('./routes/tournotes');
 var users = require('./routes/user');
+var places = require('./routes/place');
 
 //load passport strategies
 require('./config/passport')(passport, models.User);
@@ -164,7 +165,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 
-
 /*
 app.post('/api/image', upload.single('file'), function (req, res) {
     console.log('in image upload route ===>');
@@ -212,6 +212,8 @@ app.use('/api/tournotes', notes);
 app.use('/api/tournotes/all', notes);
 app.use('/api/tournotes/update', notes);
 app.use('/api/users', users);
+app.use('/api/places', places);
+app.use('/api/places/all', places);
 
 // In production, we'll actually serve our angular app from express
 console.log('env is====> ' + app.get('env'));

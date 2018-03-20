@@ -8,12 +8,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="/bower_components/angular-ui-select/dist/select.min.css">
-    <link rel='stylesheet' href='/bower_components/textAngular/dist/textAngular.css'>
-    <link rel='stylesheet' href='/bower_components/font-awesome/css/font-awesome.css'>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link rel="stylesheet"  href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"  >
+
+    <!-- build:css(.) styles/vendor.css -->
+      <link rel="stylesheet"  href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"  >
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+        <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css" />
+        <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css" />
+    <!-- endbuild -->
+
 
     <link rel="icon"
       type="image/png"
@@ -21,6 +29,7 @@
 
     <base href="/" />
   </head>
+
   <body ng-app="clientApp" ng-controller="authcontroller">
     <!-- Add your site or application content here -->
     <div class="container">
@@ -102,6 +111,7 @@
     <script src="scripts/controllers/authcontroller.js"></script>
     <script src="scripts/controllers/ToursAdminController.js"></script>
     <script src="scripts/controllers/LocationAdminController.js"></script>
+    <script src="scripts/controllers/PlacesAdminController.js"></script>
     <script src="scripts/controllers/ItineraryAdminController.js"></script>
     <script src="scripts/controllers/HotelsAdminController.js"></script>
     <script src="scripts/controllers/DepartureDateAdminController.js"></script>
