@@ -165,15 +165,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 
-/*
-app.post('/api/image', upload.single('file'), function (req, res) {
-    console.log('in image upload route ===>');
-    console.log(req.file);
-    res.end("File uploaded.");
-});
-*/
-
 app.use('/api/image', images);
+app.use('/api/image/all', images);
+app.use('/api/image/allImages', images);
 
 //app.use('/*', index); //<-- COMMENT THIS
 //app.use('/api/login', login);

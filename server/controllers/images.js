@@ -30,6 +30,19 @@ module.exports= {
       });
   },
 
+  indexAll(req, res) {
+    console.log('images get req====>');
+    console.log(req.body);
+    Image.findAll({})
+      .then(function (authors) {
+            console.log(authors);
+            res.status(200).json(authors);
+      })
+      .catch(function (error) {
+        res.status(500).json(error);
+      });
+  },
+
   //Get an author by the unique ID using model.findById()
   show(req, res) {
     Image.findById(req.params.id, {})
@@ -90,6 +103,8 @@ module.exports= {
       }
     })
     .then(function (deletedRecords) {
+      //if successfull, delete image from the file system tourcosts
+
       res.status(200).json(deletedRecords);
     })
     .catch(function (error){
