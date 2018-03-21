@@ -67,6 +67,23 @@ angular
               }
             }
         })
+        .state('destinations', {
+            url:'/destinations',
+            views:{
+              subheader: {
+                //templateUrl: 'views/toursubheader.html',
+                //controller: 'TourViewController'
+              },
+              sidesection: {
+                templateUrl: 'views/toursidesection.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/destinations.html',
+                controller: 'DestinationsController'
+              }
+            }
+        })
         .state('about', {
             url:'/about',
             views:{
