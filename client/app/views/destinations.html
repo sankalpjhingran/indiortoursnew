@@ -1,0 +1,41 @@
+<style>
+.scaleMain{
+  object-fit: cover;
+  object-position: center;
+}
+</style>
+<div ng-controller="MainCtrl" ng-init="allDestinations()">
+          <h3>
+            Indior Locations
+          </h3>
+          <p class="main">
+            Travel to Asia with Indior Tours experts and delve deeply into a rich tapestry of cultures and landscapes. Explore sacred temples in Bhutan or Tibet, or trek with Sherpa guides to through Himalayas. Set out on a rail journey through India or a explore coastline of Sri Lanka and Maldives, or a photography expedition to Bhutan or Tibet. On all of our trips, you’ll experience a unique intersection of fascinating cultures, age-old traditions, and modern life.</p>
+            <div class="row">
+              <div ng-repeat="location in allLocations">
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="productbox">
+                      <!-- <img ng-src="/images/{{tour.images[0].filename}}" class="thumb-post img-responsive"> -->
+                    <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators
+                        <ol class="carousel-indicators">
+                          <li data-target="#myCarousel-{{$index}}" ng-repeat="img in tour.images" ng-class="{active: ($index === 0)}" data-slide-to="{{img}}"></li>
+                        </ol>
+                        -->
+                        <div class="carousel-inner">
+                          <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in location.images">
+                            <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img}}" class="img-responsive thumb-post scaleMain">
+                            <div class="container">
+                              <div class="carousel-caption">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                        <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                      </div>
+                      <div class="producttitle text-center"><a ng-href="/tourView?id={{location.id}}&amp;name={{location.city | slugify}}">{{location.city}}, {{location.country}}</a></div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+</div>

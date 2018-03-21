@@ -1,3 +1,11 @@
+<style>
+.scaleMain{
+  object-fit: scale-down;
+  object-position: center;
+  width:75px;
+  height:50px;
+}
+</style>
 <div id="allPlaces" ng-controller="PlacesAdminController" ng-init="loadPlacesData()">
   <div class="row align-items-center">
     <div class="col-sm-6 col-auto mr-auto">
@@ -67,6 +75,37 @@
                     <label for="description">Description</label>
                     <textarea class="form-control input-sm" rows="5" ng-model="placeData.description" id="description" placeholder="Description"></textarea>
                   </div>
+                  <div class="form-group">
+                    <div  class="btn btn-default"
+                          ngf-select
+                          ng-model="placeData.images"
+                          ngf-multiple="true"
+                          accept="image/*"
+                          ngf-max-height="2000"
+                          ngf-max-size="10MB"
+                          ngf-keep="distinct"
+                          ngf-capture="camera"
+                          ngf-max-files="5">Select Images (max:5)
+                    </div>
+                    <br><br>
+                    <div>
+                        <label>New Images</label>
+                        <span ng-repeat="f in placeData.images" ng-show="placeData.images && placeData.images.length">
+                            <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
+                              {{f.$errorParam}}
+                            </img>
+                            <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
+                        </span>
+                    </div>
+                    <div>
+                        <label>Uploaded Images</label>
+                        <span ng-repeat="f in placeData.newImages" ng-show="placeData.newImages && placeData.newImages.length">
+                            <img ng-src="/images/{{f.filename}}" class="thumb scaleMain">
+                              {{f.$errorParam}}
+                            </img>
+                            <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
+                        </span>
+                    </div>
           </div>
           <div class="modal-footer">
             <div class="btn-group" role="group" aria-label="footer buttons">

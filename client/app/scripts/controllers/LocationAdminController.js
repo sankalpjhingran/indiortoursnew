@@ -8,13 +8,76 @@
 * Controller of the clientApp
 */
 angular.module('clientApp')
-.controller('LocationAdminController', function ($scope, $uibModal, $http, $location, $document, $log) {
+.controller('LocationAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
 $scope.locationMap = new Map();
+
+$scope.uploadFiles = function(tempLocation) {
+  var files = $scope.locationData.images;
+  console.log($scope.locationData.images);
+  angular.forEach(files, function(file) {
+      file.upload = Upload.upload({
+          url: '/api/image/',
+          method: 'POST',
+          data: { file: file,
+                  'parentobjectid': tempLocation.id,
+                  'parentobjectname':  'location'
+                }
+      });
+
+      file.upload.then(function (response) {
+          $timeout(function () {
+              file.result = response.data;
+          });
+      }, function (response) {
+          if (response.status > 0)
+              $scope.errorMsg = response.status + ': ' + response.data;
+      }, function (evt) {
+          file.progress = Math.min(100, parseInt(100.0 *
+                                   evt.loaded / evt.total));
+      });
+  });
+}
+
+$scope.deleteFile = function(idx) {
+     console.log(idx);
+     var file = $scope.locationData.images[idx];
+     console.log(file);
+     if (file) {
+        $scope.locationData.images.splice(idx, 1);
+    }
+}
+
+$scope.deleteUploadedFile = function(idx) {
+     console.log($scope.locationData.newImages[0]);
+
+     var file = $scope.locationData.newImages[idx];
+     console.log(file);
+     if (file && file.id) {
+          $http.delete('/api/image/', {params: {id: file.id}}).then(function(response){
+               if (response.status == 200) {
+                    $scope.locationData.newImages.splice(idx, 1);
+               }
+         });
+      }
+}
 
 $scope.populateLocationInstance = function(locationId){
     console.log('Calling populateLocationInstance===> ' + locationId);
     $scope.locationData = $scope.locationMap.get(locationId);
     console.log($scope.locationMap);
+    console.log($scope.locationData);
+    $scope.locationData.newImages = [];
+    var tourids = [];
+    tourids.push(locationId);
+    $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'location'})
+     .then(function(response){
+          if(response.data.length){
+              angular.forEach(response.data, function(image){
+                    console.log(image);
+                    $scope.locationData.newImages.push(image);
+              });
+          }
+     });
     console.log($scope.locationData);
     $scope.showForm();
 }
@@ -110,6 +173,9 @@ $scope.createUpdateLocation = function(){
     $http.post('/api/location/update/', $scope.locationData).then(function(res, err){
       console.log(res);
       if(res.status == 200){
+        //Upload Images
+        $scope.uploadFiles($scope.locationData);
+
         //if the request is scuessful, show all locations
         $scope.modalInstance.close();
         $scope.$parent.allLocations = $scope.$parent.loadLocationData();
@@ -122,6 +188,9 @@ $scope.createUpdateLocation = function(){
         $http.post('/api/location/', $scope.locationData).then(function(res, err){
           console.log(res);
           if(res.status == 200){
+            //Upload Images
+            $scope.uploadFiles(res.data);
+
             //if the request is scuessful, show all locations
             $scope.modalInstance.close();
             $scope.$parent.allLocations = $scope.$parent.loadLocationData();
