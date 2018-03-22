@@ -12,22 +12,36 @@ module.exports= {
   index(req, res) {
     console.log('images get req====>');
     console.log(req.body);
-    Image.findAll({
-      where: {
-        [Op.and]: {
-          parentobjectid : {
-              [Op.in]: req.body.tourids
-          },
-          parentobjectname : req.body.parentobjectname
-        }
-      }
-    })
-      .then(function (authors) {
-            res.status(200).json(authors);
-      })
-      .catch(function (error) {
-        res.status(500).json(error);
-      });
+    if(req.body.tourids.length){
+        Image.findAll({
+          where: {
+            [Op.and]: {
+              parentobjectid : {
+                  [Op.in]: req.body.tourids
+              },
+              parentobjectname : req.body.parentobjectname
+            }
+          }
+        })
+          .then(function (authors) {
+                res.status(200).json(authors);
+          })
+          .catch(function (error) {
+            res.status(500).json(error);
+          });
+    }else if(req.body.parentobjectname){
+      Image.findAll({
+        where: {
+            parentobjectname : req.body.parentobjectname
+          }
+        })
+        .then(function (authors) {
+              res.status(200).json(authors);
+        })
+        .catch(function (error) {
+          res.status(500).json(error);
+        });
+    }
   },
 
   indexAll(req, res) {
@@ -66,6 +80,7 @@ module.exports= {
     imageRec.size = req.file.size;
     imageRec.parentobjectid = req.body.parentobjectid;
     imageRec.parentobjectname = req.body.parentobjectname;
+    imageRec.description = req.body.description;
 
     Image.create(imageRec).then(function(ImageInstance){
       res.status(200).json(ImageInstance);

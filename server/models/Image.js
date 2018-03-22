@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         filename:{type: DataTypes.STRING},
         size:{type: DataTypes.STRING},
         parentobjectid:{type: DataTypes.STRING},
-        parentobjectname:{type: DataTypes.STRING}
+        parentobjectname:{type: DataTypes.STRING},
+        description: {type: DataTypes.TEXT('medium')}
       }
   );
   return Image;

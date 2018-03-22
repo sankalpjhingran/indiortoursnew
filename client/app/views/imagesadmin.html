@@ -13,7 +13,7 @@
     </div>
     <div class="col-sm-6 col-auto">
       <div class="text-right align-middle">
-        <!-- <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>-->
+        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
       </div>
     </div>
   </div>
@@ -23,22 +23,20 @@
       <input type="text" class="form-control" placeholder="Search Images..." ng-model="search">
     </div>
   </div>
-  <table class="table table-hover table-bordered" ng-show="!(error)">
-    <!-- <th>Action</th> -->
+  <table class="table table-hover table-bordered table-condensed" ng-show="!(error)">
+    <th>Action</th>
     <th>Id</th>
     <th>Name</th>
     <th>Parent Name</th>
     <th>Parent Id</th>
-    <th>Path</th>
     <th>Preview</th>
 
     <tr ng-repeat="x in allImages | filter:search">
-      <!--<td> <a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populatePlaceInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delImage(x.id)">Del</a></td> -->
+      <td><a href="" locid="{{x.id}}" ng-click="delImage(x.id)">Del</a></td>
       <td>{{ x["id"] }}</td>
       <td>{{ x["filename"] }}</td>
       <td>{{ x["parentobjectname"] }}</td>
       <td>{{ x["parentobjectid"] }}</td>
-      <td>{{ x["path"] }}</td>
       <td>
         <img ng-src="/images/{{x.filename}}" class="thumb scaleMain">
         </img>
@@ -51,20 +49,53 @@
 <div class="modal-demo">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Create/Edit Image</h3>
+            <h3 class="modal-title" id="modal-title">Create Image</h3>
         </div>
         <form role="form" method="POST" ng-submit="createUpdateImage();">
           <div class="modal-body" id="modal-body">
                   <div class="form-group" >
                     <label for="name">Name</label>
-                    <input type="text" class="form-control input-sm" ng-model="imageData.name" id="name" placeholder="Name">
+                    <input type="text" class="form-control input-sm" ng-model="imageData.filename" id="name" placeholder="Name">
                   </div>
-                  <!-- Commenting for now, we might need description of images later
+                  <div class="form-group" >
+                    <label for="parentobjectname">Parent Object Name</label>
+                    <input type="text" class="form-control input-sm" ng-model="imageData.parentobjectname" id="pname" placeholder="Parent Object Name">
+                  </div>
                   <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control input-sm" rows="5" ng-model="placeData.description" id="description" placeholder="Description"></textarea>
+                    <textarea class="form-control input-sm" rows="5" ng-model="imageData.description" id="description" placeholder="Description"></textarea>
                   </div>
-                -->
+                  <div class="form-group">
+                    <div  class="btn btn-default"
+                          ngf-select
+                          ng-model="imageData.images"
+                          ngf-multiple="true"
+                          accept="image/*"
+                          ngf-max-height="2000"
+                          ngf-max-size="10MB"
+                          ngf-keep="distinct"
+                          ngf-capture="camera"
+                          ngf-max-files="5">Select Images (max:5)
+                    </div>
+                    <br><br>
+                    <div>
+                        <label>New Images</label>
+                        <span ng-repeat="f in imageData.images" ng-show="imageData.images && imageData.images.length">
+                            <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
+                              {{f.$errorParam}}
+                            </img>
+                            <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
+                        </span>
+                    </div>
+                    <div>
+                        <label>Uploaded Images</label>
+                        <span ng-repeat="f in imageData.newImages" ng-show="imageData.newImages && imageData.newImages.length">
+                            <img ng-src="/images/{{f.filename}}" class="thumb scaleMain">
+                              {{f.$errorParam}}
+                            </img>
+                            <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
+                        </span>
+                    </div>
           </div>
           <div class="modal-footer">
             <div class="btn-group" role="group" aria-label="footer buttons">
