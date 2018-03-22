@@ -8,26 +8,49 @@
 * Controller of the clientApp
 */
 angular.module('clientApp')
-.controller('ImagesAdminController', function ($scope, $uibModal, $http, $location, $document, $log) {
+.controller('ImagesAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
 $scope.imageMap = new Map();
 
+$scope.deleteFile = function(idx) {
+     console.log(idx);
+     var file = $scope.imageData.images[idx];
+     console.log(file);
+     if (file) {
+        $scope.imageData.images.splice(idx, 1);
+    }
+}
+
+$scope.deleteUploadedFile = function(idx) {
+     console.log($scope.imageData.newImages[0]);
+
+     var file = $scope.imageData.newImages[idx];
+     console.log(file);
+     if (file && file.id) {
+          $http.delete('/api/image/', {params: {id: file.id}}).then(function(response){
+               if (response.status == 200) {
+                    $scope.imageData.newImages.splice(idx, 1);
+               }
+         });
+      }
+}
+
+/*
 $scope.populatePlaceInstance = function(placeId){
     console.log('Calling populateLocationInstance===> ' + placeId);
-    $scope.placeData = $scope.placeMap.get(placeId);
-    $scope.placeData.location = $scope.allLocationsMap.get($scope.placeData.location_id);
-    console.log($scope.placeMap);
-    console.log($scope.placeData);
+    $scope.imageData = $scope.imageMap.get(placeId);
+    //$scope.imageData.location = $scope.allLocationsMap.get($scope.imageData.location_id);
+    console.log($scope.imageMap);
+    console.log($scope.imageData);
     $scope.showForm();
 }
-
 $scope.saveNew = function(){
     $scope.createUpdatePlace();
-    console.log($scope.placeData.id);
-    $scope.populatePlaceInstance($scope.placeData.id);
-    console.log($scope.placeData);
+    console.log($scope.imageData.id);
+    $scope.populatePlaceInstance($scope.imageData.id);
+    console.log($scope.imageData);
     //delete $scope.locationData.id;
-
 }
+*/
 
 // get all locations to be displayed on page load
 $scope.loadImagesData = function(){
@@ -55,6 +78,10 @@ $scope.loadImagesData = function(){
     );
 }
 
+
+/*Calling this only deletes the db entry for image,
+*the image still remains on filesystem
+*/
 $scope.delImage = function(imageid){
     console.log(imageid);
     if(imageid && confirm("Are you sure you want to delete this image?")){
@@ -62,7 +89,7 @@ $scope.delImage = function(imageid){
        .then(
            function(response){
              // success callback
-             console.log('Place deleted...');
+             console.log('Image deleted...');
              $scope.loadImagesData();
            },
            function(response){
@@ -77,7 +104,7 @@ $scope.showForm = function(isNew) {
     console.log($scope.message);
 
     if(isNew){
-      $scope.placeData = null;
+      $scope.imageData = null;
     }
     $scope.modalInstance = $uibModal.open({
         templateUrl: 'myModalContent.html',
@@ -101,32 +128,52 @@ $scope.cancel = function () {
     $scope.modalInstance.dismiss('cancel');
 };
 
-$scope.createUpdatePlace = function(){
+$scope.uploadFiles = function(tempLocation) {
+  var files = $scope.imageData.images;
+  console.log($scope.imageData.images);
+  angular.forEach(files, function(file) {
+      file.upload = Upload.upload({
+          url: '/api/image/',
+          method: 'POST',
+          data: { file: file,
+                  'parentobjectname': $scope.imageData.parentobjectname,
+                  'description': $scope.imageData.description
+                }
+      });
+
+      file.upload.then(function (response) {
+          $timeout(function () {
+              file.result = response.data;
+          });
+      }, function (response) {
+          if (response.status > 0)
+              $scope.errorMsg = response.status + ': ' + response.data;
+      }, function (evt) {
+          file.progress = Math.min(100, parseInt(100.0 *
+                                   evt.loaded / evt.total));
+      });
+  });
+}
+
+$scope.createUpdateImage = function(){
   // Update the location if location id is there
-  if($scope.placeData && $scope.placeData.id && $scope.placeData.location){
-    $scope.placeData.location_id = $scope.placeData.location.id;
-    $http.post('/api/places/update/', $scope.placeData).then(function(res, err){
+  if($scope.imageData && $scope.imageData.id && $scope.imageData.location){
+    $scope.imageData.location_id = $scope.imageData.location.id;
+    $http.post('/api/image/update/', $scope.imageData).then(function(res, err){
       console.log(res);
       if(res.status == 200){
         //if the request is scuessful, show all locations
         $scope.modalInstance.close();
-        $scope.$parent.allPlaces = $scope.$parent.loadPlacesData();
+        $scope.$parent.allImages = $scope.$parent.loadImagesData();
       }
     });
   }else{
-      if($scope.placeData && $scope.placeData.location){
-        console.log('Calling place insert===>');
-        $scope.placeData.location_id = $scope.placeData.location.id;
-        $http.post('/api/places/', $scope.placeData).then(function(res, err){
-          console.log(res);
-          if(res.status == 200){
-            //if the request is successful, show all locations
+      if($scope.imageData && $scope.imageData.images){
+            $scope.uploadFiles($scope.imageData);
             $scope.modalInstance.close();
-            $scope.$parent.allPlaces = $scope.$parent.loadPlacesData();
-          }
-        });
+            $scope.$parent.allImages = $scope.$parent.loadImagesData();
     }else{
-        console.log('Error: Place Data is invalid');
+        console.log('Error: Image Data is invalid');
     }
   }
 }

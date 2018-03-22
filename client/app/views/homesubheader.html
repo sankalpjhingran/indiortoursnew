@@ -7,11 +7,11 @@
 
   .scaleSubHeader{
     object-fit: cover;
-    object-position: top;
+    object-position: center;
   }
   </style>
 </head>
-<div class="col-sm-12 carouselCol hidden-xs">
+<div  class="col-sm-12 carouselCol hidden-xs" ng-controller="SubHeaderController" ng-init="allImagesForBanner()">
   <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -22,25 +22,11 @@
 
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img style="height:300px;" class="imgScale img-responsive scaleSubHeader" src="./images/taj-mahal-agra-india-iran-tour.jpg" alt="...">
+        <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in bannerImages">
+          <img style="height:300px;" class="imgScale img-responsive scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
           <div class="carousel-caption">
-            <h3>Image1</h3>
-            <p>Image Description 1</p>
-          </div>
-        </div>
-        <div class="item">
-          <img style="height:300px;" class="img-responsive scaleSubHeader"  src="./images/travel-to-india.jpg" alt="...">
-          <div class="carousel-caption">
-            <h3>Image2</h3>
-            <p>Image Description 2</p>
-          </div>
-        </div>
-        <div class="item">
-          <img style="height:300px;" class="imgScale img-responsive scale" src="./images/p016tvfy.jpg" alt="...">
-          <div class="carousel-caption">
-            <h3>Image3</h3>
-            <p>Image Description 3</p>
+            <h3>{{img.name}}</h3>
+            <p>{{img.description}}</p>
           </div>
         </div>
       </div>

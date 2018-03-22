@@ -38,7 +38,7 @@ angular
             views:{
               subheader: {
                 templateUrl: 'views/homesubheader.html',
-                controller: 'MainCtrl'
+                controller: 'SubHeaderController'
               },
               sidesection: {
                 //template: 'This is the side section',
