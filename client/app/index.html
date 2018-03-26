@@ -31,6 +31,22 @@
   </head>
 
   <body ng-app="clientApp" ng-controller="authcontroller">
+    <div id="page-loading">
+      <img style="display:block; margin:0 auto;" src="../images/Blocks-1s-200px.svg">
+    </div>
+
+    <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        /*VANILLA JAVASCRIPT*/
+        var element = document.getElementById("page-loading");
+        element.parentNode.removeChild(element);
+        /* OR WITH jQuery*/
+        /*$('#page-loading')
+            .fadeOut('slow');
+            */
+    });
+  </script>
+
     <!-- Add your site or application content here -->
     <div class="container">
       <div style="background-color:#3171bb;" ng-include src="'views/header.html'" ng-init="checkAuthenticationStatus">
@@ -124,7 +140,7 @@
     <script src="scripts/controllers/UserProfileController.js"></script>
     <script src="scripts/controllers/ApplicationController.js"></script>
     <script src="scripts/controllers/DestinationsController.js"></script>
-    <script src="scripts/controllers/SubHeaderController.js"></script>  
+    <script src="scripts/controllers/SubHeaderController.js"></script>
     <!-- endbuild -->
 
 </body>
