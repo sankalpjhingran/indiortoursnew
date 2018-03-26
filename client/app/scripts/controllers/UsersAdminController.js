@@ -12,6 +12,7 @@
       $scope.userMap = new Map();
 
       $scope.loadUsersData = function(){
+        console.log('Calling loadUsersData====>');
         $http.get('/api/regusers/').then(function(res, err){
           $scope.allUsers = res.data;
           $scope.userMap = new Map();
