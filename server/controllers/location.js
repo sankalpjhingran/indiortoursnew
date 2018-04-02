@@ -21,7 +21,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Location.findById(req.params.id, {})
+    Location.findById(req.query.id, {})
     .then(function (author) {
       res.status(200).json(author);
     })
