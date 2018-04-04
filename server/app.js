@@ -54,20 +54,22 @@ console.log('Initializing app.js file====>3');
 
 
 console.log('Initializing app.js file====>1');
+/*
 var debug = require('debug')('server:server');
 var http = require('http');
-
+*/
 /**
  * Get port from environment and store in Express.
- */
+ *
 var port = normalizePort(process.env.PORT || '5010');
 app.set('port', port);
 
 console.log('Initializing app.js file====>2');
+*/
 
 /**
  * Create HTTP server.
- */
+ *
 
 var server = http.createServer(app);
 
@@ -75,15 +77,16 @@ console.log('Initializing app.js file====>3');
 
 /**
  * Listen on provided port, on all network interfaces.
- */
+ *
 
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+*/
 
 /**
  * Normalize a port into a number, string, or false.
- */
+ *
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
@@ -100,10 +103,11 @@ function normalizePort(val) {
 
   return false;
 }
+*/
 
 /**
  * Event listener for HTTP server "error" event.
- */
+ *
 
 function onError(error) {
   if (error.syscall !== 'listen') {
@@ -128,10 +132,11 @@ function onError(error) {
       throw error;
   }
 }
+*/
 
 /**
  * Event listener for HTTP server "listening" event.
- */
+ *
 
 function onListening() {
   var addr = server.address();
@@ -140,7 +145,7 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
+*/
 
 
 SALT_WORK_FACTOR = 12;
