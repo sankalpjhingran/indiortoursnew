@@ -41,12 +41,11 @@
   <uib-tabset active="activeJustified" justified="true">
       <!-- Itinerary Start -->
       <uib-tab index="0" heading="Itinerary">
-        <p>{{tourWithAllRelated[0].description}}</p>
         <div ng-repeat="itinerary in tourWithAllRelated[0].itinerary">
           <h4>
             {{itinerary.day}}
           </h4>
-          <p>{{itinerary.description}}</p>
+          <p style="white-space: pre-wrap;">{{itinerary.description}}</p>
         </div>
       </uib-tab>
       <!-- Itinerary End -->
@@ -162,7 +161,7 @@
           <h4>
             {{x.city}}, {{x.country}}
           </h4>
-          <p>{{x.description}}</p>
+          <p style="white-space: pre-wrap;">{{x.description}}</p>
         </div>
 
       </uib-tab>
@@ -176,7 +175,7 @@
                   ng-repeat="x in tourWithAllRelated[0].tourNote"
                   heading="{{x.type}}"
                   is-open="$first">
-              <div ng-bind-html="x.description" ></div>
+              <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
             </div>
         </uib-accordion>
       </uib-tab>
