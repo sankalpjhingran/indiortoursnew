@@ -51,7 +51,7 @@
       </div>
 
       <!--Show sidebar if not on home page -->
-      <div class="row" ng-show="$state.current.name != 'main'">
+      <div class="row" ng-show="$state.current.name != 'main' && $state.current.name != '404'">
         <div class="col-sm-2 hidden-xs hidden-sm">
           <div ui-view="sidesection">
                 <!--View for SIDEBAR LINKS -->
@@ -59,7 +59,15 @@
         </div>
         <div class="col-sm-10">
           <div ui-view="mainsection">
-                mainview if state is not main
+                <!--View for main html templates and partials -->
+          </div>
+        </div>
+      </div>
+
+      <!--view for 404 error page-->
+      <div class="row" ng-show="$state.current.name == '404'">
+        <div class="col-sm-12">
+          <div ui-view="mainsection">
                 <!--View for main html templates and partials -->
           </div>
         </div>

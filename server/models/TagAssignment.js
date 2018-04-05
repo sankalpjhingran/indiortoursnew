@@ -3,17 +3,14 @@
 var sequelize  = require('../models/index');
 
 module.exports = (sequelize, DataTypes) => {
-  var Tag = sequelize.define("Tag", {
-        name: {type: DataTypes.STRING},
-        parentname: {type: DataTypes.STRING},
-        parentid:{type: DataTypes.STRING},
+  var TagAssignment = sequelize.define("TagAssignment", {
       }
   );
 
-  Tag.associate = function (models) {
-    //Location.hasMany(models.Hotel, {as: 'locationhotels', foreignKey: 'location_id'});
-    //Location.hasMany(models.Place, {as: 'places', foreignKey: 'location_id'});
+  TagAssignment.associate = function (models) {
+    models.Tag.belongsToMany(models.Tour, { through: TagAssignment, as: 'TagTour'});
+    models.Tour.belongsToMany(models.Tag, { through: TagAssignment, as: 'TourTags'});
   };
 
-  return Tag;
+  return TagAssignment;
 };
