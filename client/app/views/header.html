@@ -56,7 +56,8 @@
         </ul>
         <ul class="nav navbar-nav navbar-right visible-xs">
           <li><a ng-href="/contactus">Contact Us</a></li>
-          <li><a ng-href="/regusers">Registered Users</a></li>
+          <li><a ng-show="isAdminLoggedIn" ng-href="/toursadmin" style="color:#ffffff;">Admin</a></li>
+          <li><a href="/destinations" style="font-weight:bold;">Destinations</a></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account
             <span class="caret"></span></a>
