@@ -63,7 +63,7 @@ $scope.deleteUploadedFile = function(idx) {
 
 $scope.populatehotelInstance = function(hotelId){
     $scope.hotelData = $scope.hotelMap.get(hotelId);
-    if($scope.hotelData.location_id){
+    if($scope.hotelData.location_id != ''){
         $scope.hotelData.location = $scope.allLocationsMap.get($scope.hotelData.location_id);
     }
     $scope.hotelData.newImages = [];
@@ -105,7 +105,7 @@ $scope.loadhotelData = function(){
                 // populate hotelMap to be used in edit form
                 angular.forEach($scope.allHotels, function(hotel) {
                   $scope.hotelMap.set(hotel.id, hotel);
-                  if(hotel.location_id && $scope.allLocationsMap.get(hotel.location_id).city){
+                  if(hotel.location_id != ''){
                       hotel.hotelcity = $scope.allLocationsMap.get(hotel.location_id).city;
                   }
                 });
