@@ -49,7 +49,7 @@ module.exports= {
         queryVars = req.query;
         Tour.findAll({
           where: {id : queryVars.id},
-            include: [{ association : 'siteLocation' }, { association : 'accomodationHotel'}, { association : 'tourcost' }, { association : 'itinerary' }, { association : 'tourNote' }, {association: 'departuredates'}]
+            include: [{ association : 'siteLocation' }, { association: 'TourTags' }, { association : 'accomodationHotel'}, { association : 'tourcost' }, { association : 'itinerary' }, { association : 'tourNote' }, {association: 'departuredates'}]
           })
           .then(function (authors) {
             console.log(authors);

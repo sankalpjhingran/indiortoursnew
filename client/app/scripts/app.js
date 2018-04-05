@@ -29,7 +29,8 @@ angular
     'ngCookies'
   ])
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider) {
-    $urlRouterProvider.otherwise('/');
+    //$urlRouterProvider.otherwise('/');
+
     $locationProvider.html5Mode(true);
 
     $stateProvider
@@ -400,7 +401,22 @@ angular
                 controller: 'TourNotesController'
               }
             }
-        });
+        })
+        .state('404', {
+          url: '/404',
+          views:{
+            subheader: {
+            },
+            sidesection: {
+            },
+            mainsection:{
+              templateUrl: 'views/404.html',
+              controller: 'MainCtrl'
+            }
+          }
+      })
+
+      $urlRouterProvider.otherwise('/404');
 }
 
 ]);
