@@ -5,6 +5,25 @@
   width:75px;
   height:50px;
 }
+
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+float: left;
+width: 8%;
+padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+content: "";
+clear: both;
+display: table;
+}
+
+.row{
+margin-left: -5px;
+margin-right: -5px;
+}
 </style>
 <div id="allHotels" ng-init="loadhotelData()">
   <div class="row align-items-center">
@@ -50,71 +69,73 @@
         </div>
         <form role="form" method="POST" ng-submit="createUpdatehotel();">
           <div class="modal-body" id="modal-body">
-                  <div class="form-group">
-                    <div id="remote">
-                      <label for="locationid">Location</label>
-                      <!-- uib-typeahead="tour.name for tour in getToursByName($viewValue)" -->
-                      <input type="text"  ng-model="hotelData.location"
-                                          placeholder="Search Locations By Name..."
-                                          uib-typeahead="location as location.city for location in allLocations | filter: {city:$viewValue}"
-                                          typeahead-wait-ms="1000"
-                                          typeahead-min-length="3"
-                                          typeahead-loading="loadingLocations"
-                                          typeahead-no-results="noResults"
-                                          typeahead-editable=false
-                                          class="form-control"
-                                          value="hotelData.hotelcity"
-                                          id="location.city">
-                      <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                      <div ng-show="noResults">
-                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+            <div class="form-group">
+              <div id="remote">
+                <label for="locationid">Location</label>
+                <!-- uib-typeahead="tour.name for tour in getToursByName($viewValue)" -->
+                <input type="text"  ng-model="hotelData.location"
+                                    placeholder="Search Locations By Name..."
+                                    uib-typeahead="location as location.city for location in allLocations | filter: {city:$viewValue}"
+                                    typeahead-wait-ms="1000"
+                                    typeahead-min-length="3"
+                                    typeahead-loading="loadingLocations"
+                                    typeahead-no-results="noResults"
+                                    typeahead-editable=false
+                                    class="form-control"
+                                    value="hotelData.hotelcity"
+                                    id="location.city">
+                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                <div ng-show="noResults">
+                  <i class="glyphicon glyphicon-remove"></i> No Results Found
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control input-sm" ng-model="hotelData.name" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="hoteltype">Hotel Type</label>
+              <input type="text" class="form-control input-sm" ng-model="hotelData.type" id="hoteltype" placeholder="Hotel Type">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control input-sm" rows="5" ng-model="hotelData.description" id="description" placeholder="Description"></textarea>
+            </div>
+            <div class="form-group">
+              <div  class="btn btn-default"
+                    ngf-select
+                    ng-model="hotelData.images"
+                    ngf-multiple="true"
+                    accept="image/*"
+                    ngf-max-height="2000"
+                    ngf-max-size="10MB"
+                    ngf-keep="distinct"
+                    ngf-capture="camera"
+                    ngf-max-files="5">Select Images (max:5)
+              </div>
+              <br><br>
+              <div>
+                  <label>New Images</label>
+                  <div class="row">
+                      <div class="column" ng-repeat="f in hotelData.images" ng-show="hotelData.images && hotelData.images.length">
+                        <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
+                          {{f.$errorParam}}
+                        </img>
+                        <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
                       </div>
+                  </div>
+              </div>
+              <div>
+                  <label>Uploaded Images</label>
+                  <div class="row">
+                    <div class="column" ng-repeat="f in hotelData.newImages" ng-show="hotelData.newImages && hotelData.newImages.length">
+                      <img ng-src="/images/{{f.filename}}" class="thumb scaleMain"></img>
+                      <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control input-sm" ng-model="hotelData.name" id="name" placeholder="Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="hoteltype">Hotel Type</label>
-                    <input type="text" class="form-control input-sm" ng-model="hotelData.type" id="hoteltype" placeholder="Hotel Type">
-                  </div>
-                  <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control input-sm" rows="5" ng-model="hotelData.description" id="description" placeholder="Description"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <div  class="btn btn-default"
-                          ngf-select
-                          ng-model="hotelData.images"
-                          ngf-multiple="true"
-                          accept="image/*"
-                          ngf-max-height="2000"
-                          ngf-max-size="10MB"
-                          ngf-keep="distinct"
-                          ngf-capture="camera"
-                          ngf-max-files="5">Select Images (max:5)
-                    </div>
-                    <br><br>
-                    <div>
-                        <label>New Images</label>
-                        <span ng-repeat="f in hotelData.images" ng-show="hotelData.images && hotelData.images.length">
-                            <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
-                              {{f.$errorParam}}
-                            </img>
-                            <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
-                        </span>
-                    </div>
-                    <div>
-                        <label>Uploaded Images</label>
-                        <span ng-repeat="f in hotelData.newImages" ng-show="hotelData.newImages && hotelData.newImages.length">
-                            <img ng-src="/images/{{f.filename}}" class="thumb scaleMain">
-                              {{f.$errorParam}}
-                            </img>
-                            <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
-                        </span>
-                    </div>
-                  </div>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <div class="btn-group" role="group" aria-label="footer buttons">

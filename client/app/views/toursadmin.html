@@ -1,9 +1,28 @@
 <style>
-.scaleMain{
-  object-fit: scale-down;
-  object-position: center;
-  width:75px;
-  height:50px;
+  .scaleMain{
+    object-fit: scale-down;
+    object-position: center;
+    width:75px;
+    height:50px;
+  }
+
+  /* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  float: left;
+  width: 8%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.row{
+  margin-left: -5px;
+  margin-right: -5px;
 }
 </style>
 <div id="allTours" ng-init="loadtoursData()">
@@ -131,7 +150,6 @@
               </ui-select>
               </div>
             </div>
-            <!--
             <div class="form-group">
               <div id="remote">
                   <label for="tourtags">Tags</label>
@@ -144,7 +162,6 @@
                 <p>Selected: {{tourData.tags}}</p>
               </div>
             </div>
-          -->
             <div class="form-group">
               <div  class="btn btn-default"
                     ngf-select
@@ -159,22 +176,26 @@
               <br><br>
               <div>
                   <label>New Images</label>
-                  <span ng-repeat="f in tourData.images" ng-show="tourData.images && tourData.images.length">
-                      <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
-                        {{f.$errorParam}}
-                      </img>
-                      <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
-                  </span>
+                  <div class="row">
+                      <div class="column" ng-repeat="f in tourData.images" ng-show="tourData.images && tourData.images.length">
+                        <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
+                          {{f.$errorParam}}
+                        </img>
+                        <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
+                      </div>
+                  </div>
               </div>
               <div>
                   <label>Uploaded Images</label>
-                  <span ng-repeat="f in tourData.newImages" ng-show="tourData.newImages && tourData.newImages.length">
-                      <img ng-src="/images/{{f.filename}}" class="thumb scaleMain">
-                        {{f.$errorParam}}
-                      </img>
+                  <div class="row">
+                    <div class="column" ng-repeat="f in tourData.newImages" ng-show="tourData.newImages && tourData.newImages.length">
+                      <img ng-src="/images/{{f.filename}}" class="thumb scaleMain"></img>
                       <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
-                  </span>
+                    </div>
+                  </div>
               </div>
+
+              <!-- Modal body ends -->
             </div>
           </div>
           <div class="modal-footer">
