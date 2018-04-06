@@ -176,11 +176,19 @@ footer{
     body {
         //font-size: 1em;
     }
+
+    .modal-dialog {
+      width: 70%;
+    }
 }
 /* md */
  @media screen and (min-width: 992px) {
     body {
         //font-size: 1.2em;
+    }
+
+    .modal-dialog {
+      width: 70%;
     }
 }
 /* lg */
@@ -188,11 +196,17 @@ footer{
     body {
         //font-size: 1.3em;
     }
+
+    .modal-dialog {
+      width: 70%;
+    }
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
-
+  .modal-dialog {
+    width: 70%;
+  }
 }
 
 /* Responsive: Portrait tablets and up */
@@ -215,5 +229,9 @@ footer{
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
+  }
+
+  .modal-dialog {
+    width: 70%;
   }
 }
