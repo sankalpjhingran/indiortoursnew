@@ -104,15 +104,15 @@
                   <label for="tourhotels">Hotels</label>
                   <!-- New locations multi select -->
                   <ui-select multiple ng-model="tourData.hotels" theme="bootstrap" close-on-select="false"  title="Select Hotels...">
-                  <ui-select-match placeholder="Select Hotels...">{{$item.name}}</ui-select-match>
-                  <ui-select-choices repeat="hotel in allHotels | propsFilter: {name: $select.search}">
-                    <div ng-bind-html="hotel.name | highlight: $select.search"></div>
-                    <small>
-                      Name: {{hotel.name}}
-                      Type: <span ng-bind-html="''+hotel.type | highlight: $select.search"></span>
-                    </small>
-                  </ui-select-choices>
-              </ui-select>
+                    <ui-select-match placeholder="Select Hotels...">{{$item.name}}</ui-select-match>
+                    <ui-select-choices repeat="hotel in allHotels | propsFilter: {name: $select.search}">
+                      <div ng-bind-html="hotel.name | highlight: $select.search"></div>
+                      <small>
+                        Name: {{hotel.name}}
+                        Type: <span ng-bind-html="''+hotel.type | highlight: $select.search"></span>
+                      </small>
+                    </ui-select-choices>
+                  </ui-select>
               </div>
             </div>
             <div class="form-group">
@@ -131,7 +131,20 @@
               </ui-select>
               </div>
             </div>
-
+            <!--
+            <div class="form-group">
+              <div id="remote">
+                  <label for="tourtags">Tags</label>
+                  <ui-select multiple tagging tagging-label="(New Tag)" tagging-tokens="," ng-model="tourData.tags" theme="bootstrap" sortable="true" title="Select Tags...">
+                    <ui-select-match placeholder="Select Tags...">{{$item}}</ui-select-match>
+                    <ui-select-choices repeat="tag in allTags | filter:$select.search">
+                      {{tag}}
+                    </ui-select-choices>
+                  </ui-select>
+                <p>Selected: {{tourData.tags}}</p>
+              </div>
+            </div>
+          -->
             <div class="form-group">
               <div  class="btn btn-default"
                     ngf-select
