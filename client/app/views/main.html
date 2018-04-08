@@ -1,57 +1,57 @@
 <div ng-init="allToursWithLocations()">
-          <h3>
-            Indior Tour Offers you Luxury Tours, Tailor-Made Holiday or Group Tours
-          </h3>
-          <p class="main">
-            One of the best travel companies offers high quality group tours, private journey's and tailor-made holidays to one of the world's most facinating regions: The Indin Subcontinent covering India, Napal, Bhutan, Sri Lanka, Tibet and Maldives. We offer you a large selection from Economy tours to Luxury holidays, each one planned by experts.
-          </p>
-          <!--
-          <div id=searchPanel>
-              <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.id" id="seartourid" placeholder="Tour ID">
-              <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.name" id="seartourname" placeholder="Tour Name">
-              <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.location" id="seartourlocation" placeholder="Tour Location">
-          </div>
-        -->
-          <div class="row">
-            <div ng-repeat="tour in allTours">
-              <div class="col-xs-12 col-sm-4 col-md-4">
-                  <div class="productbox">
-                    <!-- <img ng-src="/images/{{tour.images[0].filename}}" class="thumb-post img-responsive"> -->
-                  <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                      <!-- Indicators
-                      <ol class="carousel-indicators">
-                        <li data-target="#myCarousel-{{$index}}" ng-repeat="img in tour.images" ng-class="{active: ($index === 0)}" data-slide-to="{{img}}"></li>
-                      </ol>
-                      -->
-                      <div class="carousel-inner">
-                        <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
-                          <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post scaleMain">
-                          <div class="container">
-                            <div class="carousel-caption">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                      <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-
+  <h3>
+    Indior Tour Offers you Luxury Tours, Tailor-Made Holiday or Group Tours
+  </h3>
+  <p class="main">
+    One of the best travel companies offers high quality group tours, private journey's and tailor-made holidays to one of the world's most facinating regions: The Indin Subcontinent covering India, Napal, Bhutan, Sri Lanka, Tibet and Maldives. We offer you a large selection from Economy tours to Luxury holidays, each one planned by experts.
+  </p>
+  <!--
+  <div id=searchPanel>
+      <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.id" id="seartourid" placeholder="Tour ID">
+      <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.name" id="seartourname" placeholder="Tour Name">
+      <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.location" id="seartourlocation" placeholder="Tour Location">
+  </div>
+  -->
+  <div class="row">
+    <div ng-repeat="tour in allTours">
+      <div class="col-xs-12 col-sm-4 col-md-4">
+          <div class="productbox">
+            <!-- <img ng-src="/images/{{tour.images[0].filename}}" class="thumb-post img-responsive"> -->
+          <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+              <!-- Indicators
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel-{{$index}}" ng-repeat="img in tour.images" ng-class="{active: ($index === 0)}" data-slide-to="{{img}}"></li>
+              </ol>
+              -->
+              <div class="carousel-inner">
+                <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
+                  <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                  <div class="container">
+                    <div class="carousel-caption">
                     </div>
-                    <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}">{{tour.name}}</a></div>
-                    <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
-                      <span ng-repeat="location in tour.siteLocation">
-                        | {{location.city}} |
-                      </span>
-                    </p>
-                    <p class="text-center">
-                      <strong>{{tour.days}} Days | €{{tour.price}} | Offer Price: €100</strong>
-                    </p>
-                    <p class="text-center">
-                      <span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
-                      <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
-                    </p>
-                    </div>
+                  </div>
                 </div>
               </div>
-          </div>
+
+              <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+              <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
+            </div>
+            <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}">{{tour.name}}</a></div>
+            <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
+              <span ng-repeat="location in tour.siteLocation">
+                | {{location.city}} |
+              </span>
+            </p>
+            <p class="text-center">
+              <strong>{{tour.days}} Days | €{{tour.price}} | Offer Price: €100</strong>
+            </p>
+            <p class="text-center">
+              <span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+              <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+            </p>
+            </div>
+        </div>
+      </div>
+  </div>
 </div>
