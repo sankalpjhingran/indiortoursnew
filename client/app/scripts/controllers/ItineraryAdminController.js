@@ -94,6 +94,8 @@ $scope.showForm = function (isNew) {
         templateUrl: 'myModalContent.html',
         controller: 'ItineraryAdminController',
         scope: $scope,
+        backdrop: 'static',
+        size: 'lg',
         resolve: {
             userForm: function () {
                 return $scope.userForm;

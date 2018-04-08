@@ -177,9 +177,11 @@ footer{
         //font-size: 1em;
     }
 
+    /*
     .modal-dialog {
       width: 70%;
     }
+    */
 }
 /* md */
  @media screen and (min-width: 992px) {
@@ -187,9 +189,11 @@ footer{
         //font-size: 1.2em;
     }
 
+    /*
     .modal-dialog {
       width: 70%;
     }
+    */
 }
 /* lg */
  @media screen and (min-width: 1200px) {
@@ -197,16 +201,19 @@ footer{
         //font-size: 1.3em;
     }
 
+    /*
     .modal-dialog {
       width: 70%;
     }
+    */
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
-  .modal-dialog {
+  /*.modal-dialog {
     width: 70%;
   }
+  */
 }
 
 /* Responsive: Portrait tablets and up */
@@ -231,7 +238,85 @@ footer{
     border-bottom: 0;
   }
 
-  .modal-dialog {
+  /*.modal-dialog {
     width: 70%;
   }
+  */
+}
+
+
+
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.img-column {
+  float: left;
+  width: 8%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.img-row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.img-row{
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+.scaleMain{
+  object-fit: scale-down;
+  object-position: center;
+  width:75px;
+  height:50px;
+}
+
+.scaleDestinationImg{
+  object-fit: cover;
+  object-position: center;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 100%;
+}
+
+.scaleSubHeader{
+  object-fit: cover;
+  object-position: center;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

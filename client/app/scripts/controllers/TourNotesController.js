@@ -85,6 +85,8 @@ $scope.showForm = function (isNew) {
         templateUrl: 'myModalContent.html',
         controller: 'TourNotesController',
         scope: $scope,
+        backdrop: 'static',
+        size: 'lg',
         resolve: {
             userForm: function () {
                 return $scope.userForm;

@@ -113,6 +113,13 @@ $scope.loadtoursData = function(){
   });
   console.log($scope.allNotes);
 
+  $http.get('/api/tags/all/')
+    .then(function(tags){
+      console.log(tags);
+      $scope.allTags = tags.data;
+  });
+
+
    //Load all tourss to be displayed
    $http.get('/api/tours/alltourswithlocationsandhotels/')
     .then(
@@ -160,6 +167,8 @@ $scope.showForm = function (isNew) {
         templateUrl: 'myModalContent.html',
         controller: 'ToursAdminController',
         scope: $scope,
+        backdrop: 'static',
+        size: 'lg',
         resolve: {
             userForm: function () {
                 return $scope.userForm;

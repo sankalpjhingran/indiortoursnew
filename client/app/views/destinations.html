@@ -1,9 +1,3 @@
-<style>
-.scaleMain{
-  object-fit: cover;
-  object-position: center;
-}
-</style>
 <div ng-init="allDestinations()">
           <h3>
             Indior Destinations
@@ -23,7 +17,7 @@
                         -->
                         <div class="carousel-inner">
                           <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in location.images">
-                            <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post scaleMain">
+                            <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post scaleDestinationImg">
                             <div class="container">
                               <div class="carousel-caption">
                               </div>

@@ -5,6 +5,7 @@ var Notes = models.Notes;
 var Hotel = models.Hotel;
 var TourHotel = models.TourHotel;
 var TourLocation = models.TourLocation;
+var Tag = models.Tag;
 
 
 var Sequelize = require('sequelize');
@@ -163,7 +164,7 @@ module.exports= {
           });
       }
 
-      if(req.body.locations && req.body.locations.length){
+      if(req.body.locations && req.body.tags.length){
           let locationids = [];
           req.body.locations.forEach(function(location){
             locationids.push({id:location.id});
@@ -195,7 +196,22 @@ module.exports= {
           });
       }
 
-        res.status(200).json(tourInstance);
+      if(req.body.tags && req.body.tags.length){
+          var newTags = [];
+          req.body.tags.forEach(function(tag){
+            newTags.push({name:tag});
+
+            Tag.create({name:tag}).then(function(TagInstance){
+                console.log(TagInstance);
+                res.status(200).json(TagInstance);
+            })
+            .catch(function (error){
+              res.status(500).json(error);
+            })
+          });
+      }
+
+      res.status(200).json(tourInstance);
     })
     .catch(function (error){
       console.log(error);

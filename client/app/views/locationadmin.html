@@ -1,29 +1,3 @@
-<style>
-.scaleMain{
-  object-fit: scale-down;
-  object-position: center;
-  width:75px;
-  height:50px;
-}
-/* Three image containers (use 25% for four, and 50% for two, etc) */
-.column {
-float: left;
-width: 8%;
-padding: 5px;
-}
-
-/* Clear floats after image containers */
-.row::after {
-content: "";
-clear: both;
-display: table;
-}
-
-.row{
-margin-left: -5px;
-margin-right: -5px;
-}
-</style>
 <div id="allLocations" ng-init="loadLocationData()">
   <div class="row align-items-center">
     <div class="col-sm-6 col-auto mr-auto">
@@ -99,8 +73,8 @@ margin-right: -5px;
                     <br><br>
                     <div>
                         <label>New Images</label>
-                        <div class="row">
-                            <div class="column" ng-repeat="f in locationData.images" ng-show="locationData.images && locationData.images.length">
+                        <div class="img-row">
+                            <div class="img-column" ng-repeat="f in locationData.images" ng-show="locationData.images && locationData.images.length">
                               <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
                                 {{f.$errorParam}}
                               </img>
@@ -110,8 +84,8 @@ margin-right: -5px;
                     </div>
                     <div>
                         <label>Uploaded Images</label>
-                        <div class="row">
-                          <div class="column" ng-repeat="f in locationData.newImages" ng-show="locationData.newImages && locationData.newImages.length">
+                        <div class="img-row">
+                          <div class="img-column" ng-repeat="f in locationData.newImages" ng-show="locationData.newImages && locationData.newImages.length">
                             <img ng-src="/images/{{f.filename}}" class="thumb scaleMain"></img>
                             <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
                           </div>

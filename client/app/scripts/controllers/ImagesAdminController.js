@@ -110,6 +110,8 @@ $scope.showForm = function(isNew) {
         templateUrl: 'myModalContent.html',
         controller: 'ImagesAdminController',
         scope: $scope,
+        backdrop: 'static',
+        size: 'lg',
         resolve: {
             userForm: function () {
                 return $scope.userForm;

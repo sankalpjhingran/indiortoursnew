@@ -32,6 +32,7 @@ var images = require('./routes/image');
 var notes = require('./routes/tournotes');
 var users = require('./routes/user');
 var places = require('./routes/place');
+var tags = require('./routes/tag');
 
 //load passport strategies
 require('./config/passport')(passport, models.User);
@@ -51,102 +52,6 @@ console.log('Initializing app.js file====>2');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 console.log('Initializing app.js file====>3');
-
-
-console.log('Initializing app.js file====>1');
-/*
-var debug = require('debug')('server:server');
-var http = require('http');
-*/
-/**
- * Get port from environment and store in Express.
- *
-var port = normalizePort(process.env.PORT || '5010');
-app.set('port', port);
-
-console.log('Initializing app.js file====>2');
-*/
-
-/**
- * Create HTTP server.
- *
-
-var server = http.createServer(app);
-
-console.log('Initializing app.js file====>3');
-
-/**
- * Listen on provided port, on all network interfaces.
- *
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-*/
-
-/**
- * Normalize a port into a number, string, or false.
- *
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-*/
-
-/**
- * Event listener for HTTP server "error" event.
- *
-
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
-*/
-
-/**
- * Event listener for HTTP server "listening" event.
- *
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
-*/
-
 
 SALT_WORK_FACTOR = 12;
 
@@ -213,6 +118,9 @@ app.use('/api/tournotes/update', notes);
 app.use('/api/users', users);
 app.use('/api/places', places);
 app.use('/api/places/all', places);
+
+app.use('/api/tags/all', tags);
+app.use('/api/tags', tags);
 
 // In production, we'll actually serve our angular app from express
 console.log('env is====> ' + app.get('env'));

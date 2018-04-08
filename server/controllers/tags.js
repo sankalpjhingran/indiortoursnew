@@ -8,11 +8,16 @@ module.exports= {
   },
 
   index(req, res) {
-    Tag.findAll({})
+    console.log('All TagsIndex=====>');
+    console.log(req);
+    Tag.findAll()
       .then(function (authors) {
+        console.log('All Tags=====>');
+        console.log(authors);
         res.status(200).json(authors);
       })
       .catch(function (error) {
+        console.log('All Tags=====>' + error);
         res.status(500).json(error);
       });
   },
