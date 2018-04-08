@@ -13,7 +13,7 @@ module.exports = {
       return queryInterface.removeColumn(
           'Tags',
           'parentname',
-          'parentid',
+          'parentid'
       );
 
   },
