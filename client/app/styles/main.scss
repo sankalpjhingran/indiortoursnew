@@ -272,6 +272,11 @@ footer{
   height:50px;
 }
 
+.scaleTourThumbs{
+  object-fit: scale-down;
+  object-position: center;
+}
+
 .scaleDestinationImg{
   object-fit: cover;
   object-position: center;
