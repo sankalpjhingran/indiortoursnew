@@ -1,13 +1,9 @@
 <style>
-.scaleMain{
-  object-fit: cover;
-  object-position: center;
-}
-img {
-    float: left;
-    margin: 2px 10px 10px 2px;
-    border-radius: 4px;
-}
+  img {
+      float: left;
+      margin: 2px 10px 10px 2px;
+      border-radius: 4px;
+  }
 </style>
 <div ng-init="getDestinationDetails()">
           <h3>
@@ -17,7 +13,7 @@ img {
             {{ destination.city }}, {{ destination.country }}
           </h4>
           <p class="main" style="white-space: pre-wrap;">
-              <img class="img-responsive scaleMain" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}">
+              <img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}">
               {{ destination.description }}
           </p>
           <div class="row">

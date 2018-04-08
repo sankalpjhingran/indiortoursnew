@@ -5,8 +5,6 @@ var sequelize  = require('../models/index');
 module.exports = (sequelize, DataTypes) => {
   var Tag = sequelize.define("Tag", {
         name: {type: DataTypes.STRING},
-        parentname: {type: DataTypes.STRING},
-        parentid:{type: DataTypes.STRING},
       }
   );
 

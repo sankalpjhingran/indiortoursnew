@@ -54,6 +54,8 @@ $scope.showForm = function(isNew) {
         templateUrl: 'myModalContent.html',
         controller: 'LocationAdminController',
         scope: $scope,
+        backdrop: 'static',
+        size: 'lg',
         resolve: {
             userForm: function () {
                 return $scope.userForm;

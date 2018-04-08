@@ -151,6 +151,8 @@ $scope.showForm = function (isNew) {
         templateUrl: 'myModalContent.html',
         controller: 'HotelsAdminController',
         scope: $scope,
+        backdrop: 'static',
+        size: 'lg',
         resolve: {
             userForm: function () {
                 return $scope.userForm;
