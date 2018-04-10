@@ -9,11 +9,9 @@ module.exports= {
 
   index(req, res) {
     console.log('All TagsIndex=====>');
-    console.log(req);
-    Tag.findAll()
+    Tag.findAll({})
       .then(function (authors) {
         console.log('All Tags=====>');
-        console.log(authors);
         res.status(200).json(authors);
       })
       .catch(function (error) {
@@ -35,7 +33,7 @@ module.exports= {
 
   //Create a new author using model.create()
   create(req, res) {
-    console.log('req===>', req.body);
+    console.log('In Tag create req===>', req.body);
     Tag.create(req.body).then(function(TagInstance){
         res.status(200).json(TagInstance);
     })

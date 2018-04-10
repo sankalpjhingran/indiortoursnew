@@ -127,13 +127,11 @@
               <div id="remote">
                   <label for="tourtags">Tags</label>
                   <ui-select multiple tagging tagging-label="(New Tag)" tagging-tokens="," ng-model="tourData.tags" theme="bootstrap" sortable="true" title="Select Tags...">
-                    <ui-select-match placeholder="Select Tags...">{{$item}}</ui-select-match>
+                    <ui-select-match placeholder="Select Tags...">{{$item.name || $item}}</ui-select-match>
                     <ui-select-choices repeat="tag in allTags | filter:$select.search">
                       <div ng-bind-html="tag.name | highlight: $select.search"></div>
-                      {{tag}}
                     </ui-select-choices>
                   </ui-select>
-                <p>Selected: {{tourData.tags}}</p>
               </div>
             </div>
             <div class="form-group">

@@ -17,6 +17,7 @@ $scope.populatetoursInstance = function(toursId){
     $scope.tourData.locations = $scope.tourData.siteLocation;
     $scope.tourData.hotels = $scope.tourData.accomodationHotel;
     $scope.tourData.notes = $scope.tourData.tourNote;
+    $scope.tourData.tags = $scope.tourData.tourTags;
 
     $scope.tourData.newImages = [];
     var tourids = [];
@@ -95,6 +96,7 @@ $scope.loadtoursData = function(){
   $scope.allLocation = undefined;
   $scope.allHotels = undefined;
   $scope.allNotes = undefined;
+
 
   $http.get('/api/location/all/')
     .then(function(locations){
@@ -218,7 +220,7 @@ $scope.createUpdatetours = function(){
             $scope.modalInstance.close();
             $scope.$parent.allTours = $scope.$parent.loadtoursData();
           }
-        });
+        })
     }else{
         console.log('Error: tours Data is invalid or Invalid tour id');
     }

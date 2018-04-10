@@ -10,7 +10,6 @@ module.exports= {
   index(req, res) {
     Hotel.findAll({})
       .then(function (authors) {
-        console.log(authors);
         res.status(200).json(authors);
       })
       .catch(function (error) {
