@@ -126,7 +126,7 @@
             <div class="form-group">
               <div id="remote">
                   <label for="tourtags">Tags</label>
-                  <ui-select multiple tagging tagging-label="(New Tag)" tagging-tokens="," ng-model="tourData.tags" theme="bootstrap" sortable="true" title="Select Tags...">
+                  <ui-select multiple tagging tagging-label="false" ng-model="tourData.tags" theme="bootstrap" sortable="true" title="Select Tags...">
                     <ui-select-match placeholder="Select Tags...">{{$item.name || $item}}</ui-select-match>
                     <ui-select-choices repeat="tag in allTags | filter:$select.search">
                       <div ng-bind-html="tag.name | highlight: $select.search"></div>
