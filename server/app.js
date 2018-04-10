@@ -118,7 +118,6 @@ app.use('/api/tournotes/update', notes);
 app.use('/api/users', users);
 app.use('/api/places', places);
 app.use('/api/places/all', places);
-
 app.use('/api/tags/all', tags);
 app.use('/api/tags', tags);
 
