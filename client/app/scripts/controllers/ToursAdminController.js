@@ -123,6 +123,8 @@ $scope.loadtoursData = function(){
 
 
    //Load all tourss to be displayed
+   $scope.loading = true;
+
    $http.get('/api/tours/alltourswithlocationsandhotels/')
     .then(
         function(responseTours){
@@ -131,6 +133,7 @@ $scope.loadtoursData = function(){
           angular.forEach($scope.allTours, function(tours) {
             $scope.toursMap.set(tours.id, tours);
           });
+          $scope.loading = false;
         },
         function(response){
           // failure call back

@@ -15,6 +15,11 @@
       <input type="text" class="form-control" placeholder="Search Tours..." ng-model="search">
     </div>
   </div>
+  
+  <div class="notLoading" ng-class="{'loader': loading}"
+  id="loadingSpinner">Loading...
+</div>
+
   <table class="table table-hover table-bordered" ng-show="!(error)">
     <th>Action</th>
     <th>Id</th>
