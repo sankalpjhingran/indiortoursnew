@@ -16,31 +16,31 @@
     </div>
   </div>
   
-  <div ng-class="{'loader': loading, 'notLoading': !loading}"
-  id="loadingSpinner">Loading...
-</div>
+  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
 
-  <table class="table table-hover table-bordered" ng-show="!(error)">
-    <th>Action</th>
-    <th>Id</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Days</th>
-    <th>Nights</th>
-    <th>Price</th>
-    <th>Tour Type</th>
+  <div ng-show="!(loading)">
+    <table class="table table-hover table-bordered" ng-show="!(error)">
+      <th>Action</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Days</th>
+      <th>Nights</th>
+      <th>Price</th>
+      <th>Tour Type</th>
 
-    <tr ng-repeat="x in allTours | filter:search">
-      <td><a href="" locid="{{x.id}}" ng-click="populatetoursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deltours(x.id)">Del</a></td>
-      <td>{{ x["id"] }}</td>
-      <td>{{ x["name"] }}</td>
-      <td style="white-space: pre-wrap;">{{ x["description"] }}</td>
-      <td>{{ x["days"] }}</td>
-      <td>{{ x["nights"] }}</td>
-      <td>{{ x["price"] }}</td>
-      <td>{{ x["tourtype"] }}</td>
-    </tr>
-  </table>
+      <tr ng-repeat="x in allTours | filter:search">
+        <td><a href="" locid="{{x.id}}" ng-click="populatetoursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deltours(x.id)">Del</a></td>
+        <td>{{ x["id"] }}</td>
+        <td>{{ x["name"] }}</td>
+        <td style="white-space: pre-wrap;">{{ x["description"] }}</td>
+        <td>{{ x["days"] }}</td>
+        <td>{{ x["nights"] }}</td>
+        <td>{{ x["price"] }}</td>
+        <td>{{ x["tourtype"] }}</td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 <!-- New MOdal code using angular-ui -->
