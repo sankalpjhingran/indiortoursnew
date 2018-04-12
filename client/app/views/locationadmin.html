@@ -15,23 +15,26 @@
       <input type="text" class="form-control" placeholder="Search Locations..." ng-model="search">
     </div>
   </div>
-  <table class="table table-hover table-bordered" ng-show="!(error)">
-    <th>Action</th>
-    <th>Id</th>
-    <th>City</th>
-    <th>Country</th>
-    <th>Continent</th>
-    <th>Description</th>
+  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+  <div ng-show="!(loading)">
+    <table class="table table-hover table-bordered" ng-show="!(error)">
+      <th>Action</th>
+      <th>Id</th>
+      <th>City</th>
+      <th>Country</th>
+      <th>Continent</th>
+      <th>Description</th>
 
-    <tr ng-repeat="x in allLocations | filter:search">
-      <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateLocationInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delLocation(x.id)">Del</a></td>
-      <td>{{ x["id"] }}</td>
-      <td>{{ x["city"] }}</td>
-      <td>{{ x["country"] }}</td>
-      <td>{{ x["continent"] }}</td>
-      <td style="white-space: pre-wrap;">{{ x["description"] }}</td>
-    </tr>
-  </table>
+      <tr ng-repeat="x in allLocations | filter:search">
+        <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateLocationInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delLocation(x.id)">Del</a></td>
+        <td>{{ x["id"] }}</td>
+        <td>{{ x["city"] }}</td>
+        <td>{{ x["country"] }}</td>
+        <td>{{ x["continent"] }}</td>
+        <td style="white-space: pre-wrap;">{{ x["description"] }}</td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 <!-- New MOdal code using angular-ui -->

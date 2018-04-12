@@ -22,6 +22,7 @@ $scope.loaddepartureDatesData = function(){
   //Get all tours to be searched by typeahead
   $scope.allTours = undefined;
   $scope.allToursMap = new Map();
+  $scope.loading = true;
   $http.get('/api/tours/all/')
    .then(
        function(response){
@@ -43,6 +44,7 @@ $scope.loaddepartureDatesData = function(){
                   $scope.departureDatesMap.set(departureDates.id, departureDates);
                   departureDates.tourname = $scope.allToursMap.get(departureDates.tour_id).name;
                 });
+                $scope.loading = false;
                 return $scope.alldepartureDatess;
               },
               function(response){

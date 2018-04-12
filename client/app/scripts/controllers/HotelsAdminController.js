@@ -87,6 +87,7 @@ $scope.loadhotelData = function(){
   //Get all tours to be searched by typeahead
   $scope.allLocations = undefined;
   $scope.allLocationsMap = new Map();
+  $scope.loading = true;
   $http.get('/api/location/all/')
    .then(
        function(response){
@@ -109,6 +110,7 @@ $scope.loadhotelData = function(){
                       hotel.hotelcity = $scope.allLocationsMap.get(hotel.location_id).city;
                   }
                 });
+                $scope.loading = false;
                 return $scope.allHotels;
               },
               function(response){

@@ -12,46 +12,49 @@
       <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.location" id="seartourlocation" placeholder="Tour Location">
   </div>
   -->
-  <div class="row">
-    <div ng-repeat="tour in allTours">
-      <div class="col-xs-12 col-sm-4 col-md-4">
-          <div class="productbox">
-            <!-- <img ng-src="/images/{{tour.images[0].filename}}" class="thumb-post img-responsive"> -->
-          <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-              <!-- Indicators
-              <ol class="carousel-indicators">
-                <li data-target="#myCarousel-{{$index}}" ng-repeat="img in tour.images" ng-class="{active: ($index === 0)}" data-slide-to="{{img}}"></li>
-              </ol>
-              -->
-              <div class="carousel-inner">
-                <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
-                  <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
-                  <div class="container">
-                    <div class="carousel-caption">
+  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+  <div ng-show="!(loading)">
+    <div class="row">
+      <div ng-repeat="tour in allTours">
+        <div class="col-xs-12 col-sm-4 col-md-4">
+            <div class="productbox">
+              <!-- <img ng-src="/images/{{tour.images[0].filename}}" class="thumb-post img-responsive"> -->
+            <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+                <!-- Indicators
+                <ol class="carousel-indicators">
+                  <li data-target="#myCarousel-{{$index}}" ng-repeat="img in tour.images" ng-class="{active: ($index === 0)}" data-slide-to="{{img}}"></li>
+                </ol>
+                -->
+                <div class="carousel-inner">
+                  <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
+                    <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                    <div class="container">
+                      <div class="carousel-caption">
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
               </div>
-
-              <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-              <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-
-            </div>
-            <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}">{{tour.name}}</a></div>
-            <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
-              <span ng-repeat="location in tour.siteLocation">
-                | {{location.city}} |
-              </span>
-            </p>
-            <p class="text-center">
-              <strong>{{tour.days}} Days | €{{tour.price}} | Offer Price: €100</strong>
-            </p>
-            <p class="text-center">
-              <span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
-              <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
-            </p>
-            </div>
+              <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}">{{tour.name}}</a></div>
+              <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
+                <span ng-repeat="location in tour.siteLocation">
+                  | {{location.city}} |
+                </span>
+              </p>
+              <p class="text-center">
+                <strong>{{tour.days}} Days | €{{tour.price}} | Offer Price: €100</strong>
+              </p>
+              <p class="text-center">
+                <span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+              </p>
+              </div>
+          </div>
         </div>
-      </div>
+    </div>
   </div>
 </div>

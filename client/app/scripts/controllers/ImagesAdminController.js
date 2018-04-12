@@ -54,11 +54,10 @@ $scope.saveNew = function(){
 
 // get all locations to be displayed on page load
 $scope.loadImagesData = function(){
-
   $scope.allImages = undefined;
-
   //Get all location to be searched by typeahead
   $scope.allImagesMap = new Map();
+  $scope.loading = true;
 
   $http.get('/api/image/allImages/')
    .then(
@@ -70,6 +69,7 @@ $scope.loadImagesData = function(){
          });
          console.log('allImages====>');
          console.log($scope.allImages);
+         $scope.loading = false;
          return $scope.allImages;
        },
        function(response){
