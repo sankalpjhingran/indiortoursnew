@@ -15,26 +15,29 @@
       <input type="text" class="form-control" placeholder="Search Images..." ng-model="search">
     </div>
   </div>
-  <table class="table table-hover table-bordered table-condensed" ng-show="!(error)">
-    <th>Action</th>
-    <th>Id</th>
-    <th>Name</th>
-    <th>Parent Name</th>
-    <th>Parent Id</th>
-    <th>Preview</th>
 
-    <tr ng-repeat="x in allImages | filter:search">
-      <td><a href="" locid="{{x.id}}" ng-click="delImage(x.id)">Del</a></td>
-      <td>{{ x["id"] }}</td>
-      <td>{{ x["filename"] }}</td>
-      <td>{{ x["parentobjectname"] }}</td>
-      <td>{{ x["parentobjectid"] }}</td>
-      <td>
-        <img ng-src="/images/{{x.filename}}" class="thumb scaleMain">
-        </img>
-      </td>
-    </tr>
-  </table>
+  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+  <div ng-show="!(loading)">
+    <table class="table table-hover table-bordered table-condensed" ng-show="!(error)">
+      <th>Action</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Parent Name</th>
+      <th>Parent Id</th>
+      <th>Preview</th>
+      <tr ng-repeat="x in allImages | filter:search">
+        <td><a href="" locid="{{x.id}}" ng-click="delImage(x.id)">Del</a></td>
+        <td>{{ x["id"] }}</td>
+        <td>{{ x["filename"] }}</td>
+        <td>{{ x["parentobjectname"] }}</td>
+        <td>{{ x["parentobjectid"] }}</td>
+        <td>
+          <img ng-src="/images/{{x.filename}}" class="thumb scaleMain">
+          </img>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 <!-- New MOdal code using angular-ui -->

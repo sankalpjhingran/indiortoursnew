@@ -22,6 +22,7 @@ $scope.loadtourNotes = function(){
   //Get all tours to be searched by typeahead
   $scope.allTours = undefined;
   $scope.allToursMap = new Map();
+  $scope.loading = true;
   $http.get('/api/tours/all/')
    .then(
        function(response){
@@ -43,6 +44,7 @@ $scope.loadtourNotes = function(){
                   $scope.notesMap.set(note.id, note);
                   //note.tourname = $scope.allToursMap.get(note.tour_id).name;
                 });
+                $scope.loading = false;
                 return $scope.allNotes;
               },
               function(response){

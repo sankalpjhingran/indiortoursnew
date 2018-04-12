@@ -31,6 +31,7 @@ angular.module('clientApp')
 
     $scope.allToursWithLocations = function(){
       console.log('Calling allToursWithLocations on ng-change===> ' + JSON.stringify($scope.searchTour));
+      $scope.loading = true;
       $http.get('/api/tours/alltourswithlocations', { params:$scope.searchTour } )
        .then(
            function(res){
@@ -57,6 +58,7 @@ angular.module('clientApp')
                         tour.images = imagesMap.get(tour.id);
                       });
                   });
+                  $scope.loading = false;
                   console.log(imagesMap);
               });
            },

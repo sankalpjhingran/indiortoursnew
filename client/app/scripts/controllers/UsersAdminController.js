@@ -13,6 +13,7 @@
 
       $scope.loadUsersData = function(){
         console.log('Calling loadUsersData====>');
+        $scope.loading = true;
         $http.get('/api/regusers/').then(function(res, err){
           $scope.allUsers = res.data;
           $scope.userMap = new Map();
@@ -20,6 +21,7 @@
           angular.forEach($scope.allUsers, function(user) {
             $scope.userMap.set(user.id, user);
           });
+          $scope.loading = false;
         });
       }
 

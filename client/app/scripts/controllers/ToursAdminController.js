@@ -97,7 +97,8 @@ $scope.loadtoursData = function(){
   $scope.allHotels = undefined;
   $scope.allNotes = undefined;
 
-
+  $scope.loading = true;
+  
   $http.get('/api/location/all/')
     .then(function(locations){
       $scope.allLocation = locations.data;
@@ -123,8 +124,6 @@ $scope.loadtoursData = function(){
 
 
    //Load all tourss to be displayed
-   $scope.loading = true;
-
    $http.get('/api/tours/alltourswithlocationsandhotels/')
     .then(
         function(responseTours){

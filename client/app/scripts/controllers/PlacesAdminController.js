@@ -100,6 +100,8 @@ $scope.loadPlacesData = function(){
   //Get all location to be searched by typeahead
   $scope.allLocationsMap = new Map();
 
+  $scope.loading = true;
+
   $http.get('/api/location/all/')
    .then(
        function(response){
@@ -123,6 +125,7 @@ $scope.loadPlacesData = function(){
                   $scope.placeMap.set(place.id, place);
                   place.locationcity = $scope.allLocationsMap.get(place.location_id).city;
                 });
+                $scope.loading = false;
                 return $scope.allPlaces;
               },
               function(response){

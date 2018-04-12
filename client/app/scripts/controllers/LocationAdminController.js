@@ -95,8 +95,9 @@ $scope.saveNew = function(){
 $scope.loadLocationData = function(){
   //Get all tours to be searched by typeahead
 
-   // Load all locations to be displayed
-   $http.get('/api/location/all/')
+  $scope.loading = true;
+  // Load all locations to be displayed
+  $http.get('/api/location/all/')
     .then(
         function(response){
           // success callback
@@ -108,13 +109,14 @@ $scope.loadLocationData = function(){
             $scope.locationMap.set(location.id, location);
           });
           console.log($scope.allLocations);
+          $scope.loading = false;
           return $scope.allLocations;
         },
         function(response){
           // failure call back
         }
      );
-   $http.get('/api/places/all/')
+  $http.get('/api/places/all/')
      .then(function(places){
        $scope.allPlaces = places.data;
      });

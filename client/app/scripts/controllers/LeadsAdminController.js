@@ -13,11 +13,13 @@ angular.module('clientApp')
 // get all locations to be displayed on page load
 $scope.loadLeadData = function(){
    // Load all locations to be displayed
+   $scope.loading = true;
    $http.get('/api/contactus/')
     .then(
         function(response){
           // success callback
           $scope.allLeads = response.data;
+          $scope.loading = false;
           return $scope.allLeads;
         },
         function(response){

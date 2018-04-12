@@ -13,6 +13,7 @@ angular.module('clientApp')
     var imagesMap = new Map();
 
     $scope.allDestinations = function(){
+      $scope.loading = true;
       $http.get('/api/location/all')
        .then(
            function(res){
@@ -39,6 +40,7 @@ angular.module('clientApp')
                         location.images = imagesMap.get(location.id);
                       });
                   });
+                  $scope.loading = false;
                   console.log(imagesMap);
               });
            },
