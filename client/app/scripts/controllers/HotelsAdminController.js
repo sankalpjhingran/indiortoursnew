@@ -107,7 +107,10 @@ $scope.loadhotelData = function(){
                 angular.forEach($scope.allHotels, function(hotel) {
                   $scope.hotelMap.set(hotel.id, hotel);
                   if(hotel.location_id != ''){
-                      hotel.hotelcity = $scope.allLocationsMap.get(hotel.location_id).city;
+                      if( $scope.allLocationsMap.get(hotel.location_id ) &&
+                            $scope.allLocationsMap.get(hotel.location_id).city.length ){
+                        hotel.hotelcity = $scope.allLocationsMap.get( hotel.location_id ).city;
+                      }
                   }
                 });
                 $scope.loading = false;
