@@ -161,9 +161,8 @@ $scope.cancel = function () {
     $scope.modalInstance.dismiss('cancel');
 };
 
-$scope.createUpdateParentTour = function(){
+$scope.createUpdateParentTour = function() {
   // Update the tours if tours id is there
-  console.log($scope.parentTourData);
   if($scope.parentTourData && $scope.parentTourData.id){
     console.log($scope.parentTourData);
     $http.post('/api/parenttours/update/', $scope.parentTourData).then(function(res, err){
