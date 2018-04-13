@@ -123,6 +123,7 @@ app.use('/api/tags/all', tags);
 app.use('/api/tags', tags);
 app.use('/api/parenttours/all', parenttours);
 app.use('/api/parenttours', parenttours);
+app.use('/api/parenttours/update', parenttours);
 
 // In production, we'll actually serve our angular app from express
 console.log('env is====> ' + app.get('env'));
