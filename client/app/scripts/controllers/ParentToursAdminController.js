@@ -179,7 +179,7 @@ $scope.createUpdateParentTour = function() {
     // create tours only if tour id is there
     if($scope.parentTourData){
         console.log($scope.parentTourData.tours);
-        $http.post('/api/parenttours/create/', $scope.parentTourData).then(function(res, err){
+        $http.post('/api/parenttours/', $scope.parentTourData).then(function(res, err){
           console.log(res);
           if(res.status == 200){
             // upload image files
