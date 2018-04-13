@@ -55,7 +55,7 @@ module.exports= {
                 tourInstance.setChildTours(tourInst);
           });
       }else{
-        tourInstance.setTourNote([]);
+        tourInstance.setChildTours([]);
       }
       res.status(200).json(tourInstance);
     })
@@ -94,7 +94,7 @@ module.exports= {
                   updatedTour.setChildTours(tourInst);
             });
         }else{
-            updatedTour.setTourNote([]);
+            updatedTour.setChildTours([]);
         }
         res.status(200).json(updatedRecords);
       })
