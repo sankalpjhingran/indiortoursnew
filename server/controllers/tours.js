@@ -1,3 +1,5 @@
+'use strict';
+
 var models  = require('../models/index');
 var Tour = models.Tour;
 var Location = models.Location;
@@ -30,7 +32,7 @@ module.exports= {
   },
 
   getTourWithLocations(req, res){
-        queryVars = req.query;
+        let queryVars = req.query;
         Tour.findAll({
           where: {id : queryVars.id},
           include: [{ association : 'siteLocation' }]
@@ -45,10 +47,10 @@ module.exports= {
   },
 
   getTourWithRelatedModels(req, res){
-        queryVars = req.query;
+        let queryVars = req.query;
         Tour.findAll({
           where: {id : queryVars.id},
-            include: [{ association : 'siteLocation' }, { association: 'tourTags' }, { association : 'accomodationHotel'}, { association : 'tourcost' }, { association : 'itinerary' }, { association : 'tourNote' }, {association: 'departuredates'}, {association: 'tourTags'}]
+            include: [{ association : 'siteLocation' }, { association : 'accomodationHotel'}, { association : 'tourcost' }, { association : 'itinerary' }, { association : 'tourNote' }, {association: 'departuredates'}, {association: 'tourTags'}]
           })
           .then(function (authors) {
             res.status(200).json(authors);
@@ -60,7 +62,6 @@ module.exports= {
   },
 
   getAllToursWithLocations(req, res){
-        queryVars = req.query;
         Tour.findAll({
           include: [{ association : 'siteLocation'}]
           })
@@ -74,7 +75,7 @@ module.exports= {
   },
 
   searchAllToursWithLocations(req, res){
-        queryVars = req.query;
+        let queryVars = req.query;
         console.log('Request Query Vars====> ');
         console.log(queryVars);
         Tour.findAll({
@@ -91,7 +92,7 @@ module.exports= {
   },
 
   getAllToursWithLocationsAndHotels(req, res){
-        queryVars = req.query;
+        let queryVars = req.query;
         Tour.findAll({
           include: [{ association : 'siteLocation' }, {association: 'accomodationHotel'}, {association: 'tourNote'}, {association: 'tourTags'}]
           })
@@ -105,7 +106,7 @@ module.exports= {
 
   showByName(req, res) {
     console.log('Calling index method...');
-    queryVars = req.query;
+    let queryVars = req.query;
     //console.log(Op);
     Tour.findAll({ where: {
                           name : queryVars.name
@@ -343,7 +344,7 @@ module.exports= {
   //Delete an existing author by the unique ID using model.destroy()
   delete(req, res) {
     console.log(req);
-    queryVars = req.query;
+    let queryVars = req.query;
     Tour.destroy({
       where: {
         id: queryVars.id
