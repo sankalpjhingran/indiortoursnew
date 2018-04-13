@@ -1,0 +1,113 @@
+<div id="allTours" ng-init="loadParentToursData()">
+  <div class="row align-items-center">
+    <div class="col-sm-6 col-auto mr-auto">
+      <h3 class="align-middle">Parent Tours</h3>
+    </div>
+    <div class="col-sm-6 col-auto">
+      <div class="text-right align-middle">
+        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <input type="text" class="form-control" placeholder="Search Tours..." ng-model="search">
+    </div>
+  </div>
+  
+  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+  <div ng-show="!(loading)">
+    <table class="table table-hover table-bordered" ng-show="!(error)">
+      <th>Action</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Description</th>
+
+      <tr ng-repeat="x in allParentTours | filter:search">
+        <td><a href="" locid="{{x.id}}" ng-click="populateParentToursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delparenttours(x.id)">Del</a></td>
+        <td>{{ x["id"] }}</td>
+        <td>{{ x["name"] }}</td>
+        <td style="white-space: pre-wrap;">{{ x["description"] }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- New MOdal code using angular-ui -->
+<div class="modal-demo">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Create/Edit Parent Tour</h3>
+        </div>
+        <form role="form" method="POST" ng-submit="createUpdateParentTour();">
+          <div class="modal-body" id="modal-body">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input ng-model="parentTourData.name" type="text" class="form-control input-sm" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea ng-model="parentTourData.description" class="form-control input-sm" rows="5" id="description" placeholder="Description"></textarea>
+            </div>
+            <div class="form-group">
+              <div id="remote">
+                  <label for="parenttourids">Tours</label>
+                  <!-- New locations multi select -->
+                  <ui-select id="parenttourids" multiple ng-model="parentTourData.tours" theme="bootstrap" close-on-select="false"  title="Select Tours...">
+                  <ui-select-match placeholder="Select Tours...">{{$item.name}}</ui-select-match>
+                  <ui-select-choices repeat="tour in allTours | propsFilter: {name: $select.search}">
+                    <div ng-bind-html="tour.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div  class="btn btn-default"
+                    ngf-select
+                    ng-model="parentTourData.images"
+                    ngf-multiple="true"
+                    accept="image/*"
+                    ngf-max-height="2000"
+                    ngf-max-size="10MB"
+                    ngf-keep="distinct"
+                    ngf-capture="camera"
+                    ngf-max-files="5">Select Images (max:5)</div>
+              <br><br>
+              <div>
+                  <label>New Images</label>
+                  <div class="img-row">
+                      <div class="img-column" ng-repeat="f in parentTourData.images" ng-show="parentTourData.images && parentTourData.images.length">
+                        <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
+                          {{f.$errorParam}}
+                        </img>
+                        <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <label>Uploaded Images</label>
+                  <div class="img-row">
+                    <div class="img-column" ng-repeat="f in parentTourData.newImages" ng-show="parentTourData.newImages && parentTourData.newImages.length">
+                      <img ng-src="/images/{{f.filename}}" class="thumb scaleMain"></img>
+                      <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
+                    </div>
+                  </div>
+              </div>
+
+              <!-- Modal body ends -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group" role="group" aria-label="footer buttons">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <!-- <button type="button" class="btn btn-primary">Save As</button> -->
+              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>
+    </script>
+    <div class="modal-parent">
+    </div>
+</div>
+<!--Ends----->

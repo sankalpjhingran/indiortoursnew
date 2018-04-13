@@ -222,6 +222,24 @@ angular
               }
             }
         })
+        .state('parenttours', {
+            url: '/parenttours',
+            views:{
+              subheader: {
+                //No need to show subheader for Admin
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                templateUrl: 'views/adminsidesction.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/parenttoursadmin.html',
+                controller: 'ParentToursAdminController'
+              }
+            }
+        })
         .state('locationadmin', {
             url: '/locationadmin',
             views:{

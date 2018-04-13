@@ -33,6 +33,7 @@ var notes = require('./routes/tournotes');
 var users = require('./routes/user');
 var places = require('./routes/place');
 var tags = require('./routes/tag');
+var parenttours = require('./routes/parenttour');
 
 //load passport strategies
 require('./config/passport')(passport, models.User);
@@ -120,6 +121,8 @@ app.use('/api/places', places);
 app.use('/api/places/all', places);
 app.use('/api/tags/all', tags);
 app.use('/api/tags', tags);
+app.use('/api/parenttours/all', parenttours);
+app.use('/api/parenttours', parenttours);
 
 // In production, we'll actually serve our angular app from express
 console.log('env is====> ' + app.get('env'));
