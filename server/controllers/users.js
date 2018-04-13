@@ -1,8 +1,11 @@
+'use strict';
+
 var models  = require('../models/index');
 var bCrypt = require('bcrypt-nodejs');
 var User = models.User;
+const emailUtils = require('../utils/EmailUtils');
 
-module.exports= {
+var users = {
   //Get a list of all authors using model.findAll()
   sync(){
       User.sync();
@@ -25,12 +28,59 @@ module.exports= {
           }).then()
           .spread((user, created) => {
               if(created){
+                  let subject = 'Welcome To Indior Tours...!';
+                  let text = 'Thanks for signing up with us, please click on the link below to activate your account!';
+                  //let link = 
+                  console.log(req.get('host'));
+                  console.log(req.protocol);
+                  console.log(req.originalUrl);
+                  console.log(req.protocol + '://' + req.get('host') + '/api/verify?link=hjasdgajsd8712y3hsjgdajhasdasdhg23egjahsd');
+                  let link = req.protocol + '://' + req.get('host') + '/api/verify?link=hjasdgajsd8712y3hsjgdajhasdasdhg23egjahsd'; 
+                  let html = text + '<br />' + link;
+                  emailUtils.sendNewUserEmail(user.email, subject, text, html);
                   return res.json(user);
               }else{
                   return res.json('User Already Exists...');
               }
           });
   },
+
+  /*
+  sendNewUserEmail(user){
+    console.log('Calling sendNewUserEmail======>');
+
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+          user: 'sankalp.jhingran@gmail.com',
+          pass: 'Goldenhouse#56',
+      },
+    });
+
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: 'sankalp.jhingran@gmail.com', // sender address
+        to: user.email, // list of receivers
+        subject: 'Hello ✔', // Subject line
+        text: 'Hello world?', // plain text body
+        html: '<b>Hello world?</b>' // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+        // Preview only available when sending through an Ethereal account
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    });
+  },
+  */
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
@@ -91,3 +141,4 @@ module.exports= {
     });
   }
 };
+module.exports = users;
