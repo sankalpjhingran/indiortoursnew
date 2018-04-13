@@ -7,16 +7,21 @@ module.exports = {
     dialect: 'mysql',
     port: 3306
   },
-    production: {
+  production: {
     url: process.env.DATABASE_URL,
     dialect: 'mysql'
   },
-    staging: {
+  staging: {
     url: process.env.DATABASE_URL,
     dialect: 'mysql'
   },
-    test: {
+  test: {
     url: process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/bookmark_test',
     dialect: 'postgres'
+  },
+  senderemail:{
+    email: 'sankalp.jhingran@gmail.com',
+    password: 'Goldenhouse#56',
+    service: 'Gmail'
   }
 };
