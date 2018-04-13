@@ -41,5 +41,6 @@ models.User.sync();
 models.Place.sync();
 models.Tag.sync();
 models.TagAssignment.sync();
+models.TourGroup.sync();
 
 module.exports = router;
