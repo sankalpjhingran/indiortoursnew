@@ -12,7 +12,6 @@ angular.module('clientApp')
   $rootScope.$state = $state;
 
   var destinationId = $stateParams.id;
-  console.log('destinationId===>', destinationId);
   $scope.destination = [];
 
   $scope.getDestinationDetails = function(){
