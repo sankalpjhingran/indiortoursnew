@@ -102,6 +102,40 @@ angular
               }
             }
         })
+        .state('viewtrip', {
+            url:'/viewtrip?id',
+            views:{
+              subheader: {
+                //templateUrl: 'views/toursubheader.html',
+                //controller: 'TourViewController'
+              },
+              sidesection: {
+                templateUrl: 'views/toursidesection.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/viewTrip.html',
+                controller: 'TripViewController'
+              }
+            }
+        })
+        .state('trips', {
+            url:'/trips',
+            views:{
+              subheader: {
+                //templateUrl: 'views/toursubheader.html',
+                //controller: 'TourViewController'
+              },
+              sidesection: {
+                templateUrl: 'views/toursidesection.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/trips.html',
+                controller: 'TripsController'
+              }
+            }
+        })
         .state('about', {
             url:'/about',
             views:{
