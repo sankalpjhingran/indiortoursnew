@@ -47,7 +47,7 @@ module.exports= {
   //Edit an existing author details using model.update()
   update(req, res) {
     console.log('update req===>', req.body);
-    queryVars = req.body;
+    let queryVars = req.body;
     Tag.update(req.body, {
       where: {
         id: queryVars.id
@@ -64,7 +64,7 @@ module.exports= {
   //Delete an existing author by the unique ID using model.destroy()
   delete(req, res) {
     console.log(req);
-    queryVars = req.query;
+    let queryVars = req.query;
     Tag.destroy({
       where: {
         id: queryVars.id
