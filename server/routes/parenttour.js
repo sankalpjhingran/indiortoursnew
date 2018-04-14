@@ -7,7 +7,7 @@ var parentTourController  = require('../controllers/parenttour');
 
 console.log('In parenttour route===>');
 router.post('/', parentTourController.create);
-//router.get('/', parentTourController.show);
+router.get('/viewtrip', parentTourController.show);
 router.get('/all/', parentTourController.index);
 router.delete('/', parentTourController.delete);
 router.post('/update/', parentTourController.update);

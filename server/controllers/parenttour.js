@@ -25,8 +25,9 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    ParentTour.findById(req.params.id, {})
+    ParentTour.findById(req.query.id, {include: [{ association : 'childTours' }]})
     .then(function (author) {
+      console.log(author.childTours);
       res.status(200).json(author);
     })
     .catch(function (error){
