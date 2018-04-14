@@ -6,6 +6,7 @@ const config = require('../config/config');
 //create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
 	service: config.senderemail.service,
+	secure: false,
 	auth: {
 	  user: config.senderemail.email,
 	  pass: config.senderemail.password,
