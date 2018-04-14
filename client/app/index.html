@@ -32,7 +32,6 @@
 
   <body ng-app="clientApp" ng-controller="authcontroller">
     <!-- Add your site or application content here -->
-    <div class="container">
       <div style="background-color:#3171bb;" ng-include src="'views/header.html'" ng-init="checkAuthenticationStatus">
       </div>
       <div class="row">
@@ -42,6 +41,7 @@
       </div>
       <!--Dont show sidebar on home page-->
 
+      <div class="container">
       <div class="row" ng-show="$state.current.name == 'main'">
         <div class="col-sm-12">
           <div ui-view="mainsection">
@@ -72,12 +72,14 @@
           </div>
         </div>
       </div>
-
-      <!--Site's footer start-->
-      <div style="background-color:#3171bb;" ng-include src="'views/footer.html'">
       </div>
-      <!--Footer end -->
-    </div>
+
+      <footer class="footer" style="border-top:none;">
+        <!--Site's footer start-->
+        <div style="background-color:#3171bb;" ng-include src="'views/footer.html'">
+        </div>
+        <!--Footer end -->
+      </footer>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
