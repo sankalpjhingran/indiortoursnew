@@ -95,7 +95,7 @@ module.exports= {
   //Edit an existing author details using model.update()
   update(req, res) {
     console.log('update req===>', req.body);
-    queryVars = req.body;
+    let queryVars = req.body;
     Image.update(req.body, {
       where: {
         id: queryVars.id
@@ -113,7 +113,7 @@ module.exports= {
   delete(req, res) {
     console.log('Delete Request is=====>');
     console.log(req.query);
-    queryVars = req.query;
+    let queryVars = req.query;
     Image.destroy({
       where: {
         id: queryVars.id

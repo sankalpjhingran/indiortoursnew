@@ -113,7 +113,7 @@ module.exports= {
   //Delete an existing author by the unique ID using model.destroy()
   delete(req, res) {
     console.log(req);
-    queryVars = req.query;
+    let queryVars = req.query;
     ParentTour.destroy({
       where: {
         id: queryVars.id
