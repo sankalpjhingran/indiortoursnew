@@ -72,6 +72,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(logger('dev'));
 app.use(logger('production'));
 app.use(bodyParser.json());
+app.use(app.bodyParser({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
