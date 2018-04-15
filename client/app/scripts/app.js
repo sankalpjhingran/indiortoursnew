@@ -102,6 +102,40 @@ angular
               }
             }
         })
+        .state('hotels', {
+            url:'/hotels',
+            views:{
+              subheader: {
+                //templateUrl: 'views/toursubheader.html',
+                //controller: 'TourViewController'
+              },
+              sidesection: {
+                templateUrl: 'views/toursidesection.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/hotels.html',
+                controller: 'HotelsController'
+              }
+            }
+        })
+        .state('hotel', {
+            url:'/hotel?id',
+            views:{
+              subheader: {
+                //templateUrl: 'views/toursubheader.html',
+                //controller: 'TourViewController'
+              },
+              sidesection: {
+                templateUrl: 'views/toursidesection.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/viewhotel.html',
+                controller: 'HotelViewController'
+              }
+            }
+        })
         .state('viewtrip', {
             url:'/viewtrip?id',
             views:{
@@ -150,6 +184,23 @@ angular
               mainsection:{
                 templateUrl: 'views/about.html',
                 controller: 'AboutCtrl'
+              }
+            }
+        })
+        .state('mice', {
+            url:'/mice',
+            views:{
+              subheader: {
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                template: 'This is the side section',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/MICE.html',
+                controller: ''
               }
             }
         })
