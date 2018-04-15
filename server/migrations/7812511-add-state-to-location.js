@@ -11,10 +11,10 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
       */
       return queryInterface.addColumn(
-        'ParentTours', // name of Target model
-        'description', // name of the key we're adding
+        'Locations', // name of Target model
+        'state', // name of the key we're adding
         {
-          type: DataTypes.TEXT('medium'),
+          type: Sequelize.STRING,
         }
       );
 
