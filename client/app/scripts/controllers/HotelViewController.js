@@ -12,7 +12,7 @@ angular.module('clientApp')
   $rootScope.$state = $state;
 
   var hotelId = $stateParams.id;
-  $scope.destination = [];
+  $scope.hotel = [];
 
   $scope.getDestinationDetails = function(){
     $http.get('/api/hotel/', {params: {id: hotelId}})
@@ -24,7 +24,7 @@ angular.module('clientApp')
            imageIds.push(hotelId);
            $http.post('/api/image/all/', {tourids:imageIds, parentobjectname: 'hotel'})
             .then(function(images){
-                $scope.destination.images = images;
+                $scope.hotel.images = images;
             });
          },
          function(response){
