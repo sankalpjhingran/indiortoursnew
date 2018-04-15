@@ -5,6 +5,7 @@ var sequelize  = require('../models/index');
 module.exports = (sequelize, DataTypes) => {
   var Location = sequelize.define("Location", {
         city: {type: DataTypes.STRING},
+        state: {type: DataTypes.STRING},
         country:{type: DataTypes.STRING},
         continent:{type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},

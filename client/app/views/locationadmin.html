@@ -21,6 +21,7 @@
       <th>Action</th>
       <th>Id</th>
       <th>City</th>
+      <th>State</th>
       <th>Country</th>
       <th>Continent</th>
       <th>Description</th>
@@ -29,6 +30,7 @@
         <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateLocationInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delLocation(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["city"] }}</td>
+        <td>{{ x["state"] }}</td>
         <td>{{ x["country"] }}</td>
         <td>{{ x["continent"] }}</td>
         <td style="white-space: pre-wrap;">{{ x["description"] }}</td>
@@ -48,6 +50,10 @@
                   <div class="form-group" >
                     <label for="city">City</label>
                     <input type="text" class="form-control input-sm" ng-model="locationData.city" id="city" placeholder="City">
+                  </div>
+                  <div class="form-group" >
+                    <label for="state">State</label>
+                    <input type="text" class="form-control input-sm" ng-model="locationData.state" id="state" placeholder="State">
                   </div>
                   <div class="form-group">
                     <label for="country">Country</label>
