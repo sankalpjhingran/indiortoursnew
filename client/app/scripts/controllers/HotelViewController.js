@@ -14,7 +14,7 @@ angular.module('clientApp')
   var hotelId = $stateParams.id;
   $scope.hotel = [];
 
-  $scope.getDestinationDetails = function(){
+  $scope.getHotelDetails = function(){
     $http.get('/api/hotel/', {params: {id: hotelId}})
      .then(
          function(res){
