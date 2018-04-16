@@ -15,7 +15,7 @@ module.exports = {
         'micecategory', // name of the key we're adding
         {
           type: Sequelize.STRING, 
-        },
+        }
       );
   },
 
