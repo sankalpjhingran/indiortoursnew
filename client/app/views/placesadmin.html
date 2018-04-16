@@ -22,6 +22,7 @@
       <th>Action</th>
       <th>Id</th>
       <th>Name</th>
+      <th>Type</th>
       <th>Location</th>
       <th>Description</th>
 
@@ -29,6 +30,7 @@
         <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populatePlaceInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delPlace(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["name"] }}</td>
+        <td>{{ x["type"] }}</td>
         <td>{{ x["locationcity"] }}</td>
         <td style="white-space: pre-wrap;">{{ x["description"] }}</td>
       </tr>
@@ -36,7 +38,7 @@
   </div>
 </div>
 
-<!-- New MOdal code using angular-ui -->
+<!-- New Modal code using angular-ui -->
 <div class="modal-demo">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
@@ -48,6 +50,111 @@
             <label for="name">Name</label>
             <input type="text" class="form-control input-sm" ng-model="placeData.name" id="name" placeholder="Name">
           </div>
+          <div class="form-group">
+              <label for="type">Type</label>
+              <select class="form-control" id="type" ng-model="placeData.type">
+                <option>Amusement Park</option>
+                <option>Aquarium</option>
+                <option>Archaeological Site</option>
+                <option>Architecture</option>
+                <option>Area</option>
+                <option>Arts Centre</option>
+                <option>Arts/Crafts Centre</option>
+                <option>Ashram</option>
+                <option>Beach</option>
+                <option>Bird Sanctuary</option>
+                <option>Bridge</option>
+                <option>Buddhist Monastery</option>
+                <option>Buddhist Monument</option>
+                <option>Buddhist Sculpture</option>
+                <option>Buddhist Site</option>
+                <option>Buddhist Statue</option>
+                <option>Buddhist Stupa</option>
+                <option>Buddhist Temple</option>
+                <option>Cable Car</option>
+                <option>Castle</option>
+                <option>Cathedral</option>
+                <option>Cave</option>
+                <option>Cemetery</option>
+                <option>Chapel</option>
+                <option>Church</option>
+                <option>Convent</option>
+                <option>Cultural Centre</option>
+                <option>Factory</option>
+                <option>Farm</option>
+                <option>Film Location</option>
+                <option>Forest</option>
+                <option>Fort</option>
+                <option>Fortress</option>
+                <option>Fountain</option>
+                <option>Gallery</option>
+                <option>Gardens</option>
+                <option>Gate</option>
+                <option>Ghat</option>
+                <option>Handicrafts Workshop</option>
+                <option>Harbour</option>
+                <option>Hill</option>
+                <option>Hindu Monument</option>
+                <option>Hindu Shrine</option>
+                <option>Hindu Site</option>
+                <option>Hindu Temple</option>
+                <option>Historic Building</option>
+                <option>Historic Site</option>
+                <option>Hot Springs</option>
+                <option>Islamic Palace</option>
+                <option>Islamic Shrine</option>
+                <option>Islamic Site</option>
+                <option>Islamic Tomb</option>
+                <option>Island</option>
+                <option>Jain Site</option>
+                <option>Jain Temple</option>
+                <option>Lake</option>
+                <option>Landmark</option>
+                <option>Library</option>
+                <option>Lighthouse</option>
+                <option>Market</option>
+                <option>Mausoleum</option>
+                <option>Meadow</option>
+                <option>Memorial</option>
+                <option>Monastery</option>
+                <option>Monument</option>
+                <option>Mosque</option>
+                <option>Mountain</option>
+                <option>Museum</option>
+                <option>National Park</option>
+                <option>Nature Reserve</option>
+                <option>Notable Building</option>
+                <option>Palace</option>
+                <option>Park</option>
+                <option>Pass</option>
+                <option>Picnic Area</option>
+                <option>Pier</option>
+                <option>Planetarium</option>
+                <option>Plantation</option>
+                <option>Religious Site</option>
+                <option>River</option>
+                <option>Rock</option>
+                <option>Ruins</option>
+                <option>Shrine</option>
+                <option>Sikh Site</option>
+                <option>Sikh Temple</option>
+                <option>Square</option>
+                <option>Statue</option>
+                <option>Synagogue</option>
+                <option>Tea Estate</option>
+                <option>Temple</option>
+                <option>Tomb</option>
+                <option>Tower</option>
+                <option>Viewpoint</option>
+                <option>Village</option>
+                <option>Waterfall</option>
+                <option>Waterfront</option>
+                <option>Wildlife Reserve</option>
+                <option>Winery</option>
+                <option>Workshop</option>
+                <option>Zoo</option>
+              </select>
+            </div>
           <div class="form-group">
             <div id="remote">
               <label for="location_id">Location</label>

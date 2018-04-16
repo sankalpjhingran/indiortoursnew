@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   var Place = sequelize.define("Place", {
         name: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
+        type: {type: DataTypes.STRING},
       }
   );
   Place.associate = function(models) {
