@@ -68,7 +68,7 @@
             </div>
             <div class="form-group">
               <label for="nights">Nights</label>
-              <input ng-model="tourData.nights" type="nights" class="form-control input-sm" id="nights" placeholder="Number of Nights">
+              <input ng-model="tourData.nights" type="text" class="form-control input-sm" id="nights" placeholder="Number of Nights">
             </div>
             <div class="form-group">
               <label for="price">Price</label>
@@ -137,6 +137,24 @@
                     </ui-select-choices>
                   </ui-select>
               </div>
+            </div>
+            <div class="form-group">
+              <label for="micetour">Is this a MICE Tour?
+                <input ng-model="tourData.ismicetour" type="checkbox" id="micetour">
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="micecategory">MICE Category</label>
+              <select class="form-control" id="micecategory" ng-model="tourData.micecategory">
+                <option>Meetings</option>
+                <option>Business Meetings</option>
+                <option>Corporate Meetings</option>
+                <option>Thematic Meetings</option>
+                <option>Conferences</option>
+                <option>Conventions</option>
+                <option>Exhibitions and Trade Shows</option>
+                <option>Events Management</option>
+              </select>
             </div>
             <div class="form-group">
               <div  class="btn btn-default"
