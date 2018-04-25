@@ -88,6 +88,7 @@
                     <div ng-bind-html="location.city | highlight: $select.search"></div>
                     <small>
                       City: {{location.city}}
+                      State: {{ location.state }} 
                       Country: <span ng-bind-html="''+location.country | highlight: $select.search"></span>
                     </small>
                   </ui-select-choices>
