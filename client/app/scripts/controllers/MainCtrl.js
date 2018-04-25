@@ -67,6 +67,11 @@ angular.module('clientApp')
 
              $scope.allTours.forEach(function(tour){
                 tourids.push(tour.id);
+                var tempLocations = [];
+                tour.siteLocation.forEach(function(location){
+                    tempLocations.push(location.city);
+                });
+                tour.locations = tempLocations;
              });
 
              $http.post('/api/image/all', {tourids: tourids, parentobjectname: 'tour'})
