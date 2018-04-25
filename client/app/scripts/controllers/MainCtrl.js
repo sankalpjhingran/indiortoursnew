@@ -8,7 +8,11 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', ['$http','$state', '$rootScope', '$scope', function ($http, $state, $rootScope, $scope) {
+  .controller('MainCtrl', ['$http','$state', '$rootScope', '$scope', 'localStorageService', 'Carousel', function ($http, $state, $rootScope, $scope, localStorageService, Carousel) {
+    var imagesMap = new Map();
+    $scope.toursMap = new Map();
+    $scope.recentTours = [];
+
     $rootScope.$state = $state;
     $scope.rate = 7;
     $scope.max = 5;
@@ -27,11 +31,33 @@ angular.module('clientApp')
       {stateOff: 'glyphicon-off'}
     ];
 
-    var imagesMap = new Map();
+    $scope.addToRecentItems = function(val) {
+      // Parse the JSON stored in allEntriesP
+      var existingEntries = JSON.parse(localStorageService.get("recenttours"));
+      if(existingEntries == null) existingEntries = [];
+      var recent = {
+          tourid: val,
+      };
 
-    $scope.allToursWithLocations = function(){
+      existingEntries.push(recent);
+      var uniqueEntries = $scope.removeDuplicates(existingEntries);
+      localStorageService.set("recenttours", JSON.stringify(uniqueEntries));
+    }
+
+    $scope.removeDuplicates = function (arr){
+      var uniqueArray=[];
+      for(var i = 0;i < arr.length; i++){
+          if(uniqueArray.indexOf(arr[i]) == -1){
+              uniqueArray.push(arr[i]);
+          }
+      }
+      return uniqueArray;
+    }
+
+    $scope.allToursWithLocations = function() {
       console.log('Calling allToursWithLocations on ng-change===> ' + JSON.stringify($scope.searchTour));
       $scope.loading = true;
+
       $http.get('/api/tours/alltourswithlocations', { params:$scope.searchTour } )
        .then(
            function(res){
@@ -43,7 +69,6 @@ angular.module('clientApp')
                 tourids.push(tour.id);
              });
 
-             console.log(tourids);
              $http.post('/api/image/all', {tourids: tourids, parentobjectname: 'tour'})
               .then(function(images){
                   angular.forEach(tourids, function(tourid){
@@ -56,44 +81,21 @@ angular.module('clientApp')
                       imagesMap.set(tourid, tempImages);
                       angular.forEach($scope.allTours, function(tour){
                         tour.images = imagesMap.get(tour.id);
+                        $scope.toursMap.set(tour.id, tour);
                       });
+                      console.log($scope.toursMap);
                   });
                   $scope.loading = false;
-                  console.log(imagesMap);
-              });
-           },
-           function(response){
-             // failure call back
-           }
-        );
-    }
 
-    $scope.searchAllToursWithLocations = function(){
-      console.log('Calling allToursWithLocations on ng-change===> ' + JSON.stringify($scope.searchTour));
-      $http.get('/api/tours/searchtourwithlocations', { params:$scope.searchTour } )
-       .then(
-           function(res){
-             // success callback
-             $scope.allTours = res.data;
-             var tourids = [];
-             $scope.allTours.forEach(function(tour){
-                tourids.push({parentobjectname: 'tour', parentobjectid: tour.id});
-             });
-             $http.get('/api/image/all', tourids)
-              .then(function(images){
-                  angular.forEach(tourids, function(tourid){
-                      var tempImages = [];
-                      angular.forEach(images.data, function(image){
-                        if(image.parentobjectname == tourid.parentobjectname && image.parentobjectid == tourid.parentobjectid){
-                              tempImages.push(image);
-                        }
-                      });
-                      imagesMap.set(tourid.parentobjectid, tempImages);
-                      angular.forEach($scope.allTours, function(tour){
-                        tour.images = imagesMap.get(tour.id);
-                      });
+                  console.log($scope.toursMap);
+                  angular.forEach(JSON.parse(localStorageService.get("recenttours")), function(tour){
+                    console.log($scope.toursMap.get(tour.tourid));
+                    $scope.recentTours.push($scope.toursMap.get(tour.tourid));
                   });
-                  console.log(imagesMap);
+                  var uniqueEntries = $scope.removeDuplicates($scope.recentTours);
+                  $scope.recentTours = [];
+                  $scope.recentTours = uniqueEntries;
+                  console.log($scope.recentTours);
               });
            },
            function(response){

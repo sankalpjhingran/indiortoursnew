@@ -26,12 +26,39 @@ angular
     'textAngular',
     'ng.group',
     'angular.filter',
-    'ngCookies'
+    'LocalStorageModule',
+    'ui.carousel',
   ])
-.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider) {
-    //$urlRouterProvider.otherwise('/');
 
+  .run(['Carousel', function(Carousel) {
+    Carousel.setOptions({
+      arrows: true,
+      autoplay: true,
+      autoplaySpeed: 2000,
+      cssEase: 'ease',
+      dots: false,
+
+      easing: 'linear',
+      fade: false,
+      infinite: true,
+      initialSlide: 0,
+
+      slidesToShow: 1,
+      slidesToScroll: 3,
+      speed: 2000,
+    });
+  }])
+
+.config(function (localStorageServiceProvider) {
+  localStorageServiceProvider
+    .setPrefix('clientApp')
+    .setStorageType('sessionStorage')
+    .setNotify(true, true)
+})
+
+.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('/404');
 
     $stateProvider
         .state('main', {
@@ -518,8 +545,4 @@ angular
             }
           }
       })
-
-      $urlRouterProvider.otherwise('/404');
-}
-
-]);
+}]);
