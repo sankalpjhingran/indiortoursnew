@@ -1,3 +1,4 @@
+
 <div ng-init="allToursWithLocations()">
   <h3>
     Indior Tour Offers you Luxury Tours, Tailor-Made Holiday or Group Tours
@@ -5,52 +6,72 @@
   <p class="main">
     One of the best travel companies offers high quality group tours, private journeys and tailor-made holidays to one of the world's most fascinating regions: The Indian Subcontinent covering India, Nepal, Bhutan, Sri Lanka, Tibet and Maldives. We offer to a large selection from Economy Tours to luxury holidays; each one planned by experts.
   </p>
-  <!--
-  <div id=searchPanel>
-      <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.id" id="seartourid" placeholder="Tour ID">
-      <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.name" id="seartourname" placeholder="Tour Name">
-      <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.location" id="seartourlocation" placeholder="Tour Location">
-  </div>
-  -->
+
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-  <div ng-show="!(loading)">
-    <div class="row">
-      <div ng-repeat="tour in allTours">
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="productbox">
-              <!-- <img ng-src="/images/{{tour.images[0].filename}}" class="thumb-post img-responsive"> -->
-            <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                <!-- Indicators
-                <ol class="carousel-indicators">
-                  <li data-target="#myCarousel-{{$index}}" ng-repeat="img in tour.images" ng-class="{active: ($index === 0)}" data-slide-to="{{img}}"></li>
-                </ol>
-                -->
-                <div class="carousel-inner">
-                  <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
-                    <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
-                    <div class="container">
-                      <div class="carousel-caption">
+    <div ng-show="!(loading)">
+      <div class="row">
+        <div ng-repeat="tour in allTours">
+          <div class="col-xs-12 col-sm-4 col-md-4">
+              <div class="productbox">
+                <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
+                        <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                        <div class="container">
+                          <div class="carousel-caption">
+                          </div>
+                        </div>
                       </div>
                     </div>
+                    <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                    <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
                   </div>
+                  <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">{{tour.name}}</a></div>
+                  <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
+                    <span ng-repeat="location in tour.siteLocation">
+                      | {{location.city}} |
+                    </span>
+                  </p>
+                  <p class="text-center">
+                    <strong>{{tour.days}} Days | €{{tour.price}} | Offer Price: €100</strong>
+                  </p>
                 </div>
-
-                <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-
-              </div>
-              <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}">{{tour.name}}</a></div>
-              <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
-                <span ng-repeat="location in tour.siteLocation">
-                  | {{location.city}} |
-                </span>
-              </p>
-              <p class="text-center">
-                <strong>{{tour.days}} Days | €{{tour.price}} | Offer Price: €100</strong>
-              </p>
-              </div>
+            </div>
           </div>
-        </div>
+      </div>
     </div>
-  </div>
+
+    <h4>
+      Your recently viewed items and featured recommendations
+    </h4>
+    <h5>
+      Recently viewed items
+    </h5>
+    <ui-carousel  slides="recentTours"
+                  slides-to-show="4"
+                  slides-to-scroll="1"
+                  initial-slide="1"
+                  autoplay="true"
+                  autoplay-speed="2000"
+                  dots="false">
+        <carousel-item>
+          <div class="productbox" style="margin-right:5px;margin-left:5px;">
+            <img style="height:170px;width:100%;" ng-src="/images/{{item.images[0].filename}}" alt="{{item.images[0].filename}}" class="img-responsive thumb-post">
+            <div class="producttitle text-center">{{ item.name }}</div>
+          </div>
+        </carousel-item>
+        <!-- For customize carousel next, previous button -->
+        <carousel-prev>
+          <!-- placed your previous button here -->
+          <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+          <!-- end -->
+        </carousel-prev>
+
+        <carousel-next>
+          <!-- placed your next button here -->
+          <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+          <!-- end -->
+        </carousel-next>
+    </ui-carousel>
+
 </div>
