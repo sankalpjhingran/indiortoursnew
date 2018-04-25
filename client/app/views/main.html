@@ -23,8 +23,8 @@
                         </div>
                       </div>
                     </div>
-                    <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                    <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
+                    <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
                   </div>
                   <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">{{tour.name | truncate: 32 : '...' : false }}</a></div>
                   <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
@@ -63,13 +63,13 @@
         <!-- For customize carousel next, previous button -->
         <carousel-prev>
           <!-- placed your previous button here -->
-          <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+          <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><i class="fas fa-arrow-circle-left fa-sm"></i></a>
           <!-- end -->
         </carousel-prev>
 
         <carousel-next>
           <!-- placed your next button here -->
-          <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+          <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><i class="fas fa-arrow-circle-right fa-sm"></i></a>
           <!-- end -->
         </carousel-next>
     </ui-carousel>
