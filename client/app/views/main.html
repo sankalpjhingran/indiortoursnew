@@ -26,10 +26,10 @@
                     <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
                     <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
                   </div>
-                  <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">{{tour.name}}</a></div>
+                  <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">{{tour.name | truncate: 32 : '...' : false }}</a></div>
                   <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
-                    <span ng-repeat="location in tour.siteLocation">
-                      | {{location.city}} |
+                    <span>
+                      {{ tour.locations | join:' | ' | truncate: 65 : '...' : false  }}
                     </span>
                   </p>
                   <p class="text-center">
@@ -57,7 +57,7 @@
         <carousel-item>
           <div class="productbox" style="margin-right:5px;margin-left:5px;">
             <img style="height:170px;width:100%;" ng-src="/images/{{item.images[0].filename}}" alt="{{item.images[0].filename}}" class="img-responsive thumb-post">
-            <div class="producttitle text-center">{{ item.name }}</div>
+            <div class="producttitle text-center">{{ item.name | truncate: 20 : '...' : false }}</div>
           </div>
         </carousel-item>
         <!-- For customize carousel next, previous button -->
