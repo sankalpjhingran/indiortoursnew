@@ -1,5 +1,9 @@
 @import './libs/bootstrap';
 
+.verticalalignsvg svg {
+  height: 100%;
+}
+
 .productbox {
   border-radius: 4px;
   background-color:#ffffff;
@@ -327,7 +331,7 @@ footer{
 }
 
 .notLoading{
-  display:none;  
+  display:none;
 }
 .loader,
 .loader:after {
@@ -371,4 +375,3 @@ footer{
     transform: rotate(360deg);
   }
 }
-
