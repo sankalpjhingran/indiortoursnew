@@ -28,6 +28,7 @@
       <th>Type</th>
       <th>Status</th>
       <th>Created Date</th>
+      <th>Updated Date</th>
       <tr ng-repeat="x in allUsers | filter:search">
         <td><a href="" locid="{{x.id}}" ng-click="populateUserInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delLocation(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
@@ -37,7 +38,8 @@
         <td>{{ x["email"] }}</td>
         <td>{{ x["type"] }}</td>
         <td>{{ x["status"] }}</td>
-        <td>{{ x["createdAt"] | date:"yyyy-MM-dd" }}</td>
+        <td>{{ x["createdAt"] | date : "short" }}</td>
+        <td>{{ x["updatedAt"] | date : "short" }}</td>
       </tr>
     </table>
   </div>

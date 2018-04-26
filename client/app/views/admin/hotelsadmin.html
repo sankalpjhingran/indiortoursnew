@@ -1,0 +1,132 @@
+<div id="allHotels" ng-init="loadhotelData()">
+  <div class="row align-items-center">
+    <div class="col-sm-6 col-auto mr-auto">
+      <h3 class="align-middle">Hotels</h3>
+    </div>
+    <div class="col-sm-6 col-auto">
+      <div class="text-right align-middle">
+        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <input type="text" class="form-control" placeholder="Search Hotels..." ng-model="search">
+    </div>
+  </div>
+
+  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+  <div ng-show="!(loading)">
+    <table class="table table-hover table-bordered" ng-show="!(error)">
+      <th class="fixedWidthTableCol">Action</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Hotel Type</th>
+      <th>Description</th>
+      <th>Created Date</th>
+      <th>Updated Date</th>
+      <tr ng-repeat="x in allHotels | filter:search">
+        <td><a href="" ng-click="populatehotelInstance(x.id)">Edit</a> | <a href="" ng-click="delhotel(x.id)">Del</a></td>
+        <td>{{ x["id"] }}</td>
+        <td>{{ x["name"] }}</td>
+        <td>{{ x["hotelcity"] }}</td>
+        <td>{{ x["type"] }}</td>
+        <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
+        <td>{{ x["createdAt"] | date: "short" }}</td>
+        <td>{{ x["updatedAt"] | date: "short" }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- New MOdal code using angular-ui -->
+<div class="modal-demo">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Create/Edit Hotel</h3>
+        </div>
+        <form role="form" method="POST" ng-submit="createUpdatehotel();">
+          <div class="modal-body" id="modal-body">
+            <div class="form-group">
+              <div id="remote">
+                <label for="locationid">Location</label>
+                <!-- uib-typeahead="tour.name for tour in getToursByName($viewValue)" -->
+                <input type="text"  ng-model="hotelData.location"
+                                    placeholder="Search Locations By Name..."
+                                    uib-typeahead="location as location.city for location in allLocations | filter: {city:$viewValue}"
+                                    typeahead-wait-ms="1000"
+                                    typeahead-min-length="3"
+                                    typeahead-loading="loadingLocations"
+                                    typeahead-no-results="noResults"
+                                    typeahead-editable=false
+                                    class="form-control"
+                                    value="hotelData.hotelcity"
+                                    id="location.city">
+                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                <div ng-show="noResults">
+                  <i class="glyphicon glyphicon-remove"></i> No Results Found
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control input-sm" ng-model="hotelData.name" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="hoteltype">Hotel Type</label>
+              <input type="text" class="form-control input-sm" ng-model="hotelData.type" id="hoteltype" placeholder="Hotel Type">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control input-sm" rows="5" ng-model="hotelData.description" id="description" placeholder="Description"></textarea>
+            </div>
+            <div class="form-group">
+              <div  class="btn btn-default"
+                    ngf-select
+                    ng-model="hotelData.images"
+                    ngf-multiple="true"
+                    accept="image/*"
+                    ngf-max-height="2000"
+                    ngf-max-size="10MB"
+                    ngf-keep="distinct"
+                    ngf-capture="camera"
+                    ngf-max-files="5">Select Images (max:5)
+              </div>
+              <br><br>
+              <div>
+                  <label>New Images</label>
+                  <div class="img-row">
+                      <div class="img-column" ng-repeat="f in hotelData.images" ng-show="hotelData.images && hotelData.images.length">
+                        <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
+                          {{f.$errorParam}}
+                        </img>
+                        <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <label>Uploaded Images</label>
+                  <div class="img-row">
+                    <div class="img-column" ng-repeat="f in hotelData.newImages" ng-show="hotelData.newImages && hotelData.newImages.length">
+                      <img ng-src="/images/{{f.filename}}" class="thumb scaleMain"></img>
+                      <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group" role="group" aria-label="footer buttons">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary">Save As</button>
+              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>
+    </script>
+    <div class="modal-parent">
+    </div>
+</div>
+<!--Ends----->
