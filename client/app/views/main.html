@@ -63,13 +63,19 @@
         <!-- For customize carousel next, previous button -->
         <carousel-prev>
           <!-- placed your previous button here -->
-          <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><i class="fas fa-arrow-circle-left fa-sm"></i></a>
+          <a class="left carousel-control verticalalignsvg" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev">
+            <span aria-hidden="true" class="verticalalignsvg">
+              <i class="fa fa-arrow-circle-left fa-lg"></i>
+            </span>
           <!-- end -->
         </carousel-prev>
 
         <carousel-next>
           <!-- placed your next button here -->
-          <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><i class="fas fa-arrow-circle-right fa-sm"></i></a>
+          <a class="right carousel-control verticalalignsvg" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next">
+            <span aria-hidden="true" class="verticalalignsvg">
+              <i class="fa fa-arrow-circle-right fa-lg"></i>
+            </span>
           <!-- end -->
         </carousel-next>
     </ui-carousel>
