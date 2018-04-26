@@ -1,7 +1,7 @@
-<div id="allDates" ng-init="loaddepartureDatesData()">
+<div id="allTourCosts" ng-init="loadtourCosts()">
   <div class="row align-items-center">
     <div class="col-sm-6 col-auto mr-auto">
-      <h3 class="align-middle">Departure Dates</h3>
+      <h3 class="align-middle">Tour Costs</h3>
     </div>
     <div class="col-sm-6 col-auto">
       <div class="text-right align-middle">
@@ -12,30 +12,38 @@
   <div class="form-group">
     <div class="input-group">
       <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-      <input type="text" class="form-control" placeholder="Search Departure Dates..." ng-model="search">
+      <input type="text" class="form-control" placeholder="Search Tour Costs..." ng-model="search">
     </div>
   </div>
 
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
   <div ng-show="!(loading)">
     <table class="table table-hover table-bordered" ng-show="!(error)">
-      <th>Action</th>
+      <th class="fixedWidthTableCol">Action</th>
       <th>Id</th>
       <th>Tour Name</th>
-      <th>Month</th>
-      <th>Year</th>
-      <th>Dates</th>
-      <th>Note One</th>
-      <th>Note Two</th>
-      <tr ng-repeat="x in alldepartureDatess | filter:search">
-        <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populatedepartureDatesInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deldepartureDates(x.id)">Del</a></td>
+      <th>Name</th>
+      <th>Tour Type</th>
+      <th>Cost Type</th>
+      <th>Cost</th>
+      <th>Airfare</th>
+      <th>Notes</th>
+      <th>Is Additional Service Supplement?</th>
+      <th>Created Date</th>
+      <th>Updated Date</th>
+      <tr ng-repeat="x in allcostss | filter:search">
+        <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populatecostsInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delcosts(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["tourname"] }}</td>
-        <td>{{ x["month"] }}</td>
-        <td>{{ x["year"] }}</td>
-        <td>{{ x["dates"] }}</td>
-        <td>{{ x["noteone"] }}</td>
-        <td>{{ x["notetwo"] }}</td>
+        <td>{{ x["name"] }}</td>
+        <td>{{ x["tourtype"] }}</td>
+        <td>{{ x["costtype"] }}</td>
+        <td>{{ x["cost"] }}</td>
+        <td>{{ x["airfare"] }}</td>
+        <td>{{ x["note"] }}</td>
+        <td>{{ x["additionalservicesupplement"] }}</td>
+        <td>{{ x["createdAt"] | date: "short" }}</td>
+        <td>{{ x["updatedAt"] | date: "short" }}</td>
       </tr>
     </table>
   </div>
@@ -45,15 +53,15 @@
 <div class="modal-demo">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Create/Edit Departure Dates</h3>
+            <h3 class="modal-title" id="modal-title">Create/Edit Tour Cost</h3>
         </div>
-        <form role="form" method="POST" ng-submit="createUpdatedepartureDates();">
+        <form role="form" method="POST" ng-submit="createUpdatecosts();">
           <div class="modal-body" id="modal-body">
                   <div class="form-group">
                     <div id="remote">
                       <label for="tourid">Tour</label>
                       <!-- uib-typeahead="tour.name for tour in getToursByName($viewValue)" -->
-                      <input type="text"  ng-model="departureDatesData.tour"
+                      <input type="text"  ng-model="tourCosts.tour"
                                           placeholder="Search Tours By Name..."
                                           uib-typeahead="tour as tour.name for tour in allTours | filter: {name:$viewValue}"
                                           typeahead-wait-ms="1000"
@@ -70,24 +78,35 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="name">Month</label>
-                    <input type="text" class="form-control input-sm" ng-model="departureDatesData.month" id="month" placeholder="Month">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control input-sm" ng-model="tourCosts.name" id="name" placeholder="Name">
                   </div>
                   <div class="form-group">
-                    <label for="location">Year</label>
-                    <input type="text" class="form-control input-sm" ng-model="departureDatesData.year" id="year" placeholder="Year">
+                    <label for="year">Tour Type</label>
+                    <input type="text" class="form-control input-sm" ng-model="tourCosts.tourtype" id="tourtype" placeholder="Tour Type">
                   </div>
                   <div class="form-group">
-                    <label for="location">Dates</label>
-                    <input type="text" class="form-control input-sm" ng-model="departureDatesData.dates" id="dates" placeholder="Dates">
+                    <label for="year">Cost Type</label>
+                    <input type="text" class="form-control input-sm" ng-model="tourCosts.costtype" id="costtype" placeholder="Cost Type">
                   </div>
                   <div class="form-group">
-                    <label for="description">Note One</label>
-                    <textarea class="form-control input-sm" rows="5" ng-model="departureDatesData.noteone" id="noteone" placeholder="Note One"></textarea>
+                    <label for="price">Cost</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">$</span>
+                      <input ng-model="tourCosts.cost" type="text" class="form-control input-sm" id="cost" placeholder="Cost">
+                    </div>
                   </div>
                   <div class="form-group">
-                    <label for="description">Note Two</label>
-                    <textarea class="form-control input-sm" rows="5" ng-model="departureDatesData.notetwo" id="notetwo" placeholder="Note Two"></textarea>
+                    <label for="year">Airfare</label>
+                    <input type="text" class="form-control input-sm" ng-model="tourCosts.airfare" id="airfare" placeholder="Airfare">
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Note</label>
+                    <textarea class="form-control input-sm" rows="5" ng-model="tourCosts.note" id="note" placeholder="Notes"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="addnlservicesupplement">Is Additional Service Supplement?</label>
+                    <input type="checkbox" class="form-control input-sm" ng-model="tourCosts.additionalservicesupplement" id="addnlservicesupplement">
                   </div>
           </div>
           <div class="modal-footer">

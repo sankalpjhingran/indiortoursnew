@@ -65,7 +65,7 @@ angular
             url:'/',
             views:{
               subheader: {
-                templateUrl: 'views/homesubheader.html',
+                templateUrl: 'views/main/homesubheader.html',
                 controller: 'SubHeaderController'
               },
               sidesection: {
@@ -73,7 +73,7 @@ angular
                 //controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/main.html',
+                templateUrl: 'views/main/main.html',
                 controller: 'MainCtrl'
               }
             }
@@ -86,11 +86,11 @@ angular
                 //controller: 'TourViewController'
               },
               sidesection: {
-                templateUrl: 'views/toursidesection.html',
+                templateUrl: 'views/main/toursidesection.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/tourview.html',
+                templateUrl: 'views/main/tourview.html',
                 controller: 'TourViewController'
               }
             }
@@ -103,11 +103,11 @@ angular
                 //controller: 'TourViewController'
               },
               sidesection: {
-                templateUrl: 'views/toursidesection.html',
+                templateUrl: 'views/main/toursidesection.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/destination.html',
+                templateUrl: 'views/main/destination.html',
                 controller: 'DestinationViewController'
               }
             }
@@ -120,11 +120,11 @@ angular
                 //controller: 'TourViewController'
               },
               sidesection: {
-                templateUrl: 'views/toursidesection.html',
+                templateUrl: 'views/main/toursidesection.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/destinations.html',
+                templateUrl: 'views/main/destinations.html',
                 controller: 'DestinationsController'
               }
             }
@@ -137,11 +137,11 @@ angular
                 //controller: 'TourViewController'
               },
               sidesection: {
-                templateUrl: 'views/toursidesection.html',
+                templateUrl: 'views/main/toursidesection.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/hotels.html',
+                templateUrl: 'views/main/hotels.html',
                 controller: 'HotelsController'
               }
             }
@@ -154,11 +154,11 @@ angular
                 //controller: 'TourViewController'
               },
               sidesection: {
-                templateUrl: 'views/toursidesection.html',
+                templateUrl: 'views/main/toursidesection.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/viewhotel.html',
+                templateUrl: 'views/main/viewhotel.html',
                 controller: 'HotelViewController'
               }
             }
@@ -171,11 +171,11 @@ angular
                 //controller: 'TourViewController'
               },
               sidesection: {
-                templateUrl: 'views/toursidesection.html',
+                templateUrl: 'views/main/toursidesection.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/viewTrip.html',
+                templateUrl: 'views/main/viewTrip.html',
                 controller: 'TripViewController'
               }
             }
@@ -188,11 +188,11 @@ angular
                 //controller: 'TourViewController'
               },
               sidesection: {
-                templateUrl: 'views/toursidesection.html',
+                templateUrl: 'views/main/toursidesection.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/trips.html',
+                templateUrl: 'views/main/trips.html',
                 controller: 'TripsController'
               }
             }
@@ -209,7 +209,7 @@ angular
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/about.html',
+                templateUrl: 'views/main/about.html',
                 controller: 'AboutCtrl'
               }
             }
@@ -226,7 +226,7 @@ angular
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/MICE.html',
+                templateUrl: 'views/main/MICE.html',
                 controller: ''
               }
             }
@@ -243,7 +243,7 @@ angular
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/signup.html',
+                templateUrl: 'views/main/signup.html',
                 controller: 'authcontroller'
               }
             }
@@ -260,7 +260,7 @@ angular
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/userprofile.html',
+                templateUrl: 'views/main/userprofile.html',
                 controller: 'UserProfileController'
               }
             }
@@ -277,7 +277,7 @@ angular
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/login.html',
+                templateUrl: 'views/main/login.html',
                 controller: 'LoginCtrl'
               }
             }
@@ -294,7 +294,7 @@ angular
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/contactus.html',
+                templateUrl: 'views/main/contactus.html',
                 controller: 'ContactusController'
               }
             }
@@ -311,7 +311,7 @@ angular
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/thankyou.html',
+                templateUrl: 'views/main/thankyou.html',
                 controller: 'ContactusController'
               }
             }
@@ -325,11 +325,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/toursadmin.html',
+                templateUrl: 'views/admin/toursadmin.html',
                 controller: 'ToursAdminController'
               }
             }
@@ -343,11 +343,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/parenttoursadmin.html',
+                templateUrl: 'views/admin/parenttoursadmin.html',
                 controller: 'ParentToursAdminController'
               }
             }
@@ -361,11 +361,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/locationadmin.html',
+                templateUrl: 'views/admin/locationadmin.html',
                 controller: 'LocationAdminController'
               }
             }
@@ -379,11 +379,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/placesadmin.html',
+                templateUrl: 'views/admin/placesadmin.html',
                 controller: 'PlacesAdminController'
               }
             }
@@ -397,11 +397,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/imagesadmin.html',
+                templateUrl: 'views/admin/imagesadmin.html',
                 controller: 'ImagesAdminController'
               }
             }
@@ -415,11 +415,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/leadsadmin.html',
+                templateUrl: 'views/admin/leadsadmin.html',
                 controller: 'LeadsAdminController'
               }
             }
@@ -433,11 +433,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/usersadmin.html',
+                templateUrl: 'views/admin/usersadmin.html',
                 controller: 'UsersAdminController'
               }
             }
@@ -451,11 +451,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/hotelsadmin.html',
+                templateUrl: 'views/admin/hotelsadmin.html',
                 controller: 'HotelsAdminController'
               }
             }
@@ -469,11 +469,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/itineraryadmin.html',
+                templateUrl: 'views/admin/itineraryadmin.html',
                 controller: 'ItineraryAdminController'
               }
             }
@@ -487,11 +487,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/departuredateadmin.html',
+                templateUrl: 'views/admin/departuredateadmin.html',
                 controller: 'DepartureDateAdminController'
               }
             }
@@ -505,11 +505,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/tourcostsadmin.html',
+                templateUrl: 'views/admin/tourcostsadmin.html',
                 controller: 'TourCostsController'
               }
             }
@@ -523,11 +523,11 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                templateUrl: 'views/adminsidesction.html',
+                templateUrl: 'views/admin/adminsidesction.html',
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/tournotesadmin.html',
+                templateUrl: 'views/admin/tournotesadmin.html',
                 controller: 'TourNotesController'
               }
             }
