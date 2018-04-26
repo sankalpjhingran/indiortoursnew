@@ -27,6 +27,8 @@
       <th>Nights</th>
       <th>Price</th>
       <th>Tour Type</th>
+      <th>Created Date</th>
+      <th>Updated Date</th>
 
       <tr ng-repeat="x in allTours | filter:search">
         <td><a href="" locid="{{x.id}}" ng-click="populatetoursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deltours(x.id)">Del</a></td>
@@ -37,6 +39,8 @@
         <td>{{ x["nights"] }}</td>
         <td>{{ x["price"] }}</td>
         <td>{{ x["tourtype"] }}</td>
+        <td>{{ x["createdAt"] }}</td>
+        <td>{{ x["updatedAt"] }}</td>
       </tr>
     </table>
   </div>
@@ -88,7 +92,7 @@
                     <div ng-bind-html="location.city | highlight: $select.search"></div>
                     <small>
                       City: {{location.city}},
-                      State: {{ location.state }}, 
+                      State: {{ location.state }},
                       Country: <span ng-bind-html="''+location.country | highlight: $select.search"></span>
                     </small>
                   </ui-select-choices>
