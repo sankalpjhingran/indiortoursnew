@@ -26,10 +26,8 @@
   </h3>
 
   <!-- This is a repeat on all locations -->
-  <span ng-repeat="location in tourWithAllRelated[0].location">
-    <span class="h4">
-      {{location.city}} |
-    </span>
+  <span style="color:orange;">
+    {{ tourWithAllRelated[0].location | join : ' | ' }}
   </span>
 
   <!-- This is tour description -->
