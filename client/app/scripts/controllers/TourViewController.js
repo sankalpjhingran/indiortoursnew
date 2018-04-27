@@ -27,6 +27,12 @@ angular.module('clientApp')
              $scope.allHotels.forEach(function(tour){
                 hotelids.push({parentobjectname: 'hotel', parentobjectid: tour.id});
              });
+
+             $scope.tourWithAllRelated[0].location = [];
+             $scope.tourWithAllRelated[0].siteLocation.forEach(function(location){
+                $scope.tourWithAllRelated[0].location.push(location.city);
+             });
+
              $http.get('/api/image/all/', hotelids)
               .then(function(images){
                   angular.forEach(hotelids, function(hotel){
