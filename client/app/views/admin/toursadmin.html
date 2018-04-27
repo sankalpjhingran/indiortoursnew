@@ -37,7 +37,7 @@
         <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
         <td>{{ x["days"] }}</td>
         <td>{{ x["nights"] }}</td>
-        <td>{{ x["price"] }}</td>
+        <td>{{ x["price"] | currency }}</td>
         <td>{{ x["tourtype"] }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>
         <td>{{ x["updatedAt"] | date: "short" }}</td>
