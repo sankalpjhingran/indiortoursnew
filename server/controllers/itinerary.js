@@ -2,6 +2,8 @@
 
 var models  = require('../models/index');
 var Itinerary = models.Itinerary;
+var Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports= {
   //Get a list of all authors using model.findAll()
@@ -41,6 +43,28 @@ module.exports= {
     })
   },
 
+  //Bulk Create a new author using model.create()
+  bulkCreate(req, res) {
+    console.log('req===>', req.body);
+    Itinerary.bulkCreate(req.body, { updateOnDuplicate: true } ).then(function(ItineraryInstances){
+        res.status(200).json(ItineraryInstances);
+    })
+    .catch(function (error){
+      res.status(500).json(error);
+    })
+  },
+
+  //Bulk Create a new author using model.create()
+  bulkUpdate(req, res) {
+    Itinerary.bulkCreate(req.body, { updateOnDuplicate: true }).then(function(ItineraryInstances){
+        console.log(ItineraryInstances);
+        res.status(200).json(ItineraryInstances);
+    })
+    .catch(function (error){
+      res.status(500).json(error);
+    })
+  },
+
   //Edit an existing author details using model.update()
   update(req, res) {
     console.log('update req===>', req.body);
@@ -60,18 +84,29 @@ module.exports= {
 
   //Delete an existing author by the unique ID using model.destroy()
   delete(req, res) {
-    console.log(req);
     let queryVars = req.query;
-    Itinerary.destroy({
-      where: {
-        id: queryVars.id
-      }
-    })
-    .then(function (deletedRecords) {
-      res.status(200).json(deletedRecords);
-    })
-    .catch(function (error){
-      res.status(500).json(error);
-    });
+
+    console.log(req.query);
+    var itnIds = [];
+
+    Itinerary.findAll( { where: { tour_id : queryVars.id } })
+      .then(function (authors) {
+
+        authors.forEach(function(itn){
+            itnIds.push(itn.id);
+        })
+
+        Itinerary.destroy(
+          { where: { id: itnIds }}
+        )
+        .then(function (deletedRecords) {
+          res.status(200).json(deletedRecords);
+        })
+        .catch(function (error){
+          res.status(500).json(error);
+        });
+      })
+
+
   }
 };

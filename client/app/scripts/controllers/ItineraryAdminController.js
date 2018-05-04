@@ -10,9 +10,16 @@
 angular.module('clientApp')
 .controller('ItineraryAdminController', function ($scope, $uibModal, $http, $location, $document, $log) {
 $scope.itineraryMap = new Map();
-$scope.populateitineraryInstance = function(itineraryId){
-    $scope.itineraryData = $scope.itineraryMap.get(itineraryId);
-    $scope.itineraryData.tour = $scope.allToursMap.get($scope.itineraryData.tour_id);
+$scope.itineraryData = [];
+
+$scope.addRow = function(){
+    $scope.itnRows.push({day: '', description: ''});
+}
+
+$scope.populateitineraryInstance = function(tourId){
+    $scope.tour = $scope.allToursMap.get(tourId);
+    $scope.itnRows = [];
+    $scope.itnRows = $scope.tour.itinerary;
     $scope.showForm();
 }
 
@@ -23,7 +30,7 @@ $scope.loaditineraryData = function(){
   $scope.allToursMap = new Map();
   $scope.loading = true;
 
-  $http.get('/api/tours/all/')
+  $http.get('/api/tours/alltourswithitineries/')
    .then(
        function(response){
          // success callback
@@ -32,26 +39,7 @@ $scope.loaditineraryData = function(){
          angular.forEach($scope.allTours, function(tour) {
            $scope.allToursMap.set(tour.id, tour);
          });
-
-         // Load all itinerarys to be displayed
-         $http.get('/api/itinerary/all/')
-          .then(
-              function(response){
-                // success callback
-                $scope.allitinerarys = response.data;
-
-                // populate itineraryMap to be used in edit form
-                angular.forEach($scope.allitinerarys, function(itinerary) {
-                  $scope.itineraryMap.set(itinerary.id, itinerary);
-                  itinerary.tourname = $scope.allToursMap.get(itinerary.tour_id).name;
-                });
-                $scope.loading = false;
-                return $scope.allitinerarys;
-              },
-              function(response){
-                // failure call back
-              }
-           );
+         $scope.loading = false;
        },
        function(response){
          // failure call back
@@ -60,7 +48,6 @@ $scope.loaditineraryData = function(){
 }
 
 $scope.delitinerary = function(itineraryid){
-    console.log(itineraryid);
     if(itineraryid && confirm("Are you sure you want to delete this itinerary?")){
       $http.delete('/api/itinerary/', {params: {id: itineraryid}})
        .then(
@@ -90,6 +77,9 @@ $scope.showForm = function (isNew) {
 
     if(isNew){
       $scope.itineraryData = null;
+      $scope.tour = null;
+      $scope.itnRows = [];
+      $scope.itnRows.push({day: '', description: ''});
     }
 
     //open a new modal instance
@@ -117,33 +107,43 @@ $scope.cancel = function () {
     $scope.modalInstance.dismiss('cancel');
 };
 
-$scope.createUpdateitinerary = function(){
-  // Update the itinerary if itinerary id is there
-  if($scope.itineraryData && $scope.itineraryData.id && $scope.itineraryData.tour){
-    $scope.itineraryData.tour_id = $scope.itineraryData.tour.id;
-    $http.post('/api/itinerary/update/', $scope.itineraryData).then(function(res, err){
-      console.log(res);
-      if(res.status == 200){
-        //if the request is scuessful, show all itinerarys
-        $scope.modalInstance.close();
-        $scope.$parent.allitinerarys = $scope.$parent.loaditineraryData();
-      }
-    });
-  }else{
-    // create itinerary only if tour id is there
-      if($scope.itineraryData && $scope.itineraryData.tour){
-        $scope.itineraryData.tour_id = $scope.itineraryData.tour.id;
-        $http.post('/api/itinerary/', $scope.itineraryData).then(function(res, err){
+$scope.createUpdateitinerary = function() {
+  var itnsToCreate = [];
+  var itnsToUpdate = [];
+  //This is the primary condition for create or update
+  if($scope.tour) {
+      //Iterate over itnRows to check if they have an id or not
+      angular.forEach($scope.itnRows, function(itn) {
+          itn.tour_id = $scope.tour.id;
+          if(itn.id) {
+              itnsToUpdate.push(itn);
+          } else {
+              itnsToCreate.push(itn);
+          }
+      });
+
+      if(itnsToCreate.length) {
+        //Create first
+        $http.post('/api/itinerary/bulkcreate/', itnsToCreate).then(function(res, err) {
           console.log(res);
           if(res.status == 200){
             //if the request is scuessful, show all itinerarys
             $scope.modalInstance.close();
-            $scope.$parent.allitinerarys = $scope.$parent.loaditineraryData();
+            $scope.$parent.loaditineraryData();
           }
         });
-    }else{
-        console.log('Error: itinerary Data is invalid or Invalid tour id');
-    }
+      }
+
+      if(itnsToUpdate.length) {
+        $http.post('/api/itinerary/bulkupdate/', itnsToUpdate).then(function(res, err) {
+          console.log(res);
+          if(res.status == 200){
+            //if the request is scuessful, show all itinerarys
+            $scope.modalInstance.close();
+            $scope.$parent.loaditineraryData();
+          }
+        });
+      }
   }
 }
 
