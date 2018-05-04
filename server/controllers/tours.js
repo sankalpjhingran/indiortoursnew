@@ -46,6 +46,19 @@ module.exports= {
           });
   },
 
+  getAllToursWithItineraries(req, res){
+        Tour.findAll({
+          include: [{ association : 'itinerary'}]
+          })
+          .then(function (authors) {
+            res.status(200).json(authors);
+          })
+          .catch(function (error) {
+            console.log(error);
+            res.status(500).json(error);
+          });
+  },
+
   getTourWithRelatedModels(req, res){
         let queryVars = req.query;
         Tour.findAll({
