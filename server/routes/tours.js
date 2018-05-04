@@ -14,8 +14,10 @@ router.get('/find', toursController.showByName);
 router.get('/tourwithlocations', toursController.getTourWithLocations);
 router.get('/searchtourwithlocations', toursController.searchAllToursWithLocations);
 router.get('/alltourswithlocations', toursController.getAllToursWithLocations);
+router.get('/alltourswithitineries', toursController.getAllToursWithItineraries);
 router.get('/alltourswithlocationsandhotels', toursController.getAllToursWithLocationsAndHotels);
 router.get('/tourdetailswithrelatedmodels', toursController.getTourWithRelatedModels);
+
 router.post('/update/', toursController.update);
 router.delete('/', toursController.delete);
 

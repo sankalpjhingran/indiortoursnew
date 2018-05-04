@@ -22,16 +22,12 @@
       <th class="fixedWidthTableCol">Action</th>
       <th>Id</th>
       <th>Tour Name</th>
-      <th>Day</th>
-      <th>Description</th>
       <th>Created Date</th>
       <th>Updated Date</th>
-      <tr ng-repeat="x in allitinerarys | filter:search">
+      <tr ng-repeat="x in allTours | filter:search">
         <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateitineraryInstance(x.id, false)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delitinerary(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
-        <td>{{ x["tourname"] }}</td>
-        <td>{{ x["day"] }}</td>
-        <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false}}</td>
+        <td>{{ x["name"] }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>
         <td>{{ x["updatedAt"] | date: "short" }}</td>
       </tr>
@@ -51,7 +47,7 @@
                     <div id="remote">
                       <label for="tourid">Tour</label>
                       <!-- uib-typeahead="tour.name for tour in getToursByName($viewValue)" -->
-                      <input type="text"  ng-model="itineraryData.tour"
+                      <input type="text"  ng-model="tour"
                                           placeholder="Search Tours By Name..."
                                           uib-typeahead="tour as tour.name for tour in allTours | filter: {name:$viewValue}"
                                           typeahead-wait-ms="1000"
@@ -67,14 +63,17 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="itday">Day</label>
-                    <input type="text" class="form-control input-sm" ng-model="itineraryData.day" id="itday" placeholder="Day">
+                  <div ng-repeat="row in itnRows">
+                    <div class="form-group">
+                      <label for="itday">Day</label>
+                      <input type="text" class="form-control input-sm" ng-model="row.day" id="itday" placeholder="Day">
+                    </div>
+                    <div class="form-group">
+                      <label for="itdescription">Description</label>
+                      <textarea class="form-control input-sm" rows="5" ng-model="row.description" id="itdescription" placeholder="Description"></textarea>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label for="itdescription">Description</label>
-                    <textarea class="form-control input-sm" rows="5" ng-model="itineraryData.description" id="itdescription" placeholder="Description"></textarea>
-                  </div>
+                  <button type="button" class="btn btn-primary" ng-click="addRow()">Add Row</button>
           </div>
           <div class="modal-footer">
             <div class="btn-group" role="group" aria-label="footer buttons">
