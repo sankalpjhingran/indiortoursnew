@@ -20,7 +20,14 @@ if(pe.RDS_DB_NAME){
       dialect: 'mysql',
       logging: console.log,
       host     : pe.RDS_HOSTNAME,
-      port     : pe.RDS_PORT
+      port     : pe.RDS_PORT,
+      define: {
+        charset: 'utf8',
+        dialectOptions: {
+          collate: 'utf8_general_ci'
+        },
+        timestamps: true
+      },
   });
 }else{
   var sequelize = new Sequelize(config.development.DB_NAME, config.development.USERNAME, config.development.PASSWORD, {
@@ -28,6 +35,13 @@ if(pe.RDS_DB_NAME){
       port: config.development.port,
       dialect: 'mysql',
       logging: console.log,
+      define: {
+        charset: 'utf8',
+        dialectOptions: {
+          collate: 'utf8_general_ci'
+        },
+        timestamps: true
+      },
   });
 }
 
