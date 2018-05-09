@@ -28,7 +28,7 @@ angular.module('clientApp')
                 hotelids.push({parentobjectname: 'hotel', parentobjectid: tour.id});
              });
 
-             $scope.tourWithAllRelated[0].location = [];
+             $scope.tourWithAllRelated[0].location = [] ;
              $scope.tourWithAllRelated[0].siteLocation.forEach(function(location){
                 $scope.tourWithAllRelated[0].location.push(location.city);
              });
