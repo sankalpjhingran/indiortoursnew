@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         country:{type: DataTypes.STRING},
         continent:{type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
-      }
+      },
+      {charset: 'utf8',collate: 'utf8_unicode_ci'}
   );
 
   Location.associate = function (models) {
