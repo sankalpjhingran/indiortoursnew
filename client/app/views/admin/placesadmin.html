@@ -15,7 +15,6 @@
       <input type="text" class="form-control" placeholder="Search Places..." ng-model="search">
     </div>
   </div>
-
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
   <div ng-show="!(loading)">
     <table class="table table-hover table-bordered" ng-show="!(error)">
@@ -176,6 +175,18 @@
                 <i class="glyphicon glyphicon-remove"></i> No Results Found
               </div>
             </div>
+          </div>
+          <div class="form-group">
+            <label for="latitude">Latitude</label>
+            <input type="text" class="form-control input-sm" ng-model="placeData.latitude" id="latitude" placeholder="Latitude">
+          </div>
+          <div class="form-group">
+            <label for="longitude">Longitude</label>
+            <input type="text" class="form-control input-sm" ng-model="placeData.longitude" id="longitude" placeholder="Longitude">
+          </div>
+          <div class="form-group">
+            <label for="elevation">Elevation</label>
+            <input type="text" class="form-control input-sm" ng-model="placeData.elevation" id="elevation" placeholder="Elevation">
           </div>
           <div class="form-group">
             <label for="description">Description</label>
