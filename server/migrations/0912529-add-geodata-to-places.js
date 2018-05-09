@@ -11,7 +11,7 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
       */
       return queryInterface.addColumn(
-        'Locations', // name of Target model
+        'Places', // name of Target model
         'latitude', // name of the key we're adding
         {
           type: Sequelize.DECIMAL(10, 8),
