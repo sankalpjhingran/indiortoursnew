@@ -63,7 +63,7 @@ module.exports= {
         let queryVars = req.query;
         Tour.findAll({
           where: {id : queryVars.id},
-            include: [{ association : 'siteLocation' }, { association : 'accomodationHotel'}, { association : 'tourcost' }, { association : 'itinerary' }, { association : 'tourNote' }, {association: 'departuredates'}]
+            include: [{ association : 'siteLocation' }, { association : 'accomodationHotel'}, { association : 'tourcost' }, { association : 'itinerary' }, { association : 'tourNote' }, {association: 'departuredates'}, {association: 'tags'}]
           })
           .then(function (authors) {
             res.status(200).json(authors);
@@ -76,6 +76,7 @@ module.exports= {
 
   getAllToursWithLocations(req, res){
         Tour.findAll({
+          where: {isactive : true},
           include: [{ association : 'siteLocation'}]
           })
           .then(function (authors) {
