@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         price: {type: DataTypes.DECIMAL},
         ismicetour: {type: DataTypes.BOOLEAN},
         micecategory: {type: DataTypes.STRING},
+        isactive: {type: DataTypes.BOOLEAN},
       }
   );
 
