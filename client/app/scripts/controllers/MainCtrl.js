@@ -55,10 +55,9 @@ angular.module('clientApp')
     }
 
     $scope.allToursWithLocations = function() {
-      console.log('Calling allToursWithLocations on ng-change===> ' + JSON.stringify($scope.searchTour));
       $scope.loading = true;
 
-      $http.get('/api/tours/alltourswithlocations', { params:$scope.searchTour } )
+      $http.get('/api/tours/alltourswithlocations')
        .then(
            function(res){
              // success callback
