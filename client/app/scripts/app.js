@@ -82,8 +82,8 @@ angular
             url:'/tourView?id',
             views:{
               subheader: {
-                //templateUrl: 'views/toursubheader.html',
-                //controller: 'TourViewController'
+                //templateUrl: 'views/main/toursubheader.html',
+                //controller: 'TourHeaderController'
               },
               sidesection: {
                 templateUrl: 'views/main/toursidesection.html',
