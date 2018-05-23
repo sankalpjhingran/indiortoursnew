@@ -54,14 +54,24 @@
           <thead>
             <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">DEPARTURE DATES</th>
             <tr>
-              <th class="col-xs-1">Month, Year</th>
-              <th class="col-xs-1">Dates</th>
+              <td>
+                <div ng-controller="TourViewController as vm">
+                  <h3 class="text-center">{{ vm.calendarTitle }}</h3>
+                  <ng-include src="'views/main/calendarControls.html'"></ng-include>
+                  <mwl-calendar
+                    events="vm.events"
+                    view="vm.calendarView"
+                    view-date="vm.viewDate"
+                    cell-auto-open-disabled="true"
+                    view-title="vm.calendarTitle"
+                    cell-is-open="vm.cellIsOpen"
+                    on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
+                    on-view-change-click="vm.viewChangeClicked(calendarNextView)">
+                  </mwl-calendar>
+                </div>
+              </td>
             </tr>
           </thead>
-          <tr ng-repeat="x in tourWithAllRelated[0].departuredates">
-            <td>{{ x.month }}, {{ x.year }}</td>
-            <td>{{ x.dates }}</td>
-          </tr>
         </table>
 
         <table class="table table-hover table-bordered" ng-show="!(error)">
