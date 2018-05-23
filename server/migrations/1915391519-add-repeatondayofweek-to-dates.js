@@ -10,7 +10,7 @@ module.exports = {
 
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
       */
-      return queryInterface.changeColumn(
+      return queryInterface.addColumn(
         'DepartureDates', // name of Target model
         'repeatondayofweek', // name of the key we're adding
         {
