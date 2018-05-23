@@ -17,6 +17,7 @@
   </div>
 
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+
   <div ng-show="!(loading)">
     <table class="table table-hover table-bordered table-condensed" ng-show="!(error)">
       <th class="fixedWidthTableCol">Action</th>
@@ -27,7 +28,7 @@
       <th>Preview</th>
       <th>Created Date</th>
       <th>Updated Date</th>
-      <tr ng-repeat="x in allImages | filter:search">
+      <tr ng-repeat="x in aImages | filter:search">
         <td><a href="" locid="{{x.id}}" ng-click="delImage(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["filename"] | truncate : 50 : '...' : false }}</td>
@@ -41,6 +42,9 @@
         <td>{{ x["updatedAt"] | date: "short" }}</td>
       </tr>
     </table>
+    <div style="text-align:center;">
+      <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" ng-change="pageChanged()" boundary-links="true"></ul>
+    </div>
   </div>
 </div>
 

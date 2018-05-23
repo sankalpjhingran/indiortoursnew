@@ -49,6 +49,9 @@ module.exports = function(config) {
       'bower_components/angular-filter/dist/angular-filter.js',
       'bower_components/angular-local-storage/dist/angular-local-storage.js',
       'bower_components/angular-ui-carousel/dist/ui-carousel.js',
+      'bower_components/bootstrap/dist/js/bootstrap.js',
+      'bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
+      'bower_components/rrule/lib/rrule.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

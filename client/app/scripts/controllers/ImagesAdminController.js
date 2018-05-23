@@ -11,6 +11,29 @@ angular.module('clientApp')
 .controller('ImagesAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
 $scope.imageMap = new Map();
 
+if($scope.allImages) {
+    $scope.totalItems = $scope.allImages.length;
+}
+
+$scope.currentPage = 1;
+$scope.itemsPerPage = 25;
+
+$scope.$watch("currentPage", function() {
+  $scope.pageChanged($scope.currentPage);
+});
+
+$scope.pageChanged = function(page) {
+  var pagedData = [];
+  if($scope.allImages) {
+    pagedData = $scope.allImages.slice(
+      (page - 1) * $scope.itemsPerPage,
+      page * $scope.itemsPerPage
+    );
+  }
+  $scope.aImages = pagedData;
+}
+
+
 $scope.deleteFile = function(idx) {
      console.log(idx);
      var file = $scope.imageData.images[idx];
@@ -67,10 +90,17 @@ $scope.loadImagesData = function(){
          angular.forEach($scope.allImages, function(image) {
            $scope.allImagesMap.set(image.id, image);
          });
-         console.log('allImages====>');
-         console.log($scope.allImages);
+
+         $scope.totalItems = $scope.allImages.length;
+         $scope.currentPage = 1;
+         $scope.pageChanged();
+
+         var pagedData = [];
+         if($scope.allImages) {
+           pagedData = $scope.allImages.slice(0,$scope.itemsPerPage);
+         }
+         $scope.aImages = pagedData;
          $scope.loading = false;
-         return $scope.allImages;
        },
        function(response){
          // failure call back

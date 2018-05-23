@@ -22,22 +22,14 @@
       <th class="fixedWidthTableCol">Action</th>
       <th>Id</th>
       <th>Tour Name</th>
-      <th>Month</th>
-      <th>Year</th>
-      <th>Dates</th>
-      <th>Note One</th>
-      <th>Note Two</th>
+      <th>Title</th>
       <th>Created Date</th>
       <th>Updated Date</th>
       <tr ng-repeat="x in alldepartureDatess | filter:search">
         <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populatedepartureDatesInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deldepartureDates(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["tourname"] }}</td>
-        <td>{{ x["month"] }}</td>
-        <td>{{ x["year"] }}</td>
-        <td>{{ x["dates"] }}</td>
-        <td>{{ x["noteone"] }}</td>
-        <td>{{ x["notetwo"] }}</td>
+        <td>{{ x["title"] }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>
         <td>{{ x["updatedAt"] | date: "short" }}</td>
       </tr>
@@ -73,6 +65,7 @@
                       </div>
                     </div>
                   </div>
+                  <!--
                   <div class="form-group">
                     <label for="name">Month</label>
                     <input type="text" class="form-control input-sm" ng-model="departureDatesData.month" id="month" placeholder="Month">
@@ -92,6 +85,52 @@
                   <div class="form-group">
                     <label for="description">Note Two</label>
                     <textarea class="form-control input-sm" rows="5" ng-model="departureDatesData.notetwo" id="notetwo" placeholder="Note Two"></textarea>
+                  </div>
+                  -->
+
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control input-sm" ng-model="departureDatesData.title" id="title" placeholder="Title">
+                  </div>
+                  <div class="form-group">
+                    <label for="repeatevery">Repeat every</label>
+                    <input class="form-control" name="repeatevery" type="number" ng-model="departureDatesData.repeatfor" ng-pattern="/^[0-9]{1,7}$/">
+                    <select class="form-control" ng-model="departureDatesData.repeatfrequency">
+                      <option value="Day">Day</option>
+                      <option value="Week">Week</option>
+                      <option value="Month">Month</option>
+                      <option value="Year">Year</option>
+                    </select>
+                  </div>
+                  <div class="form-group" ng-show="departureDatesData.repeatfrequency == 'Month'">
+                    <label for="repeatfrequency">Repeat on day of the month</label>
+                    <input type="number" name="repeatfrequency" ng-model="departureDatesData.repeatondayofmonth" ng-pattern="/^[0-9]{1,7}$/">
+                  </div>
+                  <div class="form-group" ng-show="departureDatesData.repeatfrequency == 'Week'">
+                    <label for="repeatondayofweek">Repeat on day of the week</label>
+                    <select multiple class="form-control" name="repeatondayofweek" ng-model="departureDatesData.repeatondayofweek">
+                      <option value="sunday">Sunday</option>
+                      <option value="monday">Monday</option>
+                      <option value="tuesday">Tuesday</option>
+                      <option value="wednesday">Wednesday</option>
+                      <option value="thursday">Thursday</option>
+                      <option value="friday">Friday</option>
+                      <option value="saturday">Saturday</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Repeat Ends</label>
+                    <div class="radio">
+                      <label><input type="radio" ng-model="departureDatesData.repeatSelection" ng-value="'never'">Never</label>
+                    </div>
+                    <div class="radio">
+                      <label><input type="radio" ng-model="departureDatesData.repeatSelection" ng-value="'on'">On</label>
+                      <input type="date" ng-model="departureDatesData.repeatendsondate" ng-disabled="departureDatesData.repeatSelection != 'on'" />
+                    </div>
+                    <div class="radio">
+                      <label for="repeatendsafteroccurrences"><input type="radio" ng-model="departureDatesData.repeatSelection" ng-value="'after'">After</label>
+                      <input type="number" name="repeatendsafteroccurrences" ng-model="departureDatesData.repeatendsafteroccurrences" ng-pattern="/^[0-9]{1,7}$/" ng-disabled="departureDatesData.repeatSelection != 'after'">
+                    </div>
                   </div>
           </div>
           <div class="modal-footer">
