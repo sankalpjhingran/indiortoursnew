@@ -10,6 +10,7 @@
 angular.module('clientApp')
   .controller('TripViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
     $rootScope.$state = $state;
+
     var tourId = $stateParams.id;
 
     var imagesMap = new Map();

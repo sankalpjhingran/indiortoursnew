@@ -41,10 +41,24 @@ $scope.loaddepartureDatesData = function(){
 
                 // populate departureDatesMap to be used in edit form
                 angular.forEach($scope.alldepartureDatess, function(departureDates) {
-                  $scope.departureDatesMap.set(departureDates.id, departureDates);
+                  departureDates.repeatendsondate = new Date(departureDates.repeatendsondate)
                   departureDates.tourname = $scope.allToursMap.get(departureDates.tour_id).name;
+
+                  if(departureDates.repeatondayofweek) {
+                      departureDates.repeatondayofweek = departureDates.repeatondayofweek.split(',');
+                  }
+
+                  if(departureDates.repeatendsnever) {
+                      departureDates.repeatSelection = 'never';
+                  }else if(departureDates.repeatendsondate) {
+                      departureDates.repeatSelection = 'on';
+                  }else if(departureDates.repeatendsafteroccurrences) {
+                      departureDates.repeatSelection = 'after';
+                  }
+                  $scope.departureDatesMap.set(departureDates.id, departureDates);
                 });
                 $scope.loading = false;
+                //console.log($scope.alldepartureDatess);
                 return $scope.alldepartureDatess;
               },
               function(response){
@@ -59,7 +73,7 @@ $scope.loaddepartureDatesData = function(){
 }
 
 $scope.deldepartureDates = function(departureDatesid){
-    console.log(departureDatesid);
+    //console.log(departureDatesid);
     if(departureDatesid && confirm("Are you sure you want to delete this departure date?")){
       $http.delete('/api/departuredates/', {params: {id: departureDatesid}})
        .then(
@@ -77,7 +91,7 @@ $scope.deldepartureDates = function(departureDatesid){
 
 $scope.showForm = function (isNew) {
     $scope.message = "Show Form Button Clicked";
-    console.log($scope.message);
+    //console.log($scope.message);
 
     if(isNew){
       $scope.departureDatesData = null;
@@ -108,11 +122,26 @@ $scope.cancel = function () {
 };
 
 $scope.createUpdatedepartureDates = function(){
+  if($scope.departureDatesData) {
+    if($scope.departureDatesData.repeatSelection == 'never') {
+        $scope.departureDatesData.repeatendsnever = true;
+    } else if($scope.departureDatesData.repeatSelection == 'on') {
+        $scope.departureDatesData.repeatendsnever = false;
+    } else if($scope.departureDatesData.repeatSelection == 'after') {
+        $scope.departureDatesData.repeatendsnever = false;
+    }
+  }
+
+  //console.log($scope.departureDatesData);
+
   // Update the departureDates if departureDates id is there
   if($scope.departureDatesData && $scope.departureDatesData.id && $scope.departureDatesData.tour){
     $scope.departureDatesData.tour_id = $scope.departureDatesData.tour.id;
+    if($scope.departureDatesData.repeatondayofweek) {
+        $scope.departureDatesData.repeatondayofweek = $scope.departureDatesData.repeatondayofweek.toString();
+    }
     $http.post('/api/departuredates/update/', $scope.departureDatesData).then(function(res, err){
-      console.log(res);
+      //console.log(res);
       if(res.status == 200){
         //if the request is scuessful, show all departureDatess
         $scope.modalInstance.close();
@@ -123,8 +152,11 @@ $scope.createUpdatedepartureDates = function(){
     // create departureDates only if tour id is there
       if($scope.departureDatesData && $scope.departureDatesData.tour){
         $scope.departureDatesData.tour_id = $scope.departureDatesData.tour.id;
+        if($scope.departureDatesData.repeatondayofweek) {
+            $scope.departureDatesData.repeatondayofweek = $scope.departureDatesData.repeatondayofweek.toString();
+        }
         $http.post('/api/departuredates/', $scope.departureDatesData).then(function(res, err){
-          console.log(res);
+          //console.log(res);
           if(res.status == 200){
             //if the request is scuessful, show all departureDatess
             $scope.modalInstance.close();

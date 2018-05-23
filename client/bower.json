@@ -23,7 +23,9 @@
     "font-awesome": "^4.7.0",
     "angular-filter": "^0.5.17",
     "angular-local-storage": "^0.7.1",
-    "angular-ui-carousel": "^0.1.10"
+    "angular-ui-carousel": "^0.1.10",
+    "angular-bootstrap-calendar": "^1.0.0",
+    "rrule": "^2.2.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
