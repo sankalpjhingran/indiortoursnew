@@ -28,7 +28,15 @@ angular
     'angular.filter',
     'LocalStorageModule',
     'ui.carousel',
+    'mwl.calendar',
   ])
+
+  /*.config(['calendarConfig', function(calendarConfig) {
+
+    // View all available config
+    console.log(calendarConfig);
+  }])
+  */
 
   .run(['Carousel', function(Carousel) {
     Carousel.setOptions({
@@ -56,7 +64,7 @@ angular
     .setNotify(true, true)
 })
 
-.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider) {
+.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider, calendarConfig) {
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/404');
 
