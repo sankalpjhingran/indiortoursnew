@@ -28,7 +28,26 @@ angular.module('clientApp')
       }
     };
 
+    $scope.gridOptions = { };
+    $scope.msg = { };
 
+    $scope.gridOptions.columnDefs = [
+      {
+        name: 'costcategory', displayName: 'Cost Category',
+      },
+      { name: 'costitem',  displayName: 'Cost Per Person in INR',
+      },
+      { name: 'budget',  displayName: 'Budget',
+      },
+      { name: 'economy',  displayName: 'Economy',
+      },
+      { name: 'superior',  displayName: 'Superior',
+      },
+      { name: 'luxury',  displayName: 'Luxury',
+      },
+    ];
+    $scope.gridOptions.data = $scope.myData;
+    
     $scope.getTourDetailsWithRelatedModels = function(){
       $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
        .then(
@@ -177,26 +196,4 @@ angular.module('clientApp')
     isFirstOpen: true,
     isFirstDisabled: false
   };
-
-
-  $scope.gridOptions = { };
-  $scope.msg = { };
-  
-  $scope.gridOptions.columnDefs = [
-    {
-      name: 'costcategory', displayName: 'Cost Category',
-    },
-    { name: 'costitem',  displayName: 'Cost Per Person in INR',
-    },
-    { name: 'budget',  displayName: 'Budget',
-    },
-    { name: 'economy',  displayName: 'Economy',
-    },
-    { name: 'superior',  displayName: 'Superior',
-    },
-    { name: 'luxury',  displayName: 'Luxury',
-    },
- 	];
-  $scope.gridOptions.data = $scope.myData;
-
-  }]);
+}]);
