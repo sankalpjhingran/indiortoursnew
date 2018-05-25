@@ -171,7 +171,7 @@ $scope.ngModelOptionsSelected = function(value) {
 
   //http://plnkr.co/edit/bDFIP66b5it5Q3KHy1LT?p=preview
   $scope.addData = function() {
-    $scope.myData.push( {
+    $scope.gridOptions.data.push( {
         costcategory: "",
         costitem: "",
         budget: "",
@@ -184,7 +184,7 @@ $scope.ngModelOptionsSelected = function(value) {
 
   $scope.removeLastRow = function() {
     //if($scope.gridOpts.data.length > 0){
-       $scope.myData.splice($scope.myData.length-1, 1);
+       $scope.gridOptions.data.splice($scope.gridOptions.data.length-1, 1);
     //}
   };
 
