@@ -11,14 +11,17 @@ angular.module('clientApp')
 .controller('TourCostsController', function ($scope, $uibModal, $http, $location, $document, $log) {
 $scope.costsMap = new Map();
 
-$scope.populatecostsInstance = function(costsId){
+$scope.populatecostsInstance = function(costsId) {
     $scope.tourCosts = $scope.costsMap.get(costsId);
     $scope.tourCosts.tour = $scope.allToursMap.get($scope.tourCosts.tour_id);
+    $scope.tourCosts.individualcostsjson = $scope.costsMap.get(costsId).individualcostsjson;
+    $scope.myData = $scope.costsMap.get(costsId).individualcostsjson;
+    console.log($scope.gridOptions.data);
     $scope.showForm();
 }
 
 // get all costss to be displayed on page load
-$scope.loadtourCosts = function(){
+$scope.loadtourCosts = function() {
   //Get all tours to be searched by typeahead
   $scope.allTours = undefined;
   $scope.allToursMap = new Map();
@@ -38,7 +41,7 @@ $scope.loadtourCosts = function(){
               function(response){
                 // success callback
                 $scope.allcostss = response.data;
-
+                console.log($scope.allcostss);
                 // populate costsMap to be used in edit form
                 angular.forEach($scope.allcostss, function(costs) {
                   $scope.costsMap.set(costs.id, costs);
@@ -58,7 +61,7 @@ $scope.loadtourCosts = function(){
   );
 }
 
-$scope.delcosts = function(costsid){
+$scope.delcosts = function(costsid) {
     console.log(costsid);
     if(costsid && confirm("Are you sure you want to delete this costs?")){
       $http.delete('/api/tourcosts/', {params: {id: costsid}})
@@ -81,6 +84,7 @@ $scope.showForm = function (isNew) {
 
     if(isNew){
       $scope.tourCosts = null;
+      $scope.gridOptions.data = null;
     }
 
     $scope.modalInstance = $uibModal.open({
@@ -107,13 +111,13 @@ $scope.cancel = function () {
     $scope.modalInstance.dismiss('cancel');
 };
 
-$scope.createUpdatecosts = function(){
-  // Update the costs if costs id is there
-  if($scope.tourCosts && $scope.tourCosts.id && $scope.tourCosts.tour){
+$scope.createUpdatecosts = function() {
+  console.log($scope.gridOptions.data);
+  //Update the costs if costs id is there
+  if($scope.tourCosts && $scope.tourCosts.id && $scope.tourCosts.tour) {
     $scope.tourCosts.tour_id = $scope.tourCosts.tour.id;
-    if(!$scope.tourCosts.additionalservicesupplement){
-        $scope.tourCosts.additionalservicesupplement = false;
-    }
+    $scope.tourCosts.individualcostsjson = $scope.gridOptions.data;
+    $scope.tourCosts.groupcostsjson = null;
     $http.post('/api/tourcosts/update/', $scope.tourCosts).then(function(res, err){
       console.log(res);
       if(res.status == 200){
@@ -122,13 +126,12 @@ $scope.createUpdatecosts = function(){
         $scope.$parent.allcostss = $scope.$parent.loadtourCosts();
       }
     });
-  }else{
-    // create costs only if tour id is there
-      if($scope.tourCosts && $scope.tourCosts.tour){
+  }else {
+      //Create costs only if tour id is there
+      if($scope.tourCosts && $scope.tourCosts.tour) {
         $scope.tourCosts.tour_id = $scope.tourCosts.tour.id;
-        if(!$scope.tourCosts.additionalservicesupplement){
-            $scope.tourCosts.additionalservicesupplement = false;
-        }
+        $scope.tourCosts.individualcostsjson = $scope.gridOptions.data;
+        $scope.tourCosts.groupcostsjson = null;
         $http.post('/api/tourcosts/', $scope.tourCosts).then(function(res, err){
           console.log(res);
           if(res.status == 200){
@@ -137,7 +140,7 @@ $scope.createUpdatecosts = function(){
             $scope.$parent.allcostss = $scope.$parent.loadtourCosts();
           }
         });
-    }else{
+    }else {
         console.log('Error: costs Data is invalid or Invalid tour id');
     }
   }
@@ -158,5 +161,129 @@ $scope.ngModelOptionsSelected = function(value) {
       blur: 250
     },
     getterSetter: true
+  };
+
+  $scope.gridOptions = {
+    importerDataAddCallback: function ( grid, newObjects ) {
+      $scope.myData = $scope.myData.concat( newObjects );
+    },
+  };
+
+  //http://plnkr.co/edit/bDFIP66b5it5Q3KHy1LT?p=preview
+  $scope.addData = function() {
+    $scope.gridOptions.data.push( {
+        costcategory: "",
+        costitem: "",
+        budget: "",
+        economy: "",
+        elegant: "",
+        superior: "",
+        luxury: ""
+    });
+  };
+
+  $scope.removeLastRow = function() {
+    //if($scope.gridOpts.data.length > 0){
+       $scope.gridOptions.data.splice($scope.gridOptions.data.length-1, 1);
+    //}
+  };
+
+  $scope.gridOptions.columnDefs = [
+    {
+      name: 'costcategory', displayName: 'Cost Category', enableCellEdit: true, editableCellTemplate: 'ui-grid/dropdownEditor',
+      cellFilter: 'mapCostCategories', editDropdownValueLabel: 'costcategory', editDropdownOptionsArray: [
+        { id: 'Normal Cost', costcategory : 'Normal Cost' },
+        { id: 'Supplement', costcategory : 'Supplement' },
+        { id: 'Additional Service Supplement', costcategory : 'Additional Service Supplement' },
+      ]
+    },
+    { name: 'costitem',  displayName: 'Cost Per Person in INR',
+      enableCellEdit: true,         editableCellTemplate: 'ui-grid/dropdownEditor',
+      cellFilter: 'mapCostItems', editDropdownValueLabel: 'costitem', editDropdownOptionsArray: [
+        { id: 'Minimum 02 Persons', costitem : 'Minimum 02 Persons' },
+        { id: 'Single Supplement', costitem : 'Single Supplement' },
+        { id: 'Domestic Airfare', costitem : 'Domestic Airfare' },
+        { id: 'High Season Supplement', costitem : 'High Season Supplement' },
+        { id: 'High Season Supplement 2', costitem : 'High Season Supplement 2' },
+        { id: 'Festival Season Supplement', costitem : 'Festival Season Supplement' },
+        { id: 'Early Bird Discount', costitem : 'Early Bird Discount' },
+        { id: 'Internation Airfare', costitem : 'Internation Airfare' },
+        { id: 'Visa Charges', costitem : 'Visa Charges' },
+        { id: 'Accompanying Guide', costitem : 'Accompanying Guide' },
+        { id: 'Breakfast', costitem : 'Breakfast' },
+        { id: 'Half Board', costitem : 'Half Board' },
+        { id: 'Full Board', costitem : 'Full Board' },
+        { id: 'Extra Nights Arrival City', costitem : 'Extra Nights Arrival City' },
+        { id: 'Extra Nights Departure City', costitem : 'Extra Nights Departure City'}
+      ]
+    },
+    { name: 'budget',  displayName: 'Budget',
+      enableCellEdit: true
+    },
+    { name: 'economy',  displayName: 'Economy',
+      enableCellEdit: true
+    },
+    { name: 'superior',  displayName: 'Superior',
+      enableCellEdit: true
+    },
+    { name: 'luxury',  displayName: 'Luxury',
+      enableCellEdit: true
+    },
+ 	];
+
+  $scope.msg = {};
+ 	$scope.gridOptions.onRegisterApi = function(gridApi) {
+  		//set gridApi on scope
+  		$scope.gridApi = gridApi;
+  		gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+  				$scope.msg.lastCellEdited = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue ;
+  				$scope.$apply();
+    });
+  };
+
+  $scope.gridOptions.data = $scope.myData;
+})
+
+.filter('mapCostItems', function() {
+  var genderHash = {
+    'Minimum 02 Persons' : 'Minimum 02 Persons',
+    'Single Supplement' : 'Single Supplement',
+    'Domestic Airfare' : 'Domestic Airfare',
+    'High Season Supplement' : 'High Season Supplement',
+    'High Season Supplement 2' : 'High Season Supplement 2',
+    'Festival Season Supplement' : 'Festival Season Supplement',
+    'Early Bird Discount' : 'Early Bird Discount',
+    'Internation Airfare' : 'Internation Airfare',
+    'Visa Charges' : 'Visa Charges',
+    'Accompanying Guide' : 'Accompanying Guide',
+    'Breakfast' : 'Breakfast',
+    'Half Board' : 'Half Board',
+    'Full Board' : 'Full Board',
+    'Extra Nights Arrival City' : 'Extra Nights Arrival City',
+    'Extra Nights Departure City' : 'Extra Nights Departure City',
+  };
+
+  return function(input) {
+    if (!input){
+      return '';
+    } else {
+      return genderHash[input];
+    }
+  };
+})
+
+.filter('mapCostCategories', function() {
+  var genderHash = {
+    'Normal Cost' : 'Normal Cost',
+    'Supplement' : 'Supplement',
+    'Additional Service Supplement' : 'Additional Service Supplement',
+  };
+
+  return function(input) {
+    if (!input){
+      return '';
+    } else {
+      return genderHash[input];
+    }
   };
 });

@@ -35,6 +35,8 @@ angular.module('clientApp')
            function(res){
              // success callback
              $scope.tourWithAllRelated = res.data;
+             console.log($scope.tourWithAllRelated[0].tourcost[0]);
+             $scope.gridOptions.data = $scope.tourWithAllRelated[0].tourcost[0].individualcostsjson;
 
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              var hotelids = [];
@@ -107,24 +109,6 @@ angular.module('clientApp')
                     }
                   );
               });
-
-              /*
-              $scope.events = [{
-                title: 'Recurs on the 5th of each month',
-                color: 'yellow',
-                rrule: {
-                  freq: RRule.MONTHLY,
-                  bymonthday: 5
-                }
-              }, {
-                title: 'Recurs weekly on Thursdays',
-                color: 'green',
-                rrule: {
-                  freq: RRule.WEEKLY,
-                  byweekday: [RRule.TH],
-                }
-              }];
-              */
               console.log('Calling watch function=======>');
               watchFunction();
            },
@@ -193,5 +177,26 @@ angular.module('clientApp')
     isFirstOpen: true,
     isFirstDisabled: false
   };
+
+
+  $scope.gridOptions = { };
+  $scope.msg = { };
+  
+  $scope.gridOptions.columnDefs = [
+    {
+      name: 'costcategory', displayName: 'Cost Category',
+    },
+    { name: 'costitem',  displayName: 'Cost Per Person in INR',
+    },
+    { name: 'budget',  displayName: 'Budget',
+    },
+    { name: 'economy',  displayName: 'Economy',
+    },
+    { name: 'superior',  displayName: 'Superior',
+    },
+    { name: 'luxury',  displayName: 'Luxury',
+    },
+ 	];
+  $scope.gridOptions.data = $scope.myData;
 
   }]);
