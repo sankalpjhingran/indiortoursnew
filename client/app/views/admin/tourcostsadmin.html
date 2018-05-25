@@ -22,26 +22,12 @@
       <th class="fixedWidthTableCol">Action</th>
       <th>Id</th>
       <th>Tour Name</th>
-      <th>Name</th>
-      <th>Tour Type</th>
-      <th>Cost Type</th>
-      <th>Cost</th>
-      <th>Airfare</th>
-      <th>Notes</th>
-      <th>Is Additional Service Supplement?</th>
       <th>Created Date</th>
       <th>Updated Date</th>
       <tr ng-repeat="x in allcostss | filter:search">
         <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populatecostsInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delcosts(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["tourname"] }}</td>
-        <td>{{ x["name"] }}</td>
-        <td>{{ x["tourtype"] }}</td>
-        <td>{{ x["costtype"] }}</td>
-        <td>{{ x["cost"] }}</td>
-        <td>{{ x["airfare"] }}</td>
-        <td>{{ x["note"] }}</td>
-        <td>{{ x["additionalservicesupplement"] }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>
         <td>{{ x["updatedAt"] | date: "short" }}</td>
       </tr>
@@ -77,37 +63,13 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control input-sm" ng-model="tourCosts.name" id="name" placeholder="Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="year">Tour Type</label>
-                    <input type="text" class="form-control input-sm" ng-model="tourCosts.tourtype" id="tourtype" placeholder="Tour Type">
-                  </div>
-                  <div class="form-group">
-                    <label for="year">Cost Type</label>
-                    <input type="text" class="form-control input-sm" ng-model="tourCosts.costtype" id="costtype" placeholder="Cost Type">
-                  </div>
-                  <div class="form-group">
-                    <label for="price">Cost</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">$</span>
-                      <input ng-model="tourCosts.cost" type="text" class="form-control input-sm" id="cost" placeholder="Cost">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="year">Airfare</label>
-                    <input type="text" class="form-control input-sm" ng-model="tourCosts.airfare" id="airfare" placeholder="Airfare">
-                  </div>
-                  <div class="form-group">
-                    <label for="description">Note</label>
-                    <textarea class="form-control input-sm" rows="5" ng-model="tourCosts.note" id="note" placeholder="Notes"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="addnlservicesupplement">Is Additional Service Supplement?</label>
-                    <input type="checkbox" class="form-control input-sm" ng-model="tourCosts.additionalservicesupplement" id="addnlservicesupplement">
-                  </div>
+                <div>
+                  <button class="btn btn-default" type="button" ng-click="addData();">Add Row</button>
+                  <button class="btn btn-default" type="button" ng-click="removeLastRow();">Remove Last Row</button>
+                  <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourCosts.individualcostsjson" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+
+
           </div>
           <div class="modal-footer">
             <div class="btn-group" role="group" aria-label="footer buttons">

@@ -11,8 +11,8 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
       */
       return queryInterface.addColumn(
-        'DepartureDates', // name of Target model
-        'title', // name of the key we're adding
+        'TourCosts', // name of Target model
+        'costcategory', // name of the key we're adding
         {
           type: Sequelize.STRING,
         }

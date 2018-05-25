@@ -11,10 +11,10 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
       */
       return queryInterface.addColumn(
-        'DepartureDates', // name of Target model
-        'repeatondayofweek', // name of the key we're adding
+        'TourCosts', // name of Target model
+        'individualcostsjson', // name of the key we're adding
         {
-          type: Sequelize.STRING,
+          type: Sequelize.TEXT('long'),
         }
       );
 
