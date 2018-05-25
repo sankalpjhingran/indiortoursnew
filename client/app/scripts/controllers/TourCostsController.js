@@ -85,6 +85,7 @@ $scope.showForm = function (isNew) {
     if(isNew){
       $scope.tourCosts = null;
       $scope.gridOptions.data = null;
+      $scope.myData = null;
     }
 
     $scope.modalInstance = $uibModal.open({
