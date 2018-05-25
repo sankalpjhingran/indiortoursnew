@@ -29,7 +29,19 @@ angular
     'LocalStorageModule',
     'ui.carousel',
     'mwl.calendar',
+    'ui.grid',
+    'ui.grid.edit',
+    'ui.grid.cellNav',
+    'ui.grid.selection',
   ])
+
+/*
+'ui.grid',
+'ui.grid.edit',
+'ui.grid.cellNav',
+'ui.grid.selection'
+*/
+
 
   /*.config(['calendarConfig', function(calendarConfig) {
 

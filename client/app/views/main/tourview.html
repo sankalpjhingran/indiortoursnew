@@ -77,49 +77,12 @@
         <table class="table table-hover table-bordered" ng-show="!(error)">
             <thead>
               <th style="text-align:center;color: #ffffff; background-color: #3270bc" colspan="4">TOUR COST</th>
-              <tr ng-repeat="(key, costs) in tourWithAllRelated[0].tourcost |limitTo:3 | groupBy: 'name'">
-                  <th>Net Per Person Cost</th>
-                  <th ng-repeat="(keycost, allcost) in costs | groupBy: 'costtype'">
-                      {{ keycost }}
-                  </th>
-              </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="(key, costs) in tourWithAllRelated[0].tourcost | groupBy: 'name'">
-                  <td>{{ key }}</td>
-                  <td ng-repeat="(keycost, allcost) in costs | filterBy: ['additionalservicesupplement']:false |  groupBy: 'costtype'">
-                      {{ allcost[0].cost }}
-                  </td>
-              </tr>
-              <tr>
-                <td colspan="2">Airfare: Economy Class</td>
-                <td colspan="2">Not Applicable</td>
-              </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-hover table-bordered" ng-show="!(error)">
-            <thead>
-              <th style="text-align: center;color: #ffffff; background-color: #3270bc" colspan="4">ADDITIONAL SERVICE SUPPLEMENTS</th>
-              <tr ng-repeat="(key, costs) in additionalservicesupplements  |limitTo:3 | groupBy: 'name'">
-                  <th>Net Per Person Cost</th>
-                  <th ng-repeat="(keycost, allcost) in costs | groupBy: 'costtype'">
-                      {{ keycost }}
-                  </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="(key, costs) in additionalservicesupplements | groupBy: 'name'">
-                  <td>{{ key }}</td>
-                  <td ng-repeat="(keycost, allcost) in costs | groupBy: 'costtype'">
-                      {{ allcost[0].cost }}
-                  </td>
-              </tr>
-              <tr>
-                <td colspan="2">Accompanying language speaking guide</td>
-                <td colspan="2">132</td>
-              </tr>
-          </tbody>
+              <td>
+                <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourWithAllRelated[0].tourcost[0].individualcostsjson" ui-grid="gridOptions" class="grid"></div>
+              </td>
+            </tbody>
         </table>
       </uib-tab>
       <!-- Dates & Prices End -->
