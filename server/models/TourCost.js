@@ -1,6 +1,5 @@
 "use strict";
 
-var JsonField = require('sequelize-json');
 var sequelize  = require('../models/index');
 
 module.exports = (sequelize, DataTypes) => {
