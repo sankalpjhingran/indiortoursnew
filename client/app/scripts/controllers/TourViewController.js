@@ -98,7 +98,11 @@ angular.module('clientApp')
                       title: date.title,
                       color: '#ffa500',
                       rrule: {
-                        freq: date.repeatfrequency == 'Week' ? RRule.WEEKLY : date.repeatfrequency == 'Month' ? RRule.MONTHLY : date.repeatfrequency == 'Year' ? RRule.YEARLY : RRule.WEEKLY,
+                        freq: date.repeatfrequency == 'Week' ? RRule.WEEKLY :
+                              date.repeatfrequency == 'Month' ? RRule.MONTHLY :
+                              date.repeatfrequency == 'Year' ? RRule.YEARLY :
+                              date.repeatfrequency == 'Day' ? RRule.DAILY :
+                              RRule.WEEKLY,
                         bymonthday: date.repeatfrequency == 'Month' ? date.repeatondayofmonth : null,
                         count: date.repeatendsafteroccurrences,
                         interval: date.repeatfor,
@@ -181,7 +185,7 @@ angular.module('clientApp')
 
   $scope.gridOptions = { };
   $scope.msg = { };
-  
+
   $scope.gridOptions.columnDefs = [
     {
       name: 'costcategory', displayName: 'Cost Category',
