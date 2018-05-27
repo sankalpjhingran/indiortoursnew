@@ -12,7 +12,9 @@ var users = {
   },
 
   index(req, res) {
-    User.findAll({})
+    User.findAll({
+      order: [['createdAt', 'DESC']]
+    })
       .then(function (authors) {
         res.status(200).json(authors);
       })
@@ -30,12 +32,12 @@ var users = {
               if(created){
                   let subject = 'Welcome To Indior Tours...!';
                   let text = 'Thanks for signing up with us, please click on the link below to activate your account!';
-                  //let link = 
+                  //let link =
                   console.log(req.get('host'));
                   console.log(req.protocol);
                   console.log(req.originalUrl);
                   console.log(req.protocol + '://' + req.get('host') + '/api/verify?link=hjasdgajsd8712y3hsjgdajhasdasdhg23egjahsd');
-                  let link = req.protocol + '://' + req.get('host') + '/api/verify?link=hjasdgajsd8712y3hsjgdajhasdasdhg23egjahsd'; 
+                  let link = req.protocol + '://' + req.get('host') + '/api/verify?link=hjasdgajsd8712y3hsjgdajhasdasdhg23egjahsd';
                   let html = text + '<br />' + link;
                   emailUtils.sendNewUserEmail(user.email, subject, text, html);
                   return res.json(user);

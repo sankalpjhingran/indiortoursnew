@@ -16,6 +16,7 @@ module.exports= {
     console.log(req.body);
     if(req.body.tourids.length){
         Image.findAll({
+          order: [['createdAt', 'DESC']],
           where: {
             [Op.and]: {
               parentobjectid : {
@@ -49,7 +50,9 @@ module.exports= {
   indexAll(req, res) {
     console.log('images get req====>');
     console.log(req.body);
-    Image.findAll({})
+    Image.findAll({
+      order: [['createdAt', 'DESC']]
+    })
       .then(function (authors) {
             console.log(authors);
             res.status(200).json(authors);
