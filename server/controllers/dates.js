@@ -10,7 +10,9 @@ module.exports= {
   },
 
   index(req, res) {
-    DepartureDates.findAll({})
+    DepartureDates.findAll({
+      order: [['createdAt', 'DESC']]
+    })
       .then(function (authors) {
         res.status(200).json(authors);
       })
