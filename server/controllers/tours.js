@@ -21,7 +21,11 @@ module.exports= {
 
   index(req, res) {
     console.log('Calling index method...');
-    Tour.findAll()
+    Tour.findAll({
+      order: [
+              ['createdAt', 'DESC'],
+      ]
+    })
       .then(function (authors) {
         res.status(200).json(authors);
       })
@@ -108,7 +112,8 @@ module.exports= {
   getAllToursWithLocationsAndHotels(req, res){
         let queryVars = req.query;
         Tour.findAll({
-          include: [{ association : 'siteLocation' }, {association: 'accomodationHotel'}, {association: 'tourNote'}]
+            include: [{ association : 'siteLocation' }, {association: 'accomodationHotel'}, {association: 'tourNote'}],
+            order: [['createdAt', 'DESC']]
           })
           .then(function (authors) {
             res.status(200).json(authors);

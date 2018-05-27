@@ -8,7 +8,9 @@ var models  = require('../models/index');
 /* GET to login route */
 router.get('/', function(req, res) {
   console.log('in router regusers...====>');
-    models.User.findAll().then(function(users){
+    models.User.findAll({
+      order: [['createdAt', 'DESC']]
+    }).then(function(users){
       res.json(users);
     });
 });

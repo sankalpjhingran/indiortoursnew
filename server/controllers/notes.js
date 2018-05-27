@@ -10,7 +10,9 @@ module.exports= {
   },
 
   index(req, res) {
-    TourNotes.findAll({})
+    TourNotes.findAll({
+      order: [['createdAt', 'DESC']]
+    })
       .then(function (authors) {
         res.status(200).json(authors);
       })
