@@ -12,7 +12,6 @@ angular.module('clientApp')
 $scope.costsMap = new Map();
 $scope.msg = {};
 var vm = this;
-vm.myData = [];
 
 $scope.populatecostsInstance = function(costsId) {
     $scope.tourCosts = $scope.costsMap.get(costsId);
@@ -174,14 +173,11 @@ $scope.ngModelOptionsSelected = function(value) {
     				$scope.$apply();
       });
     },
-    importerDataAddCallback: function ( grid, newObjects ) {
-      vm.myData = vm.myData.concat( newObjects );
-    },
     data: 'myData',
   };
 
   //http://plnkr.co/edit/bDFIP66b5it5Q3KHy1LT?p=preview
-  $scope.addData = function() {
+  vm.addData = function() {
     $scope.myData.push( {
         costcategory: "",
         costitem: "",
@@ -193,7 +189,7 @@ $scope.ngModelOptionsSelected = function(value) {
     });
   };
 
-  $scope.removeLastRow = function() {
+  vm.removeLastRow = function() {
     //if($scope.gridOpts.data.length > 0){
        $scope.myData.splice($scope.myData.length-1, 1);
     //}

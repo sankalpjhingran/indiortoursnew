@@ -186,7 +186,7 @@ angular.module('clientApp')
   $scope.gridOptions = {
     onRegisterApi: function( gridApi ) {
         $scope.gridApi = gridApi;
-        $scope.gridApi.treeBase.state = 'expanded'
+        $scope.gridApi.treeBase.state = 'expanded';
     }
   };
 
