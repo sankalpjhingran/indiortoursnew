@@ -69,7 +69,11 @@
             </div>
             <div class="form-group">
               <label for="tourtype">Tour Type</label>
-              <input ng-model="tourData.type" type="text" class="form-control input-sm" id="tourtype" placeholder="Tour Type">
+              <select class="form-control" id="tourtype" ng-model="tourData.tourtype">
+                <option>Regular</option>
+                <option>Group</option>
+                <option>Individual</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="days">Days</label>
