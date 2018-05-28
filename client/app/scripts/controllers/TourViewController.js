@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('TourViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams, calendarConfig) {
+  .controller('TourViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', function ($http, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants) {
     $rootScope.$state = $state;
 
     var tourId = $stateParams.id;
@@ -183,12 +183,18 @@ angular.module('clientApp')
   };
 
 
-  $scope.gridOptions = { };
+  $scope.gridOptions = {
+    onRegisterApi: function( gridApi ) {
+        $scope.gridApi = gridApi;
+        $scope.gridApi.treeBase.state = 'expanded';
+    }
+  };
+
   $scope.msg = { };
 
   $scope.gridOptions.columnDefs = [
     {
-      name: 'costcategory', displayName: 'Cost Category',
+      name: 'costcategory', displayName: 'Cost Category',  grouping: { groupPriority: 0 }, sort: { priority: 0, direction: 'asc' }, cellTemplate: '<div><div ng-if="!col.grouping || col.grouping.groupPriority === undefined || col.grouping.groupPriority === null || ( row.groupHeader && col.grouping.groupPriority === row.treeLevel )" class="ui-grid-cell-contents" title="TOOLTIP">{{COL_FIELD CUSTOM_FILTERS}}</div></div>'
     },
     { name: 'costitem',  displayName: 'Cost Per Person in INR',
     },

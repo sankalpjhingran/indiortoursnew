@@ -63,10 +63,12 @@
                       </div>
                     </div>
                   </div>
-                <div>
-                  <button class="btn btn-default" type="button" ng-click="addData();">Add Row</button>
-                  <button class="btn btn-default" type="button" ng-click="removeLastRow();">Remove Last Row</button>
-                  <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourCosts.individualcostsjson" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                <div ng-controller="TourCostsController as $ctrl">
+                  <div>
+                    <button class="btn btn-default" type="button" ng-click="$ctrl.addData();">Add Row</button>
+                    <button class="btn btn-default" type="button" ng-click="$ctrl.removeLastRow();">Remove Last Row</button>
+                    <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourCosts.individualcostsjson" ui-grid="$ctrl.gridOptions" ui-grid-edit class="grid"></div>
+                  </div>
                 </div>
           </div>
           <div class="modal-footer">
