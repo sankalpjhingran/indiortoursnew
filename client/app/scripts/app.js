@@ -33,6 +33,7 @@ angular
     'ui.grid.edit',
     'ui.grid.cellNav',
     'ui.grid.selection',
+    'ui.grid.grouping'
   ])
 
 /*
