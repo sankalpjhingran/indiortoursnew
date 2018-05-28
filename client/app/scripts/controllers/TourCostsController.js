@@ -8,15 +8,17 @@
 * Controller of the clientApp
 */
 angular.module('clientApp')
-.controller('TourCostsController', function ($scope, $uibModal, $http, $location, $document, $log) {
+.controller('TourCostsController', ['$scope', '$uibModal', '$http', '$location', '$document', '$log', function ($scope, $uibModal, $http, $location, $document, $log) {
 $scope.costsMap = new Map();
+$scope.msg = {};
+var vm = this;
+vm.myData = [];
 
 $scope.populatecostsInstance = function(costsId) {
     $scope.tourCosts = $scope.costsMap.get(costsId);
     $scope.tourCosts.tour = $scope.allToursMap.get($scope.tourCosts.tour_id);
     $scope.tourCosts.individualcostsjson = $scope.costsMap.get(costsId).individualcostsjson;
     $scope.myData = $scope.costsMap.get(costsId).individualcostsjson;
-    console.log($scope.gridOptions.data);
     $scope.showForm();
 }
 
@@ -84,8 +86,7 @@ $scope.showForm = function (isNew) {
 
     if(isNew){
       $scope.tourCosts = null;
-      $scope.gridOptions.data = null;
-      $scope.myData = null;
+      $scope.myData = [];
     }
 
     $scope.modalInstance = $uibModal.open({
@@ -113,11 +114,11 @@ $scope.cancel = function () {
 };
 
 $scope.createUpdatecosts = function() {
-  console.log($scope.gridOptions.data);
+  console.log($scope.myData);
   //Update the costs if costs id is there
   if($scope.tourCosts && $scope.tourCosts.id && $scope.tourCosts.tour) {
     $scope.tourCosts.tour_id = $scope.tourCosts.tour.id;
-    $scope.tourCosts.individualcostsjson = $scope.gridOptions.data;
+    $scope.tourCosts.individualcostsjson = $scope.myData;
     $scope.tourCosts.groupcostsjson = null;
     $http.post('/api/tourcosts/update/', $scope.tourCosts).then(function(res, err){
       console.log(res);
@@ -131,7 +132,7 @@ $scope.createUpdatecosts = function() {
       //Create costs only if tour id is there
       if($scope.tourCosts && $scope.tourCosts.tour) {
         $scope.tourCosts.tour_id = $scope.tourCosts.tour.id;
-        $scope.tourCosts.individualcostsjson = $scope.gridOptions.data;
+        $scope.tourCosts.individualcostsjson = $scope.myData;
         $scope.tourCosts.groupcostsjson = null;
         $http.post('/api/tourcosts/', $scope.tourCosts).then(function(res, err){
           console.log(res);
@@ -164,15 +165,24 @@ $scope.ngModelOptionsSelected = function(value) {
     getterSetter: true
   };
 
-  $scope.gridOptions = {
-    importerDataAddCallback: function ( grid, newObjects ) {
-      $scope.myData = $scope.myData.concat( newObjects );
+  vm.gridOptions = {
+    onRegisterApi: function(gridApi) {
+    		//set gridApi on scope
+    		$scope.gridApi = gridApi;
+    		gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+    				$scope.msg.lastCellEdited = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue ;
+    				$scope.$apply();
+      });
     },
+    importerDataAddCallback: function ( grid, newObjects ) {
+      vm.myData = vm.myData.concat( newObjects );
+    },
+    data: 'myData',
   };
 
   //http://plnkr.co/edit/bDFIP66b5it5Q3KHy1LT?p=preview
   $scope.addData = function() {
-    $scope.gridOptions.data.push( {
+    $scope.myData.push( {
         costcategory: "",
         costitem: "",
         budget: "",
@@ -185,11 +195,11 @@ $scope.ngModelOptionsSelected = function(value) {
 
   $scope.removeLastRow = function() {
     //if($scope.gridOpts.data.length > 0){
-       $scope.gridOptions.data.splice($scope.gridOptions.data.length-1, 1);
+       $scope.myData.splice($scope.myData.length-1, 1);
     //}
   };
 
-  $scope.gridOptions.columnDefs = [
+  vm.gridOptions.columnDefs = [
     {
       name: 'costcategory', displayName: 'Cost Category', enableCellEdit: true, editableCellTemplate: 'ui-grid/dropdownEditor',
       cellFilter: 'mapCostCategories', editDropdownValueLabel: 'costcategory', editDropdownOptionsArray: [
@@ -231,19 +241,7 @@ $scope.ngModelOptionsSelected = function(value) {
       enableCellEdit: true
     },
  	];
-
-  $scope.msg = {};
- 	$scope.gridOptions.onRegisterApi = function(gridApi) {
-  		//set gridApi on scope
-  		$scope.gridApi = gridApi;
-  		gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-  				$scope.msg.lastCellEdited = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue ;
-  				$scope.$apply();
-    });
-  };
-
-  $scope.gridOptions.data = $scope.myData;
-})
+}])
 
 .filter('mapCostItems', function() {
   var genderHash = {
