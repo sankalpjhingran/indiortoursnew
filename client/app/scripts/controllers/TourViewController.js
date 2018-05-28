@@ -187,16 +187,23 @@ angular.module('clientApp')
     onRegisterApi: function( gridApi ) {
         $scope.gridApi = gridApi;
         $scope.gridApi.treeBase.state = 'expanded';
+
+        $scope.gridApi.grid.registerDataChangeCallback(function() {
+          $scope.gridApi.treeBase.expandAllRows();
+        });
     }
   };
 
+  $scope.gridOptions.enableColumnResizing = true;
   $scope.msg = { };
 
   $scope.gridOptions.columnDefs = [
     {
-      name: 'costcategory', displayName: 'Cost Category',  grouping: { groupPriority: 0 }, sort: { priority: 0, direction: 'asc' }, cellTemplate: '<div><div ng-if="!col.grouping || col.grouping.groupPriority === undefined || col.grouping.groupPriority === null || ( row.groupHeader && col.grouping.groupPriority === row.treeLevel )" class="ui-grid-cell-contents" title="TOOLTIP">{{COL_FIELD CUSTOM_FILTERS}}</div></div>'
+      name: 'costcategory', displayName: 'Cost Category',
+      grouping: { groupPriority: 0 }, sort: { priority: 0, direction: 'asc' }, width: 250, state: 'expanded',
+      cellTemplate: '<div><div ng-if="!col.grouping || col.grouping.groupPriority === undefined || col.grouping.groupPriority === null || ( row.groupHeader && col.grouping.groupPriority === row.treeLevel )" class="ui-grid-cell-contents" title="TOOLTIP">{{COL_FIELD CUSTOM_FILTERS}}</div></div>'
     },
-    { name: 'costitem',  displayName: 'Cost Per Person in INR',
+    { name: 'costitem',  displayName: 'Cost Per Person in INR', width:200,
     },
     { name: 'budget',  displayName: 'Budget',
     },

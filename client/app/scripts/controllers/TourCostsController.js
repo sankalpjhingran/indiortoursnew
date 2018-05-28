@@ -195,9 +195,12 @@ $scope.ngModelOptionsSelected = function(value) {
     //}
   };
 
+  vm.gridOptions.enableCellEditOnFocus = true;
+  vm.gridOptions.enableColumnResizing = true;
   vm.gridOptions.columnDefs = [
     {
-      name: 'costcategory', displayName: 'Cost Category', enableCellEdit: true, editableCellTemplate: 'ui-grid/dropdownEditor',
+      name: 'costcategory', displayName: 'Cost Category', enableCellEdit: true,
+      width: 220, editableCellTemplate: 'ui-grid/dropdownEditor',
       cellFilter: 'mapCostCategories', editDropdownValueLabel: 'costcategory', editDropdownOptionsArray: [
         { id: 'Normal Cost', costcategory : 'Normal Cost' },
         { id: 'Supplement', costcategory : 'Supplement' },
@@ -205,7 +208,7 @@ $scope.ngModelOptionsSelected = function(value) {
       ]
     },
     { name: 'costitem',  displayName: 'Cost Per Person in INR',
-      enableCellEdit: true,         editableCellTemplate: 'ui-grid/dropdownEditor',
+      enableCellEdit: true, width: 200, editableCellTemplate: 'ui-grid/dropdownEditor',
       cellFilter: 'mapCostItems', editDropdownValueLabel: 'costitem', editDropdownOptionsArray: [
         { id: 'Minimum 02 Persons', costitem : 'Minimum 02 Persons' },
         { id: 'Single Supplement', costitem : 'Single Supplement' },

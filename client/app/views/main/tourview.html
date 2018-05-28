@@ -16,6 +16,11 @@
   object-fit: cover;
   object-position: center;
 }
+
+.grid {
+  width: 100%;
+  height: 450px;
+}
 </style>
 
 <!-- main div -->
@@ -80,7 +85,7 @@
             </thead>
             <tbody>
               <td>
-                <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourWithAllRelated[0].tourcost[0].individualcostsjson" ui-grid="gridOptions" ui-grid-grouping class="grid"></div>
+                <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourWithAllRelated[0].tourcost[0].individualcostsjson" ui-grid="gridOptions" ui-grid-grouping ui.grid.resizeColumns class="grid"></div>
               </td>
             </tbody>
         </table>
