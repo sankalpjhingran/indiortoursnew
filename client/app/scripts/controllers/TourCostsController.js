@@ -207,9 +207,10 @@ $scope.ngModelOptionsSelected = function(value) {
         { id: 'Additional Service Supplement', costcategory : 'Additional Service Supplement' },
       ]
     },
-    { name: 'costitem',  displayName: 'Cost Per Person in INR',
+    { name: 'costitem',  displayName: 'Cost Per Person',
       enableCellEdit: true, width: 200, editableCellTemplate: 'ui-grid/dropdownEditor',
       cellFilter: 'mapCostItems', editDropdownValueLabel: 'costitem', editDropdownOptionsArray: [
+        { id: 'Single Person', costitem : 'Single Person' },
         { id: 'Minimum 02 Persons', costitem : 'Minimum 02 Persons' },
         { id: 'Single Supplement', costitem : 'Single Supplement' },
         { id: 'Domestic Airfare', costitem : 'Domestic Airfare' },
@@ -244,6 +245,7 @@ $scope.ngModelOptionsSelected = function(value) {
 
 .filter('mapCostItems', function() {
   var genderHash = {
+    'Single Person' : 'Single Person',
     'Minimum 02 Persons' : 'Minimum 02 Persons',
     'Single Supplement' : 'Single Supplement',
     'Domestic Airfare' : 'Domestic Airfare',
