@@ -170,7 +170,18 @@ $scope.ngModelOptionsSelected = function(value) {
     		$scope.gridApi = gridApi;
     		gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
     				$scope.msg.lastCellEdited = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue ;
-    				$scope.$apply();
+            if( colDef.name === 'costcategory' ){
+              if( newValue === 'Normal Cost' ){
+                rowEntity.allCostOptions = $scope.normalCostOptions;
+              }else if( newValue === 'Supplement' ) {
+                rowEntity.allCostOptions = $scope.supplementOptions;
+              }else if( newValue === 'Additional Service Supplement' ) {
+                rowEntity.allCostOptions = $scope.additionalServiceSupplementOptions;
+              }else {
+                rowEntity.allCostOptions = $scope.allCostOptions;
+              }
+            }
+            $scope.$apply();
       });
     },
     data: 'myData',
@@ -207,25 +218,9 @@ $scope.ngModelOptionsSelected = function(value) {
         { id: 'Additional Service Supplement', costcategory : 'Additional Service Supplement' },
       ]
     },
-    { name: 'costitem',  displayName: 'Cost Per Person in INR',
+    { name: 'costitem',  displayName: 'Cost Per Person',
       enableCellEdit: true, width: 200, editableCellTemplate: 'ui-grid/dropdownEditor',
-      cellFilter: 'mapCostItems', editDropdownValueLabel: 'costitem', editDropdownOptionsArray: [
-        { id: 'Minimum 02 Persons', costitem : 'Minimum 02 Persons' },
-        { id: 'Single Supplement', costitem : 'Single Supplement' },
-        { id: 'Domestic Airfare', costitem : 'Domestic Airfare' },
-        { id: 'High Season Supplement', costitem : 'High Season Supplement' },
-        { id: 'High Season Supplement 2', costitem : 'High Season Supplement 2' },
-        { id: 'Festival Season Supplement', costitem : 'Festival Season Supplement' },
-        { id: 'Early Bird Discount', costitem : 'Early Bird Discount' },
-        { id: 'Internation Airfare', costitem : 'Internation Airfare' },
-        { id: 'Visa Charges', costitem : 'Visa Charges' },
-        { id: 'Accompanying Guide', costitem : 'Accompanying Guide' },
-        { id: 'Breakfast', costitem : 'Breakfast' },
-        { id: 'Half Board', costitem : 'Half Board' },
-        { id: 'Full Board', costitem : 'Full Board' },
-        { id: 'Extra Nights Arrival City', costitem : 'Extra Nights Arrival City' },
-        { id: 'Extra Nights Departure City', costitem : 'Extra Nights Departure City'}
-      ]
+      cellFilter: 'mapCostItems', editDropdownValueLabel: 'costitem', editDropdownRowEntityOptionsArrayPath: 'allCostOptions'
     },
     { name: 'budget',  displayName: 'Budget',
       enableCellEdit: true
@@ -240,10 +235,56 @@ $scope.ngModelOptionsSelected = function(value) {
       enableCellEdit: true
     },
  	];
+
+  $scope.allCostOptions =
+  [
+    { id: 'Single Person', costitem : 'Single Person' },
+    { id: 'Minimum 02 Persons', costitem : 'Minimum 02 Persons' },
+    { id: 'Single Supplement', costitem : 'Single Supplement' },
+    { id: 'Domestic Airfare', costitem : 'Domestic Airfare' },
+    { id: 'High Season Supplement', costitem : 'High Season Supplement' },
+    { id: 'High Season Supplement 2', costitem : 'High Season Supplement 2' },
+    { id: 'Festival Season Supplement', costitem : 'Festival Season Supplement' },
+    { id: 'Early Bird Discount', costitem : 'Early Bird Discount' },
+    { id: 'International Airfare', costitem : 'International Airfare' },
+    { id: 'Visa Charges', costitem : 'Visa Charges' },
+    { id: 'Accompanying Guide', costitem : 'Accompanying Guide' },
+    { id: 'Breakfast', costitem : 'Breakfast' },
+    { id: 'Half Board', costitem : 'Half Board' },
+    { id: 'Full Board', costitem : 'Full Board' },
+    { id: 'Extra Nights Arrival City', costitem : 'Extra Nights Arrival City' },
+    { id: 'Extra Nights Departure City', costitem : 'Extra Nights Departure City'}
+  ];
+
+  $scope.normalCostOptions = [
+    { id: 'Single Person', costitem : 'Single Person' },
+    { id: 'Minimum 02 Persons', costitem : 'Minimum 02 Persons' },
+    { id: 'Single Supplement', costitem : 'Single Supplement' },
+    { id: 'Domestic Airfare', costitem : 'Domestic Airfare' }
+  ];
+
+  $scope.supplementOptions = [
+    { id: 'High Season Supplement', costitem : 'High Season Supplement' },
+    { id: 'High Season Supplement 2', costitem : 'High Season Supplement 2' },
+    { id: 'Festival Season Supplement', costitem : 'Festival Season Supplement' },
+    { id: 'Early Bird Discount', costitem : 'Early Bird Discount' }
+  ];
+
+  $scope.additionalServiceSupplementOptions = [
+    { id: 'International Airfare', costitem : 'International Airfare' },
+    { id: 'Visa Charges', costitem : 'Visa Charges' },
+    { id: 'Accompanying Guide', costitem : 'Accompanying Guide' },
+    { id: 'Breakfast', costitem : 'Breakfast' },
+    { id: 'Half Board', costitem : 'Half Board' },
+    { id: 'Full Board', costitem : 'Full Board' },
+    { id: 'Extra Nights Arrival City', costitem : 'Extra Nights Arrival City' },
+    { id: 'Extra Nights Departure City', costitem : 'Extra Nights Departure City'}
+  ];
 }])
 
 .filter('mapCostItems', function() {
   var genderHash = {
+    'Single Person' : 'Single Person',
     'Minimum 02 Persons' : 'Minimum 02 Persons',
     'Single Supplement' : 'Single Supplement',
     'Domestic Airfare' : 'Domestic Airfare',
@@ -251,7 +292,7 @@ $scope.ngModelOptionsSelected = function(value) {
     'High Season Supplement 2' : 'High Season Supplement 2',
     'Festival Season Supplement' : 'Festival Season Supplement',
     'Early Bird Discount' : 'Early Bird Discount',
-    'Internation Airfare' : 'Internation Airfare',
+    'International Airfare' : 'International Airfare',
     'Visa Charges' : 'Visa Charges',
     'Accompanying Guide' : 'Accompanying Guide',
     'Breakfast' : 'Breakfast',
