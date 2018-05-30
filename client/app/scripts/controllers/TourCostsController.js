@@ -253,21 +253,24 @@ $scope.ngModelOptionsSelected = function(value) {
     { id: 'Half Board', costitem : 'Half Board' },
     { id: 'Full Board', costitem : 'Full Board' },
     { id: 'Extra Nights Arrival City', costitem : 'Extra Nights Arrival City' },
-    { id: 'Extra Nights Departure City', costitem : 'Extra Nights Departure City'}
+    { id: 'Extra Nights Departure City', costitem : 'Extra Nights Departure City'},
+    { id: 'Note', costitem : 'Note'}
   ];
 
   $scope.normalCostOptions = [
     { id: 'Single Person', costitem : 'Single Person' },
     { id: 'Minimum 02 Persons', costitem : 'Minimum 02 Persons' },
     { id: 'Single Supplement', costitem : 'Single Supplement' },
-    { id: 'Domestic Airfare', costitem : 'Domestic Airfare' }
+    { id: 'Domestic Airfare', costitem : 'Domestic Airfare' },
+    { id: 'Note', costitem : 'Note'}
   ];
 
   $scope.supplementOptions = [
     { id: 'High Season Supplement', costitem : 'High Season Supplement' },
     { id: 'High Season Supplement 2', costitem : 'High Season Supplement 2' },
     { id: 'Festival Season Supplement', costitem : 'Festival Season Supplement' },
-    { id: 'Early Bird Discount', costitem : 'Early Bird Discount' }
+    { id: 'Early Bird Discount', costitem : 'Early Bird Discount' },
+    { id: 'Note', costitem : 'Note'}
   ];
 
   $scope.additionalServiceSupplementOptions = [
@@ -278,7 +281,8 @@ $scope.ngModelOptionsSelected = function(value) {
     { id: 'Half Board', costitem : 'Half Board' },
     { id: 'Full Board', costitem : 'Full Board' },
     { id: 'Extra Nights Arrival City', costitem : 'Extra Nights Arrival City' },
-    { id: 'Extra Nights Departure City', costitem : 'Extra Nights Departure City'}
+    { id: 'Extra Nights Departure City', costitem : 'Extra Nights Departure City'},
+    { id: 'Note', costitem : 'Note'}
   ];
 }])
 
@@ -300,6 +304,7 @@ $scope.ngModelOptionsSelected = function(value) {
     'Full Board' : 'Full Board',
     'Extra Nights Arrival City' : 'Extra Nights Arrival City',
     'Extra Nights Departure City' : 'Extra Nights Departure City',
+    'Note' : 'Note'
   };
 
   return function(input) {
