@@ -16,11 +16,10 @@ angular.module('clientApp')
     var imagesMap = new Map();
 
     var vm = this;
-    var events = [];
     vm.calendarView = 'year';
     vm.viewDate = moment().toDate();
-    vm.events = [];
     vm.cellIsOpen = true;
+    vm.events = [];
 
     vm.viewChangeClicked = function(nextView) {
       if (nextView === 'day') {
@@ -75,7 +74,7 @@ angular.module('clientApp')
                   }
               });
 
-              $scope.events = [];
+              $scope._events = [];
               angular.forEach($scope.tourWithAllRelated[0].departuredates, function(date){
                 // Parse a RRuleSet string, return a RRuleSet object
                 //BYDAY=MO,FR
@@ -93,7 +92,7 @@ angular.module('clientApp')
                   console.log(rrulestr('RRULE:BYDAY=' + BYDAY.toString()));
                   console.log(rule.options.byweekday);
 
-                  $scope.events.push(
+                  $scope._events.push(
                     {
                       title: date.title,
                       color: '#ffa500',
@@ -114,7 +113,8 @@ angular.module('clientApp')
                   );
               });
               console.log('Calling watch function=======>');
-              watchFunction();
+              vm.calendarView = 'month';
+              vm.calendarView = 'year';
            },
            function(response){
              // failure call back
@@ -125,11 +125,11 @@ angular.module('clientApp')
     var watchFunction = function(){
       // the code
       console.log('In watch function=======>');
-      vm.events = [];
+      //vm.events = [];
 
-      if($scope.events && $scope.events.length) {
-          console.log($scope.events);
-          $scope.events.forEach(function(event) {
+      if($scope._events && $scope._events.length) {
+          console.log($scope._events);
+          $scope._events.forEach(function(event) {
 
           // Use the rrule library to generate recurring events: https://github.com/jkbrzt/rrule
           var rule = new RRule(angular.extend({}, event.rrule, {
@@ -143,7 +143,6 @@ angular.module('clientApp')
             }));
           });
         })
-        console.log(vm.events);
       }
     }
 
@@ -155,12 +154,9 @@ angular.module('clientApp')
     vm.timespanClicked = function(date, cell) {
       console.log('Timespan clicked.....');
       if (vm.calendarView === 'month') {
-        console.log('Month is true');
         if ((vm.cellIsOpen && moment(date).startOf('day').isSame(moment(vm.viewDate).startOf('day'))) || cell.events.length === 0 || !cell.inMonth) {
-          console.log('=======>1');
           vm.cellIsOpen = false;
         } else {
-          console.log('=======>2');
           vm.cellIsOpen = true;
           vm.viewDate = date;
         }

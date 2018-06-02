@@ -54,7 +54,7 @@
       <!-- Itinerary End -->
 
       <!-- Dates & Prices Start -->
-      <uib-tab index="1" heading="Dates &amp; Prices">
+      <uib-tab index="1" heading="Dates &amp; Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
         <table class="table table-hover table-bordered" ng-show="!(error)">
           <thead>
             <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">DEPARTURE DATES</th>
@@ -85,7 +85,14 @@
             </thead>
             <tbody>
               <td>
-                <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourWithAllRelated[0].tourcost[0].individualcostsjson" ui-grid="gridOptions" ui-grid-grouping ui.grid.resizeColumns class="grid"></div>
+                <div  style="margin-top:5px; margin-bottom:5px;"
+                      ng-model="tourWithAllRelated[0].tourcost[0].individualcostsjson"
+                      ui-grid="gridOptions"
+                      ui-grid-grouping
+                      ui.grid.resizeColumns
+                      class="grid"
+                      ng-if="tabShown">
+                </div>
               </td>
             </tbody>
         </table>
