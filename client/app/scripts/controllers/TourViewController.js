@@ -29,6 +29,7 @@ angular.module('clientApp')
 
 
     $scope.getTourDetailsWithRelatedModels = function(){
+      $scope.loading = true;
       $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
        .then(
            function(res){
@@ -115,6 +116,7 @@ angular.module('clientApp')
               console.log('Calling watch function=======>');
               vm.calendarView = 'month';
               vm.calendarView = 'year';
+              $scope.loading = false;
            },
            function(response){
              // failure call back
