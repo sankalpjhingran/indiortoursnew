@@ -23,145 +23,148 @@
 }
 </style>
 
-<!-- main div -->
-<div ng-init="getTourDetailsWithRelatedModels()">
-  <!-- Tour Name -->
-  <h3>
-    {{tourWithAllRelated[0].name}}
-  </h3>
+<div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+    <div ng-show="!(loading)">
+    <!-- main div -->
+    <div ng-init="getTourDetailsWithRelatedModels()">
+      <!-- Tour Name -->
+      <h3>
+        {{tourWithAllRelated[0].name}}
+      </h3>
 
-  <!-- This is a repeat on all locations -->
-  <span style="color:orange;">
-    {{ tourWithAllRelated[0].location | join : ' | ' }}
-  </span>
+      <!-- This is a repeat on all locations -->
+      <span style="color:orange;">
+        {{ tourWithAllRelated[0].location | join : ' | ' }}
+      </span>
 
-  <!-- This is tour description -->
-  <p class="main">
-    {{tourWithAllRelated[0].description}}
-  </p>
+      <!-- This is tour description -->
+      <p class="main">
+        {{tourWithAllRelated[0].description}}
+      </p>
 
-  <!-- tabs go here -->
-  <uib-tabset active="activeJustified" justified="true">
-      <!-- Itinerary Start -->
-      <uib-tab index="0" heading="Itinerary">
-        <div ng-repeat="itinerary in tourWithAllRelated[0].itinerary">
-          <h4>
-            {{itinerary.day}}
-          </h4>
-          <p style="white-space: pre-wrap;">{{itinerary.description}}</p>
-        </div>
-      </uib-tab>
-      <!-- Itinerary End -->
-
-      <!-- Dates & Prices Start -->
-      <uib-tab index="1" heading="Dates &amp; Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
-        <table class="table table-hover table-bordered" ng-show="!(error)">
-          <thead>
-            <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">DEPARTURE DATES</th>
-            <tr>
-              <td>
-                <div ng-controller="TourViewController as vm">
-                  <h3 class="text-center">{{ vm.calendarTitle }}</h3>
-                  <ng-include src="'views/main/calendarControls.html'"></ng-include>
-                  <mwl-calendar
-                    events="vm.events"
-                    view="vm.calendarView"
-                    view-date="vm.viewDate"
-                    cell-auto-open-disabled="true"
-                    view-title="vm.calendarTitle"
-                    cell-is-open="vm.cellIsOpen"
-                    on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
-                    on-view-change-click="vm.viewChangeClicked(calendarNextView)">
-                  </mwl-calendar>
-                </div>
-              </td>
-            </tr>
-          </thead>
-        </table>
-
-        <table class="table table-hover table-bordered" ng-show="!(error)">
-            <thead>
-              <th style="text-align:center;color: #ffffff; background-color: #3270bc" colspan="4">TOUR COST</th>
-            </thead>
-            <tbody>
-              <td>
-                <div  style="margin-top:5px; margin-bottom:5px;"
-                      ng-model="tourWithAllRelated[0].tourcost[0].individualcostsjson"
-                      ui-grid="gridOptions"
-                      ui-grid-grouping
-                      ui.grid.resizeColumns
-                      class="grid"
-                      ng-if="tabShown">
-                </div>
-              </td>
-            </tbody>
-        </table>
-      </uib-tab>
-      <!-- Dates & Prices End -->
-
-      <!-- Hotels Start -->
-      <uib-tab index="2" heading="Hotels">
-        <table class="table table-hover table-bordered" ng-show="!(error)">
-          <thead>
-            <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">Hotels</th>
-            <tr>
-              <th class="col-xs-2">Name</th>
-              <th class="col-xs-2">Location</th>
-              <th class="col-xs-2">Type</th>
-            </tr>
-          </thead>
-          <tr ng-repeat="x in tourWithAllRelated[0].accomodationHotel">
-            <td>{{ x["name"] }}</td>
-            <td>{{ x["location"] }}</td>
-            <td>{{ x["type"] }}</td>
-          </tr>
-        </table>
-
-        <uib-accordion close-others="false">
-            <div  uib-accordion-group
-                  class="panel-default"
-                  ng-repeat="(key, value) in tourWithAllRelated[0].accomodationHotel | groupBy: 'type'"
-                  heading="{{key}}"
-                  is-open="$first">
-
-              <div ng-repeat="hotel in value">
-                <table>
-                    <tr>
-                        <td style="width:20rem;padding-right:10px;padding-bottom:10px;"><img style="height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView"></td>
-                        <td style="padding-bottom:10px;vertical-align:top"><div ng-bind-html="hotel.description"></div></td>
-                    </tr>
-                </table>
-              </div>
+      <!-- tabs go here -->
+      <uib-tabset active="activeJustified" justified="true">
+          <!-- Itinerary Start -->
+          <uib-tab index="0" heading="Itinerary">
+            <div ng-repeat="itinerary in tourWithAllRelated[0].itinerary">
+              <h4>
+                {{itinerary.day}}
+              </h4>
+              <p style="white-space: pre-wrap;">{{itinerary.description}}</p>
             </div>
-        </uib-accordion>
+          </uib-tab>
+          <!-- Itinerary End -->
 
-      </uib-tab>
-      <!-- Hotels End -->
+          <!-- Dates & Prices Start -->
+          <uib-tab index="1" heading="Dates &amp; Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
+            <table class="table table-hover table-bordered" ng-show="!(error)">
+              <thead>
+                <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">DEPARTURE DATES</th>
+                <tr>
+                  <td>
+                    <div ng-controller="TourViewController as vm">
+                      <h3 class="text-center">{{ vm.calendarTitle }}</h3>
+                      <ng-include src="'views/main/calendarControls.html'"></ng-include>
+                      <mwl-calendar
+                        events="vm.events"
+                        view="vm.calendarView"
+                        view-date="vm.viewDate"
+                        cell-auto-open-disabled="true"
+                        view-title="vm.calendarTitle"
+                        cell-is-open="vm.cellIsOpen"
+                        on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
+                        on-view-change-click="vm.viewChangeClicked(calendarNextView)">
+                      </mwl-calendar>
+                    </div>
+                  </td>
+                </tr>
+              </thead>
+            </table>
 
-      <!-- Destinations Start -->
-      <uib-tab index="3" heading="Destinations">
-        <div ng-repeat="x in tourWithAllRelated[0].siteLocation">
-          <h4>
-            {{x.city}}, {{x.country}}
-          </h4>
-          <p style="white-space: pre-wrap;">{{x.description}}</p>
-        </div>
+            <table class="table table-hover table-bordered" ng-show="!(error)">
+                <thead>
+                  <th style="text-align:center;color: #ffffff; background-color: #3270bc" colspan="4">TOUR COST</th>
+                </thead>
+                <tbody>
+                  <td>
+                    <div  style="margin-top:5px; margin-bottom:5px;"
+                          ng-model="tourWithAllRelated[0].tourcost[0].individualcostsjson"
+                          ui-grid="gridOptions"
+                          ui-grid-grouping
+                          ui.grid.resizeColumns
+                          class="grid"
+                          ng-if="tabShown">
+                    </div>
+                  </td>
+                </tbody>
+            </table>
+          </uib-tab>
+          <!-- Dates & Prices End -->
 
-      </uib-tab>
-      <!-- Destinations End -->
+          <!-- Hotels Start -->
+          <uib-tab index="2" heading="Hotels">
+            <table class="table table-hover table-bordered" ng-show="!(error)">
+              <thead>
+                <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">Hotels</th>
+                <tr>
+                  <th class="col-xs-2">Name</th>
+                  <th class="col-xs-2">Location</th>
+                  <th class="col-xs-2">Type</th>
+                </tr>
+              </thead>
+              <tr ng-repeat="x in tourWithAllRelated[0].accomodationHotel">
+                <td>{{ x["name"] }}</td>
+                <td>{{ x["location"] }}</td>
+                <td>{{ x["type"] }}</td>
+              </tr>
+            </table>
 
-      <!-- More Info Start -->
-      <uib-tab index="4" heading="More Info">
-        <uib-accordion close-others="false">
-            <div  uib-accordion-group
-                  class="panel-default"
-                  ng-repeat="x in tourWithAllRelated[0].tourNote"
-                  heading="{{x.type}}"
-                  is-open="$first">
-              <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
+            <uib-accordion close-others="false">
+                <div  uib-accordion-group
+                      class="panel-default"
+                      ng-repeat="(key, value) in tourWithAllRelated[0].accomodationHotel | groupBy: 'type'"
+                      heading="{{key}}"
+                      is-open="$first">
+
+                  <div ng-repeat="hotel in value">
+                    <table>
+                        <tr>
+                            <td style="width:20rem;padding-right:10px;padding-bottom:10px;"><img style="height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView"></td>
+                            <td style="padding-bottom:10px;vertical-align:top"><div ng-bind-html="hotel.description"></div></td>
+                        </tr>
+                    </table>
+                  </div>
+                </div>
+            </uib-accordion>
+
+          </uib-tab>
+          <!-- Hotels End -->
+
+          <!-- Destinations Start -->
+          <uib-tab index="3" heading="Destinations">
+            <div ng-repeat="x in tourWithAllRelated[0].siteLocation">
+              <h4>
+                {{x.city}}, {{x.country}}
+              </h4>
+              <p style="white-space: pre-wrap;">{{x.description}}</p>
             </div>
-        </uib-accordion>
-      </uib-tab>
-      <!-- More Info End -->
-  </uib-tabset>
+
+          </uib-tab>
+          <!-- Destinations End -->
+
+          <!-- More Info Start -->
+          <uib-tab index="4" heading="More Info">
+            <uib-accordion close-others="false">
+                <div  uib-accordion-group
+                      class="panel-default"
+                      ng-repeat="x in tourWithAllRelated[0].tourNote"
+                      heading="{{x.type}}"
+                      is-open="$first">
+                  <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
+                </div>
+            </uib-accordion>
+          </uib-tab>
+          <!-- More Info End -->
+      </uib-tabset>
+    </div>
 </div>
