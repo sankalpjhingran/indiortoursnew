@@ -8,10 +8,9 @@ var cors = require('cors');
 var jade = require('pug');
 var helmet = require('helmet');
 var compression = require('compression');
-var debug = require('debug')('http');
-
-//Mutler
-//var multer  = require('multer');
+var debug = require('debug')('http')
+  , http = require('http')
+  , name = 'IndiorTours';
 
 var models = require('./models/index');
 var regusers = require('./routes/regusers');
@@ -47,12 +46,12 @@ app.use(helmet());
 app.use(compression());
 
 app.use(cors()) // <--- CORS
-console.log('Initializing app.js file====>2');
+debug('Initializing app.js file====>2');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-console.log('Initializing app.js file====>3');
+debug('Initializing app.js file====>3');
 
 SALT_WORK_FACTOR = 12;
 
@@ -131,7 +130,6 @@ app.use('/api/parenttours/update', parenttours);
 app.use('/api/parenttours/viewtrip', parenttours);
 
 // In production, we'll actually serve our angular app from express
-console.log('env is====> ' + app.get('env'));
 if (app.get('env') === 'production') {
   app.use(express.static(path.join(__dirname, '/dist')));
 
@@ -146,9 +144,7 @@ if (app.get('env') === 'production') {
   });
 }
 
-console.log('Calling index.html1===>');
 app.get('/*', function(req, res) {
-  console.log('Calling index.html2===>');
   res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
