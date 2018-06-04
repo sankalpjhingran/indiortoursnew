@@ -36,7 +36,10 @@ angular.module('clientApp')
              // success callback
              $scope.tourWithAllRelated = res.data;
              console.log($scope.tourWithAllRelated[0].tourcost[0]);
-             $scope.gridOptions.data = $scope.tourWithAllRelated[0].tourcost[0].individualcostsjson;
+             if($scope.tourWithAllRelated[0].tourcost[0] && $scope.tourWithAllRelated[0].tourcost[0].individualcostsjson) {
+                $scope.gridOptions.data = $scope.tourWithAllRelated[0].tourcost[0].individualcostsjson;
+             }
+
 
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              var hotelids = [];
@@ -63,7 +66,6 @@ angular.module('clientApp')
                         hotel.images = imagesMap.get(hotel.id);
                       });
                   });
-                  console.log(imagesMap);
               });
               console.log($scope.tourWithAllRelated);
 
@@ -114,8 +116,8 @@ angular.module('clientApp')
                   );
               });
               console.log('Calling watch function=======>');
-              vm.calendarView = 'month';
-              vm.calendarView = 'year';
+              watchFunction();
+              console.log(vm.events);
               $scope.loading = false;
            },
            function(response){
