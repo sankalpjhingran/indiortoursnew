@@ -21,6 +21,15 @@
   width: 100%;
   height: 450px;
 }
+
+mwl-calendar .cal-month-box [class*=cal-cell], mwl-calendar .cal-year-box [class*=span] {
+    min-height: 80px;
+}
+
+mwl-calendar .cal-month-day {
+    height: 80px;
+}
+
 </style>
 
 <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
@@ -63,7 +72,7 @@
                 <tr>
                   <td>
                     <div ng-controller="TourViewController as vm">
-                      <h3 class="text-center">{{ vm.calendarTitle }}</h3>
+                      <h3 style="margin-top:10px;margin-bottom:10px;" class="text-center">{{ vm.calendarTitle }}</h3>
                       <ng-include src="'views/main/calendarControls.html'"></ng-include>
                       <mwl-calendar
                         events="vm.events"
