@@ -238,7 +238,6 @@ $scope.ngModelOptionsSelected = function(value) {
 
   $scope.allCostOptions =
   [
-    { id: 'Single Person', costitem : 'Single Person' },
     { id: 'Minimum 02 Persons', costitem : 'Minimum 02 Persons' },
     { id: 'Single Supplement', costitem : 'Single Supplement' },
     { id: 'Domestic Airfare', costitem : 'Domestic Airfare' },
@@ -246,6 +245,7 @@ $scope.ngModelOptionsSelected = function(value) {
     { id: 'High Season Supplement 2', costitem : 'High Season Supplement 2' },
     { id: 'Festival Season Supplement', costitem : 'Festival Season Supplement' },
     { id: 'Early Bird Discount', costitem : 'Early Bird Discount' },
+    { id: 'Single Person', costitem : 'Single Person' },
     { id: 'International Airfare', costitem : 'International Airfare' },
     { id: 'Visa Charges', costitem : 'Visa Charges' },
     { id: 'Accompanying Guide', costitem : 'Accompanying Guide' },
@@ -258,7 +258,6 @@ $scope.ngModelOptionsSelected = function(value) {
   ];
 
   $scope.normalCostOptions = [
-    { id: 'Single Person', costitem : 'Single Person' },
     { id: 'Minimum 02 Persons', costitem : 'Minimum 02 Persons' },
     { id: 'Single Supplement', costitem : 'Single Supplement' },
     { id: 'Domestic Airfare', costitem : 'Domestic Airfare' },
@@ -274,6 +273,7 @@ $scope.ngModelOptionsSelected = function(value) {
   ];
 
   $scope.additionalServiceSupplementOptions = [
+    { id: 'Single Person', costitem : 'Single Person' },
     { id: 'International Airfare', costitem : 'International Airfare' },
     { id: 'Visa Charges', costitem : 'Visa Charges' },
     { id: 'Accompanying Guide', costitem : 'Accompanying Guide' },
