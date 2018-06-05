@@ -115,9 +115,6 @@ angular.module('clientApp')
                     }
                   );
               });
-              console.log('Calling watch function=======>');
-              watchFunction();
-              console.log(vm.events);
               $scope.loading = false;
            },
            function(response){
@@ -129,7 +126,7 @@ angular.module('clientApp')
     var watchFunction = function(){
       // the code
       console.log('In watch function=======>');
-      //vm.events = [];
+      vm.events = [];
 
       if($scope._events && $scope._events.length) {
           console.log($scope._events);
