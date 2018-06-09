@@ -98,7 +98,22 @@ $scope.loadtoursData = function(){
   $scope.allNotes = undefined;
 
   $scope.loading = true;
-  
+
+  var promise = $http.get('/api/isAuthenticated/');
+  promise.then(
+    function(res) {
+      $scope.isLoggedIn = res.data.isLoggedIn;
+      if(res.data.user && res.data.user.type) {
+          $scope.isAdminLoggedIn = res.data.user.type == 'Admin' ? true : false;
+      }else {
+          $scope.isAdminLoggedIn = false;
+      }
+
+      if($scope.isAdminLoggedIn) {
+
+      }
+  });
+
   $http.get('/api/location/all/')
     .then(function(locations){
       $scope.allLocation = locations.data;

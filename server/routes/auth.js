@@ -8,7 +8,15 @@ var users  = require('../controllers/users');
 
 
 router.post("/", passport.authenticate('local-signin'), function(req, res) {
-  res.json(req.user);
+  console.log('In auth.js route=====>');
+  const returnUser = {
+    firstname: req.user.firstname,
+    lastname: req.user.lastname,
+    email: req.user.email,
+    type: req.user.type
+  };
+  console.log(returnUser);
+  res.json(returnUser);
 });
 
 module.exports = router;

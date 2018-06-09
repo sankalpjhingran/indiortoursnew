@@ -13,15 +13,22 @@ angular.module('clientApp')
 // get all locations to be displayed on page load
 $scope.loadUserData = function(){
    // Load all locations to be displayed
-   $http.get('/api/users/')
+   $http.get('/api/isAuthenticated/')
     .then(
         function(response){
           // success callback
-          $scope.loggedInUser = response.data;
-          return $scope.loggedInUser;
+          if(response.data.isLoggedIn){
+            $scope.isLoggedIn = true;
+            if(response.data.user){
+               $scope.loggedInUser = response.data.user;
+            }
+          }else{
+            console.log('User not logged in====>');
+          }
         },
         function(response){
-          // failure call back
+          //failure call back
+          $scope.isLoggedIn = false;
         }
      );
 }
