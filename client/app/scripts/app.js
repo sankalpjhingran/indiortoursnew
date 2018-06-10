@@ -78,7 +78,7 @@ angular
     .setNotify(true, true)
 })
 
-.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider, calendarConfig) {
+.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider, calendarConfig, $timeout) {
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/404');
 
@@ -354,7 +354,8 @@ angular
                 templateUrl: 'views/admin/toursadmin.html',
                 controller: 'ToursAdminController'
               }
-            }
+            },
+            resolve: { authenticate: authenticate }
         })
         .state('parenttours', {
             url: '/parenttours',
@@ -567,4 +568,19 @@ angular
             }
           }
       })
+
+      function authenticate($q, $state, $timeout) {
+         if (true) {
+           // Resolve the promise successfully
+           return $q.when();
+         } else {
+           // The next bit of code is asynchronously tricky.
+
+           $timeout(function() {
+             // This code runs after the authentication promise has been rejected.
+             // Go to the log-in page
+             $stateProvider.stateService.go('parenttours');
+           })
+         }
+      }
 }]);

@@ -25,10 +25,12 @@
             <li><a ng-href="/contactus" style="color:#ffffff;">Contact Us</a></li>
             <li><a ng-show="isAdminLoggedIn" ng-href="/toursadmin" style="color:#ffffff;">Admin</a></li>
             <!-- <li><a ng-href="" ng-show="firstname" style="color:#ffffff;">Welcome {{firstname}}!</a></li> -->
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#ffffff;">My Account
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu navbar-right">
+            <li uib-dropdown>
+              <a uib-dropdown-toggle href=""  style="color:#ffffff;">
+                My Account
+                <span class="caret"></span>
+              </a>
+              <ul uib-dropdown-menu>
                 <li><a ng-href="/myprofile" role="button"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
                 <li><a ng-href="/signup"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
                 <li><a ng-href="/" role="button" ng-click="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

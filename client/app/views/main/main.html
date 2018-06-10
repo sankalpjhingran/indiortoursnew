@@ -57,7 +57,7 @@
         <carousel-item>
           <div class="productbox" style="margin-right:5px;margin-left:5px;">
             <img style="height:170px;width:100%;" ng-src="/images/{{item.images[0].filename}}" alt="{{item.images[0].filename}}" class="img-responsive thumb-post">
-            <div class="producttitle text-center">{{ item.name | truncate: 20 : '...' : false }}</div>
+            <div class="producttitle text-center"><a ng-href="/tourView?id={{item.id}}&amp;name={{item.name | slugify}}">{{ item.name | truncate: 20 : '...' : false }}</a></div>
           </div>
         </carousel-item>
         <!-- For customize carousel next, previous button -->
