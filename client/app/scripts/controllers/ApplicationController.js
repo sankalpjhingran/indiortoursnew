@@ -15,7 +15,6 @@ angular.module('clientApp')
        .then(
            function(response){
              // success callback
-             console.log(response);
              if(response.data.isLoggedIn){
                $scope.isLoggedIn = true;
                if(response.data.user && response.data.user.type === 'Admin'){
