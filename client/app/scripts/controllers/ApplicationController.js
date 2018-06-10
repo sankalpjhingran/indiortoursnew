@@ -18,13 +18,13 @@ angular.module('clientApp')
              console.log(response);
              if(response.data.isLoggedIn){
                $scope.isLoggedIn = true;
-               if(response.data.type === 'Admin'){
+               if(response.data.user && response.data.user.type === 'Admin'){
                   $scope.isAdminLoggedIn = true;
                }
              }else{
                $scope.isAdminLoggedIn = false;
-               $scope.isLoggedIn = false;
              }
+             console.log($scope.isAdminLoggedIn);
            },
            function(response){
              //failure call back
