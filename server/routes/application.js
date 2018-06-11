@@ -11,7 +11,13 @@ router.get('/', function(req, res){
 	console.log(req.isAuthenticated());
 
 	if(req.isAuthenticated()){
-			res.status(200).json({"isLoggedIn":true, "user": req.user});
+			const returnUser = {
+				firstname: req.user.firstname,
+				lastname: req.user.lastname,
+				email: req.user.email,
+				type: req.user.type
+			};
+			res.status(200).json({"isLoggedIn":true, "user": returnUser});
 	}else{
 		res.status(200).json({"isLoggedIn":false, "user": undefined});
 	}

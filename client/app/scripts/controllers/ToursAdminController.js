@@ -99,21 +99,6 @@ $scope.loadtoursData = function(){
 
   $scope.loading = true;
 
-  var promise = $http.get('/api/isAuthenticated/');
-  promise.then(
-    function(res) {
-      $scope.isLoggedIn = res.data.isLoggedIn;
-      if(res.data.user && res.data.user.type) {
-          $scope.isAdminLoggedIn = res.data.user.type == 'Admin' ? true : false;
-      }else {
-          $scope.isAdminLoggedIn = false;
-      }
-
-      if($scope.isAdminLoggedIn) {
-
-      }
-  });
-
   $http.get('/api/location/all/')
     .then(function(locations){
       $scope.allLocation = locations.data;
@@ -137,7 +122,6 @@ $scope.loadtoursData = function(){
       $scope.allTags = tags.data;
   });
 
-
    //Load all tourss to be displayed
    $http.get('/api/tours/alltourswithlocationsandhotels/')
     .then(
@@ -153,8 +137,6 @@ $scope.loadtoursData = function(){
           // failure call back
         }
      );
-
-
 }
 
 $scope.deltours = function(toursid){
