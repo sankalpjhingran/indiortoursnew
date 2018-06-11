@@ -354,8 +354,7 @@ angular
                 templateUrl: 'views/admin/toursadmin.html',
                 controller: 'ToursAdminController'
               }
-            },
-            resolve: { authenticate: authenticate }
+            },resolve: { authenticate: authenticate }
         })
         .state('parenttours', {
             url: '/parenttours',
@@ -374,6 +373,7 @@ angular
                 controller: 'ParentToursAdminController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('locationadmin', {
             url: '/locationadmin',
@@ -392,6 +392,7 @@ angular
                 controller: 'LocationAdminController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('placeadmin', {
             url: '/placeadmin',
@@ -410,6 +411,7 @@ angular
                 controller: 'PlacesAdminController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('imageadmin', {
             url: '/imageadmin',
@@ -428,6 +430,7 @@ angular
                 controller: 'ImagesAdminController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('leadsadmin', {
             url: '/leadsadmin',
@@ -446,6 +449,7 @@ angular
                 controller: 'LeadsAdminController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('usersadmin', {
             url: '/usersadmin',
@@ -464,6 +468,7 @@ angular
                 controller: 'UsersAdminController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('hotelsadmin', {
             url: '/hotelsadmin',
@@ -482,6 +487,7 @@ angular
                 controller: 'HotelsAdminController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('itineraryadmin', {
             url: '/itineraryadmin',
@@ -500,6 +506,7 @@ angular
                 controller: 'ItineraryAdminController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('departuredateadmin', {
             url: '/departuredateadmin',
@@ -518,6 +525,7 @@ angular
                 controller: 'DepartureDateAdminController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('tourcostsadmin', {
             url: '/tourcostsadmin',
@@ -536,6 +544,7 @@ angular
                 controller: 'TourCostsController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('tournotesadmin', {
             url: '/tournotesadmin',
@@ -554,6 +563,7 @@ angular
                 controller: 'TourNotesController'
               }
             }
+            ,resolve: { authenticate: authenticate }
         })
         .state('404', {
           url: '/404',
@@ -568,19 +578,41 @@ angular
             }
           }
       })
+      .state('unauthorised', {
+        url: '/unauthorised',
+        views:{
+          subheader: {
+          },
+          sidesection: {
+          },
+          mainsection:{
+            templateUrl: 'views/unauthorised.html',
+            controller: 'MainCtrl'
+          }
+        }
+    })
 
-      function authenticate($q, $state, $timeout) {
-         if (true) {
-           // Resolve the promise successfully
-           return $q.when();
-         } else {
-           // The next bit of code is asynchronously tricky.
-
-           $timeout(function() {
-             // This code runs after the authentication promise has been rejected.
-             // Go to the log-in page
-             $stateProvider.stateService.go('parenttours');
-           })
-         }
+      function authenticate($q, $state, $timeout, $http) {
+        $http.get('/api/isAuthenticated/')
+         .then(
+             function(response){
+               // success callback
+               if(response.data.isLoggedIn){
+                 if(response.data.user && response.data.user.type === 'Admin'){
+                    return $q.when();
+                 }
+               }else{
+                 $timeout(function() {
+                   // This code runs after the authentication promise has been rejected.
+                   // Go to the log-in page
+                   $stateProvider.stateService.go('unauthorised');
+                 })
+               }
+             },
+             function(response){
+               //failure call back
+               console.log('Error checking authentication OR unauthorised login.');
+             }
+          );
       }
 }]);
