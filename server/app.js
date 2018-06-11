@@ -57,10 +57,10 @@ SALT_WORK_FACTOR = 12;
 
 // For Passport
 app.use(require('express-session')({ // session secret
-    secret: 'keyboard cat',
+    secret: 'indiornoida201301',
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 }
+    cookie: { maxAge: null }
 }));
 
 app.use(passport.initialize());
