@@ -76,7 +76,13 @@
             </div>
             <div class="form-group">
               <label for="hoteltype">Hotel Type</label>
-              <input type="text" class="form-control input-sm" ng-model="hotelData.type" id="hoteltype" placeholder="Hotel Type">
+              <select class="form-control input-sm" id="hoteltype" ng-model="hotelData.type" placeholder="Hotel Type">
+                <option>Budget</option>
+                <option>Economy</option>
+                <option>Elegant</option>
+                <option>Deluxe</option>
+                <option>Luxury</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="description">Description</label>
