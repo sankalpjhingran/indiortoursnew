@@ -44,7 +44,7 @@ angular.module('clientApp')
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              var hotelids = [];
              $scope.allHotels.forEach(function(tour){
-                hotelids.push({parentobjectname: 'hotel', parentobjectid: tour.id});
+                hotelids.push(tour.id);
              });
 
              $scope.tourWithAllRelated[0].location = [] ;
@@ -52,16 +52,17 @@ angular.module('clientApp')
                 $scope.tourWithAllRelated[0].location.push(location.city);
              });
 
-             $http.get('/api/image/all/', hotelids)
+             $http.post('/api/image/all', {tourids : hotelids, parentobjectname : 'hotel'})
               .then(function(images){
+                  console.log(images);
                   angular.forEach(hotelids, function(hotel){
                       var tempImages = [];
                       angular.forEach(images.data, function(image){
-                        if(image.parentobjectname == hotel.parentobjectname && image.parentobjectid == hotel.parentobjectid){
+                        if(image.parentobjectname == 'hotel' && image.parentobjectid == hotel){
                               tempImages.push(image);
                         }
                       });
-                      imagesMap.set(hotel.parentobjectid, tempImages);
+                      imagesMap.set(hotel, tempImages);
                       angular.forEach($scope.allHotels, function(hotel){
                         hotel.images = imagesMap.get(hotel.id);
                       });

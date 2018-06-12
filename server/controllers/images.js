@@ -15,6 +15,7 @@ module.exports= {
     console.log('images get req====>');
     console.log(req.body);
     if(req.body.tourids.length){
+        console.log('Part1=====>');
         Image.findAll({
           order: [['createdAt', 'DESC']],
           where: {
@@ -33,6 +34,7 @@ module.exports= {
             res.status(500).json(error);
           });
     }else if(req.body.parentobjectname){
+      console.log('Part2=====>');
       Image.findAll({
         where: {
             parentobjectname : req.body.parentobjectname
