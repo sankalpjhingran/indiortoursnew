@@ -190,7 +190,6 @@ $scope.ngModelOptionsSelected = function(value) {
   //http://plnkr.co/edit/bDFIP66b5it5Q3KHy1LT?p=preview
   vm.addData = function() {
     $scope.myData.push( {
-        sortorder: $scope.myData.length, 
         costcategory: "",
         costitem: "",
         budget: "",
@@ -210,9 +209,6 @@ $scope.ngModelOptionsSelected = function(value) {
   vm.gridOptions.enableCellEditOnFocus = true;
   vm.gridOptions.enableColumnResizing = true;
   vm.gridOptions.columnDefs = [
-    { name: 'sortorder',  displayName: 'Sort Order',
-      enableCellEdit: true
-    },
     {
       name: 'costcategory', displayName: 'Cost Category', enableCellEdit: true,
       width: 220, editableCellTemplate: 'ui-grid/dropdownEditor',
