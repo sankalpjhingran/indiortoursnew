@@ -117,13 +117,13 @@ mwl-calendar .cal-month-day {
                 <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">Hotels</th>
                 <tr>
                   <th class="col-xs-2">Name</th>
-                  <th class="col-xs-2">Location</th>
+                  <th class="col-xs-2">City</th>
                   <th class="col-xs-2">Type</th>
                 </tr>
               </thead>
               <tr ng-repeat="x in tourWithAllRelated[0].accomodationHotel">
-                <td>{{ x["name"] }}</td>
-                <td>{{ x["location"] }}</td>
+                <td><a ng-href="/hotel?id={{x.id}}&amp;name={{x.name | slugify}}">{{ x["name"] }}</a></td>
+                <td><a ng-href="/destination?id={{x.location_id}}&amp;name={{x.location | slugify}}">{{ x["location"] }}</a></td>
                 <td>{{ x["type"] }}</td>
               </tr>
             </table>

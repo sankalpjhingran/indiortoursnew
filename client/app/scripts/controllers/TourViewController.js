@@ -16,7 +16,7 @@ angular.module('clientApp')
     var imagesMap = new Map();
 
     var vm = this;
-    vm.calendarView = 'year';
+    vm.calendarView = 'month';
     vm.viewDate = moment().toDate();
     vm.cellIsOpen = true;
     vm.events = [];
