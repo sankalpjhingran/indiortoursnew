@@ -190,12 +190,13 @@ $scope.ngModelOptionsSelected = function(value) {
   //http://plnkr.co/edit/bDFIP66b5it5Q3KHy1LT?p=preview
   vm.addData = function() {
     $scope.myData.push( {
+        sortorder: $scope.myData.length, 
         costcategory: "",
         costitem: "",
         budget: "",
         economy: "",
         elegant: "",
-        superior: "",
+        deluxe: "",
         luxury: ""
     });
   };
@@ -209,6 +210,9 @@ $scope.ngModelOptionsSelected = function(value) {
   vm.gridOptions.enableCellEditOnFocus = true;
   vm.gridOptions.enableColumnResizing = true;
   vm.gridOptions.columnDefs = [
+    { name: 'sortorder',  displayName: 'Sort Order',
+      enableCellEdit: true
+    },
     {
       name: 'costcategory', displayName: 'Cost Category', enableCellEdit: true,
       width: 220, editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -228,7 +232,10 @@ $scope.ngModelOptionsSelected = function(value) {
     { name: 'economy',  displayName: 'Economy',
       enableCellEdit: true
     },
-    { name: 'superior',  displayName: 'Superior',
+    { name: 'elegant',  displayName: 'Elegant',
+      enableCellEdit: true
+    },
+    { name: 'deluxe',  displayName: 'Deluxe',
       enableCellEdit: true
     },
     { name: 'luxury',  displayName: 'Luxury',
