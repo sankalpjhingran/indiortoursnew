@@ -196,9 +196,11 @@ angular.module('clientApp')
   $scope.msg = { };
 
   $scope.gridOptions.columnDefs = [
+    { name: 'sortorder',  visible:false, sort: { priority: 0, direction: 'asc' }
+    },
     {
       name: 'costcategory', displayName: 'Cost Category',
-      grouping: { groupPriority: 0 }, sort: { priority: 0, direction: 'asc' }, width: 250, state: 'expanded',
+      grouping: { groupPriority: 0 },  width: 250, state: 'expanded',
       cellTemplate: '<div><div ng-if="!col.grouping || col.grouping.groupPriority === undefined || col.grouping.groupPriority === null || ( row.groupHeader && col.grouping.groupPriority === row.treeLevel )" class="ui-grid-cell-contents" title="TOOLTIP">{{COL_FIELD CUSTOM_FILTERS}}</div></div>'
     },
     { name: 'costitem',  displayName: 'Cost Per Person', width:200,
@@ -207,7 +209,9 @@ angular.module('clientApp')
     },
     { name: 'economy',  displayName: 'Economy',
     },
-    { name: 'superior',  displayName: 'Superior',
+    { name: 'elegant',  displayName: 'Elegant',
+    },
+    { name: 'deluxe',  displayName: 'Deluxe',
     },
     { name: 'luxury',  displayName: 'Luxury',
     },
