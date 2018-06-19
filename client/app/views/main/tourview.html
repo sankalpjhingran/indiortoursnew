@@ -87,24 +87,29 @@ mwl-calendar .cal-cell1 .cal-cell {
                         </tr>
                       </thead>
                       <tbody ng-repeat="(key, value) in tourWithAllRelated[0].tourcost[0].individualcostsjson | groupBy: 'costcategory'">
-                        <th scope="rowgroup" rowspan="{{value.length+1}}" headers="par" id="pbed1"> {{ key }} </th>
+                        <th scope="rowgroup" rowspan="{{value.length+1}}"> {{ key }} </th>
                         <tr ng-repeat="player in value">
-                            <td scope="row" headers="par pbed1 stud">
-                                {{player.costitem}}
+                            <td colspan="{{player.costitem == 'Note' ? '6' : '1'}}" ng-show="player.costitem == 'Note'">
+                                  <span style="font-weight:bold;">{{player.costitem | uppercase}}:</span> <span style="font-style:italic;">{{player.budget}}</span>
+
                             </td>
-                            <td scope="row" colspan="{{player.costitem == 'Note' ? '5' : '1'}}" headers="par pbed1 stud">
+                            <td colspan="{{player.costitem == 'Note' ? '6' : '1'}}" ng-show="player.costitem != 'Note'">
+                                  {{player.costitem}}
+
+                            </td>
+                            <td scope="row" ng-show="player.costitem != 'Note'">
                                 {{player.budget}}
                             </td>
-                            <td scope="row" ng-show="player.costitem != 'Note'" headers="par pbed1 stud">
+                            <td scope="row" ng-show="player.costitem != 'Note'">
                                 {{player.economy}}
                             </td>
-                            <td scope="row" ng-show="player.costitem != 'Note'" headers="par pbed1 stud">
+                            <td scope="row" ng-show="player.costitem != 'Note'">
                                 {{player.elegant}}
                             </td>
-                            <td scope="row" ng-show="player.costitem != 'Note'" headers="par pbed1 stud">
+                            <td scope="row" ng-show="player.costitem != 'Note'">
                                 {{player.deluxe}}
                             </td>
-                            <td scope="row" ng-show="player.costitem != 'Note'" headers="par pbed1 stud">
+                            <td scope="row" ng-show="player.costitem != 'Note'">
                                 {{player.luxury}}
                             </td>
                         </tr>
@@ -113,7 +118,7 @@ mwl-calendar .cal-cell1 .cal-cell {
                   </td>
                 </tbody>
             </table>
-            
+
             <table class="table table-hover table-bordered" ng-show="!(error)">
               <thead>
                 <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">DEPARTURE DATES</th>
