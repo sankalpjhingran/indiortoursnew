@@ -66,8 +66,8 @@
                 <div ng-controller="TourCostsController as $ctrl">
                   <div>
                     <button class="btn btn-default" type="button" ng-click="$ctrl.addData();">Add Row</button>
-                    <button class="btn btn-default" type="button" ng-click="$ctrl.removeLastRow();">Remove Last Row</button>
-                    <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourCosts.individualcostsjson" ui-grid="$ctrl.gridOptions" ui-grid-edit ui-grid-cellnav ui-grid-resize-columns class="grid"></div>
+                    <button class="btn btn-default" type="button" ng-click="$ctrl.removeSelectedRow();">Remove Selected Row(s)</button>
+                    <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourCosts.individualcostsjson" ui-grid="$ctrl.gridOptions" ui-grid-edit ui-grid-selection ui-grid-cellnav ui-grid-resize-columns class="grid"></div>
                   </div>
                 </div>
           </div>
