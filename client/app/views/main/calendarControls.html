@@ -1,23 +1,22 @@
       <div class="row">
         <div class="col-md-6 text-center">
-          <div class="btn-group">
-
+          <div class="btn-group pull-left">
             <button
-              class="btn btn-primary"
+              class="btn btn-primary btn-sm"
               mwl-date-modifier
               date="vm.viewDate"
               decrement="vm.calendarView">
               Previous
             </button>
             <button
-              class="btn btn-default"
+              class="btn btn-default btn-sm"
               mwl-date-modifier
               date="vm.viewDate"
               set-to-today>
               Today
             </button>
             <button
-              class="btn btn-primary"
+              class="btn btn-primary btn-sm"
               mwl-date-modifier
               date="vm.viewDate"
               increment="vm.calendarView">
@@ -29,9 +28,8 @@
         <br class="visible-xs visible-sm">
 
         <div class="col-md-6 text-center">
-          <div class="btn-group">
-            <label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'year'">Year</label>
-            <label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'month'">Month</label>
+          <div class="btn-group pull-right">
+            <label class="btn btn-primary btn-sm" ng-model="vm.calendarView" uib-btn-radio="'month'">Month</label>
           </div>
         </div>
 
