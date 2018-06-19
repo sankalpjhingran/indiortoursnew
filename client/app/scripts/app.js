@@ -270,6 +270,23 @@ angular
               }
             }
         })
+        .state('verify', {
+            url: '/verify?link&id',
+            views:{
+              subheader: {
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                template: 'This is the side section',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/verifynewuser.html',
+                controller: 'VerifyLinkController'
+              }
+            }
+        })
         .state('myprofile', {
             url: '/myprofile',
             views:{

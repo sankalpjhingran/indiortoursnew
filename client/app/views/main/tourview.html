@@ -22,13 +22,14 @@
   height: 450px;
 }
 
-mwl-calendar .cal-month-box [class*=cal-cell], mwl-calendar .cal-year-box [class*=span] {
-    min-height: 80px;
+mwl-calendar .cal-before-eventlist {
+    height:65px;
 }
 
-mwl-calendar .cal-month-day {
-    height: 80px;
+mwl-calendar .cal-cell1 .cal-cell {
+    height:65px;
 }
+
 
 </style>
 
@@ -66,12 +67,59 @@ mwl-calendar .cal-month-day {
 
           <!-- Dates & Prices Start -->
           <uib-tab index="1" heading="Dates &amp; Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
+
+            <table class="table table-bordered" ng-show="!(error)">
+                <thead>
+                  <th style="text-align:center;color: #ffffff; background-color: #3270bc" colspan="4">TOUR COST</th>
+                </thead>
+                <tbody>
+                  <td>
+                    <table class="table table-bordered table-responsive">
+                      <thead>
+                        <tr>
+                          <th scope="col">Category</th>
+                          <th scope="col" id="stud" scope="col"> Cost Per Person </th>
+                          <th scope="col" id="apt" scope="col"> Budget </th>
+                          <th scope="col" id="chal" scope="col"> Economy </th>
+                          <th scope="col" id="villa" scope="col"> Elegant </th>
+                          <th scope="col" id="villa" scope="col"> Deluxe </th>
+                          <th scope="col" id="villa" scope="col"> Luxury </th>
+                        </tr>
+                      </thead>
+                      <tbody ng-repeat="(key, value) in tourWithAllRelated[0].tourcost[0].individualcostsjson | groupBy: 'costcategory'">
+                        <th scope="rowgroup" rowspan="{{value.length+1}}" headers="par" id="pbed1"> {{ key }} </th>
+                        <tr ng-repeat="player in value">
+                            <td scope="row" headers="par pbed1 stud">
+                                {{player.costitem}}
+                            </td>
+                            <td scope="row" colspan="{{player.costitem == 'Note' ? '5' : '1'}}" headers="par pbed1 stud">
+                                {{player.budget}}
+                            </td>
+                            <td scope="row" ng-show="player.costitem != 'Note'" headers="par pbed1 stud">
+                                {{player.economy}}
+                            </td>
+                            <td scope="row" ng-show="player.costitem != 'Note'" headers="par pbed1 stud">
+                                {{player.elegant}}
+                            </td>
+                            <td scope="row" ng-show="player.costitem != 'Note'" headers="par pbed1 stud">
+                                {{player.deluxe}}
+                            </td>
+                            <td scope="row" ng-show="player.costitem != 'Note'" headers="par pbed1 stud">
+                                {{player.luxury}}
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tbody>
+            </table>
+            
             <table class="table table-hover table-bordered" ng-show="!(error)">
               <thead>
                 <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">DEPARTURE DATES</th>
                 <tr>
-                  <td>
-                    <div ng-controller="TourViewController as vm">
+                  <td style="text-align:center;">
+                    <div ng-controller="TourViewController as vm" class="col-lg-1 col-centered" style="width:65%;height:100%;margin: auto;">
                       <h3 style="margin-top:10px;margin-bottom:10px;" class="text-center">{{ vm.calendarTitle }}</h3>
                       <ng-include src="'views/main/calendarControls.html'"></ng-include>
                       <mwl-calendar
@@ -88,24 +136,6 @@ mwl-calendar .cal-month-day {
                   </td>
                 </tr>
               </thead>
-            </table>
-
-            <table class="table table-hover table-bordered" ng-show="!(error)">
-                <thead>
-                  <th style="text-align:center;color: #ffffff; background-color: #3270bc" colspan="4">TOUR COST</th>
-                </thead>
-                <tbody>
-                  <td>
-                    <div  style="margin-top:5px; margin-bottom:5px;"
-                          ng-model="tourWithAllRelated[0].tourcost[0].individualcostsjson"
-                          ui-grid="gridOptions"
-                          ui-grid-grouping
-                          ui.grid.resizeColumns
-                          class="grid"
-                          ng-if="tabShown">
-                    </div>
-                  </td>
-                </tbody>
             </table>
           </uib-tab>
           <!-- Dates & Prices End -->
@@ -136,12 +166,15 @@ mwl-calendar .cal-month-day {
                       is-open="$first">
 
                   <div ng-repeat="hotel in value">
-                    <table>
-                        <tr>
-                            <td style="width:20rem;padding-right:10px;padding-bottom:10px;"><img style="height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView"></td>
-                            <td style="padding-bottom:10px;vertical-align:top"><div ng-bind-html="hotel.description"></div></td>
-                        </tr>
-                    </table>
+                      <div class="media">
+                        <div class="media-left">
+                          <img style="height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading">{{hotel.name}}</h4>
+                          <p>{{hotel.description}}</p>
+                        </div>
+                      </div>
                   </div>
                 </div>
             </uib-accordion>
