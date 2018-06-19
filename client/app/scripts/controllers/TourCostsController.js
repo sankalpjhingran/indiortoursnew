@@ -167,7 +167,7 @@ $scope.ngModelOptionsSelected = function(value) {
   vm.gridOptions = {
     onRegisterApi: function(gridApi) {
     		//set gridApi on scope
-    		$scope.gridApi = gridApi;
+    		vm.gridApi = gridApi;
     		gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
     				$scope.msg.lastCellEdited = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue ;
             if( colDef.name === 'costcategory' ){
@@ -183,6 +183,15 @@ $scope.ngModelOptionsSelected = function(value) {
             }
             $scope.$apply();
       });
+
+      gridApi.selection.on.rowSelectionChanged($scope,function(row){
+        $scope.mySelectedRows = vm.gridApi.selection.getSelectedRows();
+      });
+
+      gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+        $scope.mySelectedRows = vm.gridApi.selection.getSelectedRows();
+      });
+
     },
     data: 'myData',
   };
@@ -190,6 +199,7 @@ $scope.ngModelOptionsSelected = function(value) {
   //http://plnkr.co/edit/bDFIP66b5it5Q3KHy1LT?p=preview
   vm.addData = function() {
     $scope.myData.push( {
+        id: $scope.myData.length+1,
         costcategory: "",
         costitem: "",
         budget: "",
@@ -200,15 +210,27 @@ $scope.ngModelOptionsSelected = function(value) {
     });
   };
 
-  vm.removeLastRow = function() {
-    //if($scope.gridOpts.data.length > 0){
-       $scope.myData.splice($scope.myData.length-1, 1);
-    //}
+  vm.removeSelectedRow = function() {
+    console.log($scope.mySelectedRows);
+
+    angular.forEach($scope.mySelectedRows, function(row){
+      var val = row.id;
+      var index = $scope.myData.findIndex(function(item, i){
+        return item.id === val;
+      });
+      $scope.myData.splice(index, 1);
+    });
   };
 
+  vm.gridOptions.enableRowSelection = true,
+  vm.gridOptions.enableSelectAll = true,
   vm.gridOptions.enableCellEditOnFocus = true;
   vm.gridOptions.enableColumnResizing = true;
+
   vm.gridOptions.columnDefs = [
+    {
+      name: 'id', enableCellEdit: false, visible:false
+    },
     {
       name: 'costcategory', displayName: 'Cost Category', enableCellEdit: true,
       width: 220, editableCellTemplate: 'ui-grid/dropdownEditor',

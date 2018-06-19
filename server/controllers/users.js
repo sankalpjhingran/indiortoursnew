@@ -3,6 +3,7 @@
 var models  = require('../models/index');
 var bCrypt = require('bcrypt-nodejs');
 var User = models.User;
+var randomstring = require("randomstring");
 const emailUtils = require('../utils/EmailUtils');
 
 var users = {
@@ -31,13 +32,13 @@ var users = {
           .spread((user, created) => {
               if(created){
                   let subject = 'Welcome To Indior Tours...!';
-                  let text = 'Thanks for signing up with us, please click on the link below to activate your account!';
+                  let text = 'Thanks for signing up with us, please click on the link below to activate your account! This link is active for 24 hours.';
                   //let link =
                   console.log(req.get('host'));
                   console.log(req.protocol);
                   console.log(req.originalUrl);
-                  console.log(req.protocol + '://' + req.get('host') + '/api/verify?link=hjasdgajsd8712y3hsjgdajhasdasdhg23egjahsd');
-                  let link = req.protocol + '://' + req.get('host') + '/api/verify?link=hjasdgajsd8712y3hsjgdajhasdasdhg23egjahsd';
+                  console.log(req.protocol + '://' + req.get('host') + '/verify?Id=' + user.Id +  '&link=' + randomstring.generate());
+                  let link = req.protocol + '://' + req.get('host') + '/verify?link='  + randomstring.generate();
                   let html = text + '<br />' + link;
                   emailUtils.sendNewUserEmail(user.email, subject, text, html);
                   return res.json(user);

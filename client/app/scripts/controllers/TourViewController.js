@@ -16,6 +16,7 @@ angular.module('clientApp')
     var imagesMap = new Map();
 
     var vm = this;
+    //vm.weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     vm.calendarView = 'month';
     vm.viewDate = moment().toDate();
     vm.cellIsOpen = true;
@@ -39,7 +40,6 @@ angular.module('clientApp')
              if($scope.tourWithAllRelated[0].tourcost[0] && $scope.tourWithAllRelated[0].tourcost[0].individualcostsjson) {
                 $scope.gridOptions.data = $scope.tourWithAllRelated[0].tourcost[0].individualcostsjson;
              }
-
 
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              var hotelids = [];

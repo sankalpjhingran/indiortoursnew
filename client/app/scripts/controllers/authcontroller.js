@@ -73,4 +73,8 @@ angular.module('clientApp')
             console.log('Error logging out...');
         });
       }
+
+      $scope.verifyLink = function() {
+          
+      }
 });
