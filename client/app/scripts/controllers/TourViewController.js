@@ -94,7 +94,6 @@ return function(notesarray, notetype) {
               if (nameA > nameB) {
                 return 1;
               }
-
               // names must be equal
               return 0;
             });
@@ -203,19 +202,6 @@ return function(notesarray, notetype) {
              // failure call back
            }
         );
-    }
-
-    function groupBy(list, keyGetter) {
-      const map = new Map();
-      list.forEach((item) => {
-          const key = keyGetter(item);
-          if (!map.has(key)) {
-              map.set(key, [item]);
-          } else {
-              map.get(key).push(item);
-          }
-      });
-      return map;
     }
 
     var watchFunction = function(){
