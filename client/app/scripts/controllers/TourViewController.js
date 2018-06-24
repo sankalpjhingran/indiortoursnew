@@ -179,7 +179,10 @@ return function(notesarray, notetype) {
                   $scope._events.push(
                     {
                       title: date.title,
-                      color: '#ffa500',
+                      color: {
+                        primary: "#1e90ff",
+                        secondary: "#d1e8ff"
+                      },
                       rrule: {
                         freq: date.repeatfrequency == 'Week' ? RRule.WEEKLY :
                               date.repeatfrequency == 'Month' ? RRule.MONTHLY :
