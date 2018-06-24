@@ -21,20 +21,10 @@
   width: 100%;
   height: 450px;
 }
-
-mwl-calendar .cal-before-eventlist {
-    height:65px;
-}
-
-mwl-calendar .cal-cell1 .cal-cell {
-    height:65px;
-}
-
-
 </style>
 
 <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-    <div ng-show="!(loading)">
+  <div ng-show="!(loading)">
     <!-- main div -->
     <div ng-init="getTourDetailsWithRelatedModels()">
       <!-- Tour Name -->
@@ -146,7 +136,7 @@ mwl-calendar .cal-cell1 .cal-cell {
                         events="vm.events"
                         view="vm.calendarView"
                         view-date="vm.viewDate"
-                        cell-auto-open-disabled="true"
+                        cell-auto-open-disabled="false"
                         view-title="vm.calendarTitle"
                         cell-is-open="vm.cellIsOpen"
                         on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
