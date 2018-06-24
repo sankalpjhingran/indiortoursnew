@@ -65,8 +65,8 @@ mwl-calendar .cal-cell1 .cal-cell {
           </uib-tab>
           <!-- Itinerary End -->
 
-          <!-- Dates & Prices Start -->
-          <uib-tab index="1" heading="Dates &amp; Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
+          <!-- Prices Start -->
+          <uib-tab index="1" heading="Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
 
             <table class="table table-bordered" ng-show="!(error)">
                 <thead>
@@ -88,37 +88,52 @@ mwl-calendar .cal-cell1 .cal-cell {
                       </thead>
                       <tbody ng-repeat="(key, value) in tourWithAllRelated[0].tourcost[0].individualcostsjson | groupBy: 'costcategory'">
                         <th scope="rowgroup" rowspan="{{value.length+1}}"> {{ key }} </th>
-                        <tr ng-repeat="player in value">
-                            <td colspan="{{player.costitem == 'Note' ? '6' : '1'}}" ng-show="player.costitem == 'Note'">
-                                  <span style="font-weight:bold;">{{player.costitem | uppercase}}:</span> <span style="font-style:italic;">{{player.budget}}</span>
+                        <tr ng-repeat="cost in value">
+                            <td colspan="{{cost.costitem == 'Note' ? '6' : '1'}}" ng-show="cost.costitem == 'Note'">
+                                  <span style="font-weight:bold;">{{cost.costitem | uppercase}}:</span> <span style="font-style:italic;">{{cost.budget}}</span>
 
                             </td>
-                            <td colspan="{{player.costitem == 'Note' ? '6' : '1'}}" ng-show="player.costitem != 'Note'">
-                                  {{player.costitem}}
+                            <td colspan="{{cost.costitem == 'Note' ? '6' : '1'}}" ng-show="cost.costitem != 'Note'">
+                                  {{cost.costitem}}
 
                             </td>
-                            <td scope="row" ng-show="player.costitem != 'Note'">
-                                {{player.budget}}
+                            <td scope="row" ng-show="cost.costitem != 'Note'">
+                                {{cost.budget}}
                             </td>
-                            <td scope="row" ng-show="player.costitem != 'Note'">
-                                {{player.economy}}
+                            <td scope="row" ng-show="cost.costitem != 'Note'">
+                                {{cost.economy}}
                             </td>
-                            <td scope="row" ng-show="player.costitem != 'Note'">
-                                {{player.elegant}}
+                            <td scope="row" ng-show="cost.costitem != 'Note'">
+                                {{cost.elegant}}
                             </td>
-                            <td scope="row" ng-show="player.costitem != 'Note'">
-                                {{player.deluxe}}
+                            <td scope="row" ng-show="cost.costitem != 'Note'">
+                                {{cost.deluxe}}
                             </td>
-                            <td scope="row" ng-show="player.costitem != 'Note'">
-                                {{player.luxury}}
+                            <td scope="row" ng-show="cost.costitem != 'Note'">
+                                {{cost.luxury}}
                             </td>
                         </tr>
                       </tbody>
                     </table>
+                    <uib-accordion close-others="false">
+                        <div  uib-accordion-group
+                              class="panel-default"
+                              ng-repeat="x in tourWithAllRelated[0].tourNote | filternotes: 'cost'"
+                              heading="{{x.type}}"
+                              is-open="$first">
+                          <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
+                        </div>
+                    </uib-accordion>
                   </td>
                 </tbody>
             </table>
 
+
+          </uib-tab>
+          <!-- Prices End -->
+
+          <!-- Dates Start -->
+          <uib-tab index="2" heading="Dates" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
             <table class="table table-hover table-bordered" ng-show="!(error)">
               <thead>
                 <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">DEPARTURE DATES</th>
@@ -143,23 +158,49 @@ mwl-calendar .cal-cell1 .cal-cell {
               </thead>
             </table>
           </uib-tab>
-          <!-- Dates & Prices End -->
+          <!-- Dates End -->
 
           <!-- Hotels Start -->
-          <uib-tab index="2" heading="Hotels">
+          <uib-tab index="3" heading="Hotels">
             <table class="table table-hover table-bordered" ng-show="!(error)">
               <thead>
                 <th colspan="10" style="text-align:center;color: #ffffff; background-color: #3270bc">Hotels</th>
                 <tr>
-                  <th class="col-xs-2">Name</th>
                   <th class="col-xs-2">City</th>
-                  <th class="col-xs-2">Type</th>
+                  <th class="col-xs-2">Budget</th>
+                  <th class="col-xs-2">Economy</th>
+                  <th class="col-xs-2">Elegant</th>
+                  <th class="col-xs-2">Deluxe</th>
+                  <th class="col-xs-2">Luxury</th>
                 </tr>
               </thead>
-              <tr ng-repeat="x in tourWithAllRelated[0].accomodationHotel">
-                <td><a ng-href="/hotel?id={{x.id}}&amp;name={{x.name | slugify}}">{{ x["name"] }}</a></td>
-                <td><a ng-href="/destination?id={{x.location_id}}&amp;name={{x.location | slugify}}">{{ x["location"] }}</a></td>
-                <td>{{ x["type"] }}</td>
+              <tr ng-repeat="x in output">
+                <td><a ng-href="/destination?id={{x.location_id}}&amp;name={{x.city | slugify}}">{{ x["city"] }}</a></td>
+                <td>
+                  <div ng-repeat="budget in x.budget">
+                    <a ng-href="/hotel?id={{budget.hotelid}}&amp;name={{budget.name | slugify}}">{{ budget.name }}</a>
+                  </div>
+                </td>
+                <td>
+                  <div ng-repeat="economy in x.economy">
+                    <a ng-href="/hotel?id={{economy.hotelid}}&amp;name={{economy.name | slugify}}">{{ economy.name }}</a>
+                  </div>
+                </td>
+                <td>
+                  <div ng-repeat="elegant in x.elegant">
+                    <a ng-href="/hotel?id={{elegant.hotelid}}&amp;name={{elegant.name | slugify}}">{{ elegant.name }}</a>
+                  </div>
+                </td>
+                <td>
+                  <div ng-repeat="deluxe in x.deluxe">
+                    <a ng-href="/hotel?id={{deluxe.hotelid}}&amp;name={{deluxe.name | slugify}}">{{ deluxe.name }}</a>
+                  </div>
+                </td>
+                <td>
+                  <div ng-repeat="luxury in x.luxury">
+                    <a ng-href="/hotel?id={{luxury.hotelid}}&amp;name={{luxury.name | slugify}}">{{ luxury.name }}</a>
+                  </div>
+                </td>
               </tr>
             </table>
 
@@ -188,7 +229,7 @@ mwl-calendar .cal-cell1 .cal-cell {
           <!-- Hotels End -->
 
           <!-- Destinations Start -->
-          <uib-tab index="3" heading="Destinations">
+          <uib-tab index="4" heading="Destinations">
             <div ng-repeat="x in tourWithAllRelated[0].siteLocation">
               <h4>
                 {{x.city}}, {{x.country}}
@@ -200,11 +241,11 @@ mwl-calendar .cal-cell1 .cal-cell {
           <!-- Destinations End -->
 
           <!-- More Info Start -->
-          <uib-tab index="4" heading="More Info">
+          <uib-tab index="5" heading="More Info">
             <uib-accordion close-others="false">
                 <div  uib-accordion-group
                       class="panel-default"
-                      ng-repeat="x in tourWithAllRelated[0].tourNote"
+                      ng-repeat="x in tourWithAllRelated[0].tourNote | filternotes: 'important'"
                       heading="{{x.type}}"
                       is-open="$first">
                   <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
