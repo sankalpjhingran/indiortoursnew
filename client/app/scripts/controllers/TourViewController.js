@@ -8,6 +8,31 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
+// Setup the filter
+.filter('filternotes', function() {
+
+// Create the return function and set the required parameter as well as an optional paramater
+return function(notesarray, notetype) {
+
+    var out  = [];
+    angular.forEach(notesarray, function(note) {
+
+      if(notetype === 'cost') {
+        if(note.type === 'Tour Cost Includes' || note.type === 'Tour Cost Not Includes') {
+          out.push(note);
+        }
+      }
+
+      if(notetype === 'important') {
+        if(!(note.type === 'Tour Cost Includes' || note.type === 'Tour Cost Not Includes')) {
+          out.push(note);
+        }
+      }
+    });
+    return out;
+  }
+})
+
   .controller('TourViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', function ($http, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants) {
     $rootScope.$state = $state;
 
@@ -34,7 +59,7 @@ angular.module('clientApp')
       $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
        .then(
            function(res){
-             // success callback
+             //Success callback
              $scope.tourWithAllRelated = res.data;
              console.log($scope.tourWithAllRelated[0].tourcost[0]);
              if($scope.tourWithAllRelated[0].tourcost[0] && $scope.tourWithAllRelated[0].tourcost[0].individualcostsjson) {
@@ -42,6 +67,62 @@ angular.module('clientApp')
              }
 
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
+             $scope.hotelsjson = [];
+
+             angular.forEach($scope.allHotels, function(hotel){
+                  $scope.hotelsjson.push(
+                    {
+                      hotelid: hotel.id,
+                      city: hotel.location,
+                      location_id: hotel.location_id,
+                      budget: hotel.type == 'Budget' ? [{name: hotel.name, hotelid: hotel.id}] : [],
+                      economy: hotel.type == 'Economy' ? [{name: hotel.name, hotelid: hotel.id}] : [],
+                      elegant: hotel.type == 'Elegant' ? [{name: hotel.name, hotelid: hotel.id}] : [],
+                      deluxe: hotel.type == 'Deluxe' ? [{name: hotel.name, hotelid: hotel.id}] : [],
+                      luxury: hotel.type == 'Luxury' ? [{name: hotel.name, hotelid: hotel.id}] : [],
+                    }
+                  );
+             });
+
+             // sort by name
+            $scope.hotelsjson.sort(function(a, b) {
+              var nameA = a.city.toLowerCase();
+              var nameB = b.city.toLowerCase();
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+
+              // names must be equal
+              return 0;
+            });
+
+             console.log($scope.hotelsjson);
+
+             var output = [];
+
+              $scope.hotelsjson.forEach(function(hotel) {
+                var existing = output.filter(function(v, i) {
+                  return v.city == hotel.city;
+                });
+                if (existing.length) {
+                  var existingIndex = output.indexOf(existing[0]);
+                  console.log(output[existingIndex].deluxe);
+                  output[existingIndex].budget = output[existingIndex].budget.concat(hotel.budget);
+                  output[existingIndex].economy = output[existingIndex].economy.concat(hotel.economy);
+                  output[existingIndex].elegant = output[existingIndex].elegant.concat(hotel.elegant);
+                  output[existingIndex].deluxe = output[existingIndex].deluxe.concat(hotel.deluxe);
+                  output[existingIndex].luxury = output[existingIndex].luxury.concat(hotel.luxury);
+                } else {
+                    output.push(hotel);
+                }
+              });
+
+              $scope.output = output;
+              console.log($scope.output);
+
              var hotelids = [];
              $scope.allHotels.forEach(function(tour){
                 hotelids.push(tour.id);
@@ -124,9 +205,21 @@ angular.module('clientApp')
         );
     }
 
+    function groupBy(list, keyGetter) {
+      const map = new Map();
+      list.forEach((item) => {
+          const key = keyGetter(item);
+          if (!map.has(key)) {
+              map.set(key, [item]);
+          } else {
+              map.get(key).push(item);
+          }
+      });
+      return map;
+    }
+
     var watchFunction = function(){
       // the code
-      console.log('In watch function=======>');
       vm.events = [];
 
       if($scope._events && $scope._events.length) {
