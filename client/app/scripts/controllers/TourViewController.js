@@ -170,11 +170,7 @@ return function(notesarray, notetype) {
                           BYDAY.push(day.substring(0, 2).toUpperCase());
                       })
                   }
-                  console.log(BYDAY.toString());
-                  //rrulestr('RRULE:BYDAY=' + BYDAY.toString());
                   var rule = rrulestr('RRULE:BYDAY=' + BYDAY.toString())
-                  console.log(rrulestr('RRULE:BYDAY=' + BYDAY.toString()));
-                  console.log(rule.options.byweekday);
 
                   $scope._events.push(
                     {
@@ -199,6 +195,7 @@ return function(notesarray, notetype) {
                     }
                   );
               });
+              watchFunction();
               $scope.loading = false;
            },
            function(response){
