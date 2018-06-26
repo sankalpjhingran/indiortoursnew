@@ -43,6 +43,7 @@ $scope.loaddepartureDatesData = function(){
                 angular.forEach($scope.alldepartureDatess, function(departureDates) {
                   departureDates.repeatendsondate = new Date(departureDates.repeatendsondate)
                   departureDates.tourname = $scope.allToursMap.get(departureDates.tour_id).name;
+                  departureDates.startdate = new Date(departureDates.startdate);
 
                   if(departureDates.repeatondayofweek) {
                       departureDates.repeatondayofweek = departureDates.repeatondayofweek.split(',');

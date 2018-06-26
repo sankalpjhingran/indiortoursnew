@@ -45,12 +45,12 @@ angular
 */
 
 
-  /*.config(['calendarConfig', function(calendarConfig) {
-
+  .config(['calendarConfig', function(calendarConfig) {
+    calendarConfig.allDateFormats.moment.date.hour = 'hh:mm a';
     // View all available config
     console.log(calendarConfig);
   }])
-  */
+
 
   .run(['Carousel', function(Carousel) {
     Carousel.setOptions({
