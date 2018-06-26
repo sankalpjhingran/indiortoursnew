@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         days: {type: DataTypes.INTEGER},
         nights: {type: DataTypes.INTEGER},
         price: {type: DataTypes.DECIMAL},
+        offerprice: {type: DataTypes.DECIMAL},
         ismicetour: {type: DataTypes.BOOLEAN},
         micecategory: {type: DataTypes.STRING},
         isactive: {type: DataTypes.BOOLEAN},
