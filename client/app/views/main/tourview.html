@@ -2,7 +2,7 @@
   p.main{
     text-align:justify;
   }
-  
+
   .panel-heading a:after {
     font-family:'Glyphicons Halflings';
     content:"\e114";
@@ -136,7 +136,8 @@
                         view-title="vm.calendarTitle"
                         cell-is-open="vm.cellIsOpen"
                         on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
-                        on-view-change-click="vm.viewChangeClicked(calendarNextView)">
+                        on-view-change-click="vm.viewChangeClicked(calendarNextView)"
+                        on-event-click="vm.eventClicked(calendarEvent)">
                       </mwl-calendar>
                     </div>
                   </td>

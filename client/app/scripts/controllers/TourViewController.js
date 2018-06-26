@@ -162,7 +162,7 @@ return function(notesarray, notetype) {
               angular.forEach($scope.tourWithAllRelated[0].departuredates, function(date){
                 // Parse a RRuleSet string, return a RRuleSet object
                 //BYDAY=MO,FR
-
+                console.log(moment(date.startdate).toDate());
                   var BYDAY = [];
                   if(date.repeatfrequency == 'Week') {
                       console.log(date.repeatondayofweek);
@@ -187,9 +187,8 @@ return function(notesarray, notetype) {
                               RRule.WEEKLY,
                         bymonthday: date.repeatfrequency == 'Month' ? date.repeatondayofmonth : null,
                         count: date.repeatendsafteroccurrences,
+                        dtstart: moment(date.startdate).toDate(),
                         interval: date.repeatfor,
-                        dtstart: new Date((new Date()).getFullYear(), 1, 1, 8, 0, 0),
-                        until: new Date((new Date()).getFullYear(), 12, 31, 8, 0, 0),
                         byweekday: date.repeatfrequency == 'Week' ? rule.origOptions.byweekday : null,
                       }
                     }
@@ -209,9 +208,7 @@ return function(notesarray, notetype) {
       vm.events = [];
 
       if($scope._events && $scope._events.length) {
-          console.log($scope._events);
           $scope._events.forEach(function(event) {
-
           // Use the rrule library to generate recurring events: https://github.com/jkbrzt/rrule
           var rule = new RRule(angular.extend({}, event.rrule, {
             dtstart: moment(vm.viewDate).startOf(vm.calendarView).toDate(),
@@ -219,8 +216,9 @@ return function(notesarray, notetype) {
           }));
 
           rule.all().forEach(function(date) {
+            var momentDate = moment(date).format("YYYY-MM-DD") + "T" + moment(event.rrule.dtstart).format("HH:mm");
             vm.events.push(angular.extend({}, event, {
-              startsAt: new Date(date)
+              startsAt: moment(momentDate).toDate()
             }));
           });
         })
@@ -231,6 +229,10 @@ return function(notesarray, notetype) {
       'vm.calendarView',
       'vm.viewDate'
     ], watchFunction);
+
+    vm.eventClicked = function(event) {
+      console.log(event);
+    };
 
     vm.timespanClicked = function(date, cell) {
       console.log('Timespan clicked.....');
