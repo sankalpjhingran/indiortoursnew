@@ -52,6 +52,9 @@ module.exports= {
 
   getAllToursWithItineraries(req, res){
         Tour.findAll({
+          order: [
+                  ['createdAt', 'DESC'],
+          ],
           include: [{ association : 'itinerary'}]
           })
           .then(function (authors) {
