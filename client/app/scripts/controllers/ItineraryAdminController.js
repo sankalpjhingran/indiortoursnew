@@ -64,10 +64,17 @@ $scope.delitinerary = function(itineraryid){
 }
 
 $scope.saveAs = function(){
-    $scope.itineraryData.id = null;
+    //$scope.itineraryData.id = null;
     //$scope.cancel();
-    $scope.modalInstance.dismiss('cancel');
-    $scope.showForm(false);
+    //$scope.modalInstance.dismiss('cancel');
+    angular.forEach($scope.itnRows, function(itnRow) {
+          itnRow.id = null;
+          itnRow.tour_id = null;
+          itnRow.tour = null;
+          itnRow.createdAt = null;
+          itnRow.updatedAt = null;
+          $scope.tour=null;
+    })
     console.log('saveAs clicked...');
 }
 
