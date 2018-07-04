@@ -13,8 +13,6 @@ var db        = {};
 //Setting up the config
 console.log('Starting sequelize connection...');
 var pe = process.env || process.NODE_ENV;
-console.log('Printing pe');
-console.log(pe);
 if(pe.RDS_DB_NAME){
   var sequelize = new Sequelize(pe.RDS_DB_NAME, pe.RDS_USERNAME, pe.RDS_PASSWORD, {
       dialect: 'mysql',
@@ -71,10 +69,7 @@ fs
   console.log(db);
 
   Object.keys(db).forEach(function(modelName) {
-    console.log('dbmodelname====>');
-    console.log(db[modelName].associate);
     if (db[modelName].associate) {
-      console.log('Creating association for:' +  modelName);
       db[modelName].associate(db);
     }
  });
