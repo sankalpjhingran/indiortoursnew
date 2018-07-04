@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^1.6.9",
+    "angular": "^1.7.2",
     "bootstrap-sass-official": "^3.2.0",
     "angular-animate": "^1.4.0",
     "angular-aria": "^1.4.0",
@@ -47,6 +47,6 @@
     }
   },
   "resolutions": {
-    "angular": "1.6.9"
+    "angular": "1.7.0"
   }
 }

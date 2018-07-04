@@ -7,10 +7,10 @@ var models  = require('../models/index');
 var toursController  = require('../controllers/tours');
 var authenticated = require('./authenticated');
 
-console.log('In Tours route');
+console.log('In Tours route===>');
 router.post('/', toursController.create);
 router.get('/', toursController.show);
-router.get('/all', toursController.index);
+router.get('/all', authenticated, toursController.index);
 router.get('/find', toursController.showByName);
 router.get('/tourwithlocations', toursController.getTourWithLocations);
 router.get('/searchtourwithlocations', toursController.searchAllToursWithLocations);

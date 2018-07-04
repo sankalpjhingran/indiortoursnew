@@ -12,6 +12,8 @@ var debug = require('debug')('http')
   , http = require('http')
   , name = 'IndiorTours';
 
+var redis = require('redis');
+
 var models = require('./models/index');
 var regusers = require('./routes/regusers');
 var contactus = require('./routes/contactus');
@@ -55,6 +57,27 @@ debug('Initializing app.js file====>3');
 
 SALT_WORK_FACTOR = 12;
 
+var client = redis.createClient(); // this creates a new client
+client.on('connect', function() {
+    console.log('Redis client connected');
+});
+
+client.on('error', function (err) {
+    console.log('Something went wrong ' + err);
+});
+
+client.unref();
+
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+app.use(session({
+    store: new RedisStore({ client : client }),
+    secret: 'indiornoida201301',
+    saveUninitialized: true,
+    resave: true
+}));
+
+/*
 // For Passport
 app.use(require('express-session')({ // session secret
     secret: 'indiornoida201301',
@@ -62,6 +85,7 @@ app.use(require('express-session')({ // session secret
     saveUninitialized: true,
     cookie: { maxAge: null }
 }));
+*/
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
