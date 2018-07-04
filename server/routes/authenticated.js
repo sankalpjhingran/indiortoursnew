@@ -1,10 +1,11 @@
 module.exports = function (req, res, next) {
-    // if user is authenticated in the session, carry on
-    if (req.user) {
-        next();
+    if (!req.isAuthenticated || !req.isAuthenticated()) {
+      res.status(401).send({
+        success: false,
+        message: 'You need to be authenticated to access this page!'
+      })
+    } else {
+      next();
     }
-    // if they aren't redirect them to the login page
-    else {
-        res.json({error:'Unauthorized'});
-    }
+
 };
