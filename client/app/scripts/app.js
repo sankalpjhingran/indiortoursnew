@@ -351,7 +351,6 @@ angular
               },
               mainsection:{
                 templateUrl: 'views/main/thankyou.html',
-                controller: 'ContactusController'
               }
             }
         })
