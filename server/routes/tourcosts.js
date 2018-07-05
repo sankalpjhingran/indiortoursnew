@@ -4,11 +4,12 @@ var path = require('path');
 var express = require('express');
 var router = express.Router();
 var tourCostsController  = require('../controllers/costs');
+var authenticated = require('./authenticated');
 
 console.log('In tourCostsController route===>');
-router.post('/', tourCostsController.create);
-router.get('/', tourCostsController.show);
-router.get('/all/', tourCostsController.index);
-router.delete('/', tourCostsController.delete);
-router.post('/update/', tourCostsController.update);
+router.post('/', authenticated, tourCostsController.create);
+router.get('/', authenticated, tourCostsController.show);
+router.get('/all/', authenticated, tourCostsController.index);
+router.delete('/', authenticated, tourCostsController.delete);
+router.post('/update/', authenticated, tourCostsController.update);
 module.exports = router;

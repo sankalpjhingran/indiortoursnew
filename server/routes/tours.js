@@ -8,19 +8,36 @@ var toursController  = require('../controllers/tours');
 var authenticated = require('./authenticated');
 
 console.log('In Tours route===>');
-router.post('/', toursController.create);
-router.get('/', toursController.show);
-router.get('/all', authenticated, toursController.index);
-router.get('/find', toursController.showByName);
-router.get('/tourwithlocations', toursController.getTourWithLocations);
-router.get('/searchtourwithlocations', toursController.searchAllToursWithLocations);
+
+/*
+===Main Routes Start===
+*/
 router.get('/alltourswithlocations', toursController.getAllToursWithLocations);
-router.get('/alltourswithitineries', toursController.getAllToursWithItineraries);
-router.get('/alltourswithlocationsandhotels', toursController.getAllToursWithLocationsAndHotels);
 router.get('/tourdetailswithrelatedmodels', toursController.getTourWithRelatedModels);
 
-router.post('/update/', toursController.update);
-router.delete('/', toursController.delete);
+
+router.get('/', authenticated, toursController.show);
+router.get('/find', authenticated, toursController.showByName);
+router.get('/tourwithlocations', authenticated, toursController.getTourWithLocations);
+router.get('/searchtourwithlocations', authenticated, toursController.searchAllToursWithLocations);
+
+router.get('/alltourswithitineries', authenticated, toursController.getAllToursWithItineraries);
+router.get('/alltourswithlocationsandhotels', authenticated, toursController.getAllToursWithLocationsAndHotels);
+
+/*
+===Main Routes End===
+*/
+
+/*
+===Admin Routes Start===
+*/
+router.post('/update/', authenticated, toursController.update);
+router.post('/', authenticated, toursController.create);
+router.delete('/', authenticated, toursController.delete);
+router.get('/all', authenticated, toursController.index);
+/*
+===Admin Routes End===
+*/
 
 models.ParentTour.sync();
 models.Tour.sync();
