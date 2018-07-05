@@ -342,8 +342,8 @@ angular
             url: '/thankyou',
             views:{
               subheader: {
-                templateUrl: 'views/homesubheader.html',
-                controller: 'MainCtrl'
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
               },
               sidesection: {
                 template: 'This is the side section',
@@ -351,6 +351,7 @@ angular
               },
               mainsection:{
                 templateUrl: 'views/main/thankyou.html',
+                controller: 'ContactusController'
               }
             }
         })
