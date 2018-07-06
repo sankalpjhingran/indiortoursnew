@@ -4,7 +4,6 @@ var path = require('path');
 var express = require('express');
 var router = express.Router();
 var locationController  = require('../controllers/location');
-var authenticated = require('./authenticated');
 
 console.log('In Location route===>');
 router.post('/', locationController.create);
