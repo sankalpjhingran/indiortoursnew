@@ -5,7 +5,6 @@ var express = require('express');
 var router = express.Router();
 var models  = require('../models/index');
 var toursController  = require('../controllers/tours');
-var authenticated = require('./authenticated');
 
 console.log('In Tours route===>');
 router.post('/', toursController.create);
