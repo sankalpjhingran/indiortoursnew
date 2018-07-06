@@ -4,7 +4,6 @@ var path = require('path');
 var express = require('express');
 var router = express.Router();
 var placeController  = require('../controllers/place');
-var authenticated = require('./authenticated');
 
 console.log('In Place route===>');
 router.post('/', placeController.create);
