@@ -4,7 +4,6 @@ var path = require('path');
 var express = require('express');
 var router = express.Router();
 var tourCostsController  = require('../controllers/costs');
-var authenticated = require('./authenticated');
 
 console.log('In tourCostsController route===>');
 router.post('/', tourCostsController.create);

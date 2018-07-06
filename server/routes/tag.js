@@ -4,7 +4,6 @@ var path = require('path');
 var express = require('express');
 var router = express.Router();
 var tagController  = require('../controllers/tags');
-var authenticated = require('./authenticated');
 
 console.log('In tag route===>');
 router.post('/', tagController.create);
