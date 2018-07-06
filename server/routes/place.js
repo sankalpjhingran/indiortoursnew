@@ -7,9 +7,9 @@ var placeController  = require('../controllers/place');
 var authenticated = require('./authenticated');
 
 console.log('In Place route===>');
-router.post('/', authenticated, placeController.create);
+router.post('/', placeController.create);
 router.get('/', placeController.show);
 router.get('/all/', placeController.index);
-router.delete('/', authenticated, placeController.delete);
-router.post('/update/', authenticated, placeController.update);
+router.delete('/', placeController.delete);
+router.post('/update/', placeController.update);
 module.exports = router;

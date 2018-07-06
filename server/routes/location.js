@@ -10,6 +10,6 @@ console.log('In Location route===>');
 router.post('/', locationController.create);
 router.get('/', locationController.show);
 router.get('/all/', locationController.index);
-router.delete('/', authenticated, locationController.delete);
-router.post('/update/', authenticated, locationController.update);
+router.delete('/', locationController.delete);
+router.post('/update/', locationController.update);
 module.exports = router;
