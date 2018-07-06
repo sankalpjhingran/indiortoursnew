@@ -19,23 +19,19 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single('file');
 
-router.post('/', upload, imageController.create);
 router.get('/', imageController.show);
 router.post('/all/', imageController.index);
-<<<<<<< HEAD
+
 /*
 * Main Routes start
 */
 
-router.post('/', upload, authenticated, imageController.create);
+router.post('/', upload, imageController.create);
 router.get('/', imageController.show);
 router.post('/all/', imageController.index);
-router.get('/allImages/', imageController.indexAll);
-router.delete('/', authenticated, imageController.delete);
-router.post('/update/', authenticated, imageController.update);
-=======
+router.post('/update/', imageController.update);
 router.get('/allImages/', imageController.indexAll);
 router.delete('/', imageController.delete);
 router.post('/update/', imageController.update);
->>>>>>> parent of 3573d33... Add server side security for routes
+
 module.exports = router;
