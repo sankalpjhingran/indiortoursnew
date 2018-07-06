@@ -7,7 +7,7 @@ var locationController  = require('../controllers/location');
 var authenticated = require('./authenticated');
 
 console.log('In Location route===>');
-router.post('/', authenticated, locationController.create);
+router.post('/', locationController.create);
 router.get('/', locationController.show);
 router.get('/all/', locationController.index);
 router.delete('/', authenticated, locationController.delete);

@@ -8,8 +8,8 @@ var authenticated = require('./authenticated');
 
 console.log('In tourNotesController route===>');
 router.post('/', authenticated, TourNotesController.create);
-router.get('/', authenticated, TourNotesController.show);
-router.get('/all/', authenticated, TourNotesController.index);
+router.get('/', TourNotesController.show);
+router.get('/all/', TourNotesController.index);
 router.delete('/', authenticated, TourNotesController.delete);
 router.post('/update/', authenticated, TourNotesController.update);
 module.exports = router;
