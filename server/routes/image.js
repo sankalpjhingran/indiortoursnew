@@ -29,9 +29,9 @@ router.post('/all/', imageController.index);
 */
 
 router.post('/', upload, authenticated, imageController.create);
-router.get('/', authenticated, imageController.show);
-router.post('/all/', authenticated, imageController.index);
-router.get('/allImages/', authenticated, imageController.indexAll);
+router.get('/', imageController.show);
+router.post('/all/', imageController.index);
+router.get('/allImages/', imageController.indexAll);
 router.delete('/', authenticated, imageController.delete);
 router.post('/update/', authenticated, imageController.update);
 module.exports = router;
