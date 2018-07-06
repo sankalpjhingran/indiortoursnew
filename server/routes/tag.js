@@ -9,7 +9,7 @@ var authenticated = require('./authenticated');
 console.log('In tag route===>');
 router.post('/', authenticated, tagController.create);
 //router.get('/', tagController.show);
-router.get('/all/', authenticated, tagController.index);
+router.get('/all/', tagController.index);
 router.delete('/', authenticated, tagController.delete);
 router.post('/update/', authenticated, tagController.update);
 module.exports = router;
