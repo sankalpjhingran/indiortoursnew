@@ -16,13 +16,13 @@ router.get('/alltourswithlocations', toursController.getAllToursWithLocations);
 router.get('/tourdetailswithrelatedmodels', toursController.getTourWithRelatedModels);
 
 
-router.get('/', authenticated, toursController.show);
-router.get('/find', authenticated, toursController.showByName);
-router.get('/tourwithlocations', authenticated, toursController.getTourWithLocations);
-router.get('/searchtourwithlocations', authenticated, toursController.searchAllToursWithLocations);
+router.get('/' toursController.show);
+router.get('/find', toursController.showByName);
+router.get('/tourwithlocations', toursController.getTourWithLocations);
+router.get('/searchtourwithlocations', toursController.searchAllToursWithLocations);
 
-router.get('/alltourswithitineries', authenticated, toursController.getAllToursWithItineraries);
-router.get('/alltourswithlocationsandhotels', authenticated, toursController.getAllToursWithLocationsAndHotels);
+router.get('/alltourswithitineries', toursController.getAllToursWithItineraries);
+router.get('/alltourswithlocationsandhotels', toursController.getAllToursWithLocationsAndHotels);
 
 /*
 ===Main Routes End===
@@ -34,7 +34,7 @@ router.get('/alltourswithlocationsandhotels', authenticated, toursController.get
 router.post('/update/', authenticated, toursController.update);
 router.post('/', authenticated, toursController.create);
 router.delete('/', authenticated, toursController.delete);
-router.get('/all', authenticated, toursController.index);
+router.get('/all', toursController.index);
 /*
 ===Admin Routes End===
 */

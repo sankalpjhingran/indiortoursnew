@@ -11,7 +11,7 @@ console.log('In departureCostsController route===>');
 /*
 ===Main Routes Start===
 */
-router.get('/', authenticated, departureCostsController.show);
+router.get('/', departureCostsController.show);
 /*
 ===Main Routes End===
 */
@@ -23,7 +23,7 @@ router.get('/', authenticated, departureCostsController.show);
 router.post('/update/', authenticated, departureCostsController.update);
 router.delete('/', authenticated, departureCostsController.delete);
 router.post('/', authenticated, departureCostsController.create);
-router.get('/all/', authenticated, departureCostsController.index);
+router.get('/all/', departureCostsController.index);
 /*
 ===Admin Routes End===
 */
