@@ -7,11 +7,11 @@ var itineraryController  = require('../controllers/itinerary');
 var authenticated = require('./authenticated');
 
 console.log('In itinerary route===>');
-router.post('/', authenticated, itineraryController.create);
-router.post('/bulkcreate/', authenticated, itineraryController.bulkCreate);
-router.post('/bulkupdate/', authenticated, itineraryController.bulkUpdate);
+router.post('/', itineraryController.create);
+router.post('/bulkcreate/', itineraryController.bulkCreate);
+router.post('/bulkupdate/', itineraryController.bulkUpdate);
 router.get('/', itineraryController.show);
 router.get('/all/', itineraryController.index);
-router.delete('/', authenticated, itineraryController.delete);
-router.post('/update/', authenticated, itineraryController.update);
+router.delete('/', itineraryController.delete);
+router.post('/update/', itineraryController.update);
 module.exports = router;
