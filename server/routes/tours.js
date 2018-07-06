@@ -31,9 +31,9 @@ router.get('/alltourswithlocationsandhotels', toursController.getAllToursWithLoc
 /*
 ===Admin Routes Start===
 */
-router.post('/update/', authenticated, toursController.update);
-router.post('/', authenticated, toursController.create);
-router.delete('/', authenticated, toursController.delete);
+router.post('/update/', toursController.update);
+router.post('/', toursController.create);
+router.delete('/', toursController.delete);
 router.get('/all', toursController.index);
 /*
 ===Admin Routes End===
