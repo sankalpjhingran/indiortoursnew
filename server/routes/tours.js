@@ -8,13 +8,18 @@ var toursController  = require('../controllers/tours');
 var authenticated = require('./authenticated');
 
 console.log('In Tours route===>');
-
-/*
-===Main Routes Start===
-*/
+router.post('/', toursController.create);
+router.get('/', toursController.show);
+router.get('/all', authenticated, toursController.index);
+router.get('/find', toursController.showByName);
+router.get('/tourwithlocations', toursController.getTourWithLocations);
+router.get('/searchtourwithlocations', toursController.searchAllToursWithLocations);
 router.get('/alltourswithlocations', toursController.getAllToursWithLocations);
+router.get('/alltourswithitineries', toursController.getAllToursWithItineraries);
+router.get('/alltourswithlocationsandhotels', toursController.getAllToursWithLocationsAndHotels);
 router.get('/tourdetailswithrelatedmodels', toursController.getTourWithRelatedModels);
 
+<<<<<<< HEAD
 
 router.get('/', toursController.show);
 router.get('/find', toursController.showByName);
@@ -38,6 +43,10 @@ router.get('/all', toursController.index);
 /*
 ===Admin Routes End===
 */
+=======
+router.post('/update/', toursController.update);
+router.delete('/', toursController.delete);
+>>>>>>> parent of 3573d33... Add server side security for routes
 
 models.ParentTour.sync();
 models.Tour.sync();
