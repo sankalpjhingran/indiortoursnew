@@ -40,7 +40,7 @@ passport.use('local-signin', new LocalStrategy(
   function(req, email, password, cb) {
     console.log('Finding user......');
     console.log(email);
-    models.User.findOne({where: {email: email.toLowerCase()}}).then(function(user) {
+    models.User.findOne({where: {email: email.toLowerCase(), isactive:true, status:'Active'}}).then(function(user) {
       if (!user) {
               console.log('User does not exist');
               return cb(null, false, {

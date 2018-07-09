@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "compression": "^1.7.1",
     "connect-modrewrite": "^0.10.2",
     "connect-multiparty": "^2.1.0",

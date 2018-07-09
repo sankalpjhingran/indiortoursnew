@@ -28,7 +28,6 @@
                                     <input type="password" class="form-control" ng-model="signindata.password" name="password" placeholder="Password" value="" required="true" title="Please enter your Password">
                                     <span class="help-block"></span>
                                 </div>
-                                <div id="loginErrorMsg" class="alert alert-error hide">Wrong username or password</div>
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="remember"> Remember Me </input>
@@ -38,6 +37,7 @@
                                   <button type="submit" value="login" name="submit" class="btn btn-primary btn-block">Login</button>
                                   <a ng-href="#" ng-click="showForgotPasswordForm();" style="float:right;font-size:11px;" class="float-right">Forgot your password?</a>
                             </form>
+                            <span id="loginErrorMsg" ng-show="userinvalid" class="alert alert-danger">Wrong username or password</span>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -72,9 +72,9 @@
                           <span class="input-group-addon">
                             @
                           </span>
-                          <input class="form-control" placeholder="Email" name="email" type="email" required="">
+                          <input class="form-control" placeholder="Email" name="email" type="email" required ng-model="useremail">
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">
+                        <button type="button" class="btn btn-primary btn-block" ng-click="forgotPassword();">
                           Continue
                         </button>
                     </form>
