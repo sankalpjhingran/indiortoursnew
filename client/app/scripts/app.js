@@ -282,7 +282,24 @@ angular
                 controller: 'MainCtrl'
               },
               mainsection:{
-                templateUrl: 'views/main/verifynewuser.html',
+                templateUrl: 'views/main/verifyuser.html',
+                controller: 'VerifyLinkController'
+              }
+            }
+        })
+        .state('resetpassword', {
+            url: '/resetpassword?link&id',
+            views:{
+              subheader: {
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                template: 'This is the side section',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/forgotpassword.html',
                 controller: 'VerifyLinkController'
               }
             }

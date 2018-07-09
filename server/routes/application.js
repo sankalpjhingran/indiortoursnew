@@ -7,7 +7,6 @@ var router = express.Router();
 
 router.get('/', function(req, res){
 	console.log('In application router...');
-	console.log(req);
 	console.log(req.isAuthenticated());
 
 	if(req.isAuthenticated()){

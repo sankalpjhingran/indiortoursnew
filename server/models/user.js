@@ -9,6 +9,9 @@ var bcrypt = require('bcrypt-nodejs');
       lastname: {type: DataTypes.STRING, allowNull: false},
       password: {type: DataTypes.STRING},
       phone: DataTypes.STRING,
+      isactive: DataTypes.BOOLEAN,
+      verifylink: DataTypes.STRING,
+      verifylinkcreateddate: DataTypes.DATE,
       email: {type: DataTypes.STRING, allowNull: false, unique: true,  validate: {isEmail: true}},
       type: {type: DataTypes.ENUM, values: ['Admin', 'Direct Customer', 'DMC', 'Tour Operator', 'Travel Agent'], defaultValue: 'Direct Customer', allowNull: false},
       status: {type: DataTypes.ENUM, values: ['Active', 'Inactive'], defaultValue: 'Inactive'},
@@ -16,8 +19,11 @@ var bcrypt = require('bcrypt-nodejs');
     }
   );
 
-  User.hook('beforeCreate', function(user, options){
-
+  User.hook('beforeUpdate', function(user, options){
+      var hash = bcrypt.hashSync(user.password, bcrypt.genSaltSync(SALT_WORK_FACTOR), null);
+      user.password = hash;
+      user.email = user.email.toLowerCase();
+      return user;
   });
 
   User.hook('beforeCreate', function(user, options){

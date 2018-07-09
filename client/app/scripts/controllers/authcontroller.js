@@ -17,6 +17,8 @@ angular.module('clientApp')
         isSignUpFormOpen: false
       };
 
+      $scope.userinvalid = false;
+
       $scope.showForgotPasswordForm = function(){
         $scope.visibility.isPasswordResetFormOpen = true;
         $scope.visibility.isLoginFormOpen = false;
@@ -62,6 +64,28 @@ angular.module('clientApp')
         });
       }
 
+      $scope.forgotPassword = function(){
+        console.log('forgotpassword in...' + $scope.useremail);
+        var config = {
+              headers : {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+              }
+          }
+
+          var data = $.param({
+                email: $scope.useremail
+          });
+
+        $http.post('/api/users/forgotpassword/', data, config).then(function(res, err){
+          if(res.status == 200){
+
+          }
+        }).catch(function(err){
+            console.log(err);
+            console.log('Invalid Username or Password...');
+        });
+      }
+
       $scope.logout = function(){
         console.log('Logging out user...');
         $http.post('/api/logout/').then(function(res, err){
@@ -72,9 +96,5 @@ angular.module('clientApp')
         }).catch(function(err){
             console.log('Error logging out...');
         });
-      }
-
-      $scope.verifyLink = function() {
-          
       }
 });
