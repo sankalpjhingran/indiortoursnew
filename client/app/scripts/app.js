@@ -629,13 +629,19 @@ angular
       function authenticate($q, $state, $timeout, $http) {
         $http.get('/api/isAuthenticated/')
          .then(
-             function(response){
+             function(response) {
                // success callback
-               if(response.data.isLoggedIn){
+               if(response.data.isLoggedIn) {
                  if(response.data.user && response.data.user.type === 'Admin'){
                     return $q.when();
+                 } else {
+                   $timeout(function() {
+                     // This code runs after the authentication promise has been rejected.
+                     // Go to the log-in page
+                     $stateProvider.stateService.go('unauthorised');
+                   })
                  }
-               }else{
+               } else{
                  $timeout(function() {
                    // This code runs after the authentication promise has been rejected.
                    // Go to the log-in page
