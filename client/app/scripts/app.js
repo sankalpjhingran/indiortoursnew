@@ -630,14 +630,8 @@ angular
         $http.get('/api/isAuthenticated/')
          .then(
              function(response) {
-               console.log('API response is=====> ');
-               console.log(response);
                // success callback
                if(response.data.isLoggedIn) {
-                 console.log(response.data.isLoggedIn);
-                 console.log(response.data.user);
-                 console.log(response.data.user.type);
-                 console.log(response.data.user.type === 'Admin');
                  if(response.data.user && response.data.user.type === 'Admin'){
                     return $q.when();
                  } else {
