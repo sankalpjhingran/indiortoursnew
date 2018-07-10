@@ -632,6 +632,10 @@ angular
              function(response) {
                // success callback
                if(response.data.isLoggedIn) {
+                 console.log(response.data.isLoggedIn);
+                 console.log(response.data.user);
+                 console.log(response.data.user.type);
+                 console.log(response.data.user.type === 'Admin');
                  if(response.data.user && response.data.user.type === 'Admin'){
                     return $q.when();
                  } else {
