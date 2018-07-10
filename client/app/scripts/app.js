@@ -630,6 +630,7 @@ angular
         $http.get('/api/isAuthenticated/')
          .then(
              function(response) {
+               console.log('API response is=====> ');
                console.log(response);
                // success callback
                if(response.data.isLoggedIn) {

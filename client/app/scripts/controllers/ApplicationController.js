@@ -11,6 +11,7 @@ angular.module('clientApp')
 .controller('ApplicationController', function ($scope, $http, $location, $rootScope, $window) {
       console.log('In Application controller');
 
+      /*
       $http.get('/api/isAuthenticated/')
        .then(
            function(response){
@@ -30,4 +31,5 @@ angular.module('clientApp')
              $scope.isLoggedIn = false;
            }
         );
+      */
 });
