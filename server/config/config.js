@@ -1,9 +1,9 @@
 module.exports = {
   development: {
-    DB_NAME: 'indiortours',
+    DB_NAME: 'indiortoursclone',
     USERNAME: 'root',
-    PASSWORD: 'india@123',
-    url: 'mysql://root:india@123@localhost:3306/indiortours',
+    PASSWORD: 'India@123',
+    url: 'mysql://root:india@123@localhost:3306/indiortoursclone',
     dialect: 'mysql',
     port: 3306
   },
