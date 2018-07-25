@@ -8,28 +8,50 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-.controller('ApplicationController', function ($scope, $http, $location, $rootScope, $window) {
+.controller('ApplicationController', function ($scope, $http, $location, $rootScope, $window, currency) {
       console.log('In Application controller');
+      var vm = this;
 
-      /*
       $http.get('/api/isAuthenticated/')
        .then(
            function(response){
              // success callback
              if(response.data.isLoggedIn){
-               $scope.isLoggedIn = true;
+               vm.isLoggedIn = true;
                if(response.data.user && response.data.user.type === 'Admin'){
-                  $scope.isAdminLoggedIn = true;
+                  vm.isAdminLoggedIn = true;
                }
              }else{
-               $scope.isAdminLoggedIn = false;
+               vm.isAdminLoggedIn = false;
              }
-             console.log($scope.isAdminLoggedIn);
+             console.log(vm.isAdminLoggedIn);
            },
            function(response){
              //failure call back
-             $scope.isLoggedIn = false;
+             vm.isLoggedIn = false;
            }
         );
-      */
+
+      vm.currencyCodes = ['INR', 'EUR', 'GBP', 'USD'];
+      vm.selected = 'USD';
+
+      $scope.$watch('vm.selected', function(newValue, oldValue){
+        currency.name = {
+          newValue : newValue,
+          oldValue : oldValue
+        }
+        $rootScope.$broadcast('currency.name');
+      });
+})
+.factory('currency', function(){
+  var name = {
+      oldValue : '',
+      newValue : ''
+  };
+
+  name.get = function(){
+    return name;
+  };
+
+  return name;
 });

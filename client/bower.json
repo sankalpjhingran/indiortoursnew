@@ -25,7 +25,8 @@
     "angular-local-storage": "^0.7.1",
     "angular-ui-carousel": "^0.1.10",
     "angular-bootstrap-calendar": "^1.0.0",
-    "rrule": "^2.2.0"
+    "rrule": "^2.2.0",
+    "braintree-web": "^3.34.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -47,6 +48,7 @@
     }
   },
   "resolutions": {
-    "angular": "1.7.0"
+    "angular": "^1.7.2",
+    "braintree-web": "^3.34.1"
   }
 }

@@ -1,0 +1,55 @@
+<head>
+  <meta charset="utf-8">
+</head>
+<div>
+      <h1>Indior Tours Secure Checkout</h1>
+</div>
+
+<body>
+  <div id="paymentone"></div>
+
+  <button id="submit-button">Purchase</button>
+
+  <span id="successPayment" style="display:none;">Transaction Succesful</span>
+  <span id="errorPayment" style="display:none;">Error Processing Payment: </span>
+
+  <script>
+    var submitButton = document.querySelector('#submit-button');
+    console.log(braintree);
+    console.log(braintree.dropin);
+
+    braintree.dropin.create({
+      authorization: 'sandbox_8tgy6twv_pj2zmzfr2w2khb8m',
+      container: '#paymentone',
+      card: {
+      cardholderName: true
+    }
+    }).then(function (dropinInstance) {
+      submitButton.addEventListener('click', function () {
+        dropinInstance.requestPaymentMethod().then(function (payload) {
+          console.log(payload);
+          // Send payload.nonce to your server
+          payload.amount = 100000000000.00;
+          $.post('/api/v1/process', payload, function(data, status){
+              console.log('data=======>');
+              console.log(data);
+              console.log(status);
+
+              if(data.success) {
+                    var successMsg = document.querySelector('#successPayment');
+                    successMsg.style = '';
+              } else {
+                    var errorMsg = document.querySelector('#errorPayment');
+                    errorMsg.style = '';
+                    console.log(errorMsg.innerHTML);
+                    errorMsg.innerHTML = errorMsg.innerHTML + data.message;
+              }
+          });
+        })
+      });
+    }).catch(function (err) {
+      // Handle any errors that might've occurred when creating Drop-in
+      console.error(err);
+    });
+  </script>
+</body>

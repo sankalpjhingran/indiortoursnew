@@ -37,20 +37,11 @@ angular
     'ui.grid.resizeColumns'
   ])
 
-/*
-'ui.grid',
-'ui.grid.edit',
-'ui.grid.cellNav',
-'ui.grid.selection'
-*/
-
-
   .config(['calendarConfig', function(calendarConfig) {
     calendarConfig.allDateFormats.moment.date.hour = 'hh:mm a';
     // View all available config
     console.log(calendarConfig);
   }])
-
 
   .run(['Carousel', function(Carousel) {
     Carousel.setOptions({
@@ -312,8 +303,8 @@ angular
                 //controller: 'MainCtrl'
               },
               sidesection: {
-                template: 'This is the side section',
-                controller: 'MainCtrl'
+                //template: 'This is the side section',
+                //controller: 'MainCtrl'
               },
               mainsection:{
                 templateUrl: 'views/main/userprofile.html',
@@ -369,6 +360,23 @@ angular
               mainsection:{
                 templateUrl: 'views/main/thankyou.html',
                 controller: 'ContactusController'
+              }
+            }
+        })
+        .state('checkout', {
+            url: '/checkout',
+            views:{
+              subheader: {
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                //template: 'This is the side section',
+                //controller: 'MainCtrl'
+              },
+              checkout:{
+                templateUrl: 'views/main/checkout.html',
+                controller: 'CheckoutController'
               }
             }
         })

@@ -8,6 +8,9 @@ var cors = require('cors');
 var jade = require('pug');
 var helmet = require('helmet');
 var compression = require('compression');
+var braintree = require('braintree');
+var util = require('util');
+var fs = require('fs');
 var debug = require('debug')('http')
   , http = require('http')
   , name = 'IndiorTours';
@@ -149,7 +152,7 @@ app.use('/api/users', users);
 app.use('/api/users/verify', users);
 app.use('/api/users/newverifylink', users);
 app.use('/api/users/forgotpassword', users);
-app.use('/api/users/updatepassword', users); 
+app.use('/api/users/updatepassword', users);
 app.use('/api/places', places);
 app.use('/api/places/all', places);
 app.use('/api/tags/all', tags);
@@ -158,6 +161,60 @@ app.use('/api/parenttours/all', parenttours);
 app.use('/api/parenttours', parenttours);
 app.use('/api/parenttours/update', parenttours);
 app.use('/api/parenttours/viewtrip', parenttours);
+
+
+app.get('/api/conversionrates', function (request, res) {
+  res.json(require('./config/conversionrates.json'));
+});
+
+var gateway = braintree.connect({
+  environment: braintree.Environment.Sandbox,
+  merchantId: 'pj2zmzfr2w2khb8m',
+  publicKey: 'xvy7mghymx3gz2ff',
+  privateKey: 'e5bc0c9d920ff04e513e7cac1b6f86c8'
+});
+
+var jsonParser = bodyParser.json();
+/**
+ * Enable CORS (http://enable-cors.org/server_expressjs.html)
+ * to allow different clients to request data from your server
+ */
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+/**
+ * Route that returns a token to be used on the client side to tokenize payment details
+ */
+app.post('/api/v1/token', function (request, response) {
+  gateway.clientToken.generate({}, function (err, res) {
+    if (err) throw err;
+    response.json({
+      "client_token": res.clientToken
+    });
+  });
+});
+
+/**
+ * Route to process a sale transaction
+ */
+app.post('/api/v1/process', jsonParser, function (request, response) {
+  var transaction = request.body;
+  console.log(transaction);
+  gateway.transaction.sale({
+    amount: transaction.amount,
+    paymentMethodNonce: transaction.nonce,
+    billing : {
+        streetAddress: '40 Poncetta Dr'
+    }
+  }, function (err, result) {
+    if (err) throw err;
+    console.log(util.inspect(result));
+    response.json(result);
+  });
+});
 
 // In production, we'll actually serve our angular app from express
 if (app.get('env') === 'production') {

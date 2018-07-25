@@ -8,7 +8,41 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', ['$http','$state', '$rootScope', '$scope', 'localStorageService', 'Carousel', function ($http, $state, $rootScope, $scope, localStorageService, Carousel) {
+  .controller('MainCtrl', ['$http','$state', '$rootScope', '$scope', 'localStorageService', 'Carousel', 'currency', function ($http, $state, $rootScope, $scope, localStorageService, Carousel, currency) {
+
+    $http.get('/api/conversionrates')
+     .then(function(res){
+       if ( typeof fx !== "undefined" && fx.rates ) {
+           fx.rates = res.data.rates;
+           fx.base = res.data.base;
+       } else {
+           var fxSetup = {
+               rates : res.data.rates,
+               base : res.data.base
+           }
+       }
+    });
+
+    //$scope.currency = currency.name.newValue;
+
+    $scope.$on('currency.name', function(event, args) {
+      $scope.currency = currency.name.newValue;
+      var fromTo = {
+        from: currency.name.oldValue,
+        to: currency.name.newValue
+      }
+      angular.forEach($scope.allTours, function(tour){
+          if(tour.price != null) {
+              tour.price = accounting.unformat(tour.price);
+              tour.price = accounting.formatMoney(fx.convert(tour.price, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
+          }
+          if(tour.offerprice != null) {
+              tour.offerprice = accounting.unformat(tour.offerprice);
+              tour.offerprice = accounting.formatMoney(fx.convert(tour.offerprice, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
+          }
+      });
+    });
+
     var imagesMap = new Map();
     $scope.toursMap = new Map();
     $scope.recentTours = [];
@@ -71,6 +105,8 @@ angular.module('clientApp')
                     tempLocations.push(location.city);
                 });
                 tour.locations = tempLocations;
+                tour.price = accounting.formatMoney(tour.price, { symbol: currency.name.newValue,  format: "%v %s" });
+                tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: currency.name.newValue,  format: "%v %s" });
              });
 
              $http.post('/api/image/all', {tourids: tourids, parentobjectname: 'tour'})

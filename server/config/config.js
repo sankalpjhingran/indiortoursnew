@@ -1,15 +1,19 @@
 module.exports = {
   development: {
-    DB_NAME: 'indiortoursclone',
+    DB_NAME: 'indiortours',
     USERNAME: 'root',
-    PASSWORD: 'India@123',
-    url: 'mysql://root:India@123@localhost:3306/indiortoursclone',
+    PASSWORD: 'india@123',
+    url: 'mysql://root:india@123@localhost:3306/indiortours',
     dialect: 'mysql',
     port: 3306
   },
   production: {
-    url: process.env.DATABASE_URL,
-    dialect: 'mysql'
+    DB_NAME: 'indiortours',
+    USERNAME: 'root',
+    PASSWORD: 'india@123',
+    url: 'mysql://root:India@123@localhost:3306/indiortours',
+    dialect: 'mysql',
+    port: 3306
   },
   staging: {
     url: process.env.DATABASE_URL,
