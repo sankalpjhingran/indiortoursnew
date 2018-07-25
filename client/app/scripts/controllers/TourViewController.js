@@ -2,46 +2,19 @@
 
 /**
  * @ngdoc function
- * @name clientApp.controller:MainCtrl
+ * @name clientApp.controller:TourViewController
  * @description
- * # MainCtrl
+ * # TourViewController
  * Controller of the clientApp
  */
 angular.module('clientApp')
-// Setup the filter
-.filter('filternotes', function() {
-
-// Create the return function and set the required parameter as well as an optional paramater
-return function(notesarray, notetype) {
-
-    var out  = [];
-    angular.forEach(notesarray, function(note) {
-
-      if(notetype === 'cost') {
-        if(note.type === 'Tour Cost Includes' || note.type === 'Tour Cost Not Includes') {
-          out.push(note);
-        }
-      }
-
-      if(notetype === 'important') {
-        if(!(note.type === 'Tour Cost Includes' || note.type === 'Tour Cost Not Includes')) {
-          out.push(note);
-        }
-      }
-    });
-    return out;
-  }
-})
-
-  .controller('TourViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', function ($http, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants) {
+  .controller('TourViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currency', function ($http, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currency) {
     $rootScope.$state = $state;
-
     var tourId = $stateParams.id;
     $scope.tourWithAllRelated = [];
     var imagesMap = new Map();
 
     var vm = this;
-    //vm.weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     vm.calendarView = 'month';
     vm.viewDate = moment().toDate();
     vm.cellIsOpen = true;
@@ -53,8 +26,31 @@ return function(notesarray, notetype) {
       }
     };
 
+    //console.log(currency);
+    //$scope.currency = currency.name.newValue;
 
-    $scope.getTourDetailsWithRelatedModels = function(){
+    $scope.$on('currency.name', function(event, args) {
+      $scope.currency = currency.name.newValue;
+      var fromTo = {
+        from: currency.name.oldValue,
+        to: currency.name.newValue
+      }
+      /*
+      angular.forEach($scope.tourWithAllRelated[0].tourcost[0].individualcostsjson, function(tour){
+          if(tour.price != null) {
+              tour.price = accounting.unformat(tour.price);
+              tour.price = accounting.formatMoney(fx.convert(tour.price, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
+
+          }
+          if(tour.offerprice != null) {
+              tour.offerprice = accounting.unformat(tour.offerprice);
+              tour.offerprice = accounting.formatMoney(fx.convert(tour.offerprice, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
+          }
+      });
+      */
+    });
+
+    $scope.getTourDetailsWithRelatedModels = function() {
       $scope.loading = true;
       $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
        .then(
@@ -62,9 +58,6 @@ return function(notesarray, notetype) {
              //Success callback
              $scope.tourWithAllRelated = res.data;
              console.log($scope.tourWithAllRelated[0].tourcost[0]);
-             if($scope.tourWithAllRelated[0].tourcost[0] && $scope.tourWithAllRelated[0].tourcost[0].individualcostsjson) {
-                $scope.gridOptions.data = $scope.tourWithAllRelated[0].tourcost[0].individualcostsjson;
-             }
 
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              $scope.hotelsjson = [];
@@ -201,6 +194,8 @@ return function(notesarray, notetype) {
              // failure call back
            }
         );
+
+
     }
 
     var watchFunction = function(){
@@ -297,4 +292,28 @@ return function(notesarray, notetype) {
  	];
   $scope.gridOptions.data = $scope.myData;
 
-  }]);
+  }])
+  // Setup the filter for notes
+  .filter('filternotes', function() {
+
+  // Create the return function and set the required parameter as well as an optional paramater
+  return function(notesarray, notetype) {
+
+      var out  = [];
+      angular.forEach(notesarray, function(note) {
+
+        if(notetype === 'cost') {
+          if(note.type === 'Tour Cost Includes' || note.type === 'Tour Cost Not Includes') {
+            out.push(note);
+          }
+        }
+
+        if(notetype === 'important') {
+          if(!(note.type === 'Tour Cost Includes' || note.type === 'Tour Cost Not Includes')) {
+            out.push(note);
+          }
+        }
+      });
+      return out;
+    }
+  });
