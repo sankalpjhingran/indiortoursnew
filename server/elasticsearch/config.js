@@ -84,6 +84,12 @@ var indexSettings = exports.indexSettings = {
         },
         price: {
           type: 'text'
+        },
+        offerprice: {
+          type: 'text'
+        },
+        days: {
+          type: 'text'
         }
       }
     }
