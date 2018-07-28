@@ -1,4 +1,20 @@
+<style>
+body {
+  padding-bottom: 40px;
+  color: #5a5a5a;
+}
 
+#searchForm {
+	position:absolute;
+  	top:40%;
+}
+
+.input-group {
+    position: relative;
+    display: table !important;
+    border-collapse: separate;
+}
+</style>
 <div  class="col-sm-12 carouselCol hidden-xs" ng-init="allImagesForBanner()" style="padding-left:0px;padding-right:0px;">
   <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -18,6 +34,15 @@
           </div>
         </div>
       </div>
+
+      <form class="col-sm-12" id="searchForm">
+        <div class="form-group col-sm-4 col-sm-offset-4">
+          <div class="input-group input-group-lg center-block">
+            <input type="text" class="form-control" placeholder="Search your unforgettable journey..." ng-model="key">
+            <span class="input-group-addon"><a href="/search?key={{key}}"><i class="fa fa-search"></i></a></span>
+          </div>
+        </div>
+      </form>
 
       <!-- Controls -->
       <a class="left carousel-control" role="button" data-slide="prev" data-target="#carousel-example-generic">

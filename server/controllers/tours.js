@@ -157,8 +157,13 @@ module.exports= {
   //Create a new author using model.create()
   create(req, res) {
     console.log('req.body====>');
-    console.log(req.body);
-    Tour.create(req.body, {include: [{ association : 'siteLocation' }, { association : 'accomodationHotel' }, {association: 'tourNote'}, {association: 'tourTags'} ]})
+    Tour.create(
+      req.body,
+      {
+        include: [{ association : 'siteLocation' }, { association : 'accomodationHotel' }, {association: 'tourNote'}, {association: 'tourTags'} ],
+        individualHooks: true
+      }
+    )
     .then(function(tourInstance){
 
       if(req.body.notes && req.body.notes.length){
@@ -261,6 +266,7 @@ module.exports= {
       where: {
         id: req.body.id
       },
+      individualHooks: true
     })
     .then(function (updatedRecords) {
       Tour.findById(req.body.id, {include: [{ association : 'siteLocation' }, { association : 'accomodationHotel' }, {association: 'tourNote'}, {association: 'tourTags'}]})
@@ -321,7 +327,7 @@ module.exports= {
             updatedTour.setAccomodationHotel([]);
         }
 
-        if(req.body.tags.length){
+        if(req.body.tags && req.body.tags.length){
             let tagIds = [];
             let newTags = [];
 
@@ -365,12 +371,12 @@ module.exports= {
 
   //Delete an existing author by the unique ID using model.destroy()
   delete(req, res) {
-    console.log(req);
     let queryVars = req.query;
     Tour.destroy({
       where: {
         id: queryVars.id
-      }
+      },
+      individualHooks: true
     })
     .then(function (deletedRecords) {
       res.status(200).json(deletedRecords);
@@ -380,3 +386,18 @@ module.exports= {
     });
   }
 };
+
+/*
+
+@[Jesus Sanz Gonzalez]​ @[Manuel Guerrero]​Can you guys help me reset my Jenkins password, I need to modify the below jobs, but I am not able to login?
+
+https://jenkins.internal.salesforce.com/job/GOC/
+
+https://jenkins.internal.salesforce.com/job/ChangeHub/
+
+
+
+Looks like techforce is not able to help here.
+
+cc @[Vijay Swamidass]​
+*/

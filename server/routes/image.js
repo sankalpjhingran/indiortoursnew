@@ -19,13 +19,12 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single('file');
 
-router.get('/', imageController.show);
-router.post('/all/', imageController.index);
+//router.get('/', imageController.show);
+//router.post('/all/', imageController.index);
 
 /*
 * Main Routes start
 */
-
 router.post('/', upload, imageController.create);
 router.get('/', imageController.show);
 router.post('/all/', imageController.index);

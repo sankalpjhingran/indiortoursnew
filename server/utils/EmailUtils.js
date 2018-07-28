@@ -2,7 +2,6 @@
 
 const nodemailer = require('nodemailer');
 const config = require('../config/config');
-
 //create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
 	service: config.senderemail.service,
@@ -12,7 +11,7 @@ let transporter = nodemailer.createTransport({
 	  pass: config.senderemail.password,
 	},
 });
-		
+
 module.exports = {
 	sendNewUserEmail(emails, subject, text, html){
 	    // setup email data with unicode symbols
@@ -33,5 +32,5 @@ module.exports = {
 	        // Preview only available when sending through an Ethereal account
 	        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     });
-  },	
+  },
 }
