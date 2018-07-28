@@ -83,13 +83,15 @@ var indexSettings = exports.indexSettings = {
           type: 'text'
         },
         price: {
-          type: 'text'
+          type: 'scaled_float',
+          scaling_factor: 100
         },
         offerprice: {
-          type: 'text'
+          type: 'scaled_float',
+          scaling_factor: 100
         },
         days: {
-          type: 'text'
+          type: 'integer'
         }
       }
     }
