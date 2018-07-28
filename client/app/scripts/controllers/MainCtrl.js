@@ -24,10 +24,10 @@ angular.module('clientApp')
     });
 
     //$scope.currency = currency.name.newValue;
-
+    var fromTo = {};
     $scope.$on('currency.name', function(event, args) {
       $scope.currency = currency.name.newValue;
-      var fromTo = {
+      fromTo = {
         from: currency.name.oldValue,
         to: currency.name.newValue
       }

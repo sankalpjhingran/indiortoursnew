@@ -38,6 +38,7 @@ var users = require('./routes/user');
 var places = require('./routes/place');
 var tags = require('./routes/tag');
 var parenttours = require('./routes/parenttour');
+var search = require('./routes/search');
 
 //load passport strategies
 require('./config/passport')(passport, models.User);
@@ -83,7 +84,6 @@ app.use(session({
 }));
 */
 
-
 // For Passport
 app.use(require('express-session')({ // session secret
     secret: 'indiornoida201301',
@@ -104,6 +104,8 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
+
+
 
 app.use('/api/image', images);
 app.use('/api/image/all', images);
@@ -161,6 +163,9 @@ app.use('/api/parenttours/all', parenttours);
 app.use('/api/parenttours', parenttours);
 app.use('/api/parenttours/update', parenttours);
 app.use('/api/parenttours/viewtrip', parenttours);
+
+
+app.use('/api/search', search);
 
 
 app.get('/api/conversionrates', function (request, res) {
