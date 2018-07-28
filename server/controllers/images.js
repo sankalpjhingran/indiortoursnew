@@ -13,7 +13,6 @@ module.exports= {
 
   index(req, res) {
     console.log('images get req====>');
-    console.log(req.body);
     if(req.body.tourids.length){
         console.log('Part1=====>');
         Image.findAll({

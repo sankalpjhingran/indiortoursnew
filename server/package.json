@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production  ./bin/www",
-    "dev": "NODE_ENV=development  ./bin/www"
+    "start": "NODE_ENV=prod  ./bin/www",
+    "dev": "NODE_ENV=dev  ./bin/www",
+    "elasticsearch:migrate": "NODE_ENV=dev node elasticsearch/postgresToElastic.js",
+    "build": "babel elasticsearch/connect.js -o elasticsearch/compiled.js"
   },
   "dependencies": {
+    "babel-preset-env": "^1.7.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "braintree": "^2.11.0",
@@ -18,13 +21,14 @@
     "cors": "^2.8.4",
     "cron-parser": "^2.5.0",
     "debug": "^2.6.9",
-    "elasticsearch": "^14.1.0",
+    "elasticsearch": "^14.2.2",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "express-mysql-session": "^1.3.0",
     "express-session": "^1.15.6",
     "forever-monitor": "^1.7.1",
     "fs-path": "0.0.24",
+    "get-json": "^1.0.0",
     "immutable": "^3.8.2",
     "jade": "^1.11.0",
     "moment": "^2.22.1",
@@ -50,6 +54,10 @@
     "util": "^0.11.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
     "grunt": "^1.0.1",
     "grunt-connect-proxy": "^0.2.0",
     "helmet": "^3.9.0"
