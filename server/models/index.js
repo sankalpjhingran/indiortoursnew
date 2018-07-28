@@ -66,36 +66,23 @@ request('http://www.geoplugin.net/json.gp', function (error, response, body) {
 
 //Setting up the config
 console.log('Starting sequelize connection...');
-var pe = process.env || process.NODE_ENV;
-if(pe.RDS_DB_NAME){
-  var sequelize = new Sequelize(pe.RDS_DB_NAME, pe.RDS_USERNAME, pe.RDS_PASSWORD, {
-      dialect: 'mysql',
-      logging: console.log,
-      host     : pe.RDS_HOSTNAME,
-      port     : pe.RDS_PORT,
-      define: {
-        charset: 'utf8',
-        dialectOptions: {
-          collate: 'utf8_general_ci'
-        },
-        timestamps: true
+
+console.log(config);
+
+var sequelize = new Sequelize(config.db.DB_NAME, config.db.USERNAME, config.db.PASSWORD, {
+    host: 'localhost',
+    port: config.db.port,
+    dialect: config.db.dialect,
+    logging: console.log,
+    define: {
+      charset: 'utf8',
+      dialectOptions: {
+        collate: 'utf8_general_ci'
       },
-  });
-}else{
-  var sequelize = new Sequelize(config.development.DB_NAME, config.development.USERNAME, config.development.PASSWORD, {
-      host: 'localhost',
-      port: config.development.port,
-      dialect: 'mysql',
-      logging: console.log,
-      define: {
-        charset: 'utf8',
-        dialectOptions: {
-          collate: 'utf8_general_ci'
-        },
-        timestamps: true
-      },
-  });
-}
+      timestamps: true
+    },
+});
+
 
 //Checking connection status
 sequelize.authenticate()

@@ -1,6 +1,8 @@
 "use strict";
 
 var sequelize  = require('../models/index');
+var elasticSearchWrapper = require('../elasticsearch/elasticWrapper.js');
+var config = require('../config/config');
 
 module.exports = (sequelize, DataTypes) => {
   var Tour = sequelize.define("Tour", {
@@ -17,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
         isactive: {type: DataTypes.BOOLEAN},
       }
   );
+
+  Tour.individualHooks = true;
 
   Tour.associate = function(models){
       Tour.hasMany(models.Itinerary, {as: 'itinerary', foreignKey: 'tour_id'}, { onDelete: 'cascade' });
@@ -36,9 +40,35 @@ module.exports = (sequelize, DataTypes) => {
 
   Tour.hook('beforeCreate', function(tour, options){
       tour.slug = 'Test-slug-value';
-      return tour;
   });
 
-  console.log(Tour);
+  Tour.hook('afterCreate', function(tour, options){
+      elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
+  });
+
+  Tour.hook('afterUpdate', function(tour, options){
+      console.log('Executing afterUpdate hook====>');
+      elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
+      elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
+  });
+
+  Tour.hook('afterDestroy', function(tour, options){
+      options.individualHooks = true;
+      console.log('Executing afterDestroy hook====>');
+      elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
+  });
+
+  Tour.prototype.toElasticSchema = function () {
+    return {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      type: 'tour',
+      price: this.price,
+      offerprice: this.offerprice,
+      days: this.days
+    };
+  };
+
   return Tour;
 };

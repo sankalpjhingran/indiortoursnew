@@ -38,6 +38,7 @@ var users = require('./routes/user');
 var places = require('./routes/place');
 var tags = require('./routes/tag');
 var parenttours = require('./routes/parenttour');
+var search = require('./routes/search');
 
 //load passport strategies
 require('./config/passport')(passport, models.User);
@@ -83,7 +84,6 @@ app.use(session({
 }));
 */
 
-
 // For Passport
 app.use(require('express-session')({ // session secret
     secret: 'indiornoida201301',
@@ -104,6 +104,8 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
+
+
 
 app.use('/api/image', images);
 app.use('/api/image/all', images);
@@ -163,6 +165,9 @@ app.use('/api/parenttours/update', parenttours);
 app.use('/api/parenttours/viewtrip', parenttours);
 
 
+app.use('/api/search', search);
+
+
 app.get('/api/conversionrates', function (request, res) {
   res.json(require('./config/conversionrates.json'));
 });
@@ -217,7 +222,7 @@ app.post('/api/v1/process', jsonParser, function (request, response) {
 });
 
 // In production, we'll actually serve our angular app from express
-if (app.get('env') === 'production') {
+if (app.get('env') === 'prod' || app.get('env') === 'dev') {
   app.use(express.static(path.join(__dirname, '/dist')));
 
   // production error handler

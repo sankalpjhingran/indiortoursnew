@@ -363,6 +363,23 @@ angular
               }
             }
         })
+        .state('search', {
+            url: '/search?key',
+            views:{
+              subheader: {
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                template: 'This is the side section',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/search.html',
+                controller: 'SearchController'
+              }
+            }
+        })
         .state('checkout', {
             url: '/checkout',
             views:{
