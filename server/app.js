@@ -222,7 +222,7 @@ app.post('/api/v1/process', jsonParser, function (request, response) {
 });
 
 // In production, we'll actually serve our angular app from express
-if (app.get('env') === 'production') {
+if (app.get('env') === 'prod' || app.get('env') === 'dev') {
   app.use(express.static(path.join(__dirname, '/dist')));
 
   // production error handler
