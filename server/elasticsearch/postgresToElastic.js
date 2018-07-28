@@ -37,7 +37,6 @@ function postWithDelay(body, time) {
 function postInstances() {
   console.log('Calling postInstances====>');
   let body = [];
-  console.log(typeof models.Tour.findAll);
   models.Tour.findAll({})
     .then((instances) => {
       instances.forEach((instance) => {

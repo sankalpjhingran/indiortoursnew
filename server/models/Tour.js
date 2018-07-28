@@ -64,6 +64,9 @@ module.exports = (sequelize, DataTypes) => {
       name: this.name,
       description: this.description,
       type: 'tour',
+      price: this.price,
+      offerprice: this.offerprice,
+      days: this.days
     };
   };
 

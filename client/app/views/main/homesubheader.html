@@ -38,8 +38,8 @@ body {
       <form class="col-sm-12" id="searchForm">
         <div class="form-group col-sm-4 col-sm-offset-4">
           <div class="input-group input-group-lg center-block">
-            <input type="text" class="form-control" placeholder="Search your next adventure...">
-            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <input type="text" class="form-control" placeholder="Search your unforgettable journey..." ng-model="key">
+            <span class="input-group-addon"><a href="/search?key={{key}}"><i class="fa fa-search"></i></a></span>
           </div>
         </div>
       </form>

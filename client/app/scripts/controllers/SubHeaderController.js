@@ -24,4 +24,19 @@ angular.module('clientApp')
             }
        });
     }
+    $scope.searchTours = function() {
+        console.log('In searchTours function....');
+        $http.get('/api/search/', {params: {key: $scope.key}})
+         .then(function(response){
+              if(response.data.length){
+                  console.log(response.data);
+                  /*
+                  angular.forEach(response.data, function(image){
+                        console.log(image);
+                        $scope.bannerImages.push(image);
+                  });
+                  */
+              }
+         });
+    }
   }]);
