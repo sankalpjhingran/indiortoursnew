@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('SubHeaderController', ['$http','$state', '$rootScope', '$scope', function ($http, $state, $rootScope, $scope) {
+  .controller('SubHeaderController', ['$http','$state', '$rootScope', '$scope', '$window', function ($http, $state, $rootScope, $scope, $window) {
     $scope.allImagesForBanner = function(){
       console.log('Calling subheader controller=====>');
       $scope.bannerImages = [];
@@ -24,19 +24,9 @@ angular.module('clientApp')
             }
        });
     }
-    $scope.searchTours = function() {
-        console.log('In searchTours function....');
-        $http.get('/api/search/', {params: {key: $scope.key}})
-         .then(function(response){
-              if(response.data.length){
-                  console.log(response.data);
-                  /*
-                  angular.forEach(response.data, function(image){
-                        console.log(image);
-                        $scope.bannerImages.push(image);
-                  });
-                  */
-              }
-         });
+    $scope.goToSearch = function() {
+      if($scope.key) {
+          $window.location.href = '/search?key=' + $scope.key;
+      }
     }
   }]);
