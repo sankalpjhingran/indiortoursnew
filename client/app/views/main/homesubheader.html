@@ -35,11 +35,11 @@ body {
         </div>
       </div>
 
-      <form class="col-sm-12" id="searchForm">
+      <form class="col-sm-12" id="searchForm" ng-submit="goToSearch();">
         <div class="form-group col-sm-4 col-sm-offset-4">
           <div class="input-group input-group-lg center-block">
             <input type="text" class="form-control" placeholder="Search your unforgettable journey..." ng-model="key">
-            <span class="input-group-addon"><a href="/search?key={{key}}"><i class="fa fa-search"></i></a></span>
+            <span class="input-group-addon"><a href="" ng-click="goToSearch();"><i class="fa fa-search"></i></a></span>
           </div>
         </div>
       </form>
