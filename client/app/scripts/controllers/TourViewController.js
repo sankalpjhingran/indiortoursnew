@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('TourViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currency', function ($http, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currency) {
+  .controller('TourViewController', ['$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currency', function ($http, $state, $location, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currency) {
     $rootScope.$state = $state;
     var tourId = $stateParams.id;
     $scope.tourWithAllRelated = [];
