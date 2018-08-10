@@ -41,11 +41,7 @@
   </head>
 
   <body ng-app="clientApp" ng-controller="authcontroller">
-    <div ui-view="checkout" ng-hide="$state.current.name == 'checkout'">
-          <!--View for main html templates and partials -->
-    </div>
-
-    <div class="row" ng-show="$state.current.name != 'checkout'">
+    <div class="row">
     <!-- Add your site or application content here -->
       <div style="background-color:#3171bb;" ng-include src="'views/header.html'" ng-init="checkAuthenticationStatus">
       </div>
@@ -165,6 +161,8 @@
     <script src="scripts/controllers/VerifyLinkController.js"></script>
     <script src="scripts/controllers/CheckoutController.js"></script>
     <script src="scripts/controllers/SearchController.js"></script>
+    <script src="scripts/controllers/BookingController.js"></script>
+    <script src="scripts/controllers/AdminSideSectionController.js"></script>
     <!-- endbuild -->
 
     <script>

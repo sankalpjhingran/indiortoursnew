@@ -1,0 +1,36 @@
+<div class="panel-group">
+<div class="panel panel-default">
+  <div class="panel-heading">Tour Details</div>
+  <div class="panel-body">
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="name">Start Date</label>
+          <input type="datetime-local" class="form-control" name="name" ng-model="vm.formData.tour.startdate">
+      </div>
+      <div class="form-group">
+          <label for="email">End Date</label>
+          <input type="datetime-local" class="form-control" name="email" ng-model="vm.formData.tour.enddate">
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="name">Hotel Category</label>
+          <select class="form-control input-sm" id="hoteltype" ng-model="vm.formData.tour.hotelcategory" placeholder="Hotel Type">
+            <option>Budget</option>
+            <option>Economy</option>
+            <option>Elegant</option>
+            <option>Deluxe</option>
+            <option>Luxury</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label for="name">Total number of rooms(single, double, twin, triple)</label>
+          <input type="number" class="form-control" name="name" ng-model="vm.formData.tour.totalrooms">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{{ vm.formData }}
