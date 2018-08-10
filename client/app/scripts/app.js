@@ -407,7 +407,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/toursadmin.html',
@@ -425,7 +425,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/parenttoursadmin.html',
@@ -444,7 +444,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/locationadmin.html',
@@ -463,7 +463,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/placesadmin.html',
@@ -482,7 +482,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/imagesadmin.html',
@@ -501,7 +501,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/leadsadmin.html',
@@ -520,7 +520,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/usersadmin.html',
@@ -539,7 +539,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/hotelsadmin.html',
@@ -558,7 +558,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/itineraryadmin.html',
@@ -577,7 +577,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/departuredateadmin.html',
@@ -596,7 +596,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/tourcostsadmin.html',
@@ -615,7 +615,7 @@ angular
               },
               sidesection: {
                 templateUrl: 'views/admin/adminsidesction.html',
-                controller: 'MainCtrl'
+                controller: 'AdminSideSectionController'
               },
               mainsection:{
                 templateUrl: 'views/admin/tournotesadmin.html',
@@ -650,6 +650,93 @@ angular
           }
         }
     })
+    // route to show our basic form (/form)
+        .state('book', {
+            url: '/book',
+            views:{
+              subheader: {
+                //templateUrl: 'views/main/toursubheader.html',
+                //controller: 'TourHeaderController'
+              },
+              sidesection: {
+                //templateUrl: 'views/main/toursidesection.html',
+                //controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/book.html',
+                controller: 'BookingController'
+              }
+            }
+        })
+
+        // nested states
+        // each of these sections will have their own view
+        // url will be nested (/form/profile)
+        .state('book.travellers', {
+            url: '/travellers',
+            views:{
+              subheader: {
+                //templateUrl: 'views/main/toursubheader.html',
+                //controller: 'TourHeaderController'
+              },
+              sidesection: {
+                //templateUrl: 'views/main/toursidesection.html',
+                //controller: 'MainCtrl'
+              },
+              mainsection: {
+                //templateUrl: 'views/main/toursidesection.html',
+                //controller: 'MainCtrl'
+              },
+              "@book" : {
+                  templateUrl: 'views/main/form-travellers.html'
+               }
+            }
+        })
+
+        /*
+        // url will be /form/interests
+        .state('book.passengers', {
+            url: '/passengers',
+            templateUrl: 'views/main/form-passengers.html'
+        })
+
+        // url will be /form/payment
+        .state('book.tourdetails', {
+            url: '/tourdetails',
+            templateUrl: 'views/main/form-tourdetails.html'
+        })
+        .state('book.otherdetails', {
+            url: '/otherdetails',
+            views:{
+              subheader: {
+                //templateUrl: 'views/main/toursubheader.html',
+                //controller: 'TourHeaderController'
+              },
+              sidesection: {
+                //templateUrl: 'views/main/toursidesection.html',
+                //controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/form-otherdetails.html'
+              }
+            }
+        })
+        .state('book.paymentdetails', {
+            url: '/paymentdetails',
+            views:{
+              subheader: {
+                //templateUrl: 'views/main/toursubheader.html',
+                //controller: 'TourHeaderController'
+              },
+              sidesection: {
+                //templateUrl: 'views/main/toursidesection.html',
+                //controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/form-paymentdetails.html'
+              }
+            }
+        })*/;
 
       function authenticate($q, $state, $timeout, $http) {
         $http.get('/api/isAuthenticated/')
