@@ -33,13 +33,13 @@ angular.module('clientApp')
         },
         {
           step: 4,
-          name: "Payment",
-          template: "views/main/form-paymentdetails.html"
+          name: "Review",
+          template: "views/main/form-review.html"
         },
         {
           step: 5,
-          name: "Review",
-          template: "views/main/form-review.html"
+          name: "Payment",
+          template: "views/main/checkout.html"
         },
       ];
       vm.user = {};
