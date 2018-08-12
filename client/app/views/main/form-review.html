@@ -1,31 +1,5 @@
 <div class="panel-group">
   <div class="panel panel-default">
-    <div class="panel-heading">Tour Details</div>
-    <div class="panel-body">
-      <div class="col-sm-6">
-        <div class="form-group">
-            <label for="name">Start Date</label>
-            {{ vm.formData.tour.startdate | date }}
-        </div>
-        <div class="form-group">
-            <label for="email">End Date</label>
-            {{ vm.formData.tour.enddate | date }}
-        </div>
-      </div>
-
-      <div class="col-sm-6">
-        <div class="form-group">
-            <label for="name">Hotel Category</label>
-            {{ vm.formData.tour.hotelcategory }}
-        </div>
-        <div class="form-group">
-            <label for="name">Total number of rooms(single, double, twin, triple)</label>
-            {{ vm.formData.tour.totalrooms }}
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
     <div class="panel-heading">Customer Details</div>
     <div class="panel-body">
       <div class="col-sm-6">
@@ -51,10 +25,11 @@
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Travellers</div>
+  <div class="panel-group panel-default">
+    <div ng-repeat="traveller in vm.formData.travellers">
+        <div class="panel panel-default" id="traveller-{{$index+1}}">
+    <div class="panel-heading">Traveller {{$index+1}}</div>
       <div class="panel-body">
-        <div ng-repeat="traveller in vm.formData.travellers">
           <div class="col-sm-6">
             <div class="form-group">
                 <label for="name">First Name</label>
@@ -95,9 +70,10 @@
                 {{ traveller.gender }}
             </div>
           </div>
-      </div>
     </div>
   </div>
+</div>
+</div>
   <div class="panel panel-default">
     <div class="panel-heading">Flight Details</div>
     <div class="panel-body">
