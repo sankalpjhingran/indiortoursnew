@@ -258,4 +258,21 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+const imagemin = require('imagemin');
+const imageminJpegtran = require('imagemin-jpegtran');
+const imageminPngquant = require('imagemin-pngquant');
+
+(async () => {
+  console.log('Otpmizing incoming image=====>');
+	const files = await imagemin(['public/images/*.{jpg,png}'], 'public/images', {
+		plugins: [
+			imageminJpegtran(),
+			imageminPngquant({quality: '65-80'})
+		]
+	});
+
+	console.log(files);
+	//=> [{data: <Buffer 89 50 4e …>, path: 'build/images/foo.jpg'}, …]
+})();
+
 module.exports = app;
