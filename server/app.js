@@ -258,6 +258,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+/*
 const imagemin = require('imagemin');
 const imageminJpegtran = require('imagemin-jpegtran');
 const imageminPngquant = require('imagemin-pngquant');
@@ -274,5 +275,6 @@ const imageminPngquant = require('imagemin-pngquant');
 	console.log(files);
 	//=> [{data: <Buffer 89 50 4e …>, path: 'build/images/foo.jpg'}, …]
 })();
+*/
 
 module.exports = app;
