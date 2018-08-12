@@ -58,6 +58,26 @@ angular.module('clientApp')
           }
       );
 
+      vm.addTraveller = function() {
+        vm.formData.travellers.push(
+          {
+            firstname: '',
+            lastname: '',
+            countryandcode: '',
+            passport: '',
+            phone: '',
+            gender: ''
+          }
+        );
+      }
+
+      vm.deleteTraveller = function(index) {
+        console.log('Calling delete traveller====>');
+        console.log(index);
+        vm.formData.travellers.splice(index, 1);
+        console.log(vm.formData.travellers);
+      }
+
       //Functions
       vm.gotoStep = function(newStep) {
         vm.currentStep = newStep;
