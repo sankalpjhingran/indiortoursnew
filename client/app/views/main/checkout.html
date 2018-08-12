@@ -11,6 +11,7 @@
 
   <script>
     var submitButton = document.querySelector('#submit-button');
+    console.log(submitButton);
     console.log(braintree);
     console.log(braintree.dropin);
 
@@ -20,6 +21,7 @@
     }).then(function (dropinInstance) {
       console.log(dropinInstance);
       submitButton.addEventListener('click', function () {
+        console.log('Binding event===>');
         dropinInstance.requestPaymentMethod().then(function (payload) {
           console.log(payload);
           // Send payload.nonce to your server

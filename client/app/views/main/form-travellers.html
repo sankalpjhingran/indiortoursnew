@@ -1,93 +1,113 @@
-<div class="panel-group">
 <div class="panel panel-default">
   <div class="panel-heading">Customer Details</div>
   <div class="panel-body">
     <div class="col-sm-6">
       <div class="form-group">
           <label for="name">First Name</label>
-          <input type="text" class="form-control" name="name" ng-model="vm.formData.customer.firstname">
+          <input type="text" class="form-control input-sm input-sm" name="name" ng-model="vm.formData.customer.firstname">
+      </div>
+      <div class="form-group">
+          <label for="name">Agency</label>
+          <input type="text" class="form-control input-sm input-sm" name="name" ng-model="vm.formData.customer.agency">
       </div>
       <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" class="form-control" name="email" ng-model="vm.formData.customer.email">
+          <input type="text" class="form-control input-sm input-sm" name="email" ng-model="vm.formData.customer.email">
       </div>
     </div>
 
     <div class="col-sm-6">
       <div class="form-group">
           <label for="name">Last Name</label>
-          <input type="text" class="form-control" name="name" ng-model="vm.formData.customer.lastname">
+          <input type="text" class="form-control input-sm input-sm" name="name" ng-model="vm.formData.customer.lastname">
       </div>
       <div class="form-group">
           <label for="name">Phone</label>
-          <input type="text" class="form-control" name="name" ng-model="vm.formData.customer.phone">
+          <input type="number" class="form-control input-sm input-sm" name="name" ng-model="vm.formData.customer.phone">
       </div>
     </div>
   </div>
 </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Travellers</div>
-      <div class="panel-body">
-        <div ng-repeat="traveller in vm.formData.travellers">
-          <div class="col-sm-6">
-            <div class="form-group">
-                <label for="name">First Name</label>
-                <input type="text" class="form-control" name="name" ng-model="traveller.firstname">
-            </div>
-
-            <div class="form-group">
-                <label for="name">Country and Code</label>
-                <input type="text" class="form-control" name="name" ng-model="traveller.countryandcode">
-            </div>
-            <div class="form-group">
-                <label for="name">Passport</label>
-                <input type="text" class="form-control" name="name" ng-model="traveller.passport">
-            </div>
-
-            <div class="form-group">
-                <label for="name">Expiry Date</label>
-                <input type="date" class="form-control" name="name" ng-model="traveller.passportexpirydate">
-            </div>
-
-          </div>
-
-          <div class="col-sm-6">
-            <div class="form-group">
-                <label for="name">Last Name</label>
-                <input type="text" class="form-control" name="name" ng-model="traveller.lastname">
-            </div>
-            <div class="form-group">
-                <label for="name">Phone</label>
-                <input type="text" class="form-control" name="name" ng-model="traveller.phone">
-            </div>
-            <div class="form-group">
-                <label for="name">Issue Date</label>
-                <input type="date" class="form-control" name="name" ng-model="traveller.passportissuedate">
-            </div>
-            <div class="form-group">
-                <label>Gender</label><br/>
-                <div class="radio-inline">
-                    <label class="radio">
-                        <input type="radio" name="chickenEgg" value="Male" ng-model="traveller.gender">
-                        Male
-                    </label>
+<div class="panel-group panel-default">
+  <div ng-repeat="traveller in vm.formData.travellers">
+      <div class="panel panel-default" id="traveller-{{$index+1}}">
+        <div class="panel-heading">Traveller {{$index+1}}
+          <button type="button" class="close" ng-click="vm.deleteTraveller($index);"  data-dismiss="alert">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+        </div>
+          <div class="panel-body">
+              <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">First Name</label>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.firstname">
                 </div>
-                <div class="radio-inline">
-                    <label class="radio-inline">
-                        <input type="radio" name="chickenEgg" value="Female" ng-model="traveller.gender">
-                        Female
-                    </label>
+                <div class="form-group">
+                    <label for="name">Country and Code</label>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.countryandcode">
                 </div>
-                <div class="radio-inline">
-                    <label class="radio-inline">
-                        <input type="radio" name="chickenEgg" value="Other" ng-model="traveller.gender">
-                        Other
-                    </label>
+                <div class="form-group">
+                    <label for="name">Date of Birth</label>
+                    <input type="date" class="form-control input-sm" name="name" ng-model="traveller.dateofbirth">
                 </div>
-            </div>
-          </div>
+                <div class="form-group">
+                    <label for="name">Passport</label>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.passport">
+                </div>
+                <div class="form-group">
+                    <label for="name">Expiry Date</label>
+                    <input type="date" class="form-control input-sm" name="name" ng-model="traveller.passportexpirydate">
+                </div>
+                <div class="form-group">
+                    <label for="name">Place of Issue</label>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.placeofissue">
+                </div>
+
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">Last Name</label>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.lastname">
+                </div>
+                <div class="form-group">
+                    <label for="name">Phone</label>
+                    <input type="number" class="form-control input-sm" name="name" ng-model="traveller.phone">
+                </div>
+                <div class="form-group">
+                    <label for="name">Issue Date</label>
+                    <input type="date" class="form-control input-sm" name="name" ng-model="traveller.passportissuedate">
+                </div>
+                <div class="form-group">
+                    <label>Gender</label><br/>
+                    <div class="radio-inline">
+                        <label class="radio">
+                            <input type="radio" name="chickenEgg" value="Male" ng-model="traveller.gender">
+                            Male
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label class="radio-inline">
+                            <input type="radio" name="chickenEgg" value="Female" ng-model="traveller.gender">
+                            Female
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label class="radio-inline">
+                            <input type="radio" name="chickenEgg" value="Other" ng-model="traveller.gender">
+                            Other
+                        </label>
+                    </div>
+                </div>
+              </div>
+        </div>
       </div>
     </div>
-  </div>
 </div>
+  <span class="btn-group pull-right">
+    <button class="btn btn-primary" ng-click="vm.addTraveller();">
+      Add Traveller
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+  </span>
