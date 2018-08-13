@@ -8,7 +8,8 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('TourViewController', ['$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currency', function ($http, $state, $location, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currency) {
+  .controller('TourViewController', ['$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currency', '$document', '$log', '$timeout',
+  function ($uibModal, $http, $state, $location, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currency, $document, $log, $timeout) {
     $rootScope.$state = $state;
     var tourId = $stateParams.id;
     $scope.tourWithAllRelated = [];
@@ -49,6 +50,62 @@ angular.module('clientApp')
       });
       */
     });
+
+    $scope.showEnquiryForm = function(){
+        $scope.showForm();
+    }
+
+
+    $scope.showForm = function (isNew) {
+        $scope.message = "Show Form Button Clicked";
+        console.log($scope.message);
+
+        if(isNew){
+          //$scope.hotelData = null;
+        }
+
+        console.log($uibModal);
+
+        $scope.modalInstance = $uibModal.open({
+            templateUrl: 'myModalContent.html',
+            controller: 'ContactusController',
+            scope: $scope,
+            backdrop: 'static',
+            size: 'md',
+            resolve: {
+                userForm: function () {
+                    return $scope.userForm;
+                }
+            }
+        });
+
+        $scope.modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            console.log('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.cancel = function () {
+        $scope.modalInstance.dismiss('cancel');
+    };
+
+    var _selected;
+    $scope.ngModelOptionsSelected = function(value) {
+      if (arguments.length) {
+        _selected = value;
+      } else {
+        return _selected;
+      }
+    };
+
+    $scope.modelOptions = {
+      debounce: {
+        default: 500,
+        blur: 250
+      },
+      getterSetter: true
+    };
 
     $scope.getTourDetailsWithRelatedModels = function() {
       $scope.loading = true;

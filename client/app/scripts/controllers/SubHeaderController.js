@@ -16,9 +16,7 @@ angular.module('clientApp')
       $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'homepagebanner'})
        .then(function(response){
             if(response.data.length){
-                console.log(response.data);
                 angular.forEach(response.data, function(image){
-                      console.log(image);
                       $scope.bannerImages.push(image);
                 });
             }
