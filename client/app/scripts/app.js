@@ -346,6 +346,23 @@ angular
               }
             }
         })
+        .state('enquiry', {
+            url: '/enquiry',
+            views:{
+              subheader: {
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                template: 'This is the side section',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/tourenquiry.html',
+                controller: 'ContactusController'
+              }
+            }
+        })
         .state('thankyou', {
             url: '/thankyou',
             views:{
