@@ -123,19 +123,15 @@ angular.module('clientApp')
                         tour.images = imagesMap.get(tour.id);
                         $scope.toursMap.set(tour.id, tour);
                       });
-                      console.log($scope.toursMap);
                   });
                   $scope.loading = false;
 
-                  console.log($scope.toursMap);
                   angular.forEach(JSON.parse(localStorageService.get("recenttours")), function(tour){
-                    console.log($scope.toursMap.get(tour.tourid));
                     $scope.recentTours.push($scope.toursMap.get(tour.tourid));
                   });
                   var uniqueEntries = $scope.removeDuplicates($scope.recentTours);
                   $scope.recentTours = [];
                   $scope.recentTours = uniqueEntries;
-                  console.log($scope.recentTours);
               });
            },
            function(response){

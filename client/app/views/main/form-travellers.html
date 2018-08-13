@@ -3,16 +3,21 @@
   <div class="panel-body">
     <div class="col-sm-6">
       <div class="form-group">
+          <label for="name">Title</label>
+          <select class="form-control input-sm input-sm" name="name" ng-model="vm.formData.customer.title">
+            <option value="Mr">Mr</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Miss">Dr</option>
+          </select>
+      </div>
+      <div class="form-group">
           <label for="name">First Name</label>
           <input type="text" class="form-control input-sm input-sm" name="name" ng-model="vm.formData.customer.firstname">
       </div>
       <div class="form-group">
           <label for="name">Agency</label>
           <input type="text" class="form-control input-sm input-sm" name="name" ng-model="vm.formData.customer.agency">
-      </div>
-      <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text" class="form-control input-sm input-sm" name="email" ng-model="vm.formData.customer.email">
       </div>
     </div>
 
@@ -24,6 +29,10 @@
       <div class="form-group">
           <label for="name">Phone</label>
           <input type="number" class="form-control input-sm input-sm" name="name" ng-model="vm.formData.customer.phone">
+      </div>
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control input-sm input-sm" name="email" ng-model="vm.formData.customer.email">
       </div>
     </div>
   </div>
@@ -40,30 +49,30 @@
           <div class="panel-body">
               <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="name">First Name</label>
-                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.firstname">
+                    <label for="name">Title</label>
+                    <select class="form-control input-sm input-sm" name="name" ng-model="traveller.title">
+                      <option value="Mr">Mr</option>
+                      <option value="Mrs">Mrs</option>
+                      <option value="Miss">Miss</option>
+                      <option value="Miss">Dr</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="name">Country and Code</label>
-                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.countryandcode">
+                    <label for="name">First Name</label>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.firstname">
                 </div>
                 <div class="form-group">
                     <label for="name">Date of Birth</label>
                     <input type="date" class="form-control input-sm" name="name" ng-model="traveller.dateofbirth">
                 </div>
                 <div class="form-group">
-                    <label for="name">Passport</label>
-                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.passport">
-                </div>
-                <div class="form-group">
-                    <label for="name">Expiry Date</label>
-                    <input type="date" class="form-control input-sm" name="name" ng-model="traveller.passportexpirydate">
+                    <label for="name">Passport Number</label>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.passportnumber">
                 </div>
                 <div class="form-group">
                     <label for="name">Place of Issue</label>
                     <input type="text" class="form-control input-sm" name="name" ng-model="traveller.placeofissue">
                 </div>
-
               </div>
 
               <div class="col-sm-6">
@@ -72,13 +81,23 @@
                     <input type="text" class="form-control input-sm" name="name" ng-model="traveller.lastname">
                 </div>
                 <div class="form-group">
-                    <label for="name">Phone</label>
+                    <label for="name">Last Name</label>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.lastname">
+                </div>
+                <div class="form-inline" style="margin-bottom: 10px;">
+                    <div class="row" style="margin-left:0px !important"><label>Phone</label></div>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.countryandcode">
                     <input type="number" class="form-control input-sm" name="name" ng-model="traveller.phone">
                 </div>
                 <div class="form-group">
-                    <label for="name">Issue Date</label>
+                    <label for="name">Date of Issue</label>
                     <input type="date" class="form-control input-sm" name="name" ng-model="traveller.passportissuedate">
                 </div>
+                <div class="form-group">
+                    <label for="name">Date of Expiry</label>
+                    <input type="date" class="form-control input-sm" name="name" ng-model="traveller.passportexpirydate">
+                </div>
+                <!--
                 <div class="form-group">
                     <label>Gender</label><br/>
                     <div class="radio-inline">
@@ -100,6 +119,7 @@
                         </label>
                     </div>
                 </div>
+              -->
               </div>
         </div>
       </div>

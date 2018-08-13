@@ -64,9 +64,8 @@ angular.module('clientApp')
             firstname: '',
             lastname: '',
             countryandcode: '',
-            passport: '',
+            passportnumber: '',
             phone: '',
-            gender: ''
           }
         );
       }
