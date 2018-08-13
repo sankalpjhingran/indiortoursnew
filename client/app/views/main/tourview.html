@@ -19,6 +19,7 @@
   object-position: center;
 }
 </style>
+
 <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
   <div ng-show="!(loading)">
     <!-- main div -->
@@ -262,10 +263,14 @@
 <!-- Tour Enquiry Modal begins -->
 <div class="modal-demo">
   <script type="text/ng-template" id="myModalContent.html">
+      <div class="alert alert-success alert-dismissible fade in" ng-show="showSuccessBanner">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> Enquiry submitted, thanks!
+      </div>
       <div class="modal-header">
           <h3 class="modal-title" id="modal-title">Tour Enquiry</h3>
       </div>
-      <form role="form" method="POST" ng-submit="createLead();">
+      <form role="form" method="POST" ng-submit="createEnquiry();">
         <div class="modal-body" id="modal-body">
           <div class="row" style="margin:0px !important;">
                 <div class="col-sm-6">
@@ -344,13 +349,13 @@
                 <div class="clearfix"></div>
               </div>
                 <div class="clearfix"></div>
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
           </div>
         </div>
         <div class="modal-footer">
           <div class="btn-group" role="group" aria-label="footer buttons">
             <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
           </div>
         </div>
       </form>
