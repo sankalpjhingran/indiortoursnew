@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         plannedarrival: {type: DataTypes.DATE},
         numdays: {type: DataTypes.INTEGER},
         numpeople: {type: DataTypes.INTEGER},
-        preferredhoteltype: {type: DataTypes.ENUM, values: ['High End Hotels', 'Luxury And Palaces', 'Medium Budget', 'Low Budget']},
+        preferredhoteltype: {type: DataTypes.ENUM, values: ['Budget', 'Economy', 'Elegant', 'Deluxe', 'Luxury']},
         message: {type: DataTypes.TEXT('medium')},
         attachment: {type: DataTypes.BLOB}
       }
