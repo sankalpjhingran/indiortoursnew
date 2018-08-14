@@ -164,12 +164,14 @@ app.use('/api/parenttours', parenttours);
 app.use('/api/parenttours/update', parenttours);
 app.use('/api/parenttours/viewtrip', parenttours);
 
-
 app.use('/api/search', search);
-
 
 app.get('/api/conversionrates', function (request, res) {
   res.json(require('./config/conversionrates.json'));
+});
+
+app.get('/api/countrycodes', function (request, res) {
+  res.json(require('./config/CountryCodes.json'));
 });
 
 var gateway = braintree.connect({
