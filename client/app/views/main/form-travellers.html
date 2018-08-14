@@ -86,8 +86,22 @@
                 </div>
                 <div class="form-inline" style="margin-bottom: 10px;">
                     <div class="row" style="margin-left:0px !important"><label>Phone</label></div>
-                    <input type="text" class="form-control input-sm" name="name" ng-model="traveller.countryandcode">
-                    <input type="number" class="form-control input-sm" name="name" ng-model="traveller.phone">
+                    <div class="row" style="margin-left:0px !important">
+                      <div class="col-sm-6" style="padding-left: 0px;padding-right: 0px;">
+                        <ui-select id="parenttourids" ng-model="traveller.countryandcode" theme="bootstrap" close-on-select="true"  title="Country and code...">
+                          <ui-select-match placeholder="Country and code...">{{$select.selected.name + ' ' + $select.selected.dial_code}}</ui-select-match>
+                          <ui-select-choices repeat="tour in vm.countrycodes | propsFilter: {name: $select.search}">
+                            <div ng-bind-html="tour.name + ' ' + tour.dial_code | highlight: $select.search"></div>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+
+                      <div class="col-sm-6" style="padding-left: 0px;">
+                        <input type="number" class="form-control input-sm" style="width:100%" name="name" ng-model="traveller.phone">
+
+                      </div>
+
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="name">Date of Issue</label>

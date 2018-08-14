@@ -100,4 +100,10 @@ angular.module('clientApp')
         var type = 'success';
         $scope.dynamic = vm.currentStep;
       };
+
+      $http.get('/api/countrycodes')
+       .then(function(res){
+         vm.countrycodes = res.data;
+         console.log(vm.countrycodes);
+      });
 });
