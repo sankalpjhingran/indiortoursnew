@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', ['$http','$state', '$rootScope', '$scope', 'localStorageService', 'Carousel', 'currency', function ($http, $state, $rootScope, $scope, localStorageService, Carousel, currency) {
+  .controller('MainCtrl', ['$http','$state', '$rootScope', '$scope', 'localStorageService', 'Carousel', 'currency', '$uibModal', function ($http, $state, $rootScope, $scope, localStorageService, Carousel, currency, $uibModal) {
 
     $http.get('/api/conversionrates')
      .then(function(res){
@@ -139,4 +139,60 @@ angular.module('clientApp')
            }
         );
     }
+
+    $scope.showEnquiryForm = function(){
+        $scope.showForm();
+    }
+
+
+    $scope.showForm = function (isNew) {
+        $scope.message = "Show Form Button Clicked";
+        console.log($scope.message);
+
+        if(isNew){
+          //$scope.hotelData = null;
+        }
+
+        console.log($uibModal);
+
+        $scope.modalInstance = $uibModal.open({
+            templateUrl: 'myModalContent.html',
+            controller: 'ContactusController',
+            scope: $scope,
+            backdrop: 'static',
+            size: 'md',
+            resolve: {
+                userForm: function () {
+                    return $scope.userForm;
+                }
+            }
+        });
+
+        $scope.modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            console.log('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.cancel = function () {
+        $scope.modalInstance.dismiss('cancel');
+    };
+
+    var _selected;
+    $scope.ngModelOptionsSelected = function(value) {
+      if (arguments.length) {
+        _selected = value;
+      } else {
+        return _selected;
+      }
+    };
+
+    $scope.modelOptions = {
+      debounce: {
+        default: 500,
+        blur: 250
+      },
+      getterSetter: true
+    };
   }]);
