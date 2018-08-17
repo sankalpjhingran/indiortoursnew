@@ -20,3 +20,18 @@ router.post("/", passport.authenticate('local-signin'), function(req, res) {
 });
 
 module.exports = router;
+
+
+/*
+  //Passport facebook callback
+  router.get('/auth/facebook',
+    passportFacebook.authenticate('facebook'));
+
+  router.get('/auth/facebook/callback',
+    passportFacebook.authenticate('facebook', { failureRedirect: '/signup' }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/');
+    });
+});
+*/

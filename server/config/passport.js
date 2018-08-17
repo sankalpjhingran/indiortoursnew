@@ -53,7 +53,15 @@ passport.use('local-signin', new LocalStrategy(
       console.log(password);
       console.log(passwd);
 
-      bCrypt.compare(password, passwd, function(err, res) {
+      if(bCrypt.compareSync(password, passwd)) {
+          console.log('password matched...');
+          return cb(null, user);
+      } else {
+          return cb(null, false);
+      }
+
+      /*
+      bCrypt.compareSync(password, passwd, function(err, res) {
           console.log(res);
           if (res) {
             console.log('password matched...');
@@ -62,6 +70,23 @@ passport.use('local-signin', new LocalStrategy(
             return cb(null, false);
           }
       });
+      */
     });
   }));
 }
+
+
+/*
+  passport.use(new passportFacebookStrategy({
+    clientID: '2169346600001473',
+    clientSecret: '4b8ac1e0a1ef9c17e1fc41277504a18b',
+    callbackURL: "/auth/facebook/callback"
+  },
+
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+*/
