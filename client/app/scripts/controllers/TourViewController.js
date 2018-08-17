@@ -9,7 +9,7 @@
  */
 angular.module('clientApp')
   .controller('TourViewController', ['$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currency', '$document', '$log', '$timeout',
-  function ($uibModal, $http, $state, $location, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currency, $document, $log, $timeout) {
+  function ($uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currency, $document, $log, $timeout) {
     $rootScope.$state = $state;
     var tourId = $stateParams.id;
     $scope.tourWithAllRelated = [];

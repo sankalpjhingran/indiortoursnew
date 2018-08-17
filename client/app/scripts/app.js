@@ -669,7 +669,7 @@ angular
     })
     // route to show our basic form (/form)
         .state('book', {
-            url: '/book',
+            url: '/book?id',
             views:{
               subheader: {
                 //templateUrl: 'views/main/toursubheader.html',
