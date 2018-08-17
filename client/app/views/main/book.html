@@ -15,10 +15,14 @@
 }
 </style>
 <div class="col-md-12">
-
-          <h1>IndiorTours Booking</h1>
+          <h1>IndiorTours Secure Booking</h1>
+          <h3>{{  tourWithAllRelated[0].name }}</h3>
+          <p class="text-left" style="font-size:1em; word-wrap: break-word;">
+            <span>
+              {{ tourWithAllRelated[0].location | join:' | ' | truncate: 120 : '...' : false  }}
+            </span>
+          </p>
           <div id="wizard-container" ng-controller="BookingController as vm" ng-init="vm.progress();">
-
             <uib-progressbar max="max"
                              value="dynamic"
                              type="success"
