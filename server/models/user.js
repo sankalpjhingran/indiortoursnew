@@ -15,7 +15,9 @@ var bcrypt = require('bcrypt-nodejs');
       email: {type: DataTypes.STRING, allowNull: false, unique: true,  validate: {isEmail: true}},
       type: {type: DataTypes.ENUM, values: ['Admin', 'Direct Customer', 'DMC', 'Tour Operator', 'Travel Agent'], defaultValue: 'Direct Customer', allowNull: false},
       status: {type: DataTypes.ENUM, values: ['Active', 'Inactive'], defaultValue: 'Inactive'},
-      lastLogin: {type: DataTypes.DATE}
+      lastLogin: {type: DataTypes.DATE},
+      //facebookId: {type: DataTypes.STRING},
+      //googleId: {type: DataTypes.STRING}
     }
   );
 
