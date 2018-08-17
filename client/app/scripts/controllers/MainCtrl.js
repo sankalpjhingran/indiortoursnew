@@ -140,32 +140,34 @@ angular.module('clientApp')
         );
     }
 
-    $scope.showEnquiryForm = function(){
-        $scope.showForm();
+    $scope.showEnquiryForm = function(tourId, tourname, price, days){
+        console.log(tourId);
+        console.log(tourname);
+        console.log(price);
+        console.log(days);
+        $scope.showForm(tourId, tourname, price, days);
     }
 
 
-    $scope.showForm = function (isNew) {
+    $scope.showForm = function (tourId, tourName, price, days) {
         $scope.message = "Show Form Button Clicked";
         console.log($scope.message);
+        $scope.enquiryTourId = tourId;
+        $scope.tourName = tourName;
+        $scope.tourPrice = price;
+        $scope.tourDays = days;
 
-        if(isNew){
-          //$scope.hotelData = null;
-        }
-
-        console.log($uibModal);
+        console.log($scope.enquiryTourId);
+        console.log($scope.tourName);
+        console.log($scope.tourPrice);
+        console.log($scope.tourDays);
 
         $scope.modalInstance = $uibModal.open({
             templateUrl: 'myModalContent.html',
             controller: 'ContactusController',
             scope: $scope,
             backdrop: 'static',
-            size: 'md',
-            resolve: {
-                userForm: function () {
-                    return $scope.userForm;
-                }
-            }
+            size: 'md'
         });
 
         $scope.modalInstance.result.then(function (selectedItem) {

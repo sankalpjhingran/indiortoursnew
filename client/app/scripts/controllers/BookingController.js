@@ -8,7 +8,26 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-.controller('BookingController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
+.controller('BookingController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout, $state, $rootScope, $stateParams) {
+  $rootScope.$state = $state;
+  var tourId = $stateParams.id;
+  console.log(tourId);
+  $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
+   .then(
+       function(res){
+         //Success callback
+         $scope.tourWithAllRelated = res.data;
+
+         $scope.tourWithAllRelated[0].location = [] ;
+         $scope.tourWithAllRelated[0].siteLocation.forEach(function(location){
+            $scope.tourWithAllRelated[0].location.push(location.city);
+         });
+           console.log($scope.tourWithAllRelated);
+       },
+       function(response){
+         // failure call back
+       }
+    );
 
       var vm = this;
       $scope.max = 5;
@@ -104,6 +123,5 @@ angular.module('clientApp')
       $http.get('/api/countrycodes')
        .then(function(res){
          vm.countrycodes = res.data;
-         console.log(vm.countrycodes);
       });
 });

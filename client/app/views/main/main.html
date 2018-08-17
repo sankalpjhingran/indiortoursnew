@@ -36,10 +36,10 @@
                     <strong>{{tour.days}} Days | {{ tour.price }} | Offer Price: {{ tour.offerprice }} </strong>
                   </p>
                   <div class="row" style="margin-left: 5px;margin-right: 0px;margin-top: 0px;margin-bottom: 5px;margin-right: 5px;padding-top: 0px;">
-                      <a ng-click="showEnquiryForm();" class="btn btn-default pull-left" style="margin-top:12px;">
+                      <a ng-click="showEnquiryForm(tour.id, tour.name, tour.price, tour.days);" class="btn btn-default pull-left" style="margin-top:12px;">
                           Send Enquiry
                       </a>
-                      <a ng-href="/book" class="btn btn-primary pull-right" style="margin-top:12px;">
+                      <a ng-href="/book?id={{tour.id}}&amp;name={{tour.name | slugify}}" class="btn btn-primary pull-right" style="margin-top:12px;">
                           Book Now
                       </a>
                   </div>
@@ -100,6 +100,7 @@
       </div>
       <div class="modal-header">
           <h3 class="modal-title" id="modal-title">Tour Enquiry</h3>
+          <h5>{{ tourName }} | Starting from {{ tourPrice }} | {{ tourDays }} Days</h5>
       </div>
       <form role="form" method="POST" ng-submit="createEnquiry();">
         <div class="modal-body" id="modal-body">
