@@ -191,8 +191,6 @@ var users = {
   },
 
   updatepassword(req, res) {
-    var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(SALT_WORK_FACTOR), null);
-    req.body.password = hash;
     User.update(req.body, {
       where: {
         id: req.body.id
