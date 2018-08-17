@@ -174,6 +174,7 @@ app.get('/api/countrycodes', function (request, res) {
   res.json(require('./config/CountryCodes.json'));
 });
 
+/*
 var gateway = braintree.connect({
   environment: braintree.Environment.Sandbox,
   merchantId: 'pj2zmzfr2w2khb8m',
@@ -195,6 +196,7 @@ app.use(function (req, res, next) {
 /**
  * Route that returns a token to be used on the client side to tokenize payment details
  */
+ /*
 app.post('/api/v1/token', function (request, response) {
   gateway.clientToken.generate({}, function (err, res) {
     if (err) throw err;
@@ -207,6 +209,7 @@ app.post('/api/v1/token', function (request, response) {
 /**
  * Route to process a sale transaction
  */
+ /*
 app.post('/api/v1/process', jsonParser, function (request, response) {
   var transaction = request.body;
   console.log(transaction);
@@ -222,6 +225,47 @@ app.post('/api/v1/process', jsonParser, function (request, response) {
     response.json(result);
   });
 });
+*/
+
+app.post('/api/payment', function(req, res) {
+  console.log('In api/payment route====>');
+  var jsSHA = require("jssha");
+  console.log(req.body);
+  if (!req.body.txnid || !req.body.amount || !req.body.productinfo
+       || !req.body.firstname || !req.body.email) {
+         res.send("Mandatory fields missing");
+   } else {
+         var pd = req.body;
+         var hashString = pd.key // Merchant Key
+                  + '|' + pd.txnid
+                  + '|' + pd.amount + '|' + pd.productinfo + '|'
+                  + pd.firstname + '|' + pd.email + '|'
+                  + '||||||||||'
+                  + 'e5iIg1jwi8' //config.payumoney.salt // Your salt value
+         var sha = new jsSHA('SHA-512', "TEXT");
+         sha.update(hashString)
+         var hash = sha.getHash("HEX");
+         res.send({ 'hash': hash });
+   }
+ });
+
+ app.post('/api/payment/response', function(req, res) {
+   console.log('In api/payment/response====>');
+   console.log(req.body);
+   var pd = req.body;
+   //Generate new Hash
+    var hashString = '6osuUUMRJl' + '|' + pd.status + '||||||||||' + '|' + pd.email + '|' + pd.firstname + '|' + pd.productinfo + '|' + pd.amount + '|' + pd.txnid + '|' + pd.key
+    var jsSHA = require("jssha");
+    var sha = new jsSHA('SHA-512', "TEXT");
+    sha.update(hashString)
+    var hash = sha.getHash("HEX");
+    // Verify the new hash with the hash value in response
+    if (hash == pd.hash) {
+        res.send({'status':pd.status});
+    } else {
+        res.send({'status':"Error occured"});
+    }
+ });
 
 // In production, we'll actually serve our angular app from express
 if (app.get('env') === 'prod' || app.get('env') === 'dev') {
