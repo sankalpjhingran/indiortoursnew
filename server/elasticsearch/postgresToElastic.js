@@ -7,7 +7,7 @@ var postBulkData = require('./elasticWrapper.js');
 var wrapper = require('./elasticWrapper.js');
 
 var models = require('../models/index');
-var index = require('../config/config.js');
+var index = require('../config/config2.js');
 
 const { Instance, InstanceAlias } = models;
 const BATCH_SIZE = 20000;

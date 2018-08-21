@@ -21,6 +21,7 @@
     "cors": "^2.8.4",
     "cron-parser": "^2.5.0",
     "debug": "^2.6.9",
+    "dotenv": "^6.0.0",
     "elasticsearch": "^14.2.2",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
