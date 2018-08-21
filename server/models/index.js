@@ -8,7 +8,7 @@ var DataTypes = require("sequelize");
 var fsPath = require('fs-path');
 var fs = require('fs');
 //var env       = process.env.NODE_ENV || 'development';
-var config    = require('../config/config.js');
+var config    = require('../config/config2.js');
 var db        = {};
 
 
