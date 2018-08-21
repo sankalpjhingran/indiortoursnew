@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var index = require('../config/config.js');
+var index = require('../config/config2.js');
 
 var search = exports.search = [{ index: index.elasticSearch.index, type: 'tour' }, {
   query: {

@@ -1,9 +1,10 @@
 //load bcrypt
   var bCrypt = require('bcrypt-nodejs');
-  var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy
-  , models  = require('../models/index');
-
+  var passport = require('passport');
+  var passportFacebookStrategy = require('passport-facebook').Strategy;
+  var LocalStrategy = require('passport-local').Strategy;
+  var models  = require('../models/index');
+  var config    = require('../config/config2');
 
 module.exports = function(passport, user) {
 
@@ -53,16 +54,7 @@ passport.use('local-signin', new LocalStrategy(
       console.log(password);
       console.log(passwd);
 
-      if(bCrypt.compareSync(password, passwd)) {
-          console.log('password matched...');
-          return cb(null, user);
-      } else {
-          return cb(null, false);
-      }
-
-      /*
       bCrypt.compareSync(password, passwd, function(err, res) {
-          console.log(res);
           if (res) {
             console.log('password matched...');
             return cb(null, user);
@@ -70,17 +62,13 @@ passport.use('local-signin', new LocalStrategy(
             return cb(null, false);
           }
       });
-      */
     });
   }));
-}
 
-
-/*
   passport.use(new passportFacebookStrategy({
-    clientID: '2169346600001473',
-    clientSecret: '4b8ac1e0a1ef9c17e1fc41277504a18b',
-    callbackURL: "/auth/facebook/callback"
+    clientID: config.fb.CLIENT_ID,
+    clientSecret: config.fb.CLIENT_SECRET,
+    callbackURL: "/auth/fb/callback"
   },
 
   function(accessToken, refreshToken, profile, cb) {
@@ -89,4 +77,5 @@ passport.use('local-signin', new LocalStrategy(
     });
   }
 ));
-*/
+
+}

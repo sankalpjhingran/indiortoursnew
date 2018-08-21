@@ -14,7 +14,7 @@ var _connect = require('./connect.js');
 
 var _config = require('./config.js');
 
-var _config2 = require('../config/config.js');
+var _config2 = require('../config/config2.js');
 
 var _config3 = _interopRequireDefault(_config2);
 
@@ -35,7 +35,7 @@ function searchData(query) {
       query: {
         multi_match: {
           "query": query,
-          "fields": [ "name", "description" ] 
+          "fields": [ "name", "description" ]
         }
       },
     }

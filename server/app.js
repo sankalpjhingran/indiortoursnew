@@ -118,6 +118,8 @@ app.use('/api/regusers', regusers);
 app.use('/api/contactus', contactus);
 app.use('/api/signup', signup);
 app.use('/api/signin', auth);
+app.use('/api/signin/auth/fb', auth);
+app.use('/api/signin/auth/fb/callback', auth);
 app.use('/api/logout', logout);
 app.use('/api/isAuthenticated', application);
 app.use('/api/tours', tours);
