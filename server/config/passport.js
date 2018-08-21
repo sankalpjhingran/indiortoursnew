@@ -54,7 +54,7 @@ passport.use('local-signin', new LocalStrategy(
       console.log(password);
       console.log(passwd);
 
-      bCrypt.compareSync(password, passwd, function(err, res) {
+      bCrypt.compare(password, passwd, function(err, res) {
           if (res) {
             console.log('password matched...');
             return cb(null, user);
