@@ -9,7 +9,7 @@ var _elasticsearch = require('elasticsearch');
 
 var _elasticsearch2 = _interopRequireDefault(_elasticsearch);
 
-var _config = require('../config/config.js');
+var _config = require('../config/config2.js');
 
 var _config2 = _interopRequireDefault(_config);
 

@@ -2,7 +2,6 @@
 
 var sequelize  = require('../models/index');
 var elasticSearchWrapper = require('../elasticsearch/elasticWrapper.js');
-var config = require('../config/config');
 
 module.exports = (sequelize, DataTypes) => {
   var Tour = sequelize.define("Tour", {
