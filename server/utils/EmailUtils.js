@@ -4,12 +4,27 @@ const nodemailer = require('nodemailer');
 const config = require('../config/config2');
 //create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
+
+	/*
 	service: config.senderemail.service,
 	secure: false,
 	auth: {
 	  user: config.senderemail.email,
 	  pass: config.senderemail.password,
 	},
+	*/
+
+	host: config.senderemail.service,
+	port: 465,
+	secure: true, // use TLS
+  auth: {
+      user: config.senderemail.email, // generated ethereal user
+      pass: config.senderemail.password // generated ethereal password
+  },
+	tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false
+    }
 });
 
 module.exports = {

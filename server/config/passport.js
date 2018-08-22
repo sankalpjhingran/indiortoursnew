@@ -65,17 +65,6 @@ passport.use('local-signin', new LocalStrategy(
     });
   }));
 
-  passport.use(new passportFacebookStrategy({
-    clientID: config.fb.CLIENT_ID,
-    clientSecret: config.fb.CLIENT_SECRET,
-    callbackURL: "/auth/fb/callback"
-  },
-
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
-  }
-));
+  
 
 }
