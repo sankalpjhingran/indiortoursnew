@@ -167,8 +167,9 @@
             </div>
             <div class="form-group">
               <label for="micecategory">MICE Category</label>
-              <select class="form-control" id="micecategory" ng-model="tourData.micecategory">
+              <select class="form-control" id="micecategory" ng-model="tourData.micecategory" ng-disabled="!tourData.ismicetour">
                 <option>Meetings</option>
+                <option>Incentive Tours</option>
                 <option>Business Meetings</option>
                 <option>Corporate Meetings</option>
                 <option>Thematic Meetings</option>

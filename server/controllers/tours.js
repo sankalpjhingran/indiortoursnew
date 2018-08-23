@@ -83,7 +83,7 @@ module.exports= {
 
   getAllToursWithLocations(req, res){
         Tour.findAll({
-          where: {isactive : true},
+          where: {ismicetour: false, isactive : true},
           include: [{ association : 'siteLocation'}]
           })
           .then(function (authors) {
