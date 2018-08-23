@@ -15,7 +15,7 @@ module.exports = {
         'ismicetour', // name of the key we're adding
         {
           type: Sequelize.BOOLEAN,
-          default: false;
+          default: false
         },
         'micecategory',
         {
