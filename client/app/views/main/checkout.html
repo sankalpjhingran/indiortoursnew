@@ -70,92 +70,164 @@ and open the template in the editor.
 <head >
 </head>
   <body>
-    <h1>PayUMoney Payment Request Form </h1>
-    <div ng-app="clientApp" ng-controller="CheckoutController" ng-init="getHashFromPayU();">
-      <form action="https://sandboxsecure.payu.in/_payment" name="payuform" method=POST >
-        {{ pd }}
-      <input type="hidden" name="key" value="{{ pd.key }}" />
-      <input type="hidden" name="hash" value="{{ pd.hash }}" />
-      <input type="hidden" name="txnid" value="{{ pd.txnid }}"/>
-      <input type="hidden" name="service_provider" value="payu_paisa" size="64" />
-      <table>
-      <tr>
-      <td><b>Mandatory Parameters</b></td>
-      </tr>
-      <tr>
-      <td>Amount: </td>
-      <td><input name="amount" ng-model="pd.amount"/></td>
-      <td>First Name: </td>
-      <td><input name="firstname" id="firstname" ng-model="pd.firstname"/></td>
-      </tr>
-      <tr>
-      <td>Email: </td>
-      <td><input name="email" id="email" ng-model="pd.email"/></td>
-      <td>Phone: </td>
-      <td><input name="phone" ng-model="pd.phone"/></td>
-      </tr>
-      <tr>
-      <td>Product Info: </td>
-      <td colspan="3"><textarea name="productinfo" ng-model="pd.productinfo">  </textarea></td>
-      </tr>
-      <tr>
-      <td>Success URI: </td>
-      <td colspan="3"><input name="surl"  size="64" ng-model="pd.surl"/></td>
-      </tr>
-      <tr>
-      <td>Failure URI: </td>
-      <td colspan="3"><input name="furl"  size="64" ng-model="pd.furl"/></td>
-      </tr>
-      <td colspan="4"><input type="submit" value="Submit"/></td>
-      </tr>
-    </tr>
-    <tr>
-    <td><b>Optional Parameters</b></td>
-    </tr>
-    <tr>
-    <td>Last Name: </td>
-    <td><input name="lastname" id="lastname"  /></td>
-    <td>Cancel URI: </td>
-    <td><input name="curl" value="" /></td>
-    </tr>
-    <tr>
-    <td>Address1: </td>
-    <td><input name="address1" /></td>
-    <td>Address2: </td>
-    <td><input name="address2"  /></td>
-    </tr>
-    <tr>
-    <td>City: </td>
-    <td><input name="city"  /></td>
-    <td>State: </td>
-    <td><input name="state"  /></td>
-    </tr>
-    <tr>
-    <td>Country: </td>
-    <td><input name="country"  /></td>
-    <td>Zipcode: </td>
-    <td><input name="zipcode"  /></td>
-    </tr>
-    <tr>
-    <td>UDF1: </td>
-    <td><input name="udf1"  /></td>
-    <td>UDF2: </td>
-    <td><input name="udf2"  /></td>
-    </tr>
-    <tr>
-    <td>UDF3: </td>
-    <td><input name="udf3"   /></td>
-    <td>UDF4: </td>
-    <td><input name="udf4"  /></td>
-    </tr>
-    <tr>
-    <td>UDF5: </td>
-    <td><input name="udf5"  /></td>
-    <td>PG: </td>
-    <td><input name="pg"  /></td>
-    </tr>
-      </table>
-      </form>
+    <h1>Indior Tours Safe Checkout</h1>
+    <div ng-app="clientApp" ng-controller="CheckoutController">
+      <form method="POST" name="customerData" action="/api/ccavRequestHandler">
+    		<table width="40%" height="100" border='1' align="center">
+    			<tr>
+    				<td>Parameter Name:</td>
+    				<td>Parameter Value:</td>
+    			</tr>
+    			<tr>
+    				<td colspan="2">Compulsory information</td>
+    			</tr>
+    			<tr>
+    				<td>Merchant Id</td>
+    				<td><input type="text" name="merchant_id" id="merchant_id" value="187180" /> </td>
+    			</tr>
+    			<tr>
+    				<td>Order Id</td>
+    				<td><input type="text" name="order_id" value="" /></td>
+    			</tr>
+    			<tr>
+    				<td>Currency</td>
+    				<td><input type="text" name="currency" value="INR" /></td>
+    			</tr>
+    			<tr>
+    				<td>Amount</td>
+    				<td><input type="text" name="amount" value="1.00" /></td>
+    			</tr>
+    			<tr>
+    				<td>Redirect URL</td>
+    				<td><input type="text" name="redirect_url"
+    					value="http://127.0.0.1:9000/api/ccavResponseHandler" />
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>Cancel URL</td>
+    				<td><input type="text" name="cancel_url"
+    					value="http://127.0.0.1:3001/ccavResponseHandler" />
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>Language</td>
+    				<td><input type="text" name="language" id="language" value="EN" /></td>
+    			</tr>
+    			<tr>
+    				<td colspan="2">Billing information(optional):</td>
+    			</tr>
+    			<tr>
+    				<td>Billing Name</td>
+    				<td><input type="text" name="billing_name" value="Peter" /></td>
+    			</tr>
+    			<tr>
+    				<td>Billing Address:</td>
+    				<td><input type="text" name="billing_address"
+    					value="Santacruz" /></td>
+    			</tr>
+    			<tr>
+    				<td>Billing City:</td>
+    				<td><input type="text" name="billing_city" value="Mumbai" /></td>
+    			</tr>
+    			<tr>
+    				<td>Billing State:</td>
+    				<td><input type="text" name="billing_state" value="MH" /></td>
+    			</tr>
+    			<tr>
+    				<td>Billing Zip:</td>
+    				<td><input type="text" name="billing_zip" value="400054" /></td>
+    			</tr>
+    			<tr>
+    				<td>Billing Country:</td>
+    				<td><input type="text" name="billing_country" value="India" />
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>Billing Tel:</td>
+    				<td><input type="text" name="billing_tel" value="9876543210" />
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>Billing Email:</td>
+    				<td><input type="text" name="billing_email"
+    					value="testing@domain.com" /></td>
+    			</tr>
+    			<tr>
+    				<td colspan="2">Shipping information(optional):</td>
+    			</tr>
+    			<tr>
+    				<td>Shipping Name</td>
+    				<td><input type="text" name="delivery_name" value="Sam" />
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>Shipping Address:</td>
+    				<td><input type="text" name="delivery_address"
+    					value="Vile Parle" /></td>
+    			</tr>
+    			<tr>
+    				<td>Shipping City:</td>
+    				<td><input type="text" name="delivery_city" value="Mumbai" />
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>Shipping State:</td>
+    				<td><input type="text" name="delivery_state" value="Maharashtra" />
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>Shipping Zip:</td>
+    				<td><input type="text" name="delivery_zip" value="400038" /></td>
+    			</tr>
+    			<tr>
+    				<td>Shipping Country:</td>
+    				<td><input type="text" name="delivery_country" value="India" />
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>Shipping Tel:</td>
+    				<td><input type="text" name="delivery_tel" value="0123456789" />
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>Merchant Param1</td>
+    				<td><input type="text" name="merchant_param1"
+    					value="additional Info." /></td>
+    			</tr>
+    			<tr>
+    				<td>Merchant Param2</td>
+    				<td><input type="text" name="merchant_param2"
+    					value="additional Info." /></td>
+    			</tr>
+    			<tr>
+    				<td>Merchant Param3</td>
+    				<td><input type="text" name="merchant_param3"
+    					value="additional Info." /></td>
+    			</tr>
+    			<tr>
+    				<td>Merchant Param4</td>
+    				<td><input type="text" name="merchant_param4"
+    					value="additional Info." /></td>
+    			</tr>
+    			<tr>
+    				<td>Merchant Param5</td>
+    				<td><input type="text" name="merchant_param5"
+    					value="additional Info." /></td>
+    			</tr>
+    			<tr>
+    				<td>Promo Code:</td>
+    				<td><input type="text" name="promo_code" value=""/></td>
+    			</tr>
+    			<tr>
+    				<td>Customer Id:</td>
+    				<td><input type="text" name="customer_identifier" value=""/></td>
+    			</tr>
+    			<tr>
+    				<td></td>
+    				<td><INPUT TYPE="submit" value="Checkout"></td>
+    			</tr>
+    		</table>
+    	</form>
     </div>
   </body>
 </html>

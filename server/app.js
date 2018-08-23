@@ -15,6 +15,12 @@ var debug = require('debug')('http')
   , http = require('http')
   , name = 'IndiorTours';
 
+var  fs = require('fs')
+var  ccav = require('./ccavutil.js')
+var  qs = require('querystring')
+var  ccavReqHandler = require('./ccavRequestHandler.js')
+var  ccavResHandler = require('./ccavResponseHandler.js')
+
 var redis = require('redis');
 
 var models = require('./models/index');
@@ -229,7 +235,7 @@ app.post('/api/v1/process', jsonParser, function (request, response) {
   });
 });
 */
-
+/*
 app.post('/api/payment', function(req, res) {
   console.log('In api/payment route====>');
   var jsSHA = require("jssha");
@@ -269,6 +275,21 @@ app.post('/api/payment', function(req, res) {
         res.send({'status':"Error occured"});
     }
  });
+*/
+
+app.get('/about', function (req, res){
+    	res.render('dataFrom.html');
+});
+
+app.post('/api/ccavRequestHandler', function (request, response){
+	ccavReqHandler.postReq(request, response);
+});
+
+
+app.post('/api/ccavResponseHandler', function (request, response){
+  ccavResHandler.postRes(request, response);
+});
+
 
 // In production, we'll actually serve our angular app from express
 if (app.get('env') === 'prod' || app.get('env') === 'dev') {
