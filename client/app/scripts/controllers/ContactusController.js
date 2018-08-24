@@ -8,16 +8,13 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-.controller('ContactusController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
+.controller('ContactusController', function ($scope, $uibModal, $http, $location, $stateParams, $document, $log, Upload, $timeout) {
       console.log('In contact us controller');
       $scope.showSuccessBanner = false;
 
-      console.log($scope.enquiryTourId);
-      console.log($scope.tourName);
-      console.log($scope.tourPrice);
-      console.log($scope.tourDays);
       $scope.createLead = function(){
         $scope.contactusData.plannedarrival = moment($scope.contactusData.plannedarrival).toDate();
+        $scope.contactusData.relatedtotype = 'General enquiry';
         $http.post('/api/contactus/', $scope.contactusData).then(function(res, err){
           console.log(res);
           if(res.status == 200){
@@ -29,6 +26,8 @@ angular.module('clientApp')
 
       $scope.createEnquiry = function(){
         $scope.contactusData.plannedarrival = moment($scope.contactusData.plannedarrival).toDate();
+        $scope.contactusData.relatedtotype = 'Tours';
+        $scope.contactusData.relatedtoid = $scope.enquiryTourId+'';
         $http.post('/api/contactus/', $scope.contactusData).then(function(res, err){
           console.log(res);
           if(res.status == 200){
