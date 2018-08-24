@@ -167,7 +167,7 @@ angular.module('clientApp')
             controller: 'ContactusController',
             scope: $scope,
             backdrop: 'static',
-            size: 'md'
+            size: 'md',
         });
 
         $scope.modalInstance.result.then(function (selectedItem) {
