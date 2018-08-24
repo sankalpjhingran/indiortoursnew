@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
         numpeople: {type: DataTypes.INTEGER},
         preferredhoteltype: {type: DataTypes.ENUM, values: ['Budget', 'Economy', 'Elegant', 'Deluxe', 'Luxury']},
         message: {type: DataTypes.TEXT('medium')},
-        attachment: {type: DataTypes.BLOB}
+        attachment: {type: DataTypes.BLOB},
+        relatedtotype: {type: DataTypes.STRING},
+        relatedtoid: {type: DataTypes.STRING}
       }
   );
   return Lead;
