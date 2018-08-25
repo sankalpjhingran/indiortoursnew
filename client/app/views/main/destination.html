@@ -6,17 +6,26 @@
   }
 </style>
 <div ng-init="getDestinationDetails()">
-          <h3>
-            Indior Destinations
-          </h3>
-          <h4>
-            {{ destination.city }}, {{ destination.country }}
-          </h4>
-          <p class="main" style="white-space: pre-wrap;">
-              <img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}">
-              {{ destination.description }}
-          </p>
-          <div class="row">
+    <h3>
+      Indior Destinations
+    </h3>
+    <h4>
+      {{ destination.city }}, {{ destination.country }}
+    </h4>
+    <p class="main" style="white-space: pre-wrap;">
+        <img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}">
+        {{ destination.description }}
+    </p>
 
-          </div>
+    <div class="row">
+      <h4>
+        Popular tours for this destination
+      </h4>
+    </div>
+
+    <div class="row">
+      <h4>
+        Similar tours
+      </h4>
+    </div>
 </div>
