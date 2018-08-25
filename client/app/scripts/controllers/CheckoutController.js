@@ -9,7 +9,32 @@
  */
 
  angular.module('clientApp')
- .controller('CheckoutController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
+ .controller('CheckoutController', function ($sce, $scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
+
+   $scope.toggleShowForm = function() {
+      return true;
+   }
+
+   $scope.submitForm = function() {
+      var data = {
+        merchant_id : '187180',
+        order_id : '8751262825',
+        redirect_url : 'http://127.0.0.1:9000/api/ccavResponseHandler',
+        cancel_url : 'http://127.0.0.1:9000/api/ccavResponseHandler',
+        amount: '1.00'
+      };
+
+
+      $http.post('/api/ccavRequestHandler', data).then(function(res, err){
+        console.log(res.data.encReq);
+        console.log(res.data.accessCode);
+
+        if(res.status == 200){
+          console.log(res.data);
+          $scope.ccavenueForm = $sce.trustAsHtml(res.data);
+        }
+      });
+   };
 
    $scope.message = 'Please use the form below to pay:';
    $scope.showDropinContainer = true;
