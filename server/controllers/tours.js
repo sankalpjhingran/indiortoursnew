@@ -84,7 +84,8 @@ module.exports= {
   getAllToursWithLocations(req, res){
         Tour.findAll({
           where: {showonhomepage: true, isactive : true},
-          include: [{ association : 'siteLocation'}]
+          attributes: ['id', 'name', 'slug', 'tourtype', 'days', 'nights', 'price', 'createdAt', 'updatedAt', 'offerprice', 'ismicetour', 'micecategory', 'isactive', 'showonhomepage'],
+          include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }]
           })
           .then(function (authors) {
             res.status(200).json(authors);
