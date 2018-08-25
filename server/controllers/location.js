@@ -12,6 +12,7 @@ module.exports= {
   index(req, res) {
     Location.findAll({
       include: [{ association : 'places' }],
+      attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']]
       })
       .then(function (authors) {
