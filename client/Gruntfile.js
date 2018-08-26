@@ -377,7 +377,8 @@ module.exports = function (grunt) {
           collapseWhitespace: true,
           conservativeCollapse: true,
           collapseBooleanAttributes: true,
-          removeCommentsFromCDATA: true
+          removeCommentsFromCDATA: true,
+          removeComments: true
         },
         files: [{
           expand: true,
@@ -485,6 +486,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-connect-proxy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('default', ['compass']);
+  grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
