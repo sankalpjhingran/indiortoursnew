@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var jade = require('pug');
-var helmet = require('helmet');
 var compression = require('compression');
 var braintree = require('braintree');
 var util = require('util');
@@ -50,9 +49,6 @@ var search = require('./routes/search');
 require('./config/passport')(passport, models.User);
 
 var app = express();
-
-//Use Helmet for security
-app.use(helmet());
 
 //Use Compression for gzip compression, for Production, use nginx gzip compression
 app.use(compression());
