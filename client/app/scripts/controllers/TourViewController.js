@@ -115,6 +115,7 @@ angular.module('clientApp')
              console.log(res.data);
              //Success callback
              $scope.tourWithAllRelated = JSON.parse(res.data);
+             console.log($scope.tourWithAllRelated);
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              $scope.hotelsjson = [];
 
