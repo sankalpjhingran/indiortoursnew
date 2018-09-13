@@ -95,7 +95,7 @@ angular.module('clientApp')
        .then(
            function(res){
              // success callback
-             $scope.allTours = res.data;
+             $scope.allTours = JSON.parse(res.data);
              var tourids = [];
 
              $scope.allTours.forEach(function(tour){
