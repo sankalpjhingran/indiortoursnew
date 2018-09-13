@@ -112,10 +112,9 @@ angular.module('clientApp')
       $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
        .then(
            function(res){
+             console.log(res.data);
              //Success callback
-             $scope.tourWithAllRelated = res.data;
-             console.log($scope.tourWithAllRelated[0].tourcost[0]);
-
+             $scope.tourWithAllRelated = JSON.parse(res.data);
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              $scope.hotelsjson = [];
 
@@ -133,7 +132,6 @@ angular.module('clientApp')
                     }
                   );
              });
-
              // sort by name
             $scope.hotelsjson.sort(function(a, b) {
               var nameA = a.city.toLowerCase();
@@ -147,8 +145,6 @@ angular.module('clientApp')
               // names must be equal
               return 0;
             });
-
-             console.log($scope.hotelsjson);
 
              var output = [];
 
@@ -168,7 +164,6 @@ angular.module('clientApp')
                     output.push(hotel);
                 }
               });
-
               $scope.output = output;
               console.log($scope.output);
 
@@ -181,7 +176,6 @@ angular.module('clientApp')
              $scope.tourWithAllRelated[0].siteLocation.forEach(function(location){
                 $scope.tourWithAllRelated[0].location.push(location.city);
              });
-
              $http.post('/api/image/all', {tourids : hotelids, parentobjectname : 'hotel'})
               .then(function(images){
                   console.log(images);
@@ -199,7 +193,6 @@ angular.module('clientApp')
                   });
               });
               console.log($scope.tourWithAllRelated);
-
               $scope.additionalservicesupplements = [];
 
               angular.forEach($scope.tourWithAllRelated[0].tourcost, function(cost){
@@ -207,7 +200,6 @@ angular.module('clientApp')
                       $scope.additionalservicesupplements.push(cost);
                   }
               });
-
               $scope._events = [];
               angular.forEach($scope.tourWithAllRelated[0].departuredates, function(date){
                 // Parse a RRuleSet string, return a RRuleSet object
