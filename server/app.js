@@ -77,23 +77,25 @@ client.unref();
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 
-/*
+
 app.use(session({
-    store: new RedisStore({ client : client }),
+    store: new RedisStore({ host: 'localhost', port: 6379, client: client, ttl :  86400, disableTTL: true}),
     secret: 'indiornoida201301',
     saveUninitialized: true,
-    resave: true
+    resave: false
 }));
-*/
+
 
 
 // For Passport
+/*
 app.use(require('express-session')({ // session secret
     secret: 'indiornoida201301',
     resave: true,
     saveUninitialized: true,
     cookie: { maxAge: null }
 }));
+*/
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
