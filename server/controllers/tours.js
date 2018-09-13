@@ -81,7 +81,7 @@ module.exports= {
               })
               .then(function (authors) {
                 console.log('Not available in cache so will set in cache first');
-                redisClient.set('getTourWithRelatedModels:' + queryVars.id, JSON.stringify(authors), function (error) {
+                redisClient.set('getTourWithRelatedModels:' + queryVars.id, JSON.stringify(authors), 'EX', 10*60, function (error) {
                   if (error) {throw error;}
                 });
                 res.status(200).json(authors);
@@ -109,7 +109,7 @@ module.exports= {
                 })
                 .then(function (authors) {
                   console.log('Not available in cache so will set in cache first');
-                  redisClient.set('getAllToursWithLocations:', JSON.stringify(authors), function (error) {
+                  redisClient.set('getAllToursWithLocations:', JSON.stringify(authors), 'EX', 10*60, function (error) {
                     if (error) {throw error;}
                   });
                   res.status(200).json(authors);
