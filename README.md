@@ -15,5 +15,3 @@ c) Run `npm run dev` in the `server` directory to startup the Express API
 d) Run `grunt build` in the `client` directory to build down the Angular app into the `server`'s `dist` directory
 
 e) Run `npm start` in the `server` directory after a `grunt build` to have the entire app brought together under the `server`.
-
-Testing git merges
