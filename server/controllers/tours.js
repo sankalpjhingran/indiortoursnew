@@ -8,7 +8,7 @@ var Hotel = models.Hotel;
 var TourHotel = models.TourHotel;
 var TourLocation = models.TourLocation;
 var Tag = models.Tag;
-
+var redisClient = require('../config/redis-client');
 
 var Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -68,31 +68,56 @@ module.exports= {
 
   getTourWithRelatedModels(req, res){
         let queryVars = req.query;
-        Tour.findAll({
-          where: {id : queryVars.id},
-            include: [{ association : 'siteLocation' }, { association : 'accomodationHotel'}, { association : 'tourcost' }, { association : 'itinerary' }, { association : 'tourNote' }, {association: 'departuredates'}]
-          })
-          .then(function (authors) {
-            res.status(200).json(authors);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
-          });
+
+        redisClient.get('getTourWithRelatedModels:' + queryVars.id, function(error, tours) {
+            if (error) {throw error;}
+            if(tours) {
+              console.log('Available in cache so not querying again');
+              res.status(200).json(tours);
+            } else {
+              Tour.findAll({
+                where   : {id : queryVars.id},
+                include : [{ association : 'siteLocation' }, { association : 'accomodationHotel'}, { association : 'tourcost' }, { association : 'itinerary' }, { association : 'tourNote' }, {association: 'departuredates'}]
+              })
+              .then(function (authors) {
+                console.log('Not available in cache so will set in cache first');
+                redisClient.set('getTourWithRelatedModels:' + queryVars.id, authors, function (error) {
+                  if (error) {throw error;}
+                });
+                res.status(200).json(authors);
+              })
+              .catch(function (error) {
+                console.log(error);
+                res.status(500).json(error);
+              })
+            }
+        });
   },
 
   getAllToursWithLocations(req, res){
-        Tour.findAll({
-          where: {showonhomepage: true, isactive : true},
-          attributes: ['id', 'name', 'slug', 'tourtype', 'days', 'nights', 'price', 'createdAt', 'updatedAt', 'offerprice', 'ismicetour', 'micecategory', 'isactive', 'showonhomepage'],
-          include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }]
-          })
-          .then(function (authors) {
-            res.status(200).json(authors);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
+          redisClient.get('getAllToursWithLocations:', function(error, tours) {
+              if (error) {throw error;}
+              if(tours) {
+                console.log('Available in cache so not querying again');
+                res.status(200).json(tours);
+              } else {
+                Tour.findAll({
+                  where: {showonhomepage: true, isactive : true},
+                  attributes: ['id', 'name', 'slug', 'tourtype', 'days', 'nights', 'price', 'createdAt', 'updatedAt', 'offerprice', 'ismicetour', 'micecategory', 'isactive', 'showonhomepage'],
+                  include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }]
+                })
+                .then(function (authors) {
+                  console.log('Not available in cache so will set in cache first');
+                  redisClient.set('getAllToursWithLocations:', authors, function (error) {
+                    if (error) {throw error;}
+                  });
+                  res.status(200).json(authors);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                  res.status(500).json(error);
+                })
+              }
           });
   },
 

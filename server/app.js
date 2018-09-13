@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var jade = require('pug');
 var compression = require('compression');
-var braintree = require('braintree');
+//var braintree = require('braintree');
 var util = require('util');
 var fs = require('fs');
 var debug = require('debug')('http')
@@ -17,10 +17,11 @@ var debug = require('debug')('http')
 var  fs = require('fs')
 var  ccav = require('./ccavutil.js')
 var  qs = require('querystring')
-var  ccavReqHandler = require('./ccavRequestHandler.js')
-var  ccavResHandler = require('./ccavResponseHandler.js')
 
-var redis = require('redis');
+//var  ccavReqHandler = require('./ccavRequestHandler.js')
+//var  ccavResHandler = require('./ccavResponseHandler.js')
+
+var redis = require('./config/redis-client');
 
 var models = require('./models/index');
 var regusers = require('./routes/regusers');
@@ -63,29 +64,27 @@ debug('Initializing app.js file====>3');
 
 SALT_WORK_FACTOR = 12;
 
-var client = redis.createClient(); // this creates a new client
-client.on('connect', function() {
+redis.on('connect', function() {
     console.log('Redis client connected');
 });
 
-client.on('error', function (err) {
+redis.on('error', function (err) {
     console.log('Something went wrong ' + err);
 });
 
-client.unref();
+redis.unref();
 
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 
 
+//For passport
 app.use(session({
-    store: new RedisStore({ host: 'localhost', port: 6379, client: client, ttl :  86400, disableTTL: true}),
+    store: new RedisStore({ host: 'localhost', port: 6379, client: redis, ttl :  86400, disableTTL: true}),
     secret: 'indiornoida201301',
     saveUninitialized: true,
     resave: false
 }));
-
-
 
 // For Passport
 /*
