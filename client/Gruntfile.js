@@ -321,10 +321,10 @@ module.exports = function (grunt) {
         },
         blockReplacements: {
           css: function(block) {
-            return '<link async rel="stylesheet" type="text/css" href="' + block.dest + ' />';
+            return '<link rel="stylesheet" type="text/css" href="' + block.dest + ' />';
           },
           js: function(block) {
-            return '<script defer src="' + block.dest + '"></script>';
+            return '<script src="' + block.dest + '"></script>';
           }
         }
       }
