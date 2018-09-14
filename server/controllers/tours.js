@@ -8,7 +8,7 @@ var Hotel = models.Hotel;
 var TourHotel = models.TourHotel;
 var TourLocation = models.TourLocation;
 var Tag = models.Tag;
-var redisClient = require('../config/redis-client').client;
+var redisClient = require('../config/redis-client');
 
 var Sequelize = require('sequelize');
 const Op = Sequelize.Op;
