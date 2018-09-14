@@ -45,9 +45,12 @@
       </div>
 
       <!-- This is a repeat on all locations -->
-      <span style="color:orange;">
-        {{ tourWithAllRelated[0].location | join : ' | ' }}
-      </span>
+
+        <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
+            <span style="color:orange;">
+              <a style="color: orange;"href="/destination?id={{ location.id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last">|</span>
+            </span>
+        </span>
 
       <!-- This is tour description -->
       <p class="main">
