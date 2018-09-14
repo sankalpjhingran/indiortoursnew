@@ -112,7 +112,7 @@ module.exports= {
                   redisClient.set('getAllToursWithLocations:', JSON.stringify(authors), 'EX', 10*60, function (error) {
                     if (error) {throw error;}
                   });
-                  res.status(200).json(authors);
+                  res.status(200).json(JSON.stringify(authors));
                 })
                 .catch(function (error) {
                   console.log(error);
