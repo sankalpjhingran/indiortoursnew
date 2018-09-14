@@ -77,6 +77,7 @@ redis.unref();
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 
+app.disable('etag').disable('x-powered-by');
 
 //For passport
 app.use(session({

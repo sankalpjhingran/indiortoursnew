@@ -112,10 +112,8 @@ angular.module('clientApp')
       $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
        .then(
            function(res){
-             console.log(res.data);
              //Success callback
              $scope.tourWithAllRelated = JSON.parse(res.data);
-             console.log($scope.tourWithAllRelated);
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              $scope.hotelsjson = [];
 
@@ -173,10 +171,6 @@ angular.module('clientApp')
                 hotelids.push(tour.id);
              });
 
-             $scope.tourWithAllRelated[0].location = [] ;
-             $scope.tourWithAllRelated[0].siteLocation.forEach(function(location){
-                $scope.tourWithAllRelated[0].location.push(location.city);
-             });
              $http.post('/api/image/all', {tourids : hotelids, parentobjectname : 'hotel'})
               .then(function(images){
                   console.log(images);
