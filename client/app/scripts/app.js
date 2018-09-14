@@ -210,6 +210,23 @@ angular
               }
             }
         })
+        .state('blog', {
+            url:'/blog',
+            views:{
+              subheader: {
+                //templateUrl: 'views/toursubheader.html',
+                //controller: 'TourViewController'
+              },
+              sidesection: {
+                templateUrl: 'views/main/toursidesection.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/blog.html',
+                controller: 'BlogController'
+              }
+            }
+        })
         .state('about', {
             url:'/about',
             views:{

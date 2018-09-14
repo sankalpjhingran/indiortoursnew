@@ -1,0 +1,15 @@
+<div ng-init="allBlogs()">
+  <h3>
+    Indior Travel Blog
+  </h3>
+  <p class="main">
+    Travel to Asia with Indior Tours experts and delve deeply into a rich tapestry of cultures and landscapes. Explore sacred temples in Bhutan or Tibet, or trek with Sherpa guides to through Himalayas. Set out on a rail journey through India or a explore coastline of Sri Lanka and Maldives, or a photography expedition to Bhutan or Tibet. On all of our trips, you’ll experience a unique intersection of fascinating cultures, age-old traditions, and modern life.
+  </p>
+
+    <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+    <div ng-show="!(loading)">
+      <div class="row">
+        
+      </div>
+    </div>
+</div>
