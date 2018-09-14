@@ -318,14 +318,6 @@ module.exports = function (grunt) {
         ],
         patterns: {
           js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
-        },
-        blockReplacements: {
-          css: function(block) {
-            return '<link rel="stylesheet" type="text/css" href="' + block.dest + ' />';
-          },
-          js: function(block) {
-            return '<script src="' + block.dest + '"></script>';
-          }
         }
       }
     },
