@@ -3,21 +3,9 @@
 var sequelize  = require('../models/index');
 
 module.exports = (sequelize, DataTypes) => {
-  var Location = sequelize.define("Location", {
-        city: {type: DataTypes.STRING},
-        state: {type: DataTypes.STRING},
-        country:{type: DataTypes.STRING},
-        continent:{type: DataTypes.STRING},
+  var Country = sequelize.define("Country", {
+        name: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
-        country_id: {
-          type: DataTypes.INTEGER(11),
-          allowNull: false,
-          primaryKey: false,
-          references: {
-            model: 'Countries',
-            key: 'id'
-          }
-        },
         continent_id: {
           type: DataTypes.INTEGER(11),
           allowNull: false,
@@ -50,12 +38,9 @@ module.exports = (sequelize, DataTypes) => {
       }
   });
 
-  Location.associate = function (models) {
-    Location.hasMany(models.Hotel, {as: 'locationhotels', foreignKey: 'location_id'});
-    Location.hasMany(models.Place, {as: 'places', foreignKey: 'location_id'});
-    //Location.belongsTo(models.Country, {as: 'locationcountries', foreignKey: 'country_id'});
-    //Location.belongsTo(models.Continent, {as: 'locationcontinent', foreignKey: 'continent_id'});
+  Country.associate = function (models) {
+    //Country.belongsTo(models.Continent, {as: 'countryContinents', foreignKey: 'country_id'});
+    Country.hasMany(models.Location);
   };
-
-  return Location;
+  return Country;
 };

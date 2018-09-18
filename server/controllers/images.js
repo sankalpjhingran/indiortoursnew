@@ -89,6 +89,21 @@ module.exports= {
     imageRec.description = req.body.description;
 
     Image.create(imageRec).then(function(ImageInstance){
+
+      /* Compress the image and  */
+      var compress_images = require('compress-images'), inputPath, outputPath;
+
+      inputPath = '../public/images/' + imageRec.filename;
+      outputPath = '../public/compressedimages/';
+
+      compress_images(inputPath, outputPath, {compress_force: false, statistic: true, autoupdate: true}, false,
+                                              {jpg: {engine: 'mozjpeg', command: ['-quality', '60']}},
+                                              {png: {engine: 'pngquant', command: ['--quality=20-50']}},
+                                              {svg: {engine: 'svgo', command: '--multipass'}},
+                                              {gif: {engine: 'gifsicle', command: ['--colors', '64', '--use-col=web']}}, function(){
+      });
+      /* Compression ends */
+
       res.status(200).json(ImageInstance);
     })
     .catch(function (error){

@@ -8,19 +8,19 @@
 * Controller of the clientApp
 */
 angular.module('clientApp')
-.controller('LocationAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
-$scope.locationMap = new Map();
+.controller('CountryAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
+$scope.countryMap = new Map();
 
-$scope.uploadFiles = function(tempLocation) {
-  var files = $scope.locationData.images;
-  console.log($scope.locationData.images);
+$scope.uploadFiles = function(country) {
+  var files = $scope.countryData.images;
+  console.log($scope.countryData.images);
   angular.forEach(files, function(file) {
       file.upload = Upload.upload({
           url: '/api/image/',
           method: 'POST',
           data: { file: file,
-                  'parentobjectid': tempLocation.id,
-                  'parentobjectname':  'location'
+                  'parentobjectid': country.id,
+                  'parentobjectname':  'country'
                 }
       });
 
@@ -40,137 +40,113 @@ $scope.uploadFiles = function(tempLocation) {
 
 $scope.deleteFile = function(idx) {
      console.log(idx);
-     var file = $scope.locationData.images[idx];
+     var file = $scope.countryData.images[idx];
      console.log(file);
      if (file) {
-        $scope.locationData.images.splice(idx, 1);
+        $scope.countryData.images.splice(idx, 1);
     }
 }
 
 $scope.deleteUploadedFile = function(idx) {
-     console.log($scope.locationData.newImages[0]);
+     console.log($scope.countryData.newImages[0]);
 
-     var file = $scope.locationData.newImages[idx];
+     var file = $scope.countryData.newImages[idx];
      console.log(file);
      if (file && file.id) {
           $http.delete('/api/image/', {params: {id: file.id}}).then(function(response){
                if (response.status == 200) {
-                    $scope.locationData.newImages.splice(idx, 1);
+                    $scope.countryData.newImages.splice(idx, 1);
                }
          });
       }
 }
 
-$scope.populateLocationInstance = function(locationId){
-    console.log('Calling populateLocationInstance===> ' + locationId);
-    $scope.locationData = $scope.locationMap.get(locationId);
-    console.log($scope.locationMap);
-    console.log($scope.locationData);
-    $scope.locationData.newImages = [];
+$scope.populateCountryInstance = function(countryId){
+    console.log('Calling populateCountryInstance===> ' + countryId);
+    $scope.countryData = $scope.countryMap.get(countryId);
+    console.log($scope.countryMap);
+    console.log($scope.countryData);
+    $scope.countryData.newImages = [];
     var tourids = [];
-    tourids.push(locationId);
-    $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'location'})
+    tourids.push(countryId);
+    $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'country'})
      .then(function(response){
           if(response.data.length){
               angular.forEach(response.data, function(image){
                     console.log(image);
-                    $scope.locationData.newImages.push(image);
+                    $scope.countryData.newImages.push(image);
               });
           }
      });
-    console.log($scope.locationData);
+    console.log($scope.countryData);
     $scope.showForm();
 }
 
 $scope.saveNew = function(){
-    $scope.createUpdateLocation();
-    console.log($scope.locationData.id);
-    $scope.populateLocationInstance($scope.locationData.id);
-    console.log($scope.locationData);
-    //delete $scope.locationData.id;
+    $scope.createUpdateCountry();
+    console.log($scope.countryData.id);
+    $scope.populateCountryInstance($scope.countryData.id);
+    console.log($scope.countryData);
+    //delete $scope.countryData.id;
 
 }
 
 // get all locations to be displayed on page load
-$scope.loadLocationData = function(){
+$scope.loadcountryData = function(){
   //Get all tours to be searched by typeahead
 
   $scope.loading = true;
   // Load all locations to be displayed
-  $http.get('/api/location/all/')
+  $http.get('/api/country/all/')
     .then(
         function(response){
           // success callback
-          $scope.allLocations = response.data;
+          $scope.allCountries = response.data;
 
-          $scope.locationMap = new Map();
+          $scope.countryMap = new Map();
           //populate locationMap to be used in edit form
-          angular.forEach($scope.allLocations, function(location) {
-            $scope.locationMap.set(location.id, location);
+          angular.forEach($scope.allCountries, function(country) {
+            $scope.countryMap.set(country.id, country);
           });
-          console.log($scope.allLocations);
+          console.log($scope.allCountries);
           $scope.loading = false;
-          return $scope.allLocations;
+          return $scope.allCountries;
         },
         function(response){
           // failure call back
         }
      );
-  $http.get('/api/places/all/')
-     .then(function(places){
-       $scope.allPlaces = places.data;
-     });
 
-   $http.get('/api/country/all/')
+   $http.get('/api/continent/all/')
      .then(
          function(response){
            // success callback
-           $scope.allCountries = response.data;
+           $scope.allContinents = response.data;
 
-           $scope.countryMap = new Map();
+           $scope.continentsMap = new Map();
            //populate locationMap to be used in edit form
-           angular.forEach($scope.allCountries, function(country) {
-             $scope.countryMap.set(country.id, country);
+           angular.forEach($scope.allContinents, function(continent) {
+             $scope.continentsMap.set(continent.id, continent);
            });
-           console.log($scope.allCountries);
+           console.log($scope.allContinents);
            $scope.loading = false;
-           return $scope.allCountries;
+           return $scope.allContinents;
          },
          function(response){
            // failure call back
          }
       );
-
-      $http.get('/api/continent/all/')
-        .then(
-            function(response){
-              // success callback
-              $scope.allContinents = response.data;
-
-              $scope.continentsMap = new Map();
-              //populate locationMap to be used in edit form
-              angular.forEach($scope.allContinents, function(continent) {
-                $scope.continentsMap.set(continent.id, continent);
-              });
-              console.log($scope.allContinents);
-              $scope.loading = false;
-              return $scope.allContinents;
-            },
-            function(response){
-              // failure call back
-            }
-         );
 }
 
-$scope.delLocation = function(locationid) {
-    console.log(locationid);
-    if(locationid && confirm("Are you sure you want to delete this location?")){
-      $http.delete('/api/location/', {params: {id: locationid}})
+$scope.delCountry = function(countryId){
+    console.log(countryId);
+    if(countryId && confirm("Are you sure you want to delete this location?")){
+      $http.delete('/api/country/', {params: {id: countryId}})
        .then(
            function(response){
              // success callback
-             console.log('Location deleted...');
-             $scope.loadLocationData();
+             console.log('Country deleted...');
+             $scope.loadcountryData();
            },
            function(response){
              // failure call back
@@ -184,11 +160,11 @@ $scope.showForm = function(isNew) {
     console.log($scope.message);
 
     if(isNew){
-      $scope.locationData = null;
+      $scope.countryData = null;
     }
     $scope.modalInstance = $uibModal.open({
         templateUrl: 'myModalContent.html',
-        controller: 'LocationAdminController',
+        controller: 'CountryAdminController',
         scope: $scope,
         backdrop: 'static',
         size: 'lg',
@@ -210,37 +186,30 @@ $scope.cancel = function () {
     $scope.modalInstance.dismiss('cancel');
 };
 
-$scope.createUpdateLocation = function(){
+$scope.createUpdateCountry = function(){
   // Update the location if location id is there
-  if($scope.locationData && $scope.locationData.id && $scope.locationData.country){
-    $scope.locationData.country_id = $scope.locationData.country.id;
-    $scope.locationData.country = $scope.locationData.country.name;
-
-    $scope.locationData.continent_id = $scope.locationData.continent.id;
-    $scope.locationData.continent = $scope.locationData.continent.name;
-    console.log($scope.locationData);
-    $http.post('/api/location/update/', $scope.locationData).then(function(res, err){
+  if($scope.countryData && $scope.countryData.id){
+    $scope.countryData.continent_id = $scope.countryData.continent.id;
+    $scope.countryData.continent = $scope.countryData.continent.name;
+    console.log($scope.countryData);
+    $http.post('/api/country/update/', $scope.countryData).then(function(res, err){
       console.log(res);
       if(res.status == 200){
         //Upload Images
-        $scope.uploadFiles($scope.locationData);
+        $scope.uploadFiles($scope.countryData);
 
         //if the request is scuessful, show all locations
         $scope.modalInstance.close();
-        $scope.$parent.allLocations = $scope.$parent.loadLocationData();
+        $scope.$parent.allCountries = $scope.$parent.loadcountryData();
       }
     });
   }else{
     // create location only if tour id is there
-      if($scope.locationData && $scope.locationData.country){
-        $scope.locationData.country_id = $scope.locationData.country.id;
-        $scope.locationData.country = $scope.locationData.country.name;
-
-        $scope.locationData.continent_id = $scope.locationData.continent.id;
-        $scope.locationData.continent = $scope.locationData.continent.name;
-        
-        console.log($scope.locationData);
-        $http.post('/api/location/', $scope.locationData).then(function(res, err){
+      if($scope.countryData){
+        $scope.countryData.continent_id = $scope.countryData.continent.id;
+        $scope.countryData.continent = $scope.countryData.continent.name;
+        console.log($scope.countryData);
+        $http.post('/api/country/', $scope.countryData).then(function(res, err){
           console.log(res);
           if(res.status == 200){
             //Upload Images
@@ -248,7 +217,7 @@ $scope.createUpdateLocation = function(){
 
             //if the request is scuessful, show all locations
             $scope.modalInstance.close();
-            $scope.$parent.allLocations = $scope.$parent.loadLocationData();
+            $scope.$parent.allCountries = $scope.$parent.loadcountryData();
           }
         });
     }else{

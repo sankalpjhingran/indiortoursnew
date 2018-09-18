@@ -193,7 +193,7 @@ $scope.createUpdatehotel = function(){
       }
     });
   }else{
-    // create hotel only if tour id is there
+      //create hotel only if tour id is there
       if($scope.hotelData && $scope.hotelData.location){
         $scope.hotelData.location_id = $scope.hotelData.location.id;
         $scope.hotelData.location = $scope.hotelData.location.city;
