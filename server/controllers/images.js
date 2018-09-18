@@ -90,7 +90,9 @@ module.exports= {
 
     Image.create(imageRec).then(function(ImageInstance){
 
+
       /* Compress the image and  */
+      /*
       var compress_images = require('compress-images'), inputPath, outputPath;
 
       inputPath = '../public/images/' + imageRec.filename;
@@ -102,6 +104,7 @@ module.exports= {
                                               {svg: {engine: 'svgo', command: '--multipass'}},
                                               {gif: {engine: 'gifsicle', command: ['--colors', '64', '--use-col=web']}}, function(){
       });
+      */
       /* Compression ends */
 
       res.status(200).json(ImageInstance);
