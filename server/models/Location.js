@@ -27,6 +27,24 @@ module.exports = (sequelize, DataTypes) => {
             key: 'id'
           }
         },
+        ContinentId: {
+          type: DataTypes.INTEGER(11),
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Countries',
+            key: 'id'
+          }
+        },
+        CountryId: {
+          type: DataTypes.INTEGER(11),
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Continents',
+            key: 'id'
+          }
+        },
         latitude: {
           type: DataTypes.DECIMAL(10, 8),
           allowNull: true,
