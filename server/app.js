@@ -18,9 +18,6 @@ var  fs = require('fs')
 var  ccav = require('./ccavutil.js')
 var  qs = require('querystring')
 
-//var  ccavReqHandler = require('./ccavRequestHandler.js')
-//var  ccavResHandler = require('./ccavResponseHandler.js')
-
 var redis = require('./config/redis-client');
 
 var models = require('./models/index');
@@ -34,6 +31,8 @@ var application = require('./routes/application');
 var logout = require('./routes/logout');
 var tours = require('./routes/tours');
 var locations = require('./routes/location');
+var continents = require('./routes/continent');
+var countries = require('./routes/country');
 var hotels = require('./routes/hotel');
 var itinerary = require('./routes/itinerary');
 var departuredates = require('./routes/departuredates');
@@ -129,7 +128,15 @@ app.use('/api/isAuthenticated', application);
 app.use('/api/tours', tours);
 app.use('/api/location', locations);
 app.use('/api/location/all', locations);
+app.use('/api/location/getGroupedLocations', locations);
+app.use('/api/location/getContinents', locations);
 app.use('/api/location/update', locations);
+app.use('/api/continent', continents);
+app.use('/api/continent/all', continents);
+app.use('/api/continent/update', continents);
+app.use('/api/country', countries);
+app.use('/api/country/all', countries);
+app.use('/api/country/update', countries);
 app.use('/api/hotel', hotels);
 app.use('/api/hotel/all', hotels);
 app.use('/api/hotel/update', hotels);
@@ -171,6 +178,22 @@ app.use('/api/parenttours', parenttours);
 app.use('/api/parenttours/update', parenttours);
 app.use('/api/parenttours/viewtrip', parenttours);
 
+
+/* Compress all images in public folder */
+var compress_images = require('compress-images'), INPUT_path_to_your_images, OUTPUT_path;
+
+INPUT_path_to_your_images = './public/images/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}';
+OUTPUT_path = './public/compressedimages/';
+
+compress_images(INPUT_path_to_your_images, OUTPUT_path, {compress_force: false, statistic: true, autoupdate: true}, false,
+                                        {jpg: {engine: 'mozjpeg', command: ['-quality', '60']}},
+                                        {png: {engine: 'pngquant', command: ['--quality=20-50']}},
+                                        {svg: {engine: 'svgo', command: '--multipass'}},
+                                        {gif: {engine: 'gifsicle', command: ['--colors', '64', '--use-col=web']}}, function(){
+});
+/* Compression ends */
+
+
 app.use('/api/search', search);
 
 app.get('/api/conversionrates', function (request, res) {
@@ -181,113 +204,11 @@ app.get('/api/countrycodes', function (request, res) {
   res.json(require('./config/CountryCodes.json'));
 });
 
-/*
-var gateway = braintree.connect({
-  environment: braintree.Environment.Sandbox,
-  merchantId: 'pj2zmzfr2w2khb8m',
-  publicKey: 'xvy7mghymx3gz2ff',
-  privateKey: 'e5bc0c9d920ff04e513e7cac1b6f86c8'
-});
-
-var jsonParser = bodyParser.json();
-/**
- * Enable CORS (http://enable-cors.org/server_expressjs.html)
- * to allow different clients to request data from your server
- */
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
-/**
- * Route that returns a token to be used on the client side to tokenize payment details
- */
- /*
-app.post('/api/v1/token', function (request, response) {
-  gateway.clientToken.generate({}, function (err, res) {
-    if (err) throw err;
-    response.json({
-      "client_token": res.clientToken
-    });
-  });
-});
-
-/**
- * Route to process a sale transaction
- */
- /*
-app.post('/api/v1/process', jsonParser, function (request, response) {
-  var transaction = request.body;
-  console.log(transaction);
-  gateway.transaction.sale({
-    amount: transaction.amount,
-    paymentMethodNonce: transaction.nonce,
-    billing : {
-        streetAddress: '40 Poncetta Dr'
-    }
-  }, function (err, result) {
-    if (err) throw err;
-    console.log(util.inspect(result));
-    response.json(result);
-  });
-});
-*/
-/*
-app.post('/api/payment', function(req, res) {
-  console.log('In api/payment route====>');
-  var jsSHA = require("jssha");
-  console.log(req.body);
-  if (!req.body.txnid || !req.body.amount || !req.body.productinfo
-       || !req.body.firstname || !req.body.email) {
-         res.send("Mandatory fields missing");
-   } else {
-         var pd = req.body;
-         var hashString = pd.key // Merchant Key
-                  + '|' + pd.txnid
-                  + '|' + pd.amount + '|' + pd.productinfo + '|'
-                  + pd.firstname + '|' + pd.email + '|'
-                  + '||||||||||'
-                  + 'e5iIg1jwi8' //config.payumoney.salt // Your salt value
-         var sha = new jsSHA('SHA-512', "TEXT");
-         sha.update(hashString)
-         var hash = sha.getHash("HEX");
-         res.send({ 'hash': hash });
-   }
- });
-
- app.post('/api/payment/response', function(req, res) {
-   console.log('In api/payment/response====>');
-   console.log(req.body);
-   var pd = req.body;
-   //Generate new Hash
-    var hashString = '6osuUUMRJl' + '|' + pd.status + '||||||||||' + '|' + pd.email + '|' + pd.firstname + '|' + pd.productinfo + '|' + pd.amount + '|' + pd.txnid + '|' + pd.key
-    var jsSHA = require("jssha");
-    var sha = new jsSHA('SHA-512', "TEXT");
-    sha.update(hashString)
-    var hash = sha.getHash("HEX");
-    // Verify the new hash with the hash value in response
-    if (hash == pd.hash) {
-        res.send({'status':pd.status});
-    } else {
-        res.send({'status':"Error occured"});
-    }
- });
-*/
-
-app.get('/about', function (req, res){
-    	res.render('dataFrom.html');
-});
-
-app.post('/api/ccavRequestHandler', function (request, response){
-	ccavReqHandler.postReq(request, response);
-});
-
-
-app.post('/api/ccavResponseHandler', function (request, response){
-  ccavResHandler.postRes(request, response);
-});
-
 
 // In production, we'll actually serve our angular app from express
 if (app.get('env') === 'prod' || app.get('env') === 'dev') {
