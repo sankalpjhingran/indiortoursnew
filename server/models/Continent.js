@@ -31,8 +31,8 @@ module.exports = (sequelize, DataTypes) => {
 
 
   Continent.associate = function (models) {
-    Continent.hasMany(models.Country);
-    Continent.hasMany(models.Location);
+    Continent.hasMany(models.Country, {foreignKey: 'continent_id'});
+    Continent.hasMany(models.Location, {foreignKey: 'continent_id'});
   };
 
   return Continent;
