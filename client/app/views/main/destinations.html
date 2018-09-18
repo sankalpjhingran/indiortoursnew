@@ -12,27 +12,9 @@
         <div ng-repeat="location in allLocations">
           <div class="col-xs-12 col-sm-4 col-md-4">
               <div class="productbox">
-                <!-- <img ng-src="/images/{{tour.images[0].filename}}" class="thumb-post img-responsive"> -->
-              <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                  <!-- Indicators
-                  <ol class="carousel-indicators">
-                    <li data-target="#myCarousel-{{$index}}" ng-repeat="img in tour.images" ng-class="{active: ($index === 0)}" data-slide-to="{{img}}"></li>
-                  </ol>
-                  -->
-                  <div class="carousel-inner">
-                    <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in location.images">
-                      <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post scaleDestinationImg">
-                      <div class="container">
-                        <div class="carousel-caption">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                  <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                <div class="producttitle text-center"><a ng-href="/destination?type=continent&name={{location.continent}}">{{location.continent}}</a></div>
                 </div>
-                <div class="producttitle text-center"><a ng-href="/destination?id={{location.id}}&amp;name={{location.city | slugify}}">{{location.city}}, {{location.country}}</a></div>
-                </div>
+              </dov>
             </div>
           </div>
       </div>

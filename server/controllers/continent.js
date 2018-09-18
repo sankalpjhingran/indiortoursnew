@@ -1,51 +1,18 @@
 'use strict';
 
 var models  = require('../models/index');
-var Location = models.Location;
+var Continent = models.Continent;
 
 module.exports= {
   //Get a list of all authors using model.findAll()
   sync(){
-      Location.sync();
-  },
-
-  getGroupedLocations(req, res) {
-    var type = req.query.type;
-    var name = req.query.name;
-    console.log('type====' + type);
-    console.log('name====' + name);
-    Location.findAll({
-      where: {type : name},
-      attributes: [
-        [models.sequelize.fn('DISTINCT', models.sequelize.col(type)) , type],
-      ]
-      })
-      .then(function (authors) {
-        res.status(200).json(authors);
-      })
-      .catch(function (error) {
-        res.status(500).json(error);
-      });
-  },
-
-  getContinents(req, res) {
-    Location.findAll({
-      attributes: [
-        [models.sequelize.fn('DISTINCT', models.sequelize.col('continent')) , 'continent'],
-      ]
-      })
-      .then(function (authors) {
-        res.status(200).json(authors);
-      })
-      .catch(function (error) {
-        res.status(500).json(error);
-      });
+      Continent.sync();
   },
 
   index(req, res) {
-    Location.findAll({
-      include: [{ association : 'places' }],
-      attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+    console.log('Getting all continents====>');
+    Continent.findAll({
+      attributes: ['id', 'name', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']]
       })
       .then(function (authors) {
@@ -58,7 +25,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Location.findById(req.query.id, {})
+    Continent.findById(req.query.id, {})
     .then(function (author) {
       res.status(200).json(author);
     })
@@ -70,8 +37,8 @@ module.exports= {
   //Create a new author using model.create()
   create(req, res) {
     console.log('req===>', req.body);
-    Location.create(req.body).then(function(LocationInstance){
-        res.status(200).json(LocationInstance);
+    Continent.create(req.body).then(function(ContinentInstance){
+        res.status(200).json(ContinentInstance);
     })
     .catch(function (error){
       res.status(500).json(error);
@@ -82,7 +49,7 @@ module.exports= {
   update(req, res) {
     console.log('update req===>', req.body);
     let queryVars = req.body;
-    Location.update(req.body, {
+    Continent.update(req.body, {
       where: {
         id: queryVars.id
       }
@@ -99,7 +66,7 @@ module.exports= {
   delete(req, res) {
     console.log(req);
     let queryVars = req.query;
-    Location.destroy({
+    Continent.destroy({
       where: {
         id: queryVars.id
       }

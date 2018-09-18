@@ -56,5 +56,7 @@ models.Tag.sync();
 models.TagAssignment.sync();
 models.TourGroup.sync();
 models.Booking.sync();
+models.Continent.sync();
+models.Country.sync();
 
 module.exports = router;
