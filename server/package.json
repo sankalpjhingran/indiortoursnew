@@ -65,6 +65,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-preset-es2015": "^6.24.1",
+    "compress-images": "^1.4.2",
     "grunt": "^1.0.1",
     "grunt-connect-proxy": "^0.2.0",
     "helmet": "^3.9.0"

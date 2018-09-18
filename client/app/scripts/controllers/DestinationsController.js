@@ -14,10 +14,11 @@ angular.module('clientApp')
 
     $scope.allDestinations = function(){
       $scope.loading = true;
-      $http.get('/api/location/all')
+      $http.get('/api/location/getContinents')
        .then(
            function(res){
              // success callback
+             console.log(res.data);
              $scope.allLocations = res.data;
              var locationids = [];
 

@@ -487,6 +487,44 @@ angular
             }
             ,resolve: { authenticate: authenticate }
         })
+        .state('countriesadmin', {
+            url: '/countriesadmin',
+            views:{
+              subheader: {
+                //No need to show subheader for Admin
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                templateUrl: 'views/admin/adminsidesction.html',
+                controller: 'AdminSideSectionController'
+              },
+              mainsection:{
+                templateUrl: 'views/admin/countriesadmin.html',
+                controller: 'CountryAdminController'
+              }
+            }
+            ,resolve: { authenticate: authenticate }
+        })
+        .state('continentsadmin', {
+            url: '/continentsadmin',
+            views:{
+              subheader: {
+                //No need to show subheader for Admin
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                templateUrl: 'views/admin/adminsidesction.html',
+                controller: 'AdminSideSectionController'
+              },
+              mainsection:{
+                templateUrl: 'views/admin/continentsadmin.html',
+                controller: 'ContinentAdminController'
+              }
+            }
+            ,resolve: { authenticate: authenticate }
+        })
         .state('placeadmin', {
             url: '/placeadmin',
             views:{
