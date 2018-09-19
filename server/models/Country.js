@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   var Country = sequelize.define("Country", {
         name: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
+        continent: {type: DataTypes.STRING},
         continent_id: {
           type: DataTypes.INTEGER(11),
           allowNull: false,
