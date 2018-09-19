@@ -1,4 +1,4 @@
-<div id="allCountries" ng-init="loadcountryData()">
+<div id="allLocations" ng-init="loadcountryData()">
   <div class="row align-items-center">
     <div class="col-sm-6 col-auto mr-auto">
       <h3 class="align-middle">Countries</h3>
@@ -25,11 +25,11 @@
       <th>Description</th>
       <th>Created Date</th>
       <th>Updated Date</th>
-      <tr ng-repeat="x in allCountries | filter:search">
+      <tr ng-repeat="x in allLocations | filter:search">
         <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateCountryInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delCountry(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["name"] }}</td>
-        <td>{{ x["continent"] }}</td>
+        <td>{{ x.continent }}</td>
         <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>
         <td>{{ x["updatedAt"] | date: "short" }}</td>
@@ -48,7 +48,7 @@
           <div class="modal-body" id="modal-body">
                   <div class="form-group" >
                     <label for="city">Name</label>
-                    <input type="text" class="form-control input-sm" ng-model="countryData.name" id="name" placeholder="Name">
+                    <input type="text" class="form-control input-sm" ng-model="countryData.name" id="city" placeholder="Name">
                   </div>
                   <div class="form-group">
                     <div id="remote">
@@ -63,7 +63,7 @@
                                           typeahead-editable=false
                                           class="form-control"
                                           value="countryData.continent_id"
-                                          id="countryData.continent">
+                                          id="location.continent">
                       <i ng-show="loadingContinents" class="glyphicon glyphicon-refresh"></i>
                       <div ng-show="noResults">
                         <i class="glyphicon glyphicon-remove"></i> No Results Found
