@@ -5,13 +5,19 @@
       border-radius: 4px;
   }
 </style>
-<div ng-init="getDestinationDetails()">
+<div>
     <h3>
-      Indior Destinations
+      {{ name }}
     </h3>
-    <h4>
-      {{ destination.city }}, {{ destination.country }}
-    </h4>
+
+    <div ng-switch="type">
+      <div ng-switch-when="location">
+        <h4>
+          {{ destination.city }}, {{ destination.country }}
+        </h4>
+      </div>
+    </div>
+
     <p class="main" style="white-space: pre-wrap;">
         <img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}">
         {{ destination.description }}
