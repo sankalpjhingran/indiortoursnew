@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('DestinationViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
+  .controller('CityViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
   $rootScope.$state = $state;
 
   var destinationId = $stateParams.id;
@@ -16,8 +16,8 @@ angular.module('clientApp')
 
   $scope.destination = [];
 
-  $scope.getContinentDetails = function() {
-    $http.get('/api/continent/', {params: {id: destinationId}})
+  $scope.getCityDetails = function() {
+    $http.get('/api/location/', {params: {id: destinationId}})
      .then(
          function(res){
            // success callback
@@ -25,7 +25,7 @@ angular.module('clientApp')
            console.log($scope.destination);
            var imageIds = [];
            imageIds.push(destinationId);
-           $http.post('/api/image/all/', {tourids:imageIds, parentobjectname: 'continent'})
+           $http.post('/api/image/all/', {tourids:imageIds, parentobjectname: 'location'})
             .then(function(images){
                 console.log(images);
                 $scope.destination.images = images;

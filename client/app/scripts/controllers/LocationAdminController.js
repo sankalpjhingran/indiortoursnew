@@ -94,7 +94,7 @@ $scope.saveNew = function(){
 // get all locations to be displayed on page load
 $scope.loadLocationData = function(){
   //Get all tours to be searched by typeahead
-
+  
   $scope.loading = true;
   // Load all locations to be displayed
   $http.get('/api/location/all/')
@@ -238,7 +238,7 @@ $scope.createUpdateLocation = function(){
 
         $scope.locationData.continent_id = $scope.locationData.continent.id;
         $scope.locationData.continent = $scope.locationData.continent.name;
-        
+
         console.log($scope.locationData);
         $http.post('/api/location/', $scope.locationData).then(function(res, err){
           console.log(res);
