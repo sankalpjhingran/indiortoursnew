@@ -115,6 +115,11 @@
                     <textarea class="form-control input-sm" rows="5" ng-model="locationData.description" id="description" placeholder="Description"></textarea>
                   </div>
                   <div class="form-group">
+                    <label for="micetour">Visible
+                      <input ng-model="locationData.visible" type="checkbox" id="showonhomepage">
+                    </label>
+                  </div>
+                  <div class="form-group">
                     <div  class="btn btn-default"
                           ngf-select
                           ng-model="locationData.images"

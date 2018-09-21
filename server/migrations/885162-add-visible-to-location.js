@@ -11,10 +11,11 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
       */
       return queryInterface.addColumn(
-        'Tours', // name of Target model
-        'offerprice', // name of the key we're adding
+        'Locations', // name of Target model
+        'visible',
         {
-          type: Sequelize.DECIMAL,
+          type: Sequelize.BOOLEAN,
+          defaultValue: false,
         }
       );
 
