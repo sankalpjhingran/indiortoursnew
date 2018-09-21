@@ -10,7 +10,6 @@ module.exports= {
   },
 
   index(req, res) {
-    console.log('Getting all continents====>');
     Continent.findAll({
       attributes: ['id', 'name', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']]
@@ -25,7 +24,11 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Continent.findById(req.query.id, {})
+    Continent.findById(req.query.id, {
+      include: [{
+        model: models.Country
+      }]
+    })
     .then(function (author) {
       res.status(200).json(author);
     })

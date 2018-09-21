@@ -109,7 +109,7 @@ angular
             }
         })
         .state('destination', {
-            url:'/destination?id&type&name',
+            url:'/destination?id&name',
             views:{
               subheader: {
                 //templateUrl: 'views/toursubheader.html',
@@ -122,6 +122,40 @@ angular
               mainsection:{
                 templateUrl: 'views/main/destination.html',
                 controller: 'DestinationViewController'
+              }
+            }
+        })
+        .state('city', {
+            url:'/city?id&name',
+            views:{
+              subheader: {
+                //templateUrl: 'views/toursubheader.html',
+                //controller: 'TourViewController'
+              },
+              sidesection: {
+                templateUrl: 'views/main/toursidesection.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/city.html',
+                controller: 'CityViewController'
+              }
+            }
+        })
+        .state('country', {
+            url:'/country?id&name',
+            views:{
+              subheader: {
+                //templateUrl: 'views/toursubheader.html',
+                //controller: 'TourViewController'
+              },
+              sidesection: {
+                templateUrl: 'views/main/toursidesection.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/country.html',
+                controller: 'CountryViewController'
               }
             }
         })
