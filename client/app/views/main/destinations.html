@@ -9,12 +9,28 @@
     <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
     <div ng-show="!(loading)">
       <div class="row">
-        <div ng-repeat="location in allLocations">
+        <div ng-repeat="continent in allContinents">
           <div class="col-xs-12 col-sm-4 col-md-4">
               <div class="productbox">
-                <div class="producttitle text-center"><a ng-href="/destination?type=continent&name={{location.continent}}">{{location.continent}}</a></div>
+                <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in continent.images">
+                        <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                        <div class="container">
+                          <div class="carousel-caption">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
+                    <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
+                  </div>
+                  <div class="producttitle text-center">
+                    <a style="text-decoration: none;" ng-href="/destination?type=continent&id={{continent.id}}&amp;name={{ continent.name }}">
+                      {{ continent.name }}
+                    </a>
+                  </div>
                 </div>
-              </dov>
             </div>
           </div>
       </div>

@@ -109,7 +109,7 @@ angular
             }
         })
         .state('destination', {
-            url:'/destination?id',
+            url:'/destination?id&type&name',
             views:{
               subheader: {
                 //templateUrl: 'views/toursubheader.html',
