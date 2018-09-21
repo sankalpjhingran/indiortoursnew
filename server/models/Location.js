@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         country:{type: DataTypes.STRING},
         continent:{type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
+        visible: {type: DataTypes.BOOLEAN, default: false},
         country_id: {
           type: DataTypes.INTEGER(11),
           allowNull: false,

@@ -14,30 +14,30 @@ angular.module('clientApp')
 
     $scope.allDestinations = function(){
       $scope.loading = true;
-      $http.get('/api/location/getContinents')
+      $http.get('/api/continent/all')
        .then(
            function(res){
              // success callback
              console.log(res.data);
-             $scope.allLocations = res.data;
+             $scope.allContinents = res.data;
              var locationids = [];
 
-             $scope.allLocations.forEach(function(location){
+             $scope.allContinents.forEach(function(location){
                 locationids.push(location.id);
              });
 
              console.log(locationids);
-             $http.post('/api/image/all', {tourids: locationids, parentobjectname: 'location'})
+             $http.post('/api/image/all', {tourids: locationids, parentobjectname: 'continent'})
               .then(function(images){
                   angular.forEach(locationids, function(locationid){
                       var tempImages = [];
                       angular.forEach(images.data, function(image){
-                        if(image.parentobjectname == 'location' && image.parentobjectid == locationid){
+                        if(image.parentobjectname == 'continent' && image.parentobjectid == locationid){
                               tempImages.push(image);
                         }
                       });
                       imagesMap.set(locationid, tempImages);
-                      angular.forEach($scope.allLocations, function(location){
+                      angular.forEach($scope.allContinents, function(location){
                         location.images = imagesMap.get(location.id);
                       });
                   });
