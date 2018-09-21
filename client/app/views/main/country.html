@@ -5,7 +5,7 @@
       border-radius: 4px;
   }
 </style>
-<div ng-init="getContinentDetails()">
+<div ng-init="getCountryDetails()">
     <h3>
       {{ name }}
     </h3>
@@ -18,8 +18,8 @@
     <h4>
       Destinations
     </h4>
-    <div ng-repeat="country in destination.Countries">
-        <a href="/country?id={{country.id}}&name={{country.name}}">{{ country.name }}</a>
+    <div ng-repeat="city in destination.Locations">
+        <a href="/city?id={{city.id}}&name={{city.city}}">{{ city.city }}</a>
     </div>
 
     <h4>
