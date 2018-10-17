@@ -19,8 +19,31 @@
       Destinations
     </h4>
     <div ng-repeat="city in destination.Locations">
-        <a href="/city?id={{city.id}}&name={{city.city}}">{{ city.city }}</a>
-    </div>
+      <div class="col-xs-12 col-sm-4 col-md-4">
+          <div class="productbox">
+            <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
+                    <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                    <div class="container">
+                      <div class="carousel-caption">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
+                <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
+              </div>
+              <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/city?id={{city.id}}&name={{city.city || slugify}}" ng-click="addToRecentItems(tour.id);">{{city.city | truncate: 32 : '...' : false }}</a></div>
+              <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
+                <span>
+                  {{ tour.locations | join:' | ' | truncate: 65 : '...' : false  }}
+                </span>
+              </p>
+            </div>
+        </div>
+      </div>
+
 
     <h4>
       Popular tours for this destination
