@@ -39,7 +39,7 @@ var j = schedule.scheduleJob('0 0-23 * * *', function(){
   }
   console.log('Time diff in hours====> ' + hoursDifference);
 
-  if(hoursDifference > 1) {
+  if(hoursDifference > 5) {
     console.log('Diff is greater than 1...overwriting conversion rates===>');
     request('https://openexchangerates.org/api/latest.json?app_id=a124cc01fa2144478fb93a3d07864966', function (error, response, body) {
         if (!error && response.statusCode == 200) {

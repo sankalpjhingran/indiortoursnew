@@ -36,16 +36,12 @@
               </div>
               <div class="producttitle text-center">
                 <a  style="text-decoration: none;"
-                    ng-href="/country?id={{country.id}}&name={{country.name || slugify}}"
+                    ng-href="/country?id={{country.id}}&name={{ country.name || slugify }}"
                     ng-click="addToRecentItems(tour.id);">
-                    {{country.name | truncate: 32 : '...' : false }}
+                    {{ country.name | truncate: 32 : '...' : false }}
                 </a>
               </div>
             </div>
         </div>
       </div>
-
-    <h4>
-      Popular tours for this destination
-    </h4>
 </div>
