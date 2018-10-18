@@ -22,13 +22,34 @@ angular.module('clientApp')
            function(res){
              // success callback
              $scope.destination = res.data;
-             console.log($scope.destination);
-             var imageIds = [];
-             imageIds.push(destinationId);
-             $http.post('/api/image/all/', {tourids:imageIds, parentobjectname: 'country'})
+             var locations = res.data.Locations;
+             var locationids = [];
+
+             locations.forEach(function(location) {
+               locationids.push(location.id);
+             })
+
+             var imageMap = new Map();
+
+             $http.post('/api/image/all/', {tourids:locationids, parentobjectname: 'location'})
               .then(function(images){
-                  console.log(images);
-                  $scope.destination.images = images;
+                  var imageMapUnderscore = new Map();
+                  angular.forEach(images.data, function(image){
+                      var tempImages = [];
+                      if(!imageMapUnderscore.has(image.parentobjectid)) {
+                         tempImages.push(image);
+                      } else {
+                        tempImages = imageMapUnderscore.get(image.parentobjectid);
+                        tempImages.push(image);
+                      }
+                      imageMapUnderscore.set(image.parentobjectid, tempImages);
+                  })
+
+                  console.log(imageMapUnderscore);
+                  angular.forEach(locations, function(location){
+                    location.images = [];
+                    location.images.push(imageMapUnderscore.get(JSON.stringify(location.id)));
+                  })
               });
            },
            function(response){
