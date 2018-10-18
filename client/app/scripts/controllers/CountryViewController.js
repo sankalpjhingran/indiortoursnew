@@ -21,7 +21,6 @@ angular.module('clientApp')
        .then(
            function(res){
              // success callback
-             $scope.destination = res.data;
              var locations = res.data.Locations;
              var locationids = [];
 
@@ -45,11 +44,12 @@ angular.module('clientApp')
                       imageMapUnderscore.set(image.parentobjectid, tempImages);
                   })
 
-                  console.log(imageMapUnderscore);
                   angular.forEach(locations, function(location){
                     location.images = [];
                     location.images.push(imageMapUnderscore.get(JSON.stringify(location.id)));
                   })
+                  $scope.destination = locations;
+                  console.log(locations);
               });
            },
            function(response){
