@@ -21,14 +21,31 @@ angular.module('clientApp')
      .then(
          function(res){
            // success callback
-           $scope.destination = res.data;
-           console.log($scope.destination);
+           var destinations = res.data.Countries;
            var imageIds = [];
-           imageIds.push(destinationId);
-           $http.post('/api/image/all/', {tourids:imageIds, parentobjectname: 'continent'})
+           angular.forEach(destinations, function(destination){
+              imageIds.push(destination.id);
+           })
+
+           $http.post('/api/image/all/', {tourids:imageIds, parentobjectname: 'country'})
             .then(function(images){
-                console.log(images);
-                $scope.destination.images = images;
+                var imageMapUnderscore = new Map();
+                angular.forEach(images.data, function(image){
+                    var tempImages = [];
+                    if(!imageMapUnderscore.has(image.parentobjectid)) {
+                       tempImages.push(image);
+                    } else {
+                      tempImages = imageMapUnderscore.get(image.parentobjectid);
+                      tempImages.push(image);
+                    }
+                    imageMapUnderscore.set(image.parentobjectid, tempImages);
+                })
+
+                angular.forEach(destinations, function(destination){
+                  destination.images = [];
+                  destination.images.push(imageMapUnderscore.get(JSON.stringify(destination.id)));
+                })
+                $scope.countries = destinations;
             });
          },
          function(response){
