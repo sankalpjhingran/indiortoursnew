@@ -8,6 +8,12 @@
  *
  * Main module of the application.
  */
+
+ var underscore = angular.module('underscore', []);
+        underscore.factory('_', function() {
+            return window._; //Underscore should be loaded on the page
+        });
+
 angular
   .module('clientApp', [
     'ngAnimate',
@@ -34,7 +40,8 @@ angular
     'ui.grid.cellNav',
     'ui.grid.selection',
     'ui.grid.grouping',
-    'ui.grid.resizeColumns'
+    'ui.grid.resizeColumns',
+    'underscore'
   ])
 
   .config(['calendarConfig', function(calendarConfig) {
