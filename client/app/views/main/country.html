@@ -18,12 +18,12 @@
     <h4>
       Destinations
     </h4>
-    <div ng-repeat="city in destination.Locations">
+    <div ng-repeat="city in destination">
       <div class="col-xs-12 col-sm-4 col-md-4">
           <div class="productbox">
             <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                  <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images">
+                  <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images[0]">
                     <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
                     <div class="container">
                       <div class="carousel-caption">
