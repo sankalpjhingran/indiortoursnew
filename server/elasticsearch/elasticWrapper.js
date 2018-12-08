@@ -28,15 +28,35 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function searchData(query) {
   var queryObj = JSON.stringify(_config.search).replace(/{query}/g, query);
 
+  console.log('_config.search is====>');
+  console.log(_config.search);
+  console.log('queryObj is====>');
+  console.log(queryObj);
+
+  console.log('========End========');
+
   return _connect.esClient.search({
     index: _config3.default.elasticSearch.index,
     type: 'tour',
     body: {
       query: {
-        multi_match: {
-          "query": query,
-          "fields": [ "name", "description" ]
-        }
+          bool: {
+            must: [
+              {
+                multi_match: {
+                  query: query,
+                  fields: [ "name", "description" ]
+                }
+              }
+            ],
+            filter: [
+              { "term":
+                {
+                  "days": "5"
+                }
+              }
+            ]
+          }
       },
     }
   }).then(function (resp) {

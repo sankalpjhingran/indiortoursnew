@@ -15,12 +15,12 @@
       <input type="text" class="form-control" placeholder="Search Tours..." ng-model="search">
     </div>
   </div>
-
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
   <div ng-show="!(loading)">
     <table class="table table-hover table-bordered" ng-show="!(error)">
       <th class="fixedWidthTableCol">Action</th>
       <th>Id</th>
+      <th>Order</th>
       <th>Name</th>
       <th>Days</th>
       <th>Nights</th>
@@ -33,6 +33,7 @@
       <tr ng-repeat="x in allTours | filter:search">
         <td><a href="" locid="{{x.id}}" ng-click="populatetoursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deltours(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
+        <td>{{ x["order"] }}</td>
         <td>{{ x["name"] }}</td>
         <td>{{ x["days"] }}</td>
         <td>{{ x["nights"] }}</td>
@@ -168,6 +169,11 @@
             <div class="form-group">
               <label for="micetour">Is this a MICE Tour?
                 <input ng-model="tourData.ismicetour" type="checkbox" id="micetour">
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="order">Order of Display
+                <input ng-model="tourData.order" type="number" class="form-control input-sm" id="order">
               </label>
             </div>
             <div class="form-group">
