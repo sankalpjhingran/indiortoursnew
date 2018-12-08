@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
         ismicetour: {type: DataTypes.BOOLEAN},
         micecategory: {type: DataTypes.STRING},
         isactive: {type: DataTypes.BOOLEAN},
-        showonhomepage: {type: DataTypes.BOOLEAN}
+        showonhomepage: {type: DataTypes.BOOLEAN},
+        order: {type: DataTypes.INTEGER}
       }
   );
 

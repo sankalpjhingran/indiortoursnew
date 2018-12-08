@@ -15,7 +15,6 @@ var debug = require('debug')('http')
   , name = 'IndiorTours';
 
 var  fs = require('fs')
-var  ccav = require('./ccavutil.js')
 var  qs = require('querystring')
 
 var redis = require('./config/redis-client');

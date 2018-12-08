@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         name: {type: DataTypes.STRING},
         type: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
-        location:{type: DataTypes.STRING},//Name of the location from the selected location id
+        location:{type: DataTypes.STRING}, //Name of the location from the selected location id
       }
   );
 
