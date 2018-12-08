@@ -104,7 +104,11 @@ module.exports= {
               } else {
                 Tour.findAll({
                   where: {showonhomepage: true, isactive : true},
-                  attributes: ['id', 'name', 'slug', 'tourtype', 'days', 'nights', 'price', 'createdAt', 'updatedAt', 'offerprice', 'ismicetour', 'micecategory', 'isactive', 'showonhomepage'],
+                  order: [
+                    Sequelize.fn('isnull', Sequelize.col('order')),
+                    ['order', 'ASC']
+                ],
+                  attributes: ['id', 'order', 'name', 'slug', 'tourtype', 'days', 'nights', 'price', 'createdAt', 'updatedAt', 'offerprice', 'ismicetour', 'micecategory', 'isactive', 'showonhomepage'],
                   include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }]
                 })
                 .then(function (authors) {
@@ -141,6 +145,7 @@ module.exports= {
 
   getAllToursWithLocationsAndHotels(req, res){
         let queryVars = req.query;
+        console.log(queryVars);
         Tour.findAll({
             include: [{ association : 'siteLocation' }, {association: 'accomodationHotel'}, {association: 'tourNote'}],
             order: [['createdAt', 'DESC']]
@@ -149,6 +154,7 @@ module.exports= {
             res.status(200).json(authors);
           })
           .catch(function (error) {
+            console.log(error);
             res.status(500).json(error);
           });
   },

@@ -13,32 +13,33 @@ var search = exports.search = [{ index: index.elasticSearch.index, type: 'tour' 
       }
     }
   }
-},
+}
+];
 
-// In future we will unbale this feature so commenting out right now
-// { index: index.elasticSearch.index, type: 'instance' },
-// {
-//   size: 1000,
-//   query: {
-//     match: {
-//       _all: {
-//         fuzziness: 'AUTO',
-//         query: '{query}',
-//         operator: 'and',
-//       },
-//     },
-//   },
-// },
-
-{ index: index.elasticSearch.index, type: 'tour' }, {
-    size: 1000,
-    query: {
-      wildcard: {
-        key: '{query}*'
-      }
+var search2 = exports.search2 = [
+  { index: index.elasticSearch.index, type: 'tour' },
+  {
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "name": "Search" }},
+        { "match": { "description": "Elasticsearch" }}
+      ],
+      "filter": [
+        { "term":
+          {
+            "status": "published"
+          }
+        },
+        {
+          "range": {
+            "publish_date": { "gte": "2015-01-01" }
+          }
+        }
+      ]
     }
   }
-];
+}];
 
 var indexSettings = exports.indexSettings = {
   settings: {
