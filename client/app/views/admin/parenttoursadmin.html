@@ -1,7 +1,7 @@
 <div id="allTours" ng-init="loadParentToursData()">
   <div class="row align-items-center">
     <div class="col-sm-6 col-auto mr-auto">
-      <h3 class="align-middle">Parent Tours</h3>
+      <h3 class="align-middle">Trips</h3>
     </div>
     <div class="col-sm-6 col-auto">
       <div class="text-right align-middle">
@@ -12,7 +12,7 @@
   <div class="form-group">
     <div class="input-group">
       <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-      <input type="text" class="form-control" placeholder="Search Tours..." ng-model="search">
+      <input type="text" class="form-control" placeholder="Search Trips..." ng-model="search">
     </div>
   </div>
 
@@ -41,7 +41,7 @@
 <div class="modal-demo">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Create/Edit Parent Tour</h3>
+            <h3 class="modal-title" id="modal-title">Create/Edit Trip</h3>
         </div>
         <form role="form" method="POST" ng-submit="createUpdateParentTour();">
           <div class="modal-body" id="modal-body">
