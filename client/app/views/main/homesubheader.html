@@ -26,7 +26,7 @@ body {
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
         <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in bannerImages">
-          <img style="height:300px;" class="imgScale scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
+          <img style="height:480px;" class="imgScale scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
           <div class="carousel-caption">
             <h3>{{img.name}}</h3>
             <p>{{img.description}}</p>
