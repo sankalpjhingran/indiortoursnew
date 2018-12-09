@@ -132,6 +132,7 @@ app.use('/api/location/getContinents', locations);
 app.use('/api/location/update', locations);
 app.use('/api/continent', continents);
 app.use('/api/continent/all', continents);
+app.use('/api/continent/allIndex', continents); 
 app.use('/api/continent/update', continents);
 app.use('/api/country', countries);
 app.use('/api/country/all', countries);

@@ -97,7 +97,7 @@ $scope.loadcontinentData = function(){
 
   $scope.loading = true;
   // Load all locations to be displayed
-  $http.get('/api/continent/all/')
+  $http.get('/api/continent/allIndex/')
     .then(
         function(response){
           // success callback

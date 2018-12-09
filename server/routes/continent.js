@@ -9,6 +9,7 @@ console.log('In Continent route===>');
 router.post('/', continentController.create);
 router.get('/', continentController.show);
 router.get('/all/', continentController.index);
+router.get('/allIndex/', continentController.indexAll);
 router.delete('/', continentController.delete);
 router.post('/update/', continentController.update);
 module.exports = router;
