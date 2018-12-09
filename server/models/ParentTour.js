@@ -6,6 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   var ParentTour = sequelize.define("ParentTour", {
         name: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
+        order: {type: DataTypes.INTEGER},
+        isactive: {type: DataTypes.BOOLEAN}
       }
   );
 
