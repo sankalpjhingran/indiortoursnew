@@ -21,6 +21,7 @@
       <th class="fixedWidthTableCol">Action</th>
       <th>Id</th>
       <th>Name</th>
+      <th>Active</th>
       <th>Description</th>
       <th>Created Date</th>
       <th>Updated Date</th>
@@ -28,6 +29,7 @@
         <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateContinentInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delContinent(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["name"] }}</td>
+        <td>{{ x["isactive"] }}</td>
         <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>
         <td>{{ x["updatedAt"] | date: "short" }}</td>
@@ -59,6 +61,11 @@
                   <div class="form-group">
                     <label for="elevation">Elevation</label>
                     <input type="text" class="form-control input-sm" ng-model="continentData.elevation" id="elevation" placeholder="Elevation">
+                  </div>
+                  <div class="form-group">
+                    <label for="active">Active?
+                      <input ng-model="continentData.isactive" type="checkbox" id="isactive">
+                    </label>
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>
