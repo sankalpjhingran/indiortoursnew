@@ -16,31 +16,6 @@ var search = exports.search = [{ index: index.elasticSearch.index, type: 'tour' 
 }
 ];
 
-var search2 = exports.search2 = [
-  { index: index.elasticSearch.index, type: 'tour' },
-  {
-  "query": {
-    "bool": {
-      "must": [
-        { "match": { "name": "Search" }},
-        { "match": { "description": "Elasticsearch" }}
-      ],
-      "filter": [
-        { "term":
-          {
-            "status": "published"
-          }
-        },
-        {
-          "range": {
-            "publish_date": { "gte": "2015-01-01" }
-          }
-        }
-      ]
-    }
-  }
-}];
-
 var indexSettings = exports.indexSettings = {
   settings: {
     number_of_shards: 5,
