@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   var Continent = sequelize.define("Continent", {
         name: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
+        isactive: {type: DataTypes.BOOLEAN},
         latitude: {
           type: DataTypes.DECIMAL(10, 8),
           allowNull: true,

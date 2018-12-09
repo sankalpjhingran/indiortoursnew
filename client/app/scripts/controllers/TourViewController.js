@@ -27,28 +27,38 @@ angular.module('clientApp')
       }
     };
 
-    //console.log(currency);
-    //$scope.currency = currency.name.newValue;
+    $http.get('/api/conversionrates')
+     .then(function(res){
+       if ( typeof fx !== "undefined" && fx.rates ) {
+           fx.rates = res.data.rates;
+           fx.base = res.data.base;
+       } else {
+           var fxSetup = {
+               rates : res.data.rates,
+               base : res.data.base
+           }
+       }
+    });
 
+    console.log($rootScope.currency);
+    //$scope.currency = currency.name.newValue;
+    var fromTo = {};
     $scope.$on('currency.name', function(event, args) {
+      console.log($rootScope.currency);
       $scope.currency = currency.name.newValue;
-      var fromTo = {
+      fromTo = {
         from: currency.name.oldValue,
         to: currency.name.newValue
       }
-      /*
-      angular.forEach($scope.tourWithAllRelated[0].tourcost[0].individualcostsjson, function(tour){
-          if(tour.price != null) {
-              tour.price = accounting.unformat(tour.price);
-              tour.price = accounting.formatMoney(fx.convert(tour.price, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
 
-          }
-          if(tour.offerprice != null) {
-              tour.offerprice = accounting.unformat(tour.offerprice);
-              tour.offerprice = accounting.formatMoney(fx.convert(tour.offerprice, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
-          }
-      });
-      */
+      if(tourWithAllRelated[0].price != null) {
+          tourWithAllRelated[0].price = accounting.unformat(tourWithAllRelated[0].price);
+          tourWithAllRelated[0].price = accounting.formatMoney(fx.convert(tourWithAllRelated[0].price, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
+      }
+      if(tourWithAllRelated[0].offerprice != null) {
+          tourWithAllRelated[0].offerprice = accounting.unformat(tourWithAllRelated[0].offerprice);
+          tourWithAllRelated[0].offerprice = accounting.formatMoney(fx.convert(tourWithAllRelated[0].offerprice, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
+      }
     });
 
     $scope.showEnquiryForm = function(){

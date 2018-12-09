@@ -45,12 +45,24 @@
       </div>
 
       <!-- This is a repeat on all locations -->
+        <div style="color:orange;">
+            {{tourWithAllRelated[0].tourtype}}
+        </div>
+        <div style="color:orange;">
+            {{tourWithAllRelated[0].days}} days | {{tourWithAllRelated[0].nights}} nights
+        </div>
+        <div style="color:orange;">
+          <span>
+              {{tourWithAllRelated[0].price}} onwards
+          </span>
+        </div>
 
         <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
             <span style="color:orange;">
               <a style="color: orange;"href="/destination?id={{ location.id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last">|</span>
             </span>
         </span>
+
 
       <!-- This is tour description -->
       <p class="main">
