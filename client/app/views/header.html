@@ -64,7 +64,7 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active hidden-xs"><a href="/" style="font-weight:bold;">Home <span class="sr-only">(current)</span></a></li>
+          <li class="active hidden-xs hidden-md"><a href="/" style="font-weight:bold;">Home <span class="sr-only">(current)</span></a></li>
           <li class="hidden-xs"><a href="/destinations" style="font-weight:bold;">Destinations</a></li>
           <li class="hidden-xs"><a href="/trips" style="font-weight:bold;">Types of Trips</a></li>
           <li class="hidden-xs"><a href="/mice" style="font-weight:bold;">M.I.C.E</a></li>
@@ -73,8 +73,21 @@
           <!-- <li class="hidden-md hidden-sm hidden-xs"><a href="" style="font-weight:bold;">Transport</a></li> -->
           <!-- <li class="hidden-md hidden-sm hidden-xs"><a href="" style="font-weight:bold;">Catalogues</a></li> -->
           <li class="hidden-md hidden-sm hidden-xs"><a href="/blog" style="font-weight:bold;">Blog</a></li>
+          <li>
+
+          </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right visible-xs">
+        <div class="col-sm-6 col-md-6">
+          <form class="col-sm-12" id="searchForm" role="search" ng-submit="goToSearch();">
+            <div class="form-group">
+              <div class="input-group input-group-sm">
+                <span class="input-group-addon"><a href="" ng-click="goToSearch();"><i class="fa fa-search"></i></a></span>
+                <input width="100%" type="text" class="form-control" placeholder="Search your unforgettable journey..." ng-model="key">
+              </div>
+            </div>
+          </form>
+        </div>
+        <ul class="nav navbar-nav navbar-right visible-xs visible-md">
           <li><a ng-href="/contactus">Contact Us</a></li>
           <li><a ng-show="isAdminLoggedIn" ng-href="/toursadmin" style="color:#ffffff;">Admin</a></li>
           <li><a href="/destinations">Destinations</a></li>
