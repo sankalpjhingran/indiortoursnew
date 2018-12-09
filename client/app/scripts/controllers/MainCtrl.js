@@ -23,6 +23,7 @@ angular.module('clientApp')
        }
     });
 
+    console.log(currency);
     //$scope.currency = currency.name.newValue;
     var fromTo = {};
     $scope.$on('currency.name', function(event, args) {
