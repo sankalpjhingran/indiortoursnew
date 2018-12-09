@@ -77,11 +77,11 @@
 
           </li>
         </ul>
-        <div class="col-sm-6 col-md-6">
-          <form class="col-sm-12" id="searchForm" role="search" ng-submit="goToSearch();">
+        <div class="col-sm-6 col-md-6" ng-controller="ApplicationController as vm">
+          <form class="col-sm-12" id="searchForm" role="search" ng-submit="vm.goToSearch();">
             <div class="form-group">
               <div class="input-group input-group-sm">
-                <span class="input-group-addon"><a href="" ng-click="goToSearch();"><i class="fa fa-search"></i></a></span>
+                <span class="input-group-addon"><a href="" ng-click="vm.goToSearch();"><i class="fa fa-search"></i></a></span>
                 <input width="100%" type="text" class="form-control" placeholder="Search your unforgettable journey..." ng-model="key">
               </div>
             </div>

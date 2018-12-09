@@ -13,32 +13,7 @@ body {
     display: table !important;
     border-collapse: separate;
 }
-
-[style*="--aspect-ratio"] > :first-child {
-  width: 100%;
-}
-[style*="--aspect-ratio"] > img {
-  height: auto;
-}
-@supports (--custom:property) {
-  [style*="--aspect-ratio"] {
-    position: relative;
-  }
-  [style*="--aspect-ratio"]::before {
-    content: "";
-    display: block;
-    padding-bottom: calc(100% / (var(--aspect-ratio)));
-  }
-  [style*="--aspect-ratio"] > :first-child {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-  }
-}
-
 </style>
-
 <div  class="col-sm-12 carouselCol hidden-xs" ng-init="allImagesForBanner()" style="padding-left:0px;padding-right:0px;">
   <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -51,12 +26,10 @@ body {
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
         <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in bannerImages">
-          <div style="--aspect-ratio:16/9;">
-            <img class="imgScale scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
-            <div>
-              <h3>{{img.name}}</h3>
-              <p>{{img.description}}</p>
-            </div>
+          <img style="max-height:485px;" class="imgScale scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
+          <div class="carousel-caption">
+            <h3>{{img.name}}</h3>
+            <p>{{img.description}}</p>
           </div>
         </div>
       </div>
