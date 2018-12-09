@@ -26,6 +26,23 @@ module.exports= {
       });
   },
 
+  indexAllByOrder(req, res) {
+    ParentTour.findAll({
+      where: {isactive : true},
+      order: [
+        Sequelize.fn('isnull', Sequelize.col('order')), ['order', 'ASC']
+      ],
+
+      })
+      .then(function (authors) {
+        res.status(200).json(authors);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.status(500).json(error);
+      });
+  },
+
   //Get an author by the unique ID using model.findById()
   show(req, res) {
     ParentTour.findById(req.query.id, {include: [{  model: Tour, as: 'childTours', where: {isactive:true} }]})

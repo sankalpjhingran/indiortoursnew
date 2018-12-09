@@ -22,6 +22,8 @@
       <th class="fixedWidthTableCol">Action</th>
       <th>Id</th>
       <th>Name</th>
+      <th>Order</th>
+      <th>Active</th>
       <th>Description</th>
       <th>Created Date</th>
       <th>Updated Date</th>
@@ -29,6 +31,8 @@
         <td><a href="" locid="{{x.id}}" ng-click="populateParentToursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delparenttours(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["name"] }}</td>
+        <td>{{ x["order"] }}</td>
+        <td>{{ x["isactive"] }}</td>
         <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>
         <td>{{ x["updatedAt"] | date: "short" }}</td>
@@ -48,6 +52,16 @@
             <div class="form-group">
               <label for="name">Name</label>
               <input ng-model="parentTourData.name" type="text" class="form-control input-sm" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="order">Order of Display
+                <input ng-model="parentTourData.order" type="number" class="form-control input-sm" id="order">
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="isactive">Active
+                <input ng-model="parentTourData.isactive" type="checkbox" id="isactive">
+              </label>
             </div>
             <div class="form-group">
               <label for="description">Description</label>
