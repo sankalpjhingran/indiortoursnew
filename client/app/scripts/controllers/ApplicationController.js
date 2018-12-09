@@ -12,7 +12,7 @@ angular.module('clientApp')
       console.log('In Application controller');
       var vm = this;
 
-      $scope.goToSearch = function() {
+      vm.goToSearch = function() {
         if($scope.key) {
             $window.location.href = '/search?key=' + $scope.key;
         }
