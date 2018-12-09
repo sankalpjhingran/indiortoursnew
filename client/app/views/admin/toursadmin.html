@@ -19,8 +19,12 @@
   <div ng-show="!(loading)">
     <table class="table table-hover table-bordered" ng-show="!(error)">
       <th class="fixedWidthTableCol">Action</th>
-      <th>Id</th>
-      <th>Order</th>
+      <th ng-click="sort('id')">Id
+        <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+      </th>
+      <th ng-click="sort('order')">Order
+        <span class="glyphicon sort-icon" ng-show="sortKey=='order'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+      </th>
       <th>Name</th>
       <th>Days</th>
       <th>Nights</th>
@@ -30,7 +34,7 @@
       <th>Created Date</th>
       <th>Updated Date</th>
 
-      <tr ng-repeat="x in allTours | filter:search">
+      <tr ng-repeat="x in allTours | orderBy:sortKey:reverse | filter:search">
         <td><a href="" locid="{{x.id}}" ng-click="populatetoursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deltours(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["order"] }}</td>

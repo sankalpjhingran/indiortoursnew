@@ -32,7 +32,7 @@ angular.module('clientApp')
     $scope.allParentToursWithTours = function(){
       console.log('Calling allToursWithLocations on ng-change===> ' + JSON.stringify($scope.searchTour));
       $scope.loading = true;
-      $http.get('/api/parenttours/all')
+      $http.get('/api/parenttours/allTripsByOrder')
        .then(
            function(res){
              // success callback
