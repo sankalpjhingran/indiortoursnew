@@ -40,25 +40,12 @@ function searchData(query) {
     type: 'tour',
     body: {
       query: {
-          bool: {
-            must: [
-              {
-                multi_match: {
-                  query: query,
-                  fields: [ "name", "description" ]
-                }
-              }
-            ],
-            filter: [
-              { "term":
-                {
-                  "days": "5"
-                }
-              }
-            ]
+          multi_match: {
+            query: query,
+            fields: [ "name", "description" ]
           }
+        }
       },
-    }
   }).then(function (resp) {
     console.log(resp.hits.hits);
 
