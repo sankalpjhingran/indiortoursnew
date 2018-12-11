@@ -10,9 +10,8 @@ module.exports= {
   },
 
   index(req, res) {
-    console.log('Getting all Countrys====>');
     Country.findAll({
-      attributes: ['id', 'name', 'continent', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+      attributes: ['id', 'name', 'continent', 'description', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']]
       })
       .then(function (authors) {
