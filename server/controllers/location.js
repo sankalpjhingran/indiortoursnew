@@ -45,7 +45,7 @@ module.exports= {
   index(req, res) {
     Location.findAll({
       include: [{ association : 'places' }],
-      attributes: ['id', 'city', 'state', 'visible', 'country', 'continent', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+      attributes: ['id', 'city', 'state', 'visible', 'country', 'description', 'continent', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']],
       where: {visible: true}
       })
