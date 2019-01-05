@@ -30,6 +30,7 @@
     "forever-monitor": "^1.7.1",
     "fs-path": "0.0.24",
     "get-json": "^1.0.0",
+    "hashmap": "^2.3.0",
     "imagemin": "^6.0.0",
     "imagemin-jpegtran": "^5.0.2",
     "imagemin-pngquant": "^6.0.0",
