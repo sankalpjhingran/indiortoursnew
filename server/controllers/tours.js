@@ -35,6 +35,21 @@ module.exports= {
       });
   },
 
+  getToursForRegion(req, res){
+        let queryVars = req.query;
+        Tour.findAll({
+          where: {id : queryVars.id},
+          include: [{ association : 'siteLocation' }]
+          })
+          .then(function (authors) {
+            res.status(200).json(authors);
+          })
+          .catch(function (error) {
+            console.log(error);
+            res.status(500).json(error);
+          });
+  },
+
   getTourWithLocations(req, res){
         let queryVars = req.query;
         Tour.findAll({

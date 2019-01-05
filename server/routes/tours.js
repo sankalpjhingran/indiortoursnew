@@ -58,5 +58,6 @@ models.TourGroup.sync();
 models.Booking.sync();
 models.Continent.sync();
 models.Country.sync();
+models.Region.sync();
 
 module.exports = router;
