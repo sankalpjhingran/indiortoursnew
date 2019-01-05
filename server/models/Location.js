@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         state: {type: DataTypes.STRING},
         country:{type: DataTypes.STRING},
         continent:{type: DataTypes.STRING},
+        region:{type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
         visible: {type: DataTypes.BOOLEAN, default: false},
         country_id: {
@@ -16,6 +17,15 @@ module.exports = (sequelize, DataTypes) => {
           primaryKey: false,
           references: {
             model: 'Countries',
+            key: 'id'
+          }
+        },
+        region_id: {
+          type: DataTypes.INTEGER(11),
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Regions',
             key: 'id'
           }
         },

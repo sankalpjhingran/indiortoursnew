@@ -42,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
   Country.associate = function (models) {
     //Country.belongsTo(models.Continent, {as: 'countryContinents', foreignKey: 'country_id'});
     Country.hasMany(models.Location, {foreignKey: 'country_id'});
+    Country.hasMany(models.Region, {foreignKey: 'country_id'});
   };
   return Country;
 };

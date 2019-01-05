@@ -8,19 +8,19 @@
 * Controller of the clientApp
 */
 angular.module('clientApp')
-.controller('LocationAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
-$scope.locationMap = new Map();
+.controller('RegionAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
+$scope.regionMap = new Map();
 
 $scope.uploadFiles = function(tempLocation) {
-  var files = $scope.locationData.images;
-  console.log($scope.locationData.images);
+  var files = $scope.regionData.images;
+  console.log($scope.regionData.images);
   angular.forEach(files, function(file) {
       file.upload = Upload.upload({
           url: '/api/image/',
           method: 'POST',
           data: { file: file,
                   'parentobjectid': tempLocation.id,
-                  'parentobjectname':  'location'
+                  'parentobjectname':  'region'
                 }
       });
 
@@ -40,22 +40,22 @@ $scope.uploadFiles = function(tempLocation) {
 
 $scope.deleteFile = function(idx) {
      console.log(idx);
-     var file = $scope.locationData.images[idx];
+     var file = $scope.regionData.images[idx];
      console.log(file);
      if (file) {
-        $scope.locationData.images.splice(idx, 1);
+        $scope.regionData.images.splice(idx, 1);
     }
 }
 
 $scope.deleteUploadedFile = function(idx) {
-     console.log($scope.locationData.newImages[0]);
+     console.log($scope.regionData.newImages[0]);
 
-     var file = $scope.locationData.newImages[idx];
+     var file = $scope.regionData.newImages[idx];
      console.log(file);
      if (file && file.id) {
           $http.delete('/api/image/', {params: {id: file.id}}).then(function(response){
                if (response.status == 200) {
-                    $scope.locationData.newImages.splice(idx, 1);
+                    $scope.regionData.newImages.splice(idx, 1);
                }
          });
       }
@@ -63,31 +63,31 @@ $scope.deleteUploadedFile = function(idx) {
 
 $scope.populateLocationInstance = function(locationId){
     console.log('Calling populateLocationInstance===> ' + locationId);
-    $scope.locationData = $scope.locationMap.get(locationId);
-    console.log($scope.locationMap);
-    console.log($scope.locationData);
-    $scope.locationData.newImages = [];
+    $scope.regionData = $scope.regionMap.get(locationId);
+    console.log($scope.regionMap);
+    console.log($scope.regionData);
+    $scope.regionData.newImages = [];
     var tourids = [];
     tourids.push(locationId);
-    $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'location'})
+    $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'region'})
      .then(function(response){
           if(response.data.length){
               angular.forEach(response.data, function(image){
                     console.log(image);
-                    $scope.locationData.newImages.push(image);
+                    $scope.regionData.newImages.push(image);
               });
           }
      });
-    console.log($scope.locationData);
+    console.log($scope.regionData);
     $scope.showForm();
 }
 
 $scope.saveNew = function(){
     $scope.createUpdateLocation();
-    console.log($scope.locationData.id);
-    $scope.populateLocationInstance($scope.locationData.id);
-    console.log($scope.locationData);
-    //delete $scope.locationData.id;
+    console.log($scope.regionData.id);
+    $scope.populateLocationInstance($scope.regionData.id);
+    console.log($scope.regionData);
+    //delete $scope.regionData.id;
 
 }
 
@@ -97,29 +97,26 @@ $scope.loadLocationData = function(){
 
   $scope.loading = true;
   // Load all locations to be displayed
-  $http.get('/api/location/all/')
+  $http.get('/api/region/all/')
     .then(
         function(response){
           // success callback
-          $scope.allLocations = response.data;
+          $scope.allRegions = response.data;
 
-          $scope.locationMap = new Map();
-          //populate locationMap to be used in edit form
-          angular.forEach($scope.allLocations, function(location) {
-            $scope.locationMap.set(location.id, location);
+          $scope.regionMap = new Map();
+          //populate regionMap to be used in edit form
+          angular.forEach($scope.allRegions, function(region) {
+            $scope.regionMap.set(region.id, region);
           });
-          console.log($scope.allLocations);
+          console.log($scope.allRegions);
           $scope.loading = false;
-          return $scope.allLocations;
+          return $scope.allRegions;
         },
         function(response){
           // failure call back
         }
      );
-  $http.get('/api/places/all/')
-     .then(function(places){
-       $scope.allPlaces = places.data;
-     });
+
 
    $http.get('/api/country/all/')
      .then(
@@ -128,7 +125,7 @@ $scope.loadLocationData = function(){
            $scope.allCountries = response.data;
 
            $scope.countryMap = new Map();
-           //populate locationMap to be used in edit form
+           //populate regionMap to be used in edit form
            angular.forEach($scope.allCountries, function(country) {
              $scope.countryMap.set(country.id, country);
            });
@@ -140,56 +137,16 @@ $scope.loadLocationData = function(){
            // failure call back
          }
       );
-
-      $http.get('/api/continent/all/')
-        .then(
-            function(response){
-              // success callback
-              $scope.allContinents = response.data;
-
-              $scope.continentsMap = new Map();
-              //populate locationMap to be used in edit form
-              angular.forEach($scope.allContinents, function(continent) {
-                $scope.continentsMap.set(continent.id, continent);
-              });
-              console.log($scope.allContinents);
-              $scope.loading = false;
-              return $scope.allContinents;
-            },
-            function(response){
-              // failure call back
-            }
-         );
-
-         $http.get('/api/region/all/')
-           .then(
-               function(response){
-                 // success callback
-                 $scope.allRegions = response.data;
-
-                 $scope.continentsMap = new Map();
-                 //populate locationMap to be used in edit form
-                 angular.forEach($scope.allContinents, function(continent) {
-                   $scope.continentsMap.set(continent.id, continent);
-                 });
-                 console.log($scope.allContinents);
-                 $scope.loading = false;
-                 return $scope.allContinents;
-               },
-               function(response){
-                 // failure call back
-               }
-            );
 }
 
 $scope.delLocation = function(locationid) {
     console.log(locationid);
-    if(locationid && confirm("Are you sure you want to delete this location?")){
-      $http.delete('/api/location/', {params: {id: locationid}})
+    if(locationid && confirm("Are you sure you want to delete this region?")){
+      $http.delete('/api/region/', {params: {id: locationid}})
        .then(
            function(response){
              // success callback
-             console.log('Location deleted...');
+             console.log('region deleted...');
              $scope.loadLocationData();
            },
            function(response){
@@ -204,11 +161,11 @@ $scope.showForm = function(isNew) {
     console.log($scope.message);
 
     if(isNew){
-      $scope.locationData = null;
+      $scope.regionData = null;
     }
     $scope.modalInstance = $uibModal.open({
         templateUrl: 'myModalContent.html',
-        controller: 'LocationAdminController',
+        controller: 'RegionAdminController',
         scope: $scope,
         backdrop: 'static',
         size: 'lg',
@@ -231,37 +188,30 @@ $scope.cancel = function () {
 };
 
 $scope.createUpdateLocation = function(){
-  // Update the location if location id is there
-  if($scope.locationData && $scope.locationData.id && $scope.locationData.country){
-    $scope.locationData.country_id = $scope.locationData.country.id;
-    $scope.locationData.country = $scope.locationData.country.name;
-
-    $scope.locationData.continent_id = $scope.locationData.continent.id;
-    $scope.locationData.continent = $scope.locationData.continent.name;
-    $scope.locationData.region = $scope.locationData.region.name;
-    console.log($scope.locationData);
-    $http.post('/api/location/update/', $scope.locationData).then(function(res, err){
+  // Update the region if region id is there
+  if($scope.regionData && $scope.regionData.id && $scope.regionData.country){
+    $scope.regionData.country_id = $scope.regionData.country.id;
+    $scope.regionData.country = $scope.regionData.country.name;
+    console.log($scope.regionData);
+    $http.post('/api/region/update/', $scope.regionData).then(function(res, err){
       console.log(res);
       if(res.status == 200){
         //Upload Images
-        $scope.uploadFiles($scope.locationData);
+        $scope.uploadFiles($scope.regionData);
 
         //if the request is scuessful, show all locations
         $scope.modalInstance.close();
-        $scope.$parent.allLocations = $scope.$parent.loadLocationData();
+        $scope.$parent.allRegions = $scope.$parent.loadLocationData();
       }
     });
   }else{
-    // create location only if tour id is there
-      if($scope.locationData && $scope.locationData.country){
-        $scope.locationData.country_id = $scope.locationData.country.id;
-        $scope.locationData.country = $scope.locationData.country.name;
+    // create region only if tour id is there
+      if($scope.regionData && $scope.regionData.country){
+        $scope.regionData.country_id = $scope.regionData.country.id;
+        $scope.regionData.country = $scope.regionData.country.name;
 
-        $scope.locationData.continent_id = $scope.locationData.continent.id;
-        $scope.locationData.continent = $scope.locationData.continent.name;
-
-        console.log($scope.locationData);
-        $http.post('/api/location/', $scope.locationData).then(function(res, err){
+        console.log($scope.regionData);
+        $http.post('/api/region/', $scope.regionData).then(function(res, err){
           console.log(res);
           if(res.status == 200){
             //Upload Images
@@ -269,11 +219,11 @@ $scope.createUpdateLocation = function(){
 
             //if the request is scuessful, show all locations
             $scope.modalInstance.close();
-            $scope.$parent.allLocations = $scope.$parent.loadLocationData();
+            $scope.$parent.allRegions = $scope.$parent.loadLocationData();
           }
         });
     }else{
-        console.log('Error: Location Data is invalid');
+        console.log('Error: region Data is invalid');
     }
   }
 }
