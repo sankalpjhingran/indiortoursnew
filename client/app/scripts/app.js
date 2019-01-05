@@ -166,6 +166,23 @@ angular
               }
             }
         })
+        .state('region', {
+            url:'/region?regionid&countryid',
+            views:{
+              subheader: {
+                //templateUrl: 'views/toursubheader.html',
+                //controller: 'TourViewController'
+              },
+              sidesection: {
+                templateUrl: 'views/main/toursidesection.html',
+                controller: 'MainCtrl'
+              },
+              mainsection:{
+                templateUrl: 'views/main/region.html',
+                controller: 'RegionViewController'
+              }
+            }
+        })
         .state('destinations', {
             url:'/destinations',
             views:{
@@ -524,6 +541,25 @@ angular
               mainsection:{
                 templateUrl: 'views/admin/locationadmin.html',
                 controller: 'LocationAdminController'
+              }
+            }
+            ,resolve: { authenticate: authenticate }
+        })
+        .state('regionsadmin', {
+            url: '/regionsadmin',
+            views:{
+              subheader: {
+                //No need to show subheader for Admin
+                //templateUrl: 'views/homesubheader.html',
+                //controller: 'MainCtrl'
+              },
+              sidesection: {
+                templateUrl: 'views/admin/adminsidesction.html',
+                controller: 'AdminSideSectionController'
+              },
+              mainsection:{
+                templateUrl: 'views/admin/regionsadmin.html',
+                controller: 'RegionAdminController'
               }
             }
             ,resolve: { authenticate: authenticate }

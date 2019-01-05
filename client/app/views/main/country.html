@@ -7,31 +7,62 @@
 </style>
 <div ng-init="getCountryDetails()">
     <h3>
-      {{ name }}
+      {{ countryData.name }}
     </h3>
 
-    <p class="main" style="white-space: pre-wrap;">
-        <img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}">
-        {{ destination.description }}
-    </p>
-    <div ng-repeat="city in destination">
-      <div class="col-xs-12 col-sm-4 col-md-4">
-          <div class="productbox">
-            <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                  <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images[0]">
-                    <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
-                    <div class="container">
-                      <div class="carousel-caption">
+    <!--img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}" -->
+
+    <span>
+        {{ countryData.description }}
+    </span>
+
+    <uib-tabset active="activeJustified" justified="true">
+        <!-- Itineraries Start -->
+        <uib-tab index="1" heading="Popular Itineraries" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
+          <div ng-repeat="tour in popularItineraries">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="productbox">
+                  <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+                      <div class="carousel-inner">
+                        <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images[0]">
+                          <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                          <div class="container">
+                            <div class="carousel-caption">
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                      <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
+                      <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
                     </div>
+                    <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&name={{tour.name}}" ng-click="addToRecentItems(tour.id);">{{tour.name}}</a></div>
                   </div>
-                </div>
-                <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
-                <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
               </div>
-              <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/city?id={{city.id}}&name={{city.city || slugify}}" ng-click="addToRecentItems(tour.id);">{{city.city | truncate: 32 : '...' : false }}</a></div>
             </div>
-        </div>
-      </div>
+        </uib-tab>
+
+        <!-- Itinerary Start -->
+        <uib-tab index="0" heading="Regions">
+          <div ng-repeat="city in countryData.regions">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="productbox">
+                  <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+                      <div class="carousel-inner">
+                        <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images[0]">
+                          <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                          <div class="container">
+                            <div class="carousel-caption">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
+                      <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
+                    </div>
+                    <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/region?id={{city.id}}&countryid={{city.country_id}}" ng-click="addToRecentItems(tour.id);">{{city.name}}</a></div>
+                  </div>
+              </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
 </div>

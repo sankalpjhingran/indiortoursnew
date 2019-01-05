@@ -2,6 +2,11 @@
 
 var models  = require('../models/index');
 var Country = models.Country;
+var TourLocation = models.TourLocation;
+var Tour = models.Tour;
+var Location = models.Location;
+var Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports= {
   //Get a list of all authors using model.findAll()
@@ -24,17 +29,55 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
+    console.log('Calling show of country');
+    console.log(req.query);
     Country.findById(req.query.id, {
-      include: [{
-        model: models.Location
-      }]
+      include: [
+                { model : models.Region },
+                { model : models.Location }
+               ]
     })
     .then(function (author) {
+      console.log(author);
       res.status(200).json(author);
     })
     .catch(function (error){
+      console.log(error);
       res.status(500).json(error);
     });
+  },
+
+
+  //Get tours for a country
+  getToursForCountry(req, res){
+        var popularToursMap = require('hashmap');
+        let queryVars = req.query;
+
+        Location.findAll({
+          where: { country_id : queryVars.id, visible: true },
+          attributes: [ 'city', 'id' ],
+          include: [{
+                      association : 'siteTour',
+                      where: {popularitinerary : true, isactive : true},
+                      order: [
+                                Sequelize.fn('isnull', Sequelize.col('order')),
+                                ['order', 'ASC']
+                              ]
+                    }]
+          })
+          .then(function (authors) {
+            var tours = [];
+            authors.forEach(function(item){
+              tours.push(item.siteTour);
+            })
+            tours = tours.filter((li, idx, self) => self.map(itm => itm.id).indexOf(li.id) === idx)
+            console.log(tours);
+            res.status(200).json(tours);
+          })
+          .catch(function (error) {
+            console.log(error);
+            res.status(500).json(error);
+          });
   },
 
   //Create a new author using model.create()
