@@ -50,6 +50,8 @@ angular.module('clientApp')
                     region.images.push(imageMapUnderscore.get(JSON.stringify(region.id)));
                   })
                   $scope.countryData.regions = regions;
+                  $scope.countryData.locations = res.data.Locations;
+                  console.log($scope.countryData.locations);
                   console.log($scope.countryData.regions);
               });
            },
@@ -58,7 +60,11 @@ angular.module('clientApp')
            }
         );
 
-        $http.get('/api/country/tours', {params: {id: destinationId}})
+        $http.get('/api/country/tours', {
+          params : {
+            id : destinationId
+          }
+        })
          .then(
              function(res){
                // success callback
@@ -68,6 +74,6 @@ angular.module('clientApp')
              function(response){
                // failure call back
              }
-          );
+        );
     }
 }]);
