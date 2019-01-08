@@ -6,16 +6,39 @@
   }
 </style>
 This page is in progress...
+<h3>
+  {{ name }}
+</h3>
+
+<!--img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}" -->
+
+<span>
+    {{ description }}
+</span>
+
+<span>
+  <h3>Popular Itineraries in {{ name }} </h3>
+</span>
+
 <div ng-init="getCountryDetails()">
-  <uib-tabset active="activeJustified" justified="true">
-      <!-- Itineraries Start -->
-      <uib-tab index="1" heading="Itineraries" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
-
-      </uib-tab>
-
-      <!-- Itinerary Start -->
-      <uib-tab index="0" heading="Cities">
-
-      </uib-tab>
-  </uib-tabset>
+  <div ng-repeat="tour in popularItineraries">
+    <div class="col-xs-12 col-sm-4 col-md-4">
+        <div class="productbox">
+          <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images[0]">
+                  <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                  <div class="container">
+                    <div class="carousel-caption">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
+              <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
+            </div>
+            <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&name={{tour.name}}" ng-click="addToRecentItems(tour.id);">{{tour.name}}</a></div>
+          </div>
+      </div>
+    </div>
 </div>
