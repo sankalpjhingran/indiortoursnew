@@ -167,14 +167,14 @@ $scope.loadLocationData = function(){
                  // success callback
                  $scope.allRegions = response.data;
 
-                 $scope.continentsMap = new Map();
+                 $scope.regionsMap = new Map();
                  //populate locationMap to be used in edit form
-                 angular.forEach($scope.allContinents, function(continent) {
-                   $scope.continentsMap.set(continent.id, continent);
+                 angular.forEach($scope.allRegions, function(region) {
+                   $scope.regionsMap.set(region.id, region);
                  });
-                 console.log($scope.allContinents);
+                 console.log($scope.allRegions);
                  $scope.loading = false;
-                 return $scope.allContinents;
+                 return $scope.allRegions;
                },
                function(response){
                  // failure call back
@@ -232,13 +232,19 @@ $scope.cancel = function () {
 
 $scope.createUpdateLocation = function(){
   // Update the location if location id is there
-  if($scope.locationData && $scope.locationData.id && $scope.locationData.country){
+  if($scope.locationData && $scope.locationData.id && $scope.locationData.country && $scope.locationData.region && $scope.locationData.continent){
     $scope.locationData.country_id = $scope.locationData.country.id;
     $scope.locationData.country = $scope.locationData.country.name;
 
     $scope.locationData.continent_id = $scope.locationData.continent.id;
     $scope.locationData.continent = $scope.locationData.continent.name;
+
+    console.log($scope.locationData.region);
+
+    $scope.locationData.region_id = $scope.locationData.region.id;
     $scope.locationData.region = $scope.locationData.region.name;
+
+
     console.log($scope.locationData);
     $http.post('/api/location/update/', $scope.locationData).then(function(res, err){
       console.log(res);
@@ -253,12 +259,15 @@ $scope.createUpdateLocation = function(){
     });
   }else{
     // create location only if tour id is there
-      if($scope.locationData && $scope.locationData.country){
+      if($scope.locationData && $scope.locationData.country && $scope.locationData.region && $scope.locationData.continent){
         $scope.locationData.country_id = $scope.locationData.country.id;
         $scope.locationData.country = $scope.locationData.country.name;
 
         $scope.locationData.continent_id = $scope.locationData.continent.id;
         $scope.locationData.continent = $scope.locationData.continent.name;
+
+        $scope.locationData.region = $scope.locationData.region.name;
+        $scope.locationData.region_id = $scope.locationData.region.id;
 
         console.log($scope.locationData);
         $http.post('/api/location/', $scope.locationData).then(function(res, err){

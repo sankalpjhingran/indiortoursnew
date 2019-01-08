@@ -167,7 +167,7 @@ angular
             }
         })
         .state('region', {
-            url:'/region?regionid&countryid',
+            url:'/region?id&countryid&name',
             views:{
               subheader: {
                 //templateUrl: 'views/toursubheader.html',
