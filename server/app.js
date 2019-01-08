@@ -138,6 +138,7 @@ app.use('/api/continent/update', continents);
 app.use('/api/country', countries);
 app.use('/api/country/all', countries);
 app.use('/api/country/tours', countries);
+app.use('/api/country/toursforregion', countries); 
 app.use('/api/country/update', countries);
 app.use('/api/region', regions);
 app.use('/api/region/all', regions);

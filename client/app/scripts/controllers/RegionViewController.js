@@ -11,51 +11,29 @@ angular.module('clientApp')
   .controller('RegionViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
   $rootScope.$state = $state;
 
-    var destinationId = $stateParams.id;
+    var destinationId = $stateParams.countryid;
+    var regionid = $stateParams.id;
     $scope.name = $stateParams.name;
+    console.log($stateParams);
 
     $scope.destination = [];
 
     $scope.getCountryDetails = function() {
-      $http.get('/api/country/', {params: {id: destinationId}})
-       .then(
-           function(res){
-             // success callback
-             console.log(res.data);
-             var locations = res.data.Regions;
-             var locationids = [];
-
-             locations.forEach(function(location) {
-               locationids.push(location.id);
-             })
-
-             var imageMap = new Map();
-
-             $http.post('/api/image/all/', {tourids:locationids, parentobjectname: 'region'})
-              .then(function(images){
-                  var imageMapUnderscore = new Map();
-                  angular.forEach(images.data, function(image){
-                      var tempImages = [];
-                      if(!imageMapUnderscore.has(image.parentobjectid)) {
-                         tempImages.push(image);
-                      } else {
-                        tempImages = imageMapUnderscore.get(image.parentobjectid);
-                        tempImages.push(image);
-                      }
-                      imageMapUnderscore.set(image.parentobjectid, tempImages);
-                  })
-
-                  angular.forEach(locations, function(location){
-                    location.images = [];
-                    location.images.push(imageMapUnderscore.get(JSON.stringify(location.id)));
-                  })
-                  $scope.destination = locations;
-                  console.log(locations);
-              });
-           },
-           function(response){
-             // failure call back
-           }
+        $http.get('/api/country/toursforregion', {
+          params : {
+            id : destinationId,
+            regionid : regionid
+          }
+        })
+         .then(
+             function(res){
+               // success callback
+               $scope.popularItineraries = res.data[0];
+               console.log(res.data[0]);
+             },
+             function(response){
+               // failure call back
+             }
         );
     }
 }]);
