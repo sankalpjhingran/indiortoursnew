@@ -87,7 +87,7 @@
                           <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
                           <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
                         </div>
-                        <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/region?id={{city.id}}&countryid={{city.country_id}}" ng-click="addToRecentItems(tour.id);">{{city.state}}</a></div>
+                        <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/state?statename={{city.state}}" ng-click="addToRecentItems(tour.id);">{{city.state}}</a></div>
                       </div>
                   </div>
                 </div>
@@ -111,7 +111,7 @@
                           <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
                           <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
                         </div>
-                        <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/region?id={{city.id}}&countryid={{city.country_id}}" ng-click="addToRecentItems(tour.id);">{{city.city}}</a></div>
+                        <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/city?id={{city.id}}&countryid={{city.country_id}}&name={{city.city}}" ng-click="addToRecentItems(tour.id);">{{city.city}}</a></div>
                       </div>
                   </div>
                 </div>

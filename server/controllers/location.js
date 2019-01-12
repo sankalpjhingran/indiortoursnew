@@ -59,7 +59,9 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Location.findById(req.query.id, {})
+    Location.findById(req.query.id, {
+      include: [{ association : 'siteTour' }]
+    })
     .then(function (author) {
       res.status(200).json(author);
     })
