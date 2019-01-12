@@ -133,7 +133,7 @@ angular
             }
         })
         .state('city', {
-            url:'/city?id&name',
+            url:'/city?id&name&countryid',
             views:{
               subheader: {
                 //templateUrl: 'views/toursubheader.html',
