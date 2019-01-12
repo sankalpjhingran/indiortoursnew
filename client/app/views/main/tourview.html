@@ -59,7 +59,7 @@
 
         <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
             <span style="color:orange;">
-              <a style="color: orange;"href="/destination?id={{ location.id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last">|</span>
+              <a style="color: orange;"href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last">|</span>
             </span>
         </span>
 
