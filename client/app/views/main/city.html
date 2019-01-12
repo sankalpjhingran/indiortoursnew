@@ -15,7 +15,28 @@
       {{ destination.description }}
   </p>
 
-  <h4>
-    Popular tours for this destination
-  </h4>
+  <span>
+    <h3>Popular Itineraries in {{ name }}</h3>
+  </span>
+
+  <div ng-repeat="tour in destination.siteTour">
+    <div class="col-xs-12 col-sm-4 col-md-4">
+        <div class="productbox">
+          <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images[0]">
+                  <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                  <div class="container">
+                    <div class="carousel-caption">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
+              <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
+            </div>
+            <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&name={{tour.name}}" ng-click="addToRecentItems(tour.id);">{{tour.name}}</a></div>
+          </div>
+      </div>
+    </div>
 </div>
