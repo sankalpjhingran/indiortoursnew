@@ -266,8 +266,8 @@ $scope.createUpdateLocation = function(){
         $scope.locationData.continent_id = $scope.locationData.continent.id;
         $scope.locationData.continent = $scope.locationData.continent.name;
 
-        $scope.locationData.region = $scope.locationData.region.name;
         $scope.locationData.region_id = $scope.locationData.region.id;
+        $scope.locationData.region = $scope.locationData.region.name;
 
         console.log($scope.locationData);
         $http.post('/api/location/', $scope.locationData).then(function(res, err){
