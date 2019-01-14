@@ -50,65 +50,68 @@ module.exports= {
 
   //Get tours for a country
   getToursForCountry(req, res){
-        var popularToursMap = require('hashmap');
-        let queryVars = req.query;
+    var popularToursMap = require('hashmap');
+    let queryVars = req.query;
 
-        Location.findAll({
-          where: { country_id : queryVars.id, visible: true },
-          attributes: [ 'city', 'id' ],
-          include: [{
-                      association : 'siteTour',
-                      where: {popularitinerary : true, isactive : true},
-                      order: [
-                                Sequelize.fn('isnull', Sequelize.col('order')),
-                                ['order', 'ASC']
-                              ]
-                    }]
-          })
-          .then(function (authors) {
-            var tours = [];
-            authors.forEach(function(item){
-              tours.push(item.siteTour);
-            })
-            tours = tours.filter((li, idx, self) => self.map(itm => itm.id).indexOf(li.id) === idx)
-            console.log(tours);
-            res.status(200).json(tours);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
-          });
+    Location.findAll({
+      where: { country_id : queryVars.id, visible: true },
+      attributes: [ 'city', 'id' ],
+      include: [{
+                  association : 'siteTour',
+                  where: {popularitinerary : true, isactive : true},
+                  order: [
+                            Sequelize.fn('isnull', Sequelize.col('order')),
+                            ['order', 'ASC']
+                          ],
+                  include : [{
+                    association : 'tourGroup'
+                  }]
+                }]
+      })
+      .then(function (authors) {
+        var tours = [];
+        authors.forEach(function(item){
+          tours.push(item.siteTour);
+        })
+        tours = tours.filter((li, idx, self) => self.map(itm => itm.id).indexOf(li.id) === idx)
+        console.log(tours);
+        res.status(200).json(tours);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.status(500).json(error);
+      });
   },
 
   getToursForCountry2(req, res){
-        var popularToursMap = require('hashmap');
-        let queryVars = req.query;
+    var popularToursMap = require('hashmap');
+    let queryVars = req.query;
 
-        Location.findAll({
-          where: { country_id : queryVars.id, region_id: queryVars.regionid, visible: true },
-          attributes: [ 'city', 'id' ],
-          include: [{
-                      association : 'siteTour',
-                      where: {popularitinerary : true, isactive : true},
-                      order: [
-                                Sequelize.fn('isnull', Sequelize.col('order')),
-                                ['order', 'ASC']
-                              ]
-                    }]
-          })
-          .then(function (authors) {
-            var tours = [];
-            authors.forEach(function(item){
-              tours.push(item.siteTour);
-            })
-            tours = tours.filter((li, idx, self) => self.map(itm => itm.id).indexOf(li.id) === idx)
-            console.log(tours);
-            res.status(200).json(tours);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
-          });
+    Location.findAll({
+      where: { country_id : queryVars.id, region_id: queryVars.regionid, visible: true },
+      attributes: [ 'city', 'id' ],
+      include: [{
+                  association : 'siteTour',
+                  where: {popularitinerary : true, isactive : true},
+                  order: [
+                            Sequelize.fn('isnull', Sequelize.col('order')),
+                            ['order', 'ASC']
+                          ]
+                }]
+      })
+      .then(function (authors) {
+        var tours = [];
+        authors.forEach(function(item){
+          tours.push(item.siteTour);
+        })
+        tours = tours.filter((li, idx, self) => self.map(itm => itm.id).indexOf(li.id) === idx)
+        console.log(tours);
+        res.status(200).json(tours);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.status(500).json(error);
+      });
   },
 
   //Create a new author using model.create()
