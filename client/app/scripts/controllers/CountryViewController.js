@@ -69,7 +69,33 @@ angular.module('clientApp')
              function(res){
                // success callback
                $scope.popularItineraries = res.data[0];
-               //console.log(res.data[0]);
+               console.log(res.data[0]);
+
+               var tourTypeWithToursMap = [];
+               var tourMapNew = new Map();
+               var tourfinalarray = [];
+
+               angular.forEach($scope.popularItineraries, function(tour) {
+                 tour.tourgroupnames = [];
+                 var tourList = {tours: "", tourgroup: ""};
+                 tourList.tours = [];
+                 tourList.tourgroup = {};
+                 tourList.tours.push(tour);
+
+                 angular.forEach(tour.tourGroup, function(tour2){
+                    tourList.tourgroup = tour2;
+                    tour.tourgroupnames.push(tour2.name);
+                 })
+                 tourfinalarray.push(tour);
+                 tourMapNew.set(tourList.tourgroup.name, tourList.tours);
+                 tourTypeWithToursMap.push(tourList);
+               })
+               console.log(tourfinalarray);
+               console.log(tourTypeWithToursMap);
+               console.log(tourMapNew);
+
+               $scope.tourTypeWithToursArray = tourTypeWithToursMap;
+               console.log($scope.tourTypeWithToursArray);
              },
              function(response){
                // failure call back
