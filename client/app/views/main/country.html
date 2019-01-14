@@ -21,6 +21,31 @@
     <uib-tabset active="activeJustified" justified="true">
         <!-- Itineraries Start -->
         <uib-tab index="1" heading="Popular Itineraries in {{ countryData.name }}" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
+          <div ng-repeat="tourArr in tourTypeWithToursArray | filter: {tourgroup:'!'}">
+              <h4>{{ tourArr.tourgroup.name }}</h4>
+              <div ng-repeat="tour in tourArr.tours" ng-if="tourArr.tourgroup.name">
+                <div class="col-xs-12">
+                    <div class="productbox">
+                      <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+                          <div class="carousel-inner">
+                            <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images[0]">
+                              <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                              <div class="container">
+                                <div class="carousel-caption">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
+                          <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
+                        </div>
+                        <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&name={{tour.name}}" ng-click="addToRecentItems(tour.id);">{{tour.name}}</a></div>
+                      </div>
+                  </div>
+                </div>
+          </div>
+
+          <!--
           <div ng-repeat="tour in popularItineraries">
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <div class="productbox">
@@ -41,6 +66,7 @@
                   </div>
               </div>
             </div>
+          -->
         </uib-tab>
 
         <!-- Itinerary Start -->
@@ -119,8 +145,6 @@
                 </div>
             </div>
           </uib-accordion>
-
-
         </uib-tab>
     </uib-tabset>
 </div>
