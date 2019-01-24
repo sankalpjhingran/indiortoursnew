@@ -12,7 +12,7 @@
     </h3>
 
     <p class="main" style="white-space: pre-wrap;">
-        <img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}">
+        <!-- img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ destination.images.data[0].filename }}" -->
         {{ destination.description }}
     </p>
 
@@ -20,7 +20,7 @@
       Destinations
     </h4>
     <div ng-repeat="country in countries">
-      <div class="col-xs-12 col-sm-4 col-md-4">
+      <div class="col-xs-12 col-sm-4 col-md-4" style="padding:5px;">
           <div class="productbox">
             <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">

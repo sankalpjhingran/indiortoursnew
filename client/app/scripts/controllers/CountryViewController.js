@@ -69,8 +69,34 @@ angular.module('clientApp')
              function(res){
                // success callback
                $scope.popularItineraries = res.data[0];
-               console.log(res.data[0]);
+               var toursIds = [];
 
+               angular.forEach($scope.popularItineraries, function(tour){
+                    toursIds.push(tour.id);
+               });
+
+               $http.post('/api/image/all/', {tourids:toursIds, parentobjectname: 'tour'})
+                .then(function(images){
+                    var imageTourMap = new Map();
+                    angular.forEach(images.data, function(image){
+                        var tempImages = [];
+                        if(!imageTourMap.has(image.parentobjectid)) {
+                           tempImages.push(image);
+                        } else {
+                          tempImages = imageTourMap.get(image.parentobjectid);
+                          tempImages.push(image);
+                        }
+                        imageTourMap.set(image.parentobjectid, tempImages);
+                    })
+
+                    angular.forEach($scope.popularItineraries, function(tour){
+                         tour.images = imageTourMap.get(tour.id);
+                    });
+                });
+
+
+
+               /*
                var tourTypeWithToursMap = [];
                var tourMapNew = new Map();
                var tourfinalarray = [];
@@ -96,6 +122,7 @@ angular.module('clientApp')
 
                $scope.tourTypeWithToursArray = tourTypeWithToursMap;
                console.log($scope.tourTypeWithToursArray);
+               */
              },
              function(response){
                // failure call back
