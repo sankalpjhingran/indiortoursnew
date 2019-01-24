@@ -81,7 +81,7 @@
       </div>
 
       <div class="row-fluid">
-        <div class="col-sm-2 tourPageCols tourSubHeaderCol">
+        <div class="col-sm-2" style="padding-left:0px;">
           <div style="color:orange;">
               {{tourWithAllRelated[0].tourtype}}
           </div>
@@ -90,10 +90,11 @@
           </div>
           <div style="color:orange;">
             <span>
-                {{tourWithAllRelated[0].price}} onwards
+                ${{tourWithAllRelated[0].price}} onwards
             </span>
           </div>
 
+          <!--
           <div>
             <a ng-click="showEnquiryForm();" class="btn btn-default btn-sm block" style="margin-top:12px;">
                 Images
@@ -112,8 +113,9 @@
             </a>
           </div>
         </div>
+        -->
 
-        <div class="col-sm-10 tourPageCols tourSubHeaderCol" >
+        <div class="col-sm-10" >
 
         </div>
 
