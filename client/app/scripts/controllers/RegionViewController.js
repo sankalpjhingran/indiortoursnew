@@ -43,15 +43,16 @@ angular.module('clientApp')
                         if(!imageTourMap.has(image.parentobjectid)) {
                            tempImages.push(image);
                         } else {
-                          tempImages = imageTourMap.get(image.parentobjectid);
+                          tempImages = imageTourMap.get(image.parentobjectid.toString());
                           tempImages.push(image);
                         }
                         imageTourMap.set(image.parentobjectid, tempImages);
                     })
-
                     angular.forEach($scope.popularItineraries, function(tour){
-                         tour.images = imageTourMap.get(tour.id);
+                      tour.images = [];
+                      tour.images.push(imageTourMap.get((tour.id).toString()));
                     });
+                    console.log($scope.popularItineraries);
                 });
 
              },
