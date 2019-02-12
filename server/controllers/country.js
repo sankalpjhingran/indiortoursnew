@@ -73,6 +73,7 @@ module.exports= {
         authors.forEach(function(item){
           tours.push(item.siteTour);
         })
+        console.log(tours);
         tours = tours.filter((li, idx, self) => self.map(itm => itm.id).indexOf(li.id) === idx)
         console.log(tours);
         res.status(200).json(tours);
