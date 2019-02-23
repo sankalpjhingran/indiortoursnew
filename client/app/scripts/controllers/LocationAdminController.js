@@ -97,7 +97,7 @@ $scope.loadLocationData = function(){
 
   $scope.loading = true;
   // Load all locations to be displayed
-  $http.get('/api/location/adminalllocations/')
+  $http.get('/api/location/adminLocations/')
     .then(
         function(response){
           // success callback
