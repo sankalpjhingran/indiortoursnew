@@ -17,7 +17,7 @@ angular.module('clientApp')
   $scope.destination = [];
 
   $scope.getCityDetails = function() {
-    $http.get('/api/location/adminalllocations/', {params: {id: destinationId}})
+    $http.get('/api/location/', {params: {id: destinationId}})
      .then(
          function(res){
            // success callback
