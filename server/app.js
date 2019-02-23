@@ -128,7 +128,7 @@ app.use('/api/isAuthenticated', application);
 app.use('/api/tours', tours);
 app.use('/api/location', locations);
 app.use('/api/location/all', locations);
-app.use('/api/location/adminalllocations', locations);
+app.use('/api/location/adminLocations', locations);
 app.use('/api/location/getGroupedLocations', locations);
 app.use('/api/location/getContinents', locations);
 app.use('/api/location/update', locations);
