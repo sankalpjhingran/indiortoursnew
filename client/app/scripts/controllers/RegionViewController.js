@@ -18,7 +18,7 @@ angular.module('clientApp')
 
     $scope.destination = [];
 
-    $scope.getCountryDetails = function() {
+    $scope.getRegionDetails = function() {
         $http.get('/api/country/toursforregion', {
           params : {
             id : destinationId,
@@ -60,5 +60,22 @@ angular.module('clientApp')
                // failure call back
              }
         );
+
+
+        $http.get('/api/region', {
+          params : {
+            regionid : regionid
+          }
+        })
+         .then(
+             function(res){
+               console.log(res);
+               $scope.description = res.data.description;
+             },
+             function(response){
+               // failure call back
+             }
+        );
+
     }
 }]);

@@ -23,10 +23,17 @@ angular.module('clientApp')
              // success callback
              console.log(res.data);
              var regions = res.data.Regions;
+             var locations = res.data.Locations;
+
              var regionids = [];
              $scope.countryData = res.data;
              regions.forEach(function(region) {
                regionids.push(regions.id);
+             })
+
+             var locationIds = [];
+             locations.forEach(function(loc) {
+               locationIds.push(loc.id);
              })
 
              var imageMap = new Map();
@@ -54,6 +61,28 @@ angular.module('clientApp')
                   console.log($scope.countryData.locations);
                   console.log($scope.countryData.regions);
               });
+
+              $http.post('/api/image/all/', {tourids:locationIds, parentobjectname: 'location'})
+               .then(function(images){
+                   var imageMapUnderscore = new Map();
+                   angular.forEach(images.data, function(image){
+                       var tempImages = [];
+                       if(!imageMapUnderscore.has(image.parentobjectid)) {
+                          tempImages.push(image);
+                       } else {
+                         tempImages = imageMapUnderscore.get(image.parentobjectid);
+                         tempImages.push(image);
+                       }
+                       imageMapUnderscore.set(image.parentobjectid, tempImages);
+                   })
+
+                   angular.forEach(locations, function(loc){
+                     loc.images = [];
+                     loc.images.push(imageMapUnderscore.get(JSON.stringify(loc.id)));
+                   })
+                   $scope.countryData.locations = locations;
+               });
+
            },
            function(response){
              // failure call back
