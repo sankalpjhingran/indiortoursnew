@@ -24,12 +24,9 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Region.findById(req.query.id, {
-      include: [{
-        model: models.Location
-      }]
-    })
+    Region.findById(req.query.regionid, {})
     .then(function (author) {
+      console.log(author);
       res.status(200).json(author);
     })
     .catch(function (error){
