@@ -43,7 +43,18 @@
       </tr>
     </table>
     <div style="text-align:center;">
-      <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-md" boundary-links="true" num-pages="numPages"></ul>
+      <ul uib-pagination total-items="totalItems"
+          ng-model="currentPage"
+          items-per-page="itemsPerPage"
+          ng-change="pageChanged()"
+          max-size="maxSize"
+          class="pagination-md"
+          boundary-links="true"
+          num-pages="numPages"
+          boundary-link-numbers="true"
+          rotate="false"
+          force-ellipses="false">
+      </ul>
     </div>
   </div>
 </div>
