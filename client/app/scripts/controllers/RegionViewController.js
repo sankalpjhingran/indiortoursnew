@@ -35,7 +35,7 @@ angular.module('clientApp')
                     regionIds.push(tour.id);
                });
 
-               $http.post('/api/image/all/', {tourids:regionIds, parentobjectname: 'region'})
+               $http.post('/api/image/all/', {tourids:regionIds, parentobjectname: 'tour'})
                 .then(function(images){
                     var imageTourMap = new Map();
                     angular.forEach(images.data, function(image){
