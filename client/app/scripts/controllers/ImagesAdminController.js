@@ -17,6 +17,7 @@ if($scope.allImages) {
 
 $scope.currentPage = 1;
 $scope.itemsPerPage = 25;
+$scope.maxSize=10;
 
 $scope.$watch("currentPage", function() {
   $scope.pageChanged($scope.currentPage);
