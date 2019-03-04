@@ -29,13 +29,21 @@ angular.module('clientApp')
              function(res){
                // success callback
                $scope.popularItineraries = res.data[0];
-               var regionIds = [];
+               console.log($scope.popularItineraries);
+               var tourIds = [];
 
                angular.forEach($scope.popularItineraries, function(tour){
-                    regionIds.push(tour.id);
+                    tourIds.push(tour.id);
+                    var tempLocations = [];
+                    tour.siteLocation.forEach(function(location){
+                        tempLocations.push(location.city);
+                    });
+                    tour.locations = tempLocations;
+                    //tour.price = accounting.formatMoney(tour.price, { symbol: currency.name.newValue,  format: "%v %s" });
+                    //tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: currency.name.newValue,  format: "%v %s" });
                });
 
-               $http.post('/api/image/all/', {tourids:regionIds, parentobjectname: 'tour'})
+               $http.post('/api/image/all/', {tourids:tourIds, parentobjectname: 'tour'})
                 .then(function(images){
                     var imageTourMap = new Map();
                     angular.forEach(images.data, function(image){

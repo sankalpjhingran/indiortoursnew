@@ -103,6 +103,16 @@ angular.module('clientApp')
                     toursIds.push(tour.id);
                });
 
+               $scope.popularItineraries.forEach(function(tour){
+                  var tempLocations = [];
+                  tour.siteLocation.forEach(function(location){
+                      tempLocations.push(location.city);
+                  });
+                  tour.locations = tempLocations;
+                  //tour.price = accounting.formatMoney(tour.price, { symbol: currency.name.newValue,  format: "%v %s" });
+                  //tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: currency.name.newValue,  format: "%v %s" });
+               });
+
                $http.post('/api/image/all/', {tourids:toursIds, parentobjectname: 'tour'})
                 .then(function(images){
                     var imageTourMap = new Map();

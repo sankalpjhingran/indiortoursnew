@@ -25,8 +25,17 @@ angular.module('clientApp')
              $scope.childTours = $scope.allTours.childTours;
              var tourids = [];
 
+             console.log($scope.allTours);
+             
              $scope.allTours.childTours.forEach(function(tour){
                 tourids.push(tour.id);
+                var tempLocations = [];
+                tour.siteLocation.forEach(function(location){
+                    tempLocations.push(location.city);
+                });
+                tour.locations = tempLocations;
+                //tour.price = accounting.formatMoney(tour.price, { symbol: currency.name.newValue,  format: "%v %s" });
+                //tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: currency.name.newValue,  format: "%v %s" });
              });
 
              $http.post('/api/image/all', {tourids: tourids, parentobjectname: 'tour'})
