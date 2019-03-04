@@ -15,7 +15,14 @@ module.exports= {
 
   index(req, res) {
     ParentTour.findAll({
-      include: [{  model: Tour, as: 'childTours' }],
+      include: [
+        {
+          association : 'childTours',
+          include: [
+            {association: 'siteLocation'}
+          ]
+        }
+      ],
       order: [['createdAt', 'DESC']]
       })
       .then(function (authors) {
@@ -29,6 +36,14 @@ module.exports= {
   indexAllByOrder(req, res) {
     ParentTour.findAll({
       where: {isactive : true},
+      include: [
+        {
+          association : 'childTours',
+          include: [
+            {association: 'siteLocation'}
+          ]
+        }
+      ],
       order: [
         Sequelize.fn('isnull', Sequelize.col('order')), ['order', 'ASC']
       ],
@@ -45,7 +60,20 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    ParentTour.findById(req.query.id, {include: [{  model: Tour, as: 'childTours', where: {isactive:true} }]})
+    ParentTour.findById(req.query.id,
+    {
+      include:
+      [
+        {
+          model: Tour,
+          as: 'childTours',
+          where: {isactive:true},
+          include: [
+            {association: 'siteLocation'}
+          ] 
+        }
+      ]
+    })
     .then(function (author) {
       console.log(author.childTours);
       res.status(200).json(author);
