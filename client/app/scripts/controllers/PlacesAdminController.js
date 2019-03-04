@@ -102,7 +102,7 @@ $scope.loadPlacesData = function(){
 
   $scope.loading = true;
 
-  $http.get('/api/location/all/')
+  $http.get('/api/location/adminLocations/')
    .then(
        function(response){
          // success callback
