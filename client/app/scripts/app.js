@@ -41,7 +41,8 @@ angular
     'ui.grid.selection',
     'ui.grid.grouping',
     'ui.grid.resizeColumns',
-    'underscore'
+    'underscore',
+    'ncy-angular-breadcrumb'
   ])
 
   .config(['calendarConfig', function(calendarConfig) {
@@ -83,6 +84,9 @@ angular
     $stateProvider
         .state('main', {
             url:'/',
+            ncyBreadcrumb: {
+              label: 'Home page'
+            },
             views:{
               subheader: {
                 templateUrl: 'views/main/homesubheader.html',
