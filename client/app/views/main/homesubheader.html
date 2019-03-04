@@ -36,7 +36,7 @@ input {
 :-ms-input-placeholder { color: #666; }
 
 </style>
-<div  class="col-sm-12 carouselCol hidden-xs" ng-init="allImagesForBanner()" style="padding-left:0px;padding-right:0px;">
+<div  class="col-sm-12 carouselCol hidden-xs" ng-init="allImagesForBanner()" style="padding-left:0px;padding-right:0px;margin-top: -10px;">
   <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -49,15 +49,17 @@ input {
       <div class="carousel-inner" role="listbox">
         <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in bannerImages">
           <img style="height:485px;" class="imgScale scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
-          <div class="carousel-caption" style="background: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.3) 10%,
-    rgba(0, 0, 0, 0.3) 90%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  left:10%;
-  right:10%">
+          <div class="carousel-caption"
+               style="background: linear-gradient(
+                      to left,
+                      rgba(0, 0, 0, 0) 0%,
+                      rgba(0, 0, 0, 0.3) 10%,
+                      rgba(0, 0, 0, 0.3) 90%,
+                      rgba(0, 0, 0, 0) 100%
+                    );
+                    left:10%;
+                    right:10%"
+            >
             <h3>{{img.name}}</h3>
             <p>{{img.description}}</p>
           </div>
