@@ -29,10 +29,16 @@
               <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
               <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
             </div>
-            <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&name={{tour.name}}" ng-click="addToRecentItems(tour.id);">{{tour.name}}</a></div>
+            <div class="producttitle text-center">
+              <a  style="text-decoration: none;"
+                  ng-href="/tourView?id={{tour.id}}&name={{tour.name}}"
+                  ng-click="addToRecentItems(tour.id);">
+                  {{ tour.name | truncate: 25 : '...' : false }}
+              </a>
+            </div>
             <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
               <span>
-                {{ tour.locations | join:' | ' | truncate: 65 : '...' : false  }}
+                {{ tour.locations | join:' | ' | truncate: 50 : '...' : false  }}
               </span>
             </p>
             <p class="text-center">
