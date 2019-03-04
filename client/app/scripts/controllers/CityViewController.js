@@ -23,6 +23,17 @@ angular.module('clientApp')
            // success callback
            $scope.destination = res.data;
            console.log($scope.destination);
+
+           angular.forEach($scope.destination.siteTour, function(tour){
+                var tempLocations = [];
+                tour.siteLocation.forEach(function(location){
+                    tempLocations.push(location.city);
+                });
+                tour.locations = tempLocations;
+                //tour.price = accounting.formatMoney(tour.price, { symbol: currency.name.newValue,  format: "%v %s" });
+                //tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: currency.name.newValue,  format: "%v %s" });
+           });
+
            var imageIds = [];
            imageIds.push(destinationId);
            $http.post('/api/image/all/', {tourids:imageIds, parentobjectname: 'location'})

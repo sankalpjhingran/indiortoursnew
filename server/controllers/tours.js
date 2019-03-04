@@ -39,7 +39,9 @@ module.exports= {
         let queryVars = req.query;
         Tour.findAll({
           where: {id : queryVars.id},
-          include: [{ association : 'siteLocation' }]
+          include: [
+            { association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }
+          ]
           })
           .then(function (authors) {
             res.status(200).json(authors);
