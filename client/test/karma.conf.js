@@ -53,7 +53,6 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
       'bower_components/rrule/lib/rrule.js',
       'bower_components/underscore/underscore.js',
-      'bower_components/angular-breadcrumb/release/angular-breadcrumb.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
