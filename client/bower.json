@@ -26,8 +26,7 @@
     "angular-ui-carousel": "^0.1.10",
     "angular-bootstrap-calendar": "^1.0.0",
     "rrule": "^2.2.0",
-    "underscore": "^1.9.1",
-    "angular-breadcrumb": "^0.5.0"
+    "underscore": "^1.9.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
