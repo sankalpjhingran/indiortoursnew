@@ -26,13 +26,17 @@
                     <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
                     <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
                   </div>
-                  <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">{{tour.name | truncate: 32 : '...' : false }}</a></div>
-                  <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
-                    <span>
-                      {{ tour.locations | join:' | ' | truncate: 65 : '...' : false  }}
+                  <div class="producttitle text-center">
+                    <a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">
+                      {{ tour.name | truncate: 25 : '...' : false }}
+                    </a>
+                  </div>
+                  <p class="tourlocations text-center">
+                    <span class="tourlocations">
+                      {{ tour.locations | join:' | ' | truncate: 50 : '...' : false  }}
                     </span>
                   </p>
-                  <p class="text-center">
+                  <p class="tourinfo text-center">
                     <strong>{{tour.days}} Days | {{ tour.price }} | Offer Price: {{ tour.offerprice }} </strong>
                   </p>
                   <div class="row" style="margin-left: 5px;margin-right: 0px;margin-top: 0px;margin-bottom: 5px;margin-right: 5px;padding-top: 0px;">
