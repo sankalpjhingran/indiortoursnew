@@ -49,7 +49,7 @@ input {
       <div class="carousel-inner" role="listbox">
         <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in bannerImages">
           <img style="height:485px;" class="imgScale scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
-          <div class="carousel-caption">
+          <div class="carousel-caption" style="background: rgba(0, 0, 0, 0.2);">
             <h3>{{img.name}}</h3>
             <p>{{img.description}}</p>
           </div>
