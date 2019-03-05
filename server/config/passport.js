@@ -57,6 +57,20 @@ passport.use('local-signin', new LocalStrategy(
       bCrypt.compare(password, passwd, function(err, res) {
           if (res) {
             console.log('password matched...');
+            //update user's last login time
+
+            user.lastLogin = new Date(Date.now()).toLocaleString();
+            console.log(email.toLowerCase());
+            console.log(user.lastLogin);
+
+            models.User.update({lastLogin : new Date(Date.now()).toLocaleString()},
+              {
+                where: {
+                  email: email.toLowerCase(), isactive:true, status:'Active'
+                }
+              }).then(function(user) {
+                console.log(user);
+            });
             return cb(null, user);
           } else {
             return cb(null, false);
