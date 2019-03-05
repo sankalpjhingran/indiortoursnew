@@ -3,73 +3,71 @@
    content:"*";
    color:red;
   }
+
+  .panel-info {
+    border-color: #f8f8f8;
+  }
+
+  .panel-headingnew {
+    background-color: #2d6fbd !important;
+    border-color: #bce8f1;
+    color: white !important;
+
+  }
+
+  .panel-headingtext {
+    color: white !important;
+
+  }
+
+  a.panel-headinglink {
+    font-color: white;
+  }
 </style>
   <div ng-init="loadUserData();">
+      <div class="pull-right">
         <div>
-            <div>
-              <h1 style="font-size:2em;font-weight: 200;">{{loggedInUser.firstname | ucfirst}} {{loggedInUser.lastname | ucfirst}}</h1>
-            </div>
+          <a style="color:white;" href="edit.html">Edit Profile</a>
         </div>
-
-      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-           <A href="edit.html" >Edit Profile</A>
-
-        <A href="edit.html" >Logout</A>
-       <br>
-<p class=" text-info">May 05,2014,03:00 pm </p>
       </div>
         <div>
           <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">Sheena Shrestha</h3>
+            <div class="panel-heading panel-headingnew">
+              <h3 class="panel-title">{{loggedInUser.firstname | ucfirst}} {{loggedInUser.lastname | ucfirst}}</h3>
             </div>
             <div class="panel-body">
               <div class="row">
                 <uib-tabset active="active">
                   <uib-tab heading="Profile">
-                    <div class="col-md-12 col-lg-12 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
-
-                    <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
-                      <dl>
-                        <dt>DEPARTMENT:</dt>
-                        <dd>Administrator</dd>
-                        <dt>HIRE DATE</dt>
-                        <dd>11/12/2013</dd>
-                        <dt>DATE OF BIRTH</dt>
-                           <dd>11/12/2013</dd>
-                        <dt>GENDER</dt>
-                        <dd>Male</dd>
-                      </dl>
-                    </div>-->
                     <div class=" col-md-12 col-lg-12">
                       <table class="table table-user-information">
                         <tbody>
                           <tr>
-                            <td>Department:</td>
+                            <td>Name</td>
                             <td>Programming</td>
                           </tr>
                           <tr>
-                            <td>Hire date:</td>
+                            <td>Date of Birth</td>
                             <td>06/23/2013</td>
                           </tr>
                           <tr>
-                            <td>Date of Birth</td>
+                            <td>Gender</td>
                             <td>01/24/1988</td>
                           </tr>
-
-                             <tr>
-                                 <tr>
-                            <td>Gender</td>
+                            <tr>
+                            <tr>
+                            <td>Address</td>
                             <td>Female</td>
                           </tr>
                             <tr>
-                            <td>Home Address</td>
+                            <td>Last Login Date</td>
                             <td>Kathmandu,Nepal</td>
                           </tr>
                           <tr>
                             <td>Email</td>
                             <td><a href="mailto:info@support.com">info@support.com</a></td>
                           </tr>
+                          <tr>
                             <td>Phone Number</td>
                             <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
                             </td>
@@ -80,18 +78,11 @@
                   </uib-tab>
                   <uib-tab index="1">
                     <uib-tab-heading>
-                      My saved tours
+                      My Tours
                     </uib-tab-heading>
                   </uib-tab>
                 </uib-tabset>
               </div>
-            </div>
-           <div class="panel-footer">
-              <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
-              <span class="pull-right">
-                  <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                  <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-              </span>
             </div>
           </div>
         </div>
