@@ -16,8 +16,16 @@ var bcrypt = require('bcrypt-nodejs');
       type: {type: DataTypes.ENUM, values: ['Admin', 'Direct Customer', 'DMC', 'Tour Operator', 'Travel Agent'], defaultValue: 'Direct Customer', allowNull: false},
       status: {type: DataTypes.ENUM, values: ['Active', 'Inactive'], defaultValue: 'Inactive'},
       lastLogin: {type: DataTypes.DATE},
-      //facebookId: {type: DataTypes.STRING},
-      //googleId: {type: DataTypes.STRING}
+      facebookId: {type: DataTypes.STRING},
+      googleId: {type: DataTypes.STRING},
+      dateofbirth: {type: DataTypes.DATE},
+      gender: {type: DataTypes.STRING},
+      addressline1: {type: DataTypes.STRING},
+      addressline2: {type: DataTypes.STRING},
+      addresscity: {type: DataTypes.STRING},
+      addresstate: {type: DataTypes.STRING},
+      addresscountry: {type: DataTypes.STRING},
+      addresszippin: {type: DataTypes.STRING},
     }
   );
 
