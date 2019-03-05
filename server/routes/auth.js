@@ -14,7 +14,13 @@ router.post("/", passport.authenticate('local-signin'), function(req, res) {
     firstname: req.user.firstname,
     lastname: req.user.lastname,
     email: req.user.email,
-    type: req.user.type
+    type: req.user.type,
+    dateofbirth: req.user.dateofbirth,
+    gender: req.user.gender,
+    addressline1: req.user.addressline1,
+    lastLogin: req.user.lastLogin,
+    email: req.user.email,
+    phone: req.user.phone
   };
   console.log(returnUser);
   res.json(returnUser);
