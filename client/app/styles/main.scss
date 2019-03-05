@@ -1,5 +1,9 @@
 @import './libs/bootstrap';
 
+.btn-default {
+  background-color: #e69c00;
+}
+
 .verticalalignsvg svg {
   height: 100%;
 }
@@ -400,4 +404,73 @@ footer{
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+.presentation {
+  text-align: center;
+}
+
+.presentation .btn-icon {
+  font-size: 1.5em;
+  margin: 0 0.5em;
+}
+
+.btn-icon {
+  padding: 0;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.btn-icon:active,
+.btn-icon:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.btn-icon:active {
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transform: scale(0.9);
+}
+
+.btn-icon:focus {
+  outline: 0 none !important;
+}
+
+.btn-icon .glyphicon {
+  -webkit-transition: color 0.1s ease;
+  -moz-transition: color 0.1s ease;
+  -o-transition: color 0.1s ease;
+  transition: color 0.1s ease;
+}
+.btn-icon .glyphicon-heart {
+  color: #666;
+}
+.btn-icon .glyphicon-heart:hover {
+  color: rgba(102, 102, 102, 0.85);
+}
+.btn-icon .glyphicon-heart.active {
+  color: #d40027;
+}
+.btn-icon .glyphicon-heart.active:hover {
+  color: rgba(254, 67, 101, 0.85);
+}
+.btn-icon .glyphicon-bookmark {
+  color: #666;
+}
+.btn-icon .glyphicon-bookmark:hover {
+  color: rgba(102, 102, 102, 0.9);
+}
+.btn-icon .glyphicon-bookmark.active {
+  color: #d40027;
+}
+.btn-icon .glyphicon-bookmark.active:hover {
+  color: rgba(166, 212, 120, 0.9);
 }

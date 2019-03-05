@@ -22,6 +22,7 @@ $scope.loadUserData = function(){
             if(response.data.user){
                $scope.loggedInUser = response.data.user;
             }
+            console.log($scope.loggedInUser);
           }else{
             console.log('User not logged in====>');
           }
