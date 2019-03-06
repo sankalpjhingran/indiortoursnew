@@ -12,15 +12,21 @@ router.get('/', function(req, res){
 	if(req.isAuthenticated()){
 			const returnUser = {
 				firstname: req.user.firstname,
-				lastname: req.user.lastname,
-				email: req.user.email,
-				type: req.user.type,
-				dateofbirth: req.user.dateofbirth,
-				gender: req.user.gender,
-				addressline1: req.user.addressline1,
-				lastLogin: req.user.lastLogin,
-				email: req.user.email,
-				phone: req.user.phone
+		    lastname: req.user.lastname,
+		    email: req.user.email,
+		    type: req.user.type,
+		    dateofbirth: req.user.dateofbirth,
+		    gender: req.user.gender,
+		    addressline1: req.user.addressline1,
+		    lastLogin: req.user.lastLogin,
+		    email: req.user.email,
+		    phone: req.user.phone,
+		    addressline1: req.user.addressline1,
+		    addressline2: req.user.addressline2,
+		    addresscity: req.user.addresscity,
+		    addresstate: req.user.addresstate,
+		    addresscountry: req.user.addresscountry,
+		    addresszippin: req.user.addresszippin,
 			};
 			res.status(200).json({"isLoggedIn":true, "user": returnUser});
 	}else{
