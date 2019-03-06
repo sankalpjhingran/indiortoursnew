@@ -27,12 +27,12 @@
                   </div>
                   <div class="producttitle text-center">
                     <a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">
-                      {{ tour.name | truncate: 25 : '...' : false }}
+                      {{ tour.name }} <!--  | truncate: 25 : '...' : false }} -->
                     </a>
                   </div>
                   <p class="tourlocations text-center">
                     <span class="tourlocations">
-                      {{ tour.locations | join:' | ' | truncate: 50 : '...' : false  }}
+                      {{ tour.locations | join:' | ' }} <!--  | truncate: 50 : '...' : false  }} -->
                     </span>
                   </p>
                   <p class="tourinfo text-center">
