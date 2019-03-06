@@ -48,7 +48,7 @@
                           </tr>
                           <tr>
                             <td>Date of Birth</td>
-                            <td>{{loggedInUser.dateofbirth }}</td>
+                            <td>{{loggedInUser.dateofbirth | | date:'short' }}</td>
                           </tr>
                           <tr>
                             <td>Gender</td>
