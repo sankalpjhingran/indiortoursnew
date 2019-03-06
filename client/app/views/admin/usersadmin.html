@@ -104,18 +104,18 @@
                 <div class="form-group">
                     <label for="region"  >State / Province / Region</label>
                     <input id="region" name="region" type="text" placeholder="state / province / region"
-                        class="form-control input-sm" ng-model="userData.state">
+                        class="form-control input-sm" ng-model="userData.addressstate">
                 </div>
                 <!-- postal-code input-->
                 <div class="form-group">
                     <label for="postal-code">Zip / Postal Code</label>
                     <input id="postal-code" name="postal-code" type="text" placeholder="zip or postal code"
-                        class="form-control input-sm" ng-model="userData.zippin">
+                        class="form-control input-sm" ng-model="userData.addresszippin">
                 </div>
                 <!-- country select -->
                 <div class="form-group">
                     <label for="country" >Country</label>
-                        <select id="country" name="country" class="form-control input-sm" ng-model="userData.country">
+                        <select id="country" name="country" class="form-control input-sm" ng-model="userData.addresscountry">
                             <option value="" selected="selected">(please select a country)</option>
                             <option value="AF">Afghanistan</option>
                             <option value="AL">Albania</option>
