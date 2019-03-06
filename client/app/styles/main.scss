@@ -56,18 +56,27 @@
   font-weight:bold;
   font-size:1.8rem;
   padding:5px 0 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tourlocations {
   //font-weight:bold;
   font-size:1.2rem;
   padding:5px 0 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis
 }
 
 .tourinfo {
   font-weight:bold;
   font-size:1.2rem;
   padding:5px 0 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .productprice {
