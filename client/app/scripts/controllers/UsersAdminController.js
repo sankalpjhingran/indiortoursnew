@@ -129,4 +129,27 @@
         },
         getterSetter: true
       }
+
+      $scope.forgotPassword = function(email){
+        console.log('forgotpassword in...' + email);
+        var config = {
+              headers : {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+              }
+          }
+
+          var data = $.param({
+                email: email
+          });
+
+        $http.post('/api/users/forgotpassword/', data, config).then(function(res, err){
+          if(res.status == 200){
+
+          }
+        }).catch(function(err){
+            console.log(err);
+            console.log('Invalid Username or Password...');
+        });
+      }
+
   });
