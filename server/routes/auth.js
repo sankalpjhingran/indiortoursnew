@@ -20,7 +20,13 @@ router.post("/", passport.authenticate('local-signin'), function(req, res) {
     addressline1: req.user.addressline1,
     lastLogin: req.user.lastLogin,
     email: req.user.email,
-    phone: req.user.phone
+    phone: req.user.phone,
+    addressline1: req.user.addressline1,
+    addressline2: req.user.addressline2,
+    addresscity: req.user.addresscity,
+    addresstate: req.user.addresstate,
+    addresscountry: req.user.addresscountry,
+    addresszippin: req.user.addresszippin,
   };
   console.log(returnUser);
   res.json(returnUser);
