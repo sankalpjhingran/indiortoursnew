@@ -198,7 +198,8 @@ $scope.ngModelOptionsSelected = function(value) {
 
   //http://plnkr.co/edit/bDFIP66b5it5Q3KHy1LT?p=preview
   vm.addData = function() {
-    $scope.myData.push( {
+    $scope.myData.push(
+      {
         id: Math.ceil(Math.random() * 10000),
         costcategory: "",
         costitem: "",
