@@ -28,6 +28,7 @@
       $scope.populateUserInstance = function(userId){
           console.log('Calling populateUserInstance===> ' + userId);
           $scope.userData = $scope.userMap.get(userId);
+          $scope.userData.dateofbirth = new Date($scope.userData.dateofbirth);
           console.log($scope.userMap);
           console.log($scope.userData);
           $scope.showForm();
