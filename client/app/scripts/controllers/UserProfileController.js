@@ -21,6 +21,7 @@ $scope.loadUserData = function(){
             $scope.isLoggedIn = true;
             if(response.data.user){
                $scope.loggedInUser = response.data.user;
+               $scope.loggedInUser.dateofbirth = new Date($scope.loggedInUser.dateofbirth);
             }
             console.log($scope.loggedInUser);
           }else{
