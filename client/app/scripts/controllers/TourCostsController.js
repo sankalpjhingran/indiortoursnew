@@ -13,6 +13,10 @@ $scope.costsMap = new Map();
 $scope.msg = {};
 var vm = this;
 
+$scope.addRow = function(){
+    $scope.itnRows.push({day: '', description: '', individualcostsjson: ''});
+}
+
 $scope.populatecostsInstance = function(costsId) {
     $scope.tourCosts = $scope.costsMap.get(costsId);
     $scope.tourCosts.tour = $scope.allToursMap.get($scope.tourCosts.tour_id);
@@ -86,6 +90,23 @@ $scope.showForm = function (isNew) {
     if(isNew){
       $scope.tourCosts = null;
       $scope.myData = [];
+
+      $scope.itineraryData = null;
+      $scope.tour = null;
+      $scope.itnRows = [];
+
+      $scope.myData.push(
+        {
+          id: Math.ceil(Math.random() * 10000),
+          costcategory: "",
+          costitem: "",
+          budget: "",
+          economy: "",
+          elegant: "",
+          deluxe: "",
+          luxury: ""
+      });
+      $scope.itnRows.push({day: '', description: '', individualcostsjson: $scope.myData});
     }
 
     $scope.modalInstance = $uibModal.open({
