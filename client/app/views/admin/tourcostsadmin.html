@@ -63,13 +63,26 @@
                       </div>
                     </div>
                   </div>
-                <div ng-controller="TourCostsController as $ctrl">
-                  <div>
-                    <button class="btn btn-default" type="button" ng-click="$ctrl.addData();">Add Row</button>
-                    <button class="btn btn-default" type="button" ng-click="$ctrl.removeSelectedRow();">Remove Selected Row(s)</button>
-                    <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourCosts.individualcostsjson" ui-grid="$ctrl.gridOptions" ui-grid-edit ui-grid-selection ui-grid-cellnav ui-grid-resize-columns class="grid"></div>
+                  <div ng-repeat="row in itnRows">
+                    <div class="form-group">
+                      <label for="dob">Validity Start Date</label>
+                      <input type="date" class="form-control input-sm" ng-model="tourCosts.startdate" id="startdate" placeholder="Validity Start Date">
+                    </div>
+                    <div class="form-group">
+                      <label for="dob">Validity End Date</label>
+                      <input type="date" class="form-control input-sm" ng-model="tourCosts.enddate" id="startdate" placeholder="Validity End Date">
+                    </div>
+                    <div ng-controller="TourCostsController as $ctrl">
+                      <div>
+                        <!--
+                        <button class="btn btn-default" type="button" ng-click="$ctrl.addData();">Add Row</button>
+                        <button class="btn btn-default" type="button" ng-click="$ctrl.removeSelectedRow();">Remove Selected Row(s)</button>
+                        -->
+                        <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourCosts.individualcostsjson" ui-grid="$ctrl.gridOptions" ui-grid-edit ui-grid-selection ui-grid-cellnav ui-grid-resize-columns class="grid"></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                  <button type="button" class="btn btn-primary" ng-click="addRow()">Add</button>
           </div>
           <div class="modal-footer">
             <div class="btn-group" role="group" aria-label="footer buttons">
