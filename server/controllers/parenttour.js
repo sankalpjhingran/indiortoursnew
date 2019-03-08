@@ -70,7 +70,7 @@ module.exports= {
           where: {isactive:true},
           include: [
             {association: 'siteLocation'}
-          ] 
+          ]
         }
       ]
     })
