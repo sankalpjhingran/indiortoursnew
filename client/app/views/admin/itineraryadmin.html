@@ -25,7 +25,7 @@
       <th>Created Date</th>
       <th>Updated Date</th>
       <tr ng-repeat="x in allTours | filter:search">
-        <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateitineraryInstance(x.id, false)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delitinerary(x.id)">Del</a></td>
+        <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateitineraryInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delitinerary(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["name"] }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>

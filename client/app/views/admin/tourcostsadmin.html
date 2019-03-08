@@ -24,10 +24,10 @@
       <th>Tour Name</th>
       <th>Created Date</th>
       <th>Updated Date</th>
-      <tr ng-repeat="x in allcostss | filter:search">
+      <tr ng-repeat="x in allTours | filter:search">
         <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populatecostsInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delcosts(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
-        <td>{{ x["tourname"] }}</td>
+        <td>{{ x["name"] }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>
         <td>{{ x["updatedAt"] | date: "short" }}</td>
       </tr>
@@ -47,7 +47,7 @@
                     <div id="remote">
                       <label for="tourid">Tour</label>
                       <!-- uib-typeahead="tour.name for tour in getToursByName($viewValue)" -->
-                      <input type="text"  ng-model="tourCosts.tour"
+                      <input type="text"  ng-model="tour"
                                           placeholder="Search Tours By Name..."
                                           uib-typeahead="tour as tour.name for tour in allTours | filter: {name:$viewValue}"
                                           typeahead-wait-ms="1000"
@@ -65,20 +65,29 @@
                   </div>
                   <div ng-repeat="row in itnRows">
                     <div class="form-group">
+                      <label for="tourtype">Tour Type</label>
+                      <select class="form-control" id="tourtype" ng-model="row.tourtype" ng-change="initGrid(row.gridOptions, row.tourtype)">
+                        <option>Regular</option>
+                        <option>Group</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
                       <label for="dob">Validity Start Date</label>
-                      <input type="date" class="form-control input-sm" ng-model="tourCosts.startdate" id="startdate" placeholder="Validity Start Date">
+                      <input type="date" class="form-control input-sm" ng-model="row.startdate" id="startdate" placeholder="Validity Start Date">
                     </div>
                     <div class="form-group">
                       <label for="dob">Validity End Date</label>
-                      <input type="date" class="form-control input-sm" ng-model="tourCosts.enddate" id="startdate" placeholder="Validity End Date">
+                      <input type="date" class="form-control input-sm" ng-model="row.enddate" id="startdate" placeholder="Validity End Date">
                     </div>
                     <div ng-controller="TourCostsController as $ctrl">
                       <div>
                         <!--
-                        <button class="btn btn-default" type="button" ng-click="$ctrl.addData();">Add Row</button>
+                        <button class="btn btn-default" type="button" ng-click="$ctrl.addData(row.tourtype);">Add Row</button>
                         <button class="btn btn-default" type="button" ng-click="$ctrl.removeSelectedRow();">Remove Selected Row(s)</button>
                         -->
-                        <div style="margin-top:5px; margin-bottom:5px;" ng-model="tourCosts.individualcostsjson" ui-grid="$ctrl.gridOptions" ui-grid-edit ui-grid-selection ui-grid-cellnav ui-grid-resize-columns class="grid"></div>
+
+                        <!-- ui-grid-edit ui-grid-selection -->
+                        <div style="margin-top:5px; margin-bottom:5px;" ng-model="row.individualcostsjson" ui-grid="row.gridOptions"  ui-grid-edit ui-grid-cellnav ui-grid-resize-columns class="grid"></div>
                       </div>
                     </div>
                   </div>

@@ -48,7 +48,7 @@
                   <button ng-disabled="vm.currentStep <= 1" class="btn btn-default" name="previous" type="button" ng-click="vm.gotoStep(vm.currentStep - 1)"><i class="fa fa-arrow-left"></i> Previous</button>
                   <button ng-disabled="vm.currentStep >= vm.steps.length" class="btn btn-primary" name="next" type="button" ng-click="vm.gotoStep(vm.currentStep + 1)">Next <i class="fa fa-arrow-right"></i></button>
                 </span>
-                <button id="submit-button2"  class="btn btn-success" name="next" type="button"> Submit</button>
+                <button id="submit-button2" ng-click="vm.save()" class="btn btn-success" name="next" type="button"> Submit</button>
                 <!-- ng-click="vm.save()" ng-disabled="vm.currentStep != vm.steps.length" -->
               </div>
             </div>
