@@ -43,6 +43,7 @@ var users = require('./routes/user');
 var places = require('./routes/place');
 var tags = require('./routes/tag');
 var parenttours = require('./routes/parenttour');
+var bookings = require('./routes/booking');
 var search = require('./routes/search');
 
 //load passport strategies
@@ -132,6 +133,11 @@ app.use('/api/location/adminLocations', locations);
 app.use('/api/location/getGroupedLocations', locations);
 app.use('/api/location/getContinents', locations);
 app.use('/api/location/update', locations);
+
+app.use('/api/booking', bookings);
+app.use('/api/booking/all', bookings);
+app.use('/api/booking/update', bookings);
+
 app.use('/api/continent', continents);
 app.use('/api/continent/all', continents);
 app.use('/api/continent/allIndex', continents);
@@ -158,13 +164,16 @@ app.use('/api/departuredates/update', departuredates);
 app.use('/api/tourcosts', tourcosts);
 app.use('/api/tourcosts/all', tourcosts);
 app.use('/api/tourcosts/update', tourcosts);
+app.use('/api/tourcosts/bulkcreate', tourcosts);
+app.use('/api/tourcosts/bulkupdate', tourcosts);
 app.use('/api/tours/all', tours);
 app.use('/api/tours', tours);
 app.use('/api/tours/find', tours);
 app.use('/api/tours/update', tours);
 app.use('/api/tours/tourwithlocations', tours);
 app.use('/api/tours/alltourswithlocations', tours);
-app.use('/api/tours/getAllToursWithItineraries', tours);
+app.use('/api/tours/alltourswithitineries', tours);
+app.use('/api/tours/alltourswithcosts', tours);
 app.use('/api/tours/tourdetailswithrelatedmodels', tours);
 app.use('/api/tours/alltourswithlocationsandhotels', tours);
 app.use('/api/tours/searchtourwithlocations', tours);

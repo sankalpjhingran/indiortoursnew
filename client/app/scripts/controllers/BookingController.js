@@ -11,23 +11,6 @@ angular.module('clientApp')
 .controller('BookingController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout, $state, $rootScope, $stateParams) {
   $rootScope.$state = $state;
   var tourId = $stateParams.id;
-  console.log(tourId);
-  $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
-   .then(
-       function(res){
-         //Success callback
-         $scope.tourWithAllRelated = res.data;
-
-         $scope.tourWithAllRelated[0].location = [] ;
-         $scope.tourWithAllRelated[0].siteLocation.forEach(function(location){
-            $scope.tourWithAllRelated[0].location.push(location.city);
-         });
-           console.log($scope.tourWithAllRelated);
-       },
-       function(response){
-         // failure call back
-       }
-    );
 
       var vm = this;
       $scope.max = 5;
@@ -112,6 +95,16 @@ angular.module('clientApp')
 
       vm.save = function() {
         console.log(vm.formData);
+        if(vm.formData && tourId) {
+          vm.formData.tour_id = tourId;
+          $http.post('/api/booking/', vm.formData).then(function(res, err){
+            console.log(res);
+            if(res.status == 200){
+              //$scope.modalInstance.close();
+              //$scope.$parent.allLocations = $scope.$parent.loadLocationData();
+            }
+          });
+        }
       }
 
       vm.progress = function(previous, next) {
