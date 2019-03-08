@@ -17,6 +17,7 @@ angular.module('clientApp')
   $scope.destination = [];
 
   $scope.getContinentDetails = function() {
+    $scope.loading = true;
     $http.get('/api/continent/', {params: {id: destinationId}})
      .then(
          function(res){
@@ -46,6 +47,7 @@ angular.module('clientApp')
                   destination.images.push(imageMapUnderscore.get(JSON.stringify(destination.id)));
                 })
                 $scope.countries = destinations;
+                $scope.loading = false;
             });
          },
          function(response){
