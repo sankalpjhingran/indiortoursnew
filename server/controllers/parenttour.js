@@ -45,7 +45,7 @@ module.exports= {
         }
       ],
       order: [
-        Sequelize.fn('isnull', Sequelize.col('order')), ['order', 'ASC']
+        Sequelize.fn('isnull', Sequelize.col('order_by')), ['order_by', 'ASC']
       ],
 
       })
