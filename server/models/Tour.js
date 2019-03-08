@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Tour.associate = function(models){
       Tour.hasMany(models.Itinerary, {as: 'itinerary', foreignKey: 'tour_id'}, { onDelete: 'cascade' });
+      Tour.hasMany(models.Booking, {as: 'booking', foreignKey: 'tour_id'});
       //Tour.belongsTo(models.ParentTour, {as: 'tours', foreignKey: 'parenttour_id'});
       Tour.hasMany(models.TourCost, {as: 'tourcost', foreignKey: 'tour_id'}, { onDelete: 'cascade' });
       //Tour.hasMany(models.AdditionalServiceSupplements, {foreignKey: 'tour_id'});

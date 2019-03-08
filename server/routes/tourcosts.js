@@ -11,4 +11,8 @@ router.get('/', tourCostsController.show);
 router.get('/all/', tourCostsController.index);
 router.delete('/', tourCostsController.delete);
 router.post('/update/', tourCostsController.update);
+
+router.post('/bulkcreate/', tourCostsController.bulkCreate);
+router.post('/bulkupdate/', tourCostsController.bulkUpdate);
+
 module.exports = router;

@@ -32,6 +32,29 @@ module.exports= {
     });
   },
 
+
+  //Bulk Create a new author using model.create()
+  bulkCreate(req, res) {
+    console.log('req===>', req.body);
+    TourCost.bulkCreate(req.body, { updateOnDuplicate: true } ).then(function(costINstance){
+        res.status(200).json(costINstance);
+    })
+    .catch(function (error){
+      res.status(500).json(error);
+    })
+  },
+
+  //Bulk Create a new author using model.create()
+  bulkUpdate(req, res) {
+    TourCost.bulkCreate(req.body, { updateOnDuplicate: true }).then(function(costINstance){
+        console.log(costINstance);
+        res.status(200).json(costINstance);
+    })
+    .catch(function (error){
+      res.status(500).json(error);
+    })
+  },
+
   //Create a new author using model.create()
   create(req, res) {
     console.log('req===>', req.body);
