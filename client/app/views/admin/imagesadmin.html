@@ -29,7 +29,7 @@
       <th>Created Date</th>
       <th>Updated Date</th>
       <tr ng-repeat="x in aImages | filter:search">
-        <td><a href="" locid="{{x.id}}" ng-click="delImage(x.id)">Del</a></td>
+        <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateImageInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delImage(x.id)">Del</a></td>
         <td>{{ x["id"] }}</td>
         <td>{{ x["filename"] | truncate : 50 : '...' : false }}</td>
         <td>{{ x["parentobjectname"] }}</td>
@@ -89,26 +89,29 @@
                           ngf-max-size="10MB"
                           ngf-keep="distinct"
                           ngf-capture="camera"
-                          ngf-max-files="5">Select Images (max:5)
-                    </div>
-                    <br><br>
-                    <div>
+                          ngf-max-files="1">Select Images (max:5)
+                        </div>
+                    <br>
+                    <div ng-show="imageData.images && imageData.images.length">
                         <label>New Images</label>
                         <span ng-repeat="f in imageData.images" ng-show="imageData.images && imageData.images.length">
                             <img ngf-thumbnail="f || '/thumb.jpg'" class="thumb scaleMain">
-                              {{f.$errorParam}}
                             </img>
                             <a href="" style="display:block;" ng-click="deleteFile($index)">Remove</a>
                         </span>
                     </div>
-                    <div>
+                    <div ng-show="imageData.images && imageData.images.length">
                         <label>Uploaded Images</label>
                         <span ng-repeat="f in imageData.newImages" ng-show="imageData.newImages && imageData.newImages.length">
                             <img ng-src="/images/{{f.filename}}" class="thumb scaleMain">
-                              {{f.$errorParam}}
                             </img>
                             <a href="" style="display:block;" ng-click="deleteUploadedFile($index)">Remove</a>
                         </span>
+                    </div>
+                    <div ng-show="imageData.id && imageData.filename">
+                        <label>Image</label><br/>
+                        <img ng-src="/images/{{imageData.filename}}" class="thumb scaleMain">
+                        </img>
                     </div>
           </div>
           <div class="modal-footer">

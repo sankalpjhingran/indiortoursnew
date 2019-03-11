@@ -18,28 +18,64 @@
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
   <div ng-show="!(loading)">
     <table class="table table-hover table-bordered" ng-show="!(error)">
-      <th class="fixedWidthTableCol">Action</th>
-      <th>Id</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Region</th>
-      <th>Country</th>
-      <th>Continent</th>
-      <th>Description</th>
-      <th>Created Date</th>
-      <th>Updated Date</th>
-      <tr ng-repeat="x in allLocations | filter:search">
-        <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateLocationInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delLocation(x.id)">Del</a></td>
-        <td>{{ x["id"] }}</td>
-        <td>{{ x["city"] }}</td>
-        <td>{{ x["state"] }}</td>
-        <td>{{ x["region"] }}</td>
-        <td>{{ x.country }}</td>
-        <td>{{ x.continent }}</td>
-        <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
-        <td>{{ x["createdAt"] | date: "short" }}</td>
-        <td>{{ x["updatedAt"] | date: "short" }}</td>
-      </tr>
+      <thead>
+        <th class="fixedWidthTableCol">Action</th>
+        <th>Id</th>
+        <th>
+          <a href="" ng-click="sort('city')">
+            City
+          </a>
+        </th>
+        <th>
+          <a href="" ng-click="sort('state')">
+            State
+          </a>
+        </th>
+        <th>
+          <a href="" ng-click="sort('region')">
+            Region
+          </a>
+        </th>
+        <th>
+          <a href="" ng-click="sort('country')">
+            Country
+          </a>
+        </th>
+        <th>
+          <a href="" ng-click="sort('continent')">
+            Continent
+          </a>
+        </th>
+        <th>
+          <a href="" ng-click="sort('description')">
+            Description
+          </a>
+        </th>
+        <th>
+          <a href="" ng-click="sort('createdAt')">
+            Created Date
+          </a>
+        </th>
+        <th>
+          <a href="" ng-click="sort('updatedAt')">
+            Updated Date
+          </a>
+        </th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="x in allLocations | orderBy:sortType:sortReverse | filter:search">
+          <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateLocationInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delLocation(x.id)">Del</a></td>
+          <td>{{ x["id"] }}</td>
+          <td>{{ x["city"] }}</td>
+          <td>{{ x["state"] }}</td>
+          <td>{{ x["region"] }}</td>
+          <td>{{ x.country }}</td>
+          <td>{{ x.continent }}</td>
+          <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
+          <td>{{ x["createdAt"] | date: "short" }}</td>
+          <td>{{ x["updatedAt"] | date: "short" }}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>
