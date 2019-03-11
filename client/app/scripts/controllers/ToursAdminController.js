@@ -11,9 +11,12 @@ angular.module('clientApp')
 .controller('ToursAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
 $scope.toursMap = new Map();
 
+$scope.sortType     = 'name'; // set the default sort type
+$scope.sortReverse  = false;  // set the default sort order
+
 $scope.sort = function(keyname){
-    $scope.sortKey = keyname;   //set the sortKey to the param passed
-    $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+    $scope.sortType = keyname;   //set the sortKey to the param passed
+    $scope.sortReverse = !$scope.sortReverse; //if true make it false and vice versa
 }
 
 $scope.populatetoursInstance = function(toursId){
