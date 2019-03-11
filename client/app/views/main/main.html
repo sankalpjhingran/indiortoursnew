@@ -12,8 +12,9 @@
         <div ng-repeat="tour in allTours">
           <div class="col-xs-12 col-sm-4 col-md-4">
               <div class="productbox">
-                <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
-
+                <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
+                  <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                </div>
                 <!--
                 <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
