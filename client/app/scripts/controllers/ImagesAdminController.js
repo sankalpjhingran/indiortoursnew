@@ -46,7 +46,6 @@ $scope.deleteFile = function(idx) {
 
 $scope.deleteUploadedFile = function(idx) {
      console.log($scope.imageData.newImages[0]);
-
      var file = $scope.imageData.newImages[idx];
      console.log(file);
      if (file && file.id) {
@@ -58,15 +57,15 @@ $scope.deleteUploadedFile = function(idx) {
       }
 }
 
-/*
-$scope.populatePlaceInstance = function(placeId){
-    console.log('Calling populateLocationInstance===> ' + placeId);
-    $scope.imageData = $scope.imageMap.get(placeId);
-    //$scope.imageData.location = $scope.allLocationsMap.get($scope.imageData.location_id);
-    console.log($scope.imageMap);
+
+$scope.populateImageInstance = function(imageId){
+    console.log('Calling populateLocationInstance===> ' + imageId);
+    $scope.imageData = $scope.allImagesMap.get(imageId);
     console.log($scope.imageData);
     $scope.showForm();
 }
+
+/*
 $scope.saveNew = function(){
     $scope.createUpdatePlace();
     console.log($scope.imageData.id);
@@ -86,6 +85,7 @@ $scope.loadImagesData = function(){
   $http.get('/api/image/allImages/')
    .then(
        function(response){
+         console.log(response.data);
          // success callback
          $scope.allImages = response.data;
          angular.forEach($scope.allImages, function(image) {
@@ -115,7 +115,7 @@ $scope.loadImagesData = function(){
 */
 $scope.delImage = function(imageid){
     console.log(imageid);
-    if(imageid && confirm("Are you sure you want to delete this image?")){
+    if(imageid && confirm("Deleting this will also delete the file from the filesystem. Are you sure you want to delete this image?")){
       $http.delete('/api/image/', {params: {id: imageid}})
        .then(
            function(response){
@@ -161,7 +161,7 @@ $scope.cancel = function () {
     $scope.modalInstance.dismiss('cancel');
 };
 
-$scope.uploadFiles = function(tempLocation) {
+$scope.uploadFiles = function() {
   var files = $scope.imageData.images;
   console.log($scope.imageData.images);
   angular.forEach(files, function(file) {
@@ -190,8 +190,8 @@ $scope.uploadFiles = function(tempLocation) {
 
 $scope.createUpdateImage = function(){
   // Update the location if location id is there
-  if($scope.imageData && $scope.imageData.id && $scope.imageData.location){
-    $scope.imageData.location_id = $scope.imageData.location.id;
+  console.log($scope.imageData);
+  if($scope.imageData && $scope.imageData.id){
     $http.post('/api/image/update/', $scope.imageData).then(function(res, err){
       console.log(res);
       if(res.status == 200){
@@ -202,12 +202,12 @@ $scope.createUpdateImage = function(){
     });
   }else{
       if($scope.imageData && $scope.imageData.images){
-            $scope.uploadFiles($scope.imageData);
-            $scope.modalInstance.close();
-            $scope.$parent.allImages = $scope.$parent.loadImagesData();
-    }else{
+        $scope.uploadFiles();
+        $scope.modalInstance.close();
+        $scope.$parent.allImages = $scope.$parent.loadImagesData();
+      }else{
         console.log('Error: Image Data is invalid');
-    }
+      }
   }
 }
 

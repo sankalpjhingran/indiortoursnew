@@ -11,6 +11,14 @@ angular.module('clientApp')
 .controller('ParentToursAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
 $scope.toursMap = new Map();
 
+$scope.sortType     = 'name'; // set the default sort type
+$scope.sortReverse  = false;  // set the default sort order
+
+$scope.sort = function(keyname){
+    $scope.sortType = keyname;   //set the sortKey to the param passed
+    $scope.sortReverse = !$scope.sortReverse; //if true make it false and vice versa
+}
+
 $scope.populateParentToursInstance = function(parenttourId){
     $scope.parentTourData = $scope.parentToursMap.get(parenttourId);
     $scope.parentTourData.tours = $scope.parentTourData.childTours;
@@ -86,7 +94,7 @@ $scope.loadParentToursData = function(){
   $scope.allParentTours = undefined;
   $scope.parentToursMap = new Map();
   $scope.loading = true;
-  
+
   $scope.allTours = undefined;
   $http.get('/api/tours/all/')
     .then(function(tours){

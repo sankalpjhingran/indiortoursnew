@@ -11,6 +11,14 @@ angular.module('clientApp')
 .controller('LocationAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
 $scope.locationMap = new Map();
 
+$scope.sortType     = 'name'; // set the default sort type
+$scope.sortReverse  = false;  // set the default sort order
+
+$scope.sort = function(keyname){
+    $scope.sortType = keyname;   //set the sortKey to the param passed
+    $scope.sortReverse = !$scope.sortReverse; //if true make it false and vice versa
+}
+
 $scope.uploadFiles = function(tempLocation) {
   var files = $scope.locationData.images;
   console.log($scope.locationData.images);
