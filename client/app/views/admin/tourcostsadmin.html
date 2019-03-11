@@ -90,6 +90,10 @@
                         <div style="margin-top:5px; margin-bottom:5px;" ng-model="row.individualcostsjson" ui-grid="row.gridOptions"  ui-grid-edit ui-grid-cellnav ui-grid-resize-columns class="grid"></div>
                       </div>
                     </div>
+                    <div class="form-group">
+                      <label for="note">Notes</label>
+                      <textarea class="form-control input-sm" ng-model="row.note" id="note" placeholder="Notes" />
+                    </div>
                   </div>
                   <button type="button" class="btn btn-primary" ng-click="addRow()">Add</button>
           </div>
