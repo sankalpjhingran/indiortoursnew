@@ -121,8 +121,11 @@ angular.module('clientApp')
                       });
                       imagesMap.set(tourid, tempImages);
                       angular.forEach($scope.allTours, function(tour){
-                        tour.images = imagesMap.get(tour.id);
-                        $scope.toursMap.set(tour.id, tour);
+                        if(imagesMap.get(tour.id) && imagesMap.get(tour.id).length) {
+                          var randomImage = Math.floor(Math.random() * imagesMap.get(tour.id).length);
+                          tour.images = imagesMap.get(tour.id)[randomImage];
+                          $scope.toursMap.set(tour.id, tour);
+                        }
                       });
                   });
                   $scope.loading = false;
@@ -133,6 +136,8 @@ angular.module('clientApp')
                   var uniqueEntries = $scope.removeDuplicates($scope.recentTours);
                   $scope.recentTours = [];
                   $scope.recentTours = uniqueEntries;
+
+                  console.log($scope.allTours);
               });
            },
            function(response){
