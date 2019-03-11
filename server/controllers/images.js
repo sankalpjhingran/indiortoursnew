@@ -4,6 +4,8 @@ var models  = require('../models/index');
 var Image = models.Image;
 var Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const fs = require('fs');
+const path = require('path');
 
 module.exports= {
   //Get a list of all authors using model.findAll()
@@ -90,23 +92,6 @@ module.exports= {
 
     Image.create(imageRec).then(function(ImageInstance){
 
-
-      /* Compress the image and  */
-      /*
-      var compress_images = require('compress-images'), inputPath, outputPath;
-
-      inputPath = '../public/images/' + imageRec.filename;
-      outputPath = '../public/compressedimages/';
-
-      compress_images(inputPath, outputPath, {compress_force: false, statistic: true, autoupdate: true}, false,
-                                              {jpg: {engine: 'mozjpeg', command: ['-quality', '60']}},
-                                              {png: {engine: 'pngout', command: ['--quality=20-50']}},
-                                              {svg: {engine: 'svgo', command: '--multipass'}},
-                                              {gif: {engine: 'gifsicle', command: ['--colors', '64', '--use-col=web']}}, function(){
-      });
-      */
-      /* Compression ends */
-
       res.status(200).json(ImageInstance);
     })
     .catch(function (error){
@@ -136,17 +121,29 @@ module.exports= {
     console.log('Delete Request is=====>');
     console.log(req.query);
     let queryVars = req.query;
-    Image.destroy({
-      where: {
-        id: queryVars.id
-      }
-    })
-    .then(function (deletedRecords) {
-      //if successfull, delete image from the file system tourcosts
 
-      res.status(200).json(deletedRecords);
-    })
-    .catch(function (error){
+    Image.find({
+        where: { id: queryVars.id }
+    }).then((result) => {
+        console.log('Result of find call is====>');
+        return Image.destroy(
+          {
+            where: { id: queryVars.id }
+          }).then((u) => {
+            //Delete file from filesystem
+            var jsonPath = path.join(__dirname, '..', result.path);
+            fs.unlink(jsonPath, (err) => {
+              console.log('File deleted===>');
+              if (err) {
+                console.error(err)
+                return
+              }
+              //file removed
+            })
+
+            return res.status(200).json(result)
+          })
+    }).catch(function (error){
       res.status(500).json(error);
     });
   }
