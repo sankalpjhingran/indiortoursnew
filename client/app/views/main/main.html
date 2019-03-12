@@ -17,8 +17,6 @@
                   <img style="height:200px;width:100%;" ng-src="/images/{{tour.images.filename}}" alt="{{tour.name}}" class="scaleSubHeader img-responsive thumb-post">
                 </div>
                 -->
-
-
                 <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                       <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
@@ -35,12 +33,12 @@
 
                   <div class="producttitle text-center">
                     <a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">
-                      {{ tour.name }} <!--  | truncate: 25 : '...' : false }} -->
+                      {{ tour.name }}
                     </a>
                   </div>
                   <p class="tourlocations text-center">
                     <span class="tourlocations">
-                      {{ tour.locations | join:' | ' }} <!--  | truncate: 50 : '...' : false  }} -->
+                      {{ tour.locations | join:' | ' }}
                     </span>
                   </p>
                   <p class="tourinfo text-center">
