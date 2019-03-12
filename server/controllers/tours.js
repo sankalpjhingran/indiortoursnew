@@ -452,18 +452,3 @@ module.exports= {
     });
   }
 };
-
-/*
-
-@[Jesus Sanz Gonzalez]​ @[Manuel Guerrero]​Can you guys help me reset my Jenkins password, I need to modify the below jobs, but I am not able to login?
-
-https://jenkins.internal.salesforce.com/job/GOC/
-
-https://jenkins.internal.salesforce.com/job/ChangeHub/
-
-
-
-Looks like techforce is not able to help here.
-
-cc @[Vijay Swamidass]​
-*/
