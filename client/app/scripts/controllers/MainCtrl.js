@@ -123,7 +123,7 @@ angular.module('clientApp')
                       angular.forEach($scope.allTours, function(tour){
                         if(imagesMap.get(tour.id) && imagesMap.get(tour.id).length) {
                           var randomImage = Math.floor(Math.random() * imagesMap.get(tour.id).length);
-                          tour.images = imagesMap.get(tour.id)[randomImage];
+                          tour.images = imagesMap.get(tour.id); //[randomImage];
                           $scope.toursMap.set(tour.id, tour);
                         }
                       });
