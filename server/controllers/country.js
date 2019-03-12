@@ -95,7 +95,7 @@ module.exports= {
       include: [{
                   association : 'siteTour',
                   include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }],
-                  where: {popularitinerary : true, isactive : true},
+                  where: {isactive : true},
                   order: [
                             Sequelize.fn('isnull', Sequelize.col('order')),
                             ['order', 'ASC']

@@ -10,6 +10,7 @@
 angular.module('clientApp')
   .controller('TourViewController', ['$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currency', '$document', '$log', '$timeout',
   function ($uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currency, $document, $log, $timeout) {
+
     $rootScope.$state = $state;
     var tourId = $stateParams.id;
     $scope.tourWithAllRelated = [];
@@ -20,12 +21,95 @@ angular.module('clientApp')
     vm.viewDate = moment().toDate();
     vm.cellIsOpen = true;
     vm.events = [];
+    $scope.calendarDataAvailable = false;
+
+
+
+/*
+var departuredates = [];
+departuredates[0] = {
+createdAt: "2018-05-28T14:06:42.000Z",
+dates: null,
+enddate: null,
+id: 17,
+month: null,
+noteone: null,
+notetwo: null,
+repeatendsafteroccurrences: null,
+repeatendsnever: false,
+repeatendsondate: "2019-01-01T00:00:00.000Z",
+repeatfor: 1,
+repeatfrequency: "Week",
+repeatondayofmonth: null,
+repeatondayofweek: "saturday",
+startdate: "2018-05-31T16:00:00.000Z",
+title: "Taste of India Tour starts from New Delhi at 9:00 am",
+tour_id: 7,
+updatedAt: "2018-06-26T18:51:04.000Z",
+year: null
+};
+
+
+$scope._events = [];
+angular.forEach(departuredates, function(date){
+  // Parse a RRuleSet string, return a RRuleSet object
+  //BYDAY=MO,FR
+  console.log(moment(date.startdate).toDate());
+    var BYDAY = [];
+    if(date.repeatfrequency == 'Week') {
+        console.log(date.repeatondayofweek);
+        angular.forEach(date.repeatondayofweek.split(','), function(day){
+            BYDAY.push(day.substring(0, 2).toUpperCase());
+        })
+    }
+    var rule = rrulestr('RRULE:BYDAY=' + BYDAY.toString())
+
+    $scope._events.push(
+      {
+        title: date.title,
+        color: {
+          primary: "#1e90ff",
+          secondary: "#d1e8ff"
+        },
+        rrule: {
+          freq: date.repeatfrequency == 'Week' ? RRule.WEEKLY :
+                date.repeatfrequency == 'Month' ? RRule.MONTHLY :
+                date.repeatfrequency == 'Year' ? RRule.YEARLY :
+                date.repeatfrequency == 'Day' ? RRule.DAILY :
+                RRule.WEEKLY,
+          bymonthday: date.repeatfrequency == 'Month' ? date.repeatondayofmonth : null,
+          count: date.repeatendsafteroccurrences,
+          dtstart: moment(date.startdate).toDate(),
+          interval: date.repeatfor,
+          byweekday: date.repeatfrequency == 'Week' ? rule.origOptions.byweekday : null,
+        }
+      }
+    );
+});
+
+
+$scope._events.forEach(function(event) {
+// Use the rrule library to generate recurring events: https://github.com/jkbrzt/rrule
+var rule = new RRule(angular.extend({}, event.rrule, {
+  dtstart: moment(vm.viewDate).startOf(vm.calendarView).toDate(),
+  until: moment(vm.viewDate).endOf(vm.calendarView).toDate()
+}));
+
+rule.all().forEach(function(date) {
+  var momentDate = moment(date).format("YYYY-MM-DD") + "T" + moment(event.rrule.dtstart).format("HH:mm");
+  vm.events.push(angular.extend({}, event, {
+    startsAt: moment(momentDate).toDate()
+  }));
+});
+})
 
     vm.viewChangeClicked = function(nextView) {
       if (nextView === 'day') {
         return false;
       }
     };
+*/
+
 
     $http.get('/api/conversionrates')
      .then(function(res){
@@ -205,6 +289,7 @@ angular.module('clientApp')
                       $scope.additionalservicesupplements.push(cost);
                   }
               });
+
               $scope._events = [];
               angular.forEach($scope.tourWithAllRelated[0].departuredates, function(date){
                 // Parse a RRuleSet string, return a RRuleSet object
@@ -242,14 +327,14 @@ angular.module('clientApp')
                   );
               });
               watchFunction();
+              $scope.calendarDataAvailable = true;
+              console.log('calendarDataAvailable is true now');
               $scope.loading = false;
            },
            function(response){
              // failure call back
            }
         );
-
-
     }
 
     var watchFunction = function(){
@@ -310,41 +395,7 @@ angular.module('clientApp')
     isFirstDisabled: false
   };
 
-
-  $scope.gridOptions = {
-    onRegisterApi: function( gridApi ) {
-        $scope.gridApi = gridApi;
-        $scope.gridApi.treeBase.state = 'expanded';
-
-        $scope.gridApi.grid.registerDataChangeCallback(function() {
-          $scope.gridApi.treeBase.expandAllRows();
-        });
-    }
-  };
-
-  $scope.gridOptions.enableColumnResizing = true;
   $scope.msg = { };
-
-  $scope.gridOptions.columnDefs = [
-    {
-      name: 'costcategory', displayName: 'Cost Category',
-      grouping: { groupPriority: 0 }, sort: { priority: 0, direction: 'asc' }, width: 250, state: 'expanded',
-      cellTemplate: '<div><div ng-if="!col.grouping || col.grouping.groupPriority === undefined || col.grouping.groupPriority === null || ( row.groupHeader && col.grouping.groupPriority === row.treeLevel )" class="ui-grid-cell-contents" title="TOOLTIP">{{COL_FIELD CUSTOM_FILTERS}}</div></div>'
-    },
-    { name: 'costitem',  displayName: 'Cost Per Person', width:200,
-    },
-    { name: 'budget',  displayName: 'Budget',
-    },
-    { name: 'economy',  displayName: 'Economy',
-    },
-    { name: 'elegant',  displayName: 'Elegant',
-    },
-    { name: 'deluxe',  displayName: 'Deluxe',
-    },
-    { name: 'luxury',  displayName: 'Luxury',
-    },
- 	];
-  $scope.gridOptions.data = $scope.myData;
 
   }])
   // Setup the filter for notes

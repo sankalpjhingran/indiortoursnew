@@ -1,8 +1,8 @@
 @import './libs/bootstrap';
 
 .btn-default {
-  background-color: #fc6600;
-  color: #fff;
+  //background-color: #fc6600;
+  //color: #fff;
 }
 
 .verticalalignsvg svg {
@@ -483,4 +483,82 @@ footer{
 }
 .btn-icon .glyphicon-bookmark.active:hover {
   color: rgba(166, 212, 120, 0.9);
+}
+
+p.main{
+  text-align:justify;
+}
+
+.panel-heading a:after {
+  font-family:'Glyphicons Halflings';
+  content:"\e114";
+  float: right;
+  color: grey;
+}
+
+.panel-heading a.collapsed:after {
+  content:"\e080";
+}
+
+.scaleTourView{
+object-fit: cover;
+object-position: center;
+}
+
+.tourPageCols {
+margin: 0px;
+padding: 0px;
+}
+
+.tourSubHeaderCol {
+background-color: #3171bb;
+border-radius: 3px;
+}
+
+.block {
+display: block;
+width: 100%;
+border: none;
+background-color: #4CAF50;
+color: white;
+//padding: 14px 28px;
+//font-size: 16px;
+cursor: pointer;
+//text-align: center;
+}
+
+.block:hover {
+background-color: #ddd;
+color: black;
+}
+
+ul.timeline {
+  list-style-type: none;
+  position: relative;
+}
+ul.timeline:before {
+  content: ' ';
+  background: #3171bb;
+  display: inline-block;
+  position: absolute;
+  left: 29px;
+  width: 2px;
+  height: 100%;
+  //z-index: 400;
+}
+ul.timeline > li {
+  margin: 20px 0;
+  padding-left: 20px;
+}
+ul.timeline > li:before {
+  content: ' ';
+  background: white;
+  display: inline-block;
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid #3171bb;
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  //z-index: 400;
 }
