@@ -122,7 +122,7 @@ angular.module('clientApp')
                       imagesMap.set(tourid, tempImages);
                       angular.forEach($scope.allTours, function(tour){
                         if(imagesMap.get(tour.id) && imagesMap.get(tour.id).length) {
-                          var randomImage = Math.floor(Math.random() * imagesMap.get(tour.id).length);
+                          //var randomImage = Math.floor(Math.random() * imagesMap.get(tour.id).length);
                           tour.images = imagesMap.get(tour.id); //[randomImage];
                           $scope.toursMap.set(tour.id, tour);
                         }
@@ -137,7 +137,6 @@ angular.module('clientApp')
                   $scope.recentTours = [];
                   $scope.recentTours = uniqueEntries;
 
-                  console.log($scope.allTours);
               });
            },
            function(response){
