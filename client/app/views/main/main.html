@@ -12,25 +12,27 @@
         <div ng-repeat="tour in allTours">
           <div class="col-xs-12 col-sm-4 col-md-4">
               <div class="productbox">
-                <div >
+                <!--
+                <div>
                   <img style="height:200px;width:100%;" ng-src="/images/{{tour.images.filename}}" alt="{{tour.name}}" class="scaleSubHeader img-responsive thumb-post">
                 </div>
-                <!--
+                -->
+
+
                 <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                       <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
-                        <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                        <img style="height:200px;" ng-src="{{$index == carouselActive && /images/{{img.filename}} || ''}}" alt="Slide number {{img.filename}}" class="scaleSubHeader img-responsive thumb-post">
+
                         <div class="container">
                           <div class="carousel-caption">
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!--
                     <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
                     <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
-                    -->
-                  <!-- </div> -->
+                  </div>
 
                   <div class="producttitle text-center">
                     <a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">
