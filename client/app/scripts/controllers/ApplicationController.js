@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-.controller('ApplicationController', function ($scope, $http, $location, $rootScope, $window, currency) {
+.controller('ApplicationController', function ($scope, $http, $location, $rootScope, $window, currencyFact) {
       console.log('In Application controller');
       var vm = this;
 
@@ -18,6 +18,19 @@ angular.module('clientApp')
         }
       }
 
+      $http.get('/api/conversionrates')
+       .then(function(res){
+         if ( typeof fx !== "undefined" && fx.rates ) {
+             fx.rates = res.data.rates;
+             fx.base = res.data.base;
+         } else {
+             var fxSetup = {
+                 rates : res.data.rates,
+                 base : res.data.base
+             }
+         }
+      });
+      
       $http.get('/api/isAuthenticated/')
        .then(
            function(response){
@@ -40,24 +53,17 @@ angular.module('clientApp')
 
       vm.currencyCodes = ['INR', 'EUR', 'GBP', 'USD'];
       vm.selected = 'USD';
+      currencyFact.name = {
+        newValue : 'USD',
+        oldValue : 'USD'
+      }
+      $rootScope.$broadcast('currency', currencyFact.name);
 
       $scope.$watch('vm.selected', function(newValue, oldValue){
-        currency.name = {
+        currencyFact.name = {
           newValue : newValue,
           oldValue : oldValue
         }
-        $rootScope.$broadcast('currency.name');
+        $rootScope.$broadcast('currency', currencyFact.name);
       });
-})
-.factory('currency', function(){
-  var name = {
-      oldValue : '',
-      newValue : ''
-  };
-
-  name.get = function(){
-    return name;
-  };
-
-  return name;
 });
