@@ -14,7 +14,7 @@ angular.module('clientApp')
   var destinationId = $stateParams.id;
   $scope.name = $stateParams.name;
 
-  $scope.destination = [];
+  $scope.destination = {};
 
   $scope.getContinentDetails = function() {
     $scope.loading = true;
@@ -22,6 +22,7 @@ angular.module('clientApp')
      .then(
          function(res){
            // success callback
+           $scope.destination = res.data;
            var destinations = res.data.Countries;
            var imageIds = [];
            angular.forEach(destinations, function(destination){
