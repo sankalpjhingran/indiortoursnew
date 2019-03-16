@@ -11,7 +11,7 @@ module.exports= {
 
   index(req, res) {
     Continent.findAll({
-      attributes: ['id', 'name', 'isactive', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+      attributes: ['id', 'name', 'isactive', 'description', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']],
       where: {isactive: true}
       })
@@ -25,7 +25,7 @@ module.exports= {
 
   indexAll(req, res) {
     Continent.findAll({
-      attributes: ['id', 'name', 'isactive', 'description', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+      attributes: ['id', 'name', 'isactive', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']],
       })
       .then(function (authors) {
