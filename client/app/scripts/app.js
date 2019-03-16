@@ -391,7 +391,8 @@ angular
                 templateUrl: 'views/main/userprofile.html',
                 controller: 'UserProfileController'
               }
-            }
+            },
+            resolve: { authenticate: authenticate }
         })
         .state('login', {
             url: '/login',

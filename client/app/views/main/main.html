@@ -42,7 +42,7 @@
                     </span>
                   </p>
                   <p class="tourinfo text-center">
-                    <strong>{{tour.days}} Days | {{ tour.price }} | Offer Price: {{ tour.offerprice }} </strong>
+                    <strong>{{tour.days}} Days | <currency-direc price="{{tour.price}}"></currency-direc> | Offer Price: <currency-direc price="{{tour.offerprice}}"></currency-direc> </strong>
                   </p>
                   <div class="row" style="margin-left: 5px;margin-right: 0px;margin-top: 0px;margin-bottom: 5px;margin-right: 5px;padding-top: 0px;">
                       <a ng-click="showEnquiryForm(tour.id, tour.name, tour.price, tour.days);" class="btn btn-default pull-left" style="margin-top:12px;">

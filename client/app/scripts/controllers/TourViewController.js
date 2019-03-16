@@ -8,8 +8,8 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('TourViewController', ['$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currency', '$document', '$log', '$timeout',
-  function ($uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currency, $document, $log, $timeout) {
+  .controller('TourViewController', ['$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
+  function ($uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
 
     $rootScope.$state = $state;
     var tourId = $stateParams.id;
@@ -22,128 +22,6 @@ angular.module('clientApp')
     vm.cellIsOpen = true;
     vm.events = [];
     $scope.calendarDataAvailable = false;
-
-
-
-/*
-var departuredates = [];
-departuredates[0] = {
-createdAt: "2018-05-28T14:06:42.000Z",
-dates: null,
-enddate: null,
-id: 17,
-month: null,
-noteone: null,
-notetwo: null,
-repeatendsafteroccurrences: null,
-repeatendsnever: false,
-repeatendsondate: "2019-01-01T00:00:00.000Z",
-repeatfor: 1,
-repeatfrequency: "Week",
-repeatondayofmonth: null,
-repeatondayofweek: "saturday",
-startdate: "2018-05-31T16:00:00.000Z",
-title: "Taste of India Tour starts from New Delhi at 9:00 am",
-tour_id: 7,
-updatedAt: "2018-06-26T18:51:04.000Z",
-year: null
-};
-
-
-$scope._events = [];
-angular.forEach(departuredates, function(date){
-  // Parse a RRuleSet string, return a RRuleSet object
-  //BYDAY=MO,FR
-  console.log(moment(date.startdate).toDate());
-    var BYDAY = [];
-    if(date.repeatfrequency == 'Week') {
-        console.log(date.repeatondayofweek);
-        angular.forEach(date.repeatondayofweek.split(','), function(day){
-            BYDAY.push(day.substring(0, 2).toUpperCase());
-        })
-    }
-    var rule = rrulestr('RRULE:BYDAY=' + BYDAY.toString())
-
-    $scope._events.push(
-      {
-        title: date.title,
-        color: {
-          primary: "#1e90ff",
-          secondary: "#d1e8ff"
-        },
-        rrule: {
-          freq: date.repeatfrequency == 'Week' ? RRule.WEEKLY :
-                date.repeatfrequency == 'Month' ? RRule.MONTHLY :
-                date.repeatfrequency == 'Year' ? RRule.YEARLY :
-                date.repeatfrequency == 'Day' ? RRule.DAILY :
-                RRule.WEEKLY,
-          bymonthday: date.repeatfrequency == 'Month' ? date.repeatondayofmonth : null,
-          count: date.repeatendsafteroccurrences,
-          dtstart: moment(date.startdate).toDate(),
-          interval: date.repeatfor,
-          byweekday: date.repeatfrequency == 'Week' ? rule.origOptions.byweekday : null,
-        }
-      }
-    );
-});
-
-
-$scope._events.forEach(function(event) {
-// Use the rrule library to generate recurring events: https://github.com/jkbrzt/rrule
-var rule = new RRule(angular.extend({}, event.rrule, {
-  dtstart: moment(vm.viewDate).startOf(vm.calendarView).toDate(),
-  until: moment(vm.viewDate).endOf(vm.calendarView).toDate()
-}));
-
-rule.all().forEach(function(date) {
-  var momentDate = moment(date).format("YYYY-MM-DD") + "T" + moment(event.rrule.dtstart).format("HH:mm");
-  vm.events.push(angular.extend({}, event, {
-    startsAt: moment(momentDate).toDate()
-  }));
-});
-})
-
-    vm.viewChangeClicked = function(nextView) {
-      if (nextView === 'day') {
-        return false;
-      }
-    };
-*/
-
-
-    $http.get('/api/conversionrates')
-     .then(function(res){
-       if ( typeof fx !== "undefined" && fx.rates ) {
-           fx.rates = res.data.rates;
-           fx.base = res.data.base;
-       } else {
-           var fxSetup = {
-               rates : res.data.rates,
-               base : res.data.base
-           }
-       }
-    });
-
-    console.log($rootScope.currency);
-    //$scope.currency = currency.name.newValue;
-    var fromTo = {};
-    $scope.$on('currency.name', function(event, args) {
-      console.log($rootScope.currency);
-      $scope.currency = currency.name.newValue;
-      fromTo = {
-        from: currency.name.oldValue,
-        to: currency.name.newValue
-      }
-
-      if(tourWithAllRelated[0].price != null) {
-          tourWithAllRelated[0].price = accounting.unformat(tourWithAllRelated[0].price);
-          tourWithAllRelated[0].price = accounting.formatMoney(fx.convert(tourWithAllRelated[0].price, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
-      }
-      if(tourWithAllRelated[0].offerprice != null) {
-          tourWithAllRelated[0].offerprice = accounting.unformat(tourWithAllRelated[0].offerprice);
-          tourWithAllRelated[0].offerprice = accounting.formatMoney(fx.convert(tourWithAllRelated[0].offerprice, fromTo), { symbol: currency.name.newValue,  format: "%v %s" });
-      }
-    });
 
     $scope.showEnquiryForm = function(){
         $scope.showForm();
@@ -210,6 +88,13 @@ rule.all().forEach(function(date) {
              $scope.tourWithAllRelated = JSON.parse(res.data);
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              $scope.hotelsjson = [];
+
+             $scope.currency = {
+               newValue: 'USD',
+               oldValue: 'USD'
+             }
+             $scope.tourWithAllRelated[0].price = accounting.formatMoney($scope.tourWithAllRelated[0].price, { symbol: $scope.currency.newValue,  format: "%v %s" });
+             $scope.tourWithAllRelated[0].offerprice = accounting.formatMoney($scope.tourWithAllRelated[0].offerprice, { symbol: $scope.currency.newValue,  format: "%v %s" });
 
              angular.forEach($scope.allHotels, function(hotel){
                   $scope.hotelsjson.push(
