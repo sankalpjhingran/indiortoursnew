@@ -20,7 +20,11 @@ module.exports = (sequelize, DataTypes) => {
           validate: { min: -180, max: 180 }
         },
         elevation: {type: DataTypes.INTEGER},
-      }, {
+      },
+      {
+        charset: 'utf8mb4'
+      },
+      {
         validate: {
           bothCoordsOrNone() {
             if ((this.latitude === null) !== (this.longitude === null)) {

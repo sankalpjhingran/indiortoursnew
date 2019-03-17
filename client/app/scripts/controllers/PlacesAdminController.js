@@ -192,17 +192,7 @@ $scope.createUpdatePlace = function(){
   // Update the location if location id is there
   if($scope.placeData && $scope.placeData.id && $scope.placeData.location){
     $scope.placeData.location_id = $scope.placeData.location.id;
-    var req = {
-     method: 'POST',
-     url: '/api/places/update/',
-     headers: {
-         "Accept":"application/json, text/plain, */*",
-         "Content-Type":"application/json;charset=utf8mb4"
-     },
-     data: $scope.placeData
-    }
-
-    $http(req).then(function(res, err){
+    $http.post('/api/places/update/', $scope.placeData).then(function(res, err){
       console.log(res);
       if(res.status == 200){
         //Upload images
