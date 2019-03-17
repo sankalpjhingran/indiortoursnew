@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         name: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
         type: {type: DataTypes.STRING},
+        charset: 'utf8mb4',
+        collate: 'utf8_general_ci',
         latitude: {
           type: DataTypes.DECIMAL(10, 8),
           allowNull: true,
