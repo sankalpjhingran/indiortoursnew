@@ -199,10 +199,10 @@ $scope.createUpdatePlace = function(){
          "Accept":"application/json, text/plain, */*",
          "Content-Type":"application/json;charset=utf8mb4"
      },
-     data: { test: 'test' }
+     data: $scope.placeData
     }
 
-    $http('/api/places/update/', $scope.placeData).then(function(res, err){
+    $http(req).then(function(res, err){
       console.log(res);
       if(res.status == 200){
         //Upload images
