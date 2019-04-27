@@ -40,7 +40,8 @@ module.exports= {
   show(req, res) {
     Continent.findById(req.query.id, {
       include: [{
-        model: models.Country
+        model: models.Country,
+        where: { isvisible : true }
       }]
     })
     .then(function (author) {
