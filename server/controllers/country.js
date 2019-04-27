@@ -16,7 +16,7 @@ module.exports= {
 
   index(req, res) {
     Country.findAll({
-      attributes: ['id', 'name', 'continent', 'description', 'latitude', 'isvisible', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+      attributes: ['id', 'name', 'continent', 'description', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']]
       })
       .then(function (authors) {

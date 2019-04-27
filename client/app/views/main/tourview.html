@@ -29,7 +29,7 @@
           <!-- This is a repeat on all locations -->
           <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
               <span style="color:orange;">
-                <a style="color: orange;" href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last">|</span>
+                <a style="color: orange;"href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last">|</span>
               </span>
           </span>
         </div>
@@ -48,6 +48,27 @@
                 <currency-direc price="{{tourWithAllRelated[0].price}}"></currency-direc> onwards
             </span>
           </div>
+
+          <!--
+          <div>
+            <a ng-click="showEnquiryForm();" class="btn btn-default btn-sm block" style="margin-top:12px;">
+                Images
+            </a>
+          </div>
+
+          <div>
+            <a ng-click="showEnquiryForm();" class="btn btn-default btn-sm block" style="margin-top:12px;">
+                Tour Map
+            </a>
+          </div>
+
+          <div>
+            <a ng-click="showEnquiryForm();" class="btn btn-default btn-sm block" style="margin-top:12px;">
+                Videos
+            </a>
+          </div>
+        </div>
+        -->
 
         <div class="col-sm-10" >
 
@@ -166,34 +187,13 @@
                             events="vm.events"
                             view="vm.calendarView"
                             view-date="vm.viewDate"
-                            cell-auto-open-disabled="true"
+                            cell-auto-open-disabled="false"
                             view-title="vm.calendarTitle"
-                            custom-template-urls="{calendarMonthCell: 'customMonthCell.html'}"
-                            >
+                            cell-is-open="vm.cellIsOpen"
+                            on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
+                            on-view-change-click="vm.viewChangeClicked(calendarNextView)"
+                            on-event-click="vm.eventClicked(calendarEvent)">
                           </mwl-calendar>
-
-                          <!--
-                          on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
-                          cell-is-open="vm.cellIsOpen"
-                          -->
-
-                          <script id="customMonthCell.html" type="text/ng-template">
-                            <div class="cal-month-day {{day.cssClass}}">
-                              <span
-                                class="pull-right"
-                                data-cal-date
-                                ng-bind="day.label">
-                              </span>
-                              <small style="position: absolute; bottom: 10px; left: 5px">
-                                <div ng-if="day.events[0].title">
-                                  From <currency-direc price="{{ day.events[0].title }}"></currency-direc>
-                                  <br/>
-                                  <a class="btn btn-default btn-xs" href="/book?id={{day.events[0].tourid}}&name={{ day.events[0].name | slugify }}" target="_blank">Book</a>
-                                </div>
-                              </small>
-
-                            </div>
-                          </script>
                         </div>
                       </td>
                     </tr>
