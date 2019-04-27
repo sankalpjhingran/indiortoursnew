@@ -122,7 +122,7 @@ $scope.cancel = function () {
     $scope.modalInstance.dismiss('cancel');
 };
 
-$scope.createUpdatedepartureDates = function(){
+$scope.createUpdatedepartureDates = function() {
   if($scope.departureDatesData) {
     if($scope.departureDatesData.repeatSelection == 'never') {
         $scope.departureDatesData.repeatendsnever = true;
@@ -133,7 +133,7 @@ $scope.createUpdatedepartureDates = function(){
     }
   }
 
-  //console.log($scope.departureDatesData);
+  console.log($scope.departureDatesData);
 
   // Update the departureDates if departureDates id is there
   if($scope.departureDatesData && $scope.departureDatesData.id && $scope.departureDatesData.tour){
