@@ -417,6 +417,9 @@ module.exports = function (grunt) {
 
     // Replace Google CDN references
     cdnify: {
+      options: {
+        cdn: require('google-cdn-data')
+      },
       dist: {
         html: ['<%= yeoman.dist %>/*.html']
       }
