@@ -293,15 +293,24 @@ angular.module('clientApp')
                 console.log('tourType is Group');
                 angular.forEach(tourWithAllRelatedModels.tourcost, function(cost) {
                     if(cost.tourtype == 'Group') {
-                        if(momentDate.startdate > cost.startdate && momentDate < cost.enddate) {
+                        console.log('Cost type is group');
+                        console.log(momentDate);
+                        console.log(cost.startdate);
+                        console.log(cost.enddate);
+                        console.log( momentDate > cost.startdate);
+                        console.log( momentDate < cost.enddate);
+                        if(momentDate > cost.startdate && momentDate < cost.enddate) {
                             angular.forEach(cost.individualcostsjson, function(indvCost) {
-                                if(indvCost.costitem == 'Minimum paying pax  02') {
+                                console.log('====' + indvCost.costitem + '====');
+                                if(indvCost.costitem == 'Minimum paying pax  02') {
+                                  console.log(indvCost.budget);
                                   event.title = indvCost.budget;
                                 }
                             });
                         }
                     }
                 });
+                console.log(event.title);
               }
 
             vm.events.push(angular.extend({}, event, {
