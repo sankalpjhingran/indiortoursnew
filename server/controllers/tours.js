@@ -114,7 +114,7 @@ module.exports= {
               })
               .then(function (authors) {
                 console.log('Not available in cache so will set in cache first');
-                redisClient.set('getTourWithRelatedModels:' + queryVars.id, JSON.stringify(authors), 'EX', 10*60, function (error) {
+                redisClient.set('getTourWithRelatedModels:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
                   if (error) {throw error;}
                 });
                 res.status(200).json(authors);
