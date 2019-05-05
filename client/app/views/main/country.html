@@ -27,7 +27,9 @@
                   <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
                         <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images[0]">
-                          <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                          <a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&name={{tour.name}}" ng-click="addToRecentItems(tour.id);">
+                            <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                          </a>
                           <div class="container">
                             <div class="carousel-caption">
                             </div>
@@ -74,7 +76,9 @@
                       <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
                           <div class="carousel-inner">
                             <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images[0]">
+                              <a style="text-decoration: none;" ng-href="/region?id={{city.id}}&countryid={{city.country_id}}&name={{city.name}}" ng-click="addToRecentItems(tour.id);">
                               <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                              </a>
                               <div class="container">
                                 <div class="carousel-caption">
                                 </div>
@@ -91,6 +95,7 @@
             </div>
           </uib-accordion>
 
+          <!--
           <uib-accordion close-others="oneAtATime">
             <div uib-accordion-group class="panel-default" heading="States" is-open="false">
               <div ng-repeat="city in countryData.locations | unique:'state'">
@@ -115,15 +120,19 @@
                 </div>
             </div>
           </uib-accordion>
+          -->
+
           <uib-accordion close-others="oneAtATime">
-            <div uib-accordion-group class="panel-default" heading="Cities" is-open="false">
+            <div uib-accordion-group class="panel-default" heading="Cities" is-open="true">
               <div ng-repeat="city in countryData.locations">
                 <div class="col-xs-12 col-sm-4 col-md-4" style="padding:5px;">
                     <div class="productbox">
                       <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
                           <div class="carousel-inner">
                             <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in city.images[0]">
-                              <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                              <a style="text-decoration: none;" ng-href="/city?id={{city.id}}&countryid={{city.country_id}}&name={{city.city}}" ng-click="addToRecentItems(tour.id);">
+                                <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                              </a>
                               <div class="container">
                                 <div class="carousel-caption">
                                 </div>

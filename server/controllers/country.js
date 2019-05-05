@@ -33,8 +33,16 @@ module.exports= {
     console.log(req.query);
     Country.findById(req.query.id, {
       include: [
-                { model : models.Region },
-                { model : models.Location }
+                { model : models.Region,
+                  where: {
+                            visible : true
+                         }
+                },
+                { model : models.Location,
+                    where: {
+                              visible : true
+                           }
+                }
                ]
     })
     .then(function (author) {
