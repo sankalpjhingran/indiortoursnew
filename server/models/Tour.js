@@ -41,21 +41,21 @@ module.exports = (sequelize, DataTypes) => {
       //Tour.belongsToMany(Parent, {through: 'TourLocations', foreignKey: 'location_id'});
   }
 
-  Tour.hook('beforeCreate', function(tour, options){
+  Tour.beforeCreate(function(tour, options){
       tour.slug = 'Test-slug-value';
   });
 
-  Tour.hook('afterCreate', function(tour, options){
+  Tour.afterCreate(function(tour, options){
       elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
   });
 
-  Tour.hook('afterUpdate', function(tour, options){
+  Tour.afterUpdate(function(tour, options){
       console.log('Executing afterUpdate hook====>');
       elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
       elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
   });
 
-  Tour.hook('afterDestroy', function(tour, options){
+  Tour.afterDestroy(function(tour, options){
       options.individualHooks = true;
       console.log('Executing afterDestroy hook====>');
       elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
