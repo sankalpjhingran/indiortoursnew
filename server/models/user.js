@@ -29,14 +29,14 @@ var bcrypt = require('bcrypt-nodejs');
     }
   );
 
-  User.hook('beforeUpdate', function(user, options){
+  User.beforeUpdate(function(user, options){
       var hash = bcrypt.hashSync(user.password, bcrypt.genSaltSync(SALT_WORK_FACTOR), null);
       user.password = hash;
       user.email = user.email.toLowerCase();
       return user;
   });
 
-  User.hook('beforeCreate', function(user, options){
+  User.beforeCreate(function(user, options){
       var hash = bcrypt.hashSync(user.password, bcrypt.genSaltSync(SALT_WORK_FACTOR), null);
       user.password = hash;
       user.email = user.email.toLowerCase();
