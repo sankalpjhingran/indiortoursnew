@@ -1,0 +1,53 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-SEQUELIZE-174147:
+    - passport-local-sequelize > sequelize:
+        reason: None given
+        expires: '2019-06-05T05:32:28.498Z'
+  SNYK-JS-SEQUELIZE-174167:
+    - passport-local-sequelize > sequelize:
+        reason: None given
+        expires: '2019-06-05T05:32:28.498Z'
+  'npm:constantinople:20180421':
+    - pug > pug-code-gen > pug-attrs > constantinople:
+        reason: None given
+        expires: '2019-06-05T05:32:28.498Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > tar-pack > debug:
+        patched: '2019-05-06T05:29:38.090Z'
+  'npm:extend:20180424':
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > request > extend:
+        patched: '2019-05-06T05:29:38.090Z'
+  'npm:hoek:20180212':
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > hawk > hoek:
+        patched: '2019-05-06T05:29:38.090Z'
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > hawk > boom > hoek:
+        patched: '2019-05-06T05:29:38.090Z'
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > hawk > sntp > hoek:
+        patched: '2019-05-06T05:29:38.090Z'
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > request > hawk > hoek:
+        patched: '2019-05-06T05:29:38.090Z'
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > hawk > cryptiles > boom > hoek:
+        patched: '2019-05-06T05:29:38.090Z'
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > request > hawk > boom > hoek:
+        patched: '2019-05-06T05:29:38.090Z'
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > request > hawk > sntp > hoek:
+        patched: '2019-05-06T05:29:38.090Z'
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > request > hawk > cryptiles > boom > hoek:
+        patched: '2019-05-06T05:29:38.090Z'
+  'npm:stringstream:20180511':
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > request > stringstream:
+        patched: '2019-05-06T05:29:38.090Z'
+  'npm:tough-cookie:20170905':
+    - forever-monitor > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
+        patched: '2019-05-06T05:29:38.090Z'
+  'npm:uglify-js:20150824':
+    - jade > transformers > uglify-js:
+        patched: '2019-05-06T05:29:38.090Z'
+  'npm:uglify-js:20151024':
+    - jade > transformers > uglify-js:
+        patched: '2019-05-06T05:29:38.090Z'
