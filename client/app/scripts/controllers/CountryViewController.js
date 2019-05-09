@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('CountryViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
+  .controller('CountryViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', '_', function ($http, $state, $rootScope, $scope, $stateParams, _) {
   $rootScope.$state = $state;
 
     var destinationId = $stateParams.id;
@@ -23,7 +23,7 @@ angular.module('clientApp')
              // success callback
              console.log(res.data);
              var regions = res.data.Regions;
-             var locations = res.data.Locations;
+             //var locations = res.data.Locations;
 
              var regionids = [];
              $scope.countryData = res.data;
@@ -31,10 +31,12 @@ angular.module('clientApp')
                regionids.push(regions.id);
              })
 
+             /*
              var locationIds = [];
              locations.forEach(function(loc) {
                locationIds.push(loc.id);
              })
+             */
 
              var imageMap = new Map();
 
@@ -57,32 +59,14 @@ angular.module('clientApp')
                     region.images.push(imageMapUnderscore.get(JSON.stringify(region.id)));
                   })
                   $scope.countryData.regions = regions;
-                  $scope.countryData.locations = res.data.Locations;
-                  console.log($scope.countryData.locations);
+                  //$scope.countryData.locations = res.data.Locations;
+                  //console.log($scope.countryData.locations);
                   console.log($scope.countryData.regions);
               });
 
-              $http.post('/api/image/all/', {tourids:locationIds, parentobjectname: 'location'})
-               .then(function(images){
-                   var imageMapUnderscore = new Map();
-                   angular.forEach(images.data, function(image){
-                       var tempImages = [];
-                       if(!imageMapUnderscore.has(image.parentobjectid)) {
-                          tempImages.push(image);
-                       } else {
-                         tempImages = imageMapUnderscore.get(image.parentobjectid);
-                         tempImages.push(image);
-                       }
-                       imageMapUnderscore.set(image.parentobjectid, tempImages);
-                   })
+              /*
 
-                   angular.forEach(locations, function(loc){
-                     loc.images = [];
-                     loc.images.push(imageMapUnderscore.get(JSON.stringify(loc.id)));
-                   })
-                   $scope.countryData.locations = locations;
-               });
-
+               */
            },
            function(response){
              // failure call back
@@ -97,10 +81,55 @@ angular.module('clientApp')
          .then(
              function(res){
                // success callback
-               $scope.popularItineraries = res.data[0];
+               $scope.popularItineraries = [];
                var toursIds = [];
-               angular.forEach($scope.popularItineraries, function(tour){
-                    toursIds.push(tour.id);
+               var apiRes = res.data[0];
+               console.log(apiRes);
+
+               var countryLocations = [];
+
+               angular.forEach(apiRes, function(tour){
+                  angular.forEach(tour.siteLocation, function(location){
+                        location.TourLocation = null;
+                        countryLocations.push(location);
+                  });
+               });
+
+               $scope.countrylocations = _.uniq(countryLocations, false, function(p){ return p.city; });
+
+               console.log($scope.countrylocations);
+
+               var locationIds = [];
+
+               angular.forEach($scope.countrylocations, function(location) {
+                  locationIds.push(location.id);
+               });
+
+               $http.post('/api/image/all/', {tourids:locationIds, parentobjectname: 'location'})
+                .then(function(images){
+                    var imageMapUnderscore = new Map();
+                    angular.forEach(images.data, function(image){
+                        var tempImages = [];
+                        if(!imageMapUnderscore.has(image.parentobjectid)) {
+                           tempImages.push(image);
+                        } else {
+                          tempImages = imageMapUnderscore.get(image.parentobjectid);
+                          tempImages.push(image);
+                        }
+                        imageMapUnderscore.set(image.parentobjectid, tempImages);
+                    })
+
+                    angular.forEach($scope.countrylocations, function(loc){
+                      loc.images = [];
+                      loc.images.push(imageMapUnderscore.get(JSON.stringify(loc.id)));
+                    })
+                });
+
+               angular.forEach(apiRes, function(tour){
+                    if(tour.popularitinerary) {
+                        $scope.popularItineraries.push(tour);
+                        toursIds.push(tour.id);
+                    }
                });
 
                $scope.popularItineraries.forEach(function(tour){
@@ -132,36 +161,6 @@ angular.module('clientApp')
                     });
                     console.log($scope.popularItineraries);
                 });
-
-
-
-               /*
-               var tourTypeWithToursMap = [];
-               var tourMapNew = new Map();
-               var tourfinalarray = [];
-
-               angular.forEach($scope.popularItineraries, function(tour) {
-                 tour.tourgroupnames = [];
-                 var tourList = {tours: "", tourgroup: ""};
-                 tourList.tours = [];
-                 tourList.tourgroup = {};
-                 tourList.tours.push(tour);
-
-                 angular.forEach(tour.tourGroup, function(tour2){
-                    tourList.tourgroup = tour2;
-                    tour.tourgroupnames.push(tour2.name);
-                 })
-                 tourfinalarray.push(tour);
-                 tourMapNew.set(tourList.tourgroup.name, tourList.tours);
-                 tourTypeWithToursMap.push(tourList);
-               })
-               console.log(tourfinalarray);
-               console.log(tourTypeWithToursMap);
-               console.log(tourMapNew);
-
-               $scope.tourTypeWithToursArray = tourTypeWithToursMap;
-               console.log($scope.tourTypeWithToursArray);
-               */
              },
              function(response){
                // failure call back

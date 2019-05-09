@@ -67,7 +67,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Image.findById(req.params.id, {})
+    Image.findByPk(req.params.id, {})
     .then(function (author) {
       res.status(200).json(author);
     })
