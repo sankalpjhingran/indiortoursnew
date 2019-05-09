@@ -211,7 +211,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Tour.findByPk(req.query.tourid, {})
+    Tour.findById(req.query.tourid, {})
     .then(function (author) {
       res.status(200).json(author);
     })
@@ -431,6 +431,7 @@ module.exports= {
 
     })
     .catch(function (error){
+      console.log(error);
       res.status(500).json(error);
     });
   },

@@ -11,10 +11,10 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
       */
       return queryInterface.addColumn(
-        'Countries', // name of Target model
-        'isvisible', // name of the key we're adding
+        'Continents', // name of Target model
+        'displayorder', // name of the key we're adding
         {
-          type: Sequelize.BOOLEAN,
+          type: Sequelize.INTEGER,
         }
       );
 

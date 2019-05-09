@@ -22,6 +22,7 @@
       <th>Id</th>
       <th>Name</th>
       <th>Active</th>
+      <th>Display Order</th>
       <th>Description</th>
       <th>Created Date</th>
       <th>Updated Date</th>
@@ -30,6 +31,7 @@
         <td>{{ x["id"] }}</td>
         <td>{{ x["name"] }}</td>
         <td>{{ x["isactive"] }}</td>
+        <td>{{ x["displayorder"] }}</td>
         <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
         <td>{{ x["createdAt"] | date: "short" }}</td>
         <td>{{ x["updatedAt"] | date: "short" }}</td>
@@ -66,6 +68,10 @@
                     <label for="active">Active?
                       <input ng-model="continentData.isactive" type="checkbox" id="isactive">
                     </label>
+                  </div>
+                  <div class="form-group">
+                    <label for="displayorder">Display Order</label>
+                    <input type="text" class="form-control input-sm" ng-model="continentData.displayorder" id="displayorder" placeholder="Display Order">
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>
