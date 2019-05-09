@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         name: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
         isactive: {type: DataTypes.BOOLEAN},
+        displayorder: {type: DataTypes.INTEGER},
         latitude: {
           type: DataTypes.DECIMAL(10, 8),
           allowNull: true,

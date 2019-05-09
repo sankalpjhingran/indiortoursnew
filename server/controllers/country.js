@@ -31,7 +31,7 @@ module.exports= {
   show(req, res) {
     console.log('Calling show of country');
     console.log(req.query);
-    Country.findByPk(req.query.id, {
+    Country.findById(req.query.id, {
       include: [
                 { model : models.Region,
                   where: {

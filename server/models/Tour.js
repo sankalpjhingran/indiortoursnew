@@ -2,6 +2,8 @@
 
 var sequelize  = require('../models/index');
 var elasticSearchWrapper = require('../elasticsearch/elasticWrapper.js');
+var es = require('../elasticsearch/connect.js');
+var client = es.esClient;
 
 module.exports = (sequelize, DataTypes) => {
   var Tour = sequelize.define("Tour", {
@@ -53,6 +55,22 @@ module.exports = (sequelize, DataTypes) => {
       console.log('Executing afterUpdate hook====>');
       elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
       elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
+
+      /*
+      client.ping({
+        // ping usually has a 3000ms timeout
+        requestTimeout: 3000,
+      }, function (error) {
+        if (error) {
+          console.log(error);
+          console.trace('elasticsearch cluster is down!');
+        } else {
+          console.log('All is well');
+
+        }
+      });
+      */
+      
   });
 
   Tour.afterDestroy(function(tour, options){

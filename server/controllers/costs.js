@@ -23,7 +23,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    TourCost.findByPk(req.params.id, {})
+    TourCost.findById(req.params.id, {})
     .then(function (author) {
       res.status(200).json(author);
     })

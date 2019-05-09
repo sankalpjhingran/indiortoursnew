@@ -11,27 +11,30 @@ module.exports= {
 
   index(req, res) {
     Continent.findAll({
-      attributes: ['id', 'name', 'isactive', 'description', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+      attributes: ['id', 'name', 'isactive', 'description', 'displayorder', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']],
-      where: {isactive: true}
+      where: {isactive: true},
+      order: [['displayorder', 'ASC']]
       })
       .then(function (authors) {
         res.status(200).json(authors);
       })
       .catch(function (error) {
+        console.log(error);
         res.status(500).json(error);
       });
   },
 
   indexAll(req, res) {
     Continent.findAll({
-      attributes: ['id', 'name', 'isactive', 'description', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+      attributes: ['id', 'name', 'isactive', 'description', 'displayorder', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']],
       })
       .then(function (authors) {
         res.status(200).json(authors);
       })
       .catch(function (error) {
+        console.log(error);
         res.status(500).json(error);
       });
   },
@@ -40,7 +43,7 @@ module.exports= {
   show(req, res) {
     console.log('Query is===>');
     console.log(req.query);
-    Continent.findByPk(req.query.id, {
+    Continent.findById(req.query.id, {
       include: [{
         model: models.Country,
         where: { isvisible : true }
@@ -80,6 +83,7 @@ module.exports= {
       res.status(200).json(updatedRecords);
     })
     .catch(function (error){
+      console.log(error);
       res.status(500).json(error);
     });
   },
