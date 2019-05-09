@@ -24,7 +24,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Region.findById(req.query.regionid, {})
+    Region.findByPk(req.query.regionid, {})
     .then(function (author) {
       console.log(author);
       res.status(200).json(author);
