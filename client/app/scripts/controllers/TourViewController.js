@@ -171,9 +171,35 @@ angular.module('clientApp')
                       angular.forEach($scope.allHotels, function(hotel){
                         hotel.images = imagesMap.get(hotel.id);
                       });
+                      console.log($scope.allHotels);
                   });
               });
-              console.log($scope.tourWithAllRelated);
+
+              var locIds = [];
+              $scope.tourWithAllRelated[0].siteLocation.forEach(function(loc){
+                 locIds.push(loc.id);
+              });
+
+              $http.post('/api/image/all', {tourids : locIds, parentobjectname : 'location'})
+               .then(function(images){
+                   console.log(images);
+                   angular.forEach(locIds, function(hotel){
+                       var tempImages = [];
+                       angular.forEach(images.data, function(image){
+                         if(image.parentobjectname == 'location' && image.parentobjectid == hotel){
+                               tempImages.push(image);
+                         }
+                       });
+                       imagesMap.set(hotel, tempImages);
+                       angular.forEach($scope.tourWithAllRelated[0].siteLocation, function(location){
+
+                         location.images = imagesMap.get(location.id);
+                       });
+                   });
+               });
+
+              console.log('siteLocation=====>');
+              console.log($scope.tourWithAllRelated[0].siteLocation);
               $scope.additionalservicesupplements = [];
 
               angular.forEach($scope.tourWithAllRelated[0].tourcost, function(cost){
