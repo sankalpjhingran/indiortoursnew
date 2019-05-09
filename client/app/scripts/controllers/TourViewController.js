@@ -33,13 +33,13 @@ angular.module('clientApp')
 
     $scope.showForm = function (isNew) {
         $scope.message = "Show Form Button Clicked";
-        console.log($scope.message);
+        //console.log($scope.message);
 
         if(isNew){
           //$scope.hotelData = null;
         }
 
-        console.log($uibModal);
+        //console.log($uibModal);
 
         $scope.modalInstance = $uibModal.open({
             templateUrl: 'myModalContent.html',
@@ -139,7 +139,7 @@ angular.module('clientApp')
                 });
                 if (existing.length) {
                   var existingIndex = output.indexOf(existing[0]);
-                  console.log(output[existingIndex].deluxe);
+                  //console.log(output[existingIndex].deluxe);
                   output[existingIndex].budget = output[existingIndex].budget.concat(hotel.budget);
                   output[existingIndex].economy = output[existingIndex].economy.concat(hotel.economy);
                   output[existingIndex].elegant = output[existingIndex].elegant.concat(hotel.elegant);
@@ -150,7 +150,7 @@ angular.module('clientApp')
                 }
               });
               $scope.output = output;
-              console.log($scope.output);
+              //console.log($scope.output);
 
              var hotelids = [];
              $scope.allHotels.forEach(function(tour){
@@ -159,7 +159,7 @@ angular.module('clientApp')
 
              $http.post('/api/image/all', {tourids : hotelids, parentobjectname : 'hotel'})
               .then(function(images){
-                  console.log(images);
+                  //console.log(images);
                   angular.forEach(hotelids, function(hotel){
                       var tempImages = [];
                       angular.forEach(images.data, function(image){
@@ -171,7 +171,7 @@ angular.module('clientApp')
                       angular.forEach($scope.allHotels, function(hotel){
                         hotel.images = imagesMap.get(hotel.id);
                       });
-                      console.log($scope.allHotels);
+                      //console.log($scope.allHotels);
                   });
               });
 
@@ -182,7 +182,7 @@ angular.module('clientApp')
 
               $http.post('/api/image/all', {tourids : locIds, parentobjectname : 'location'})
                .then(function(images){
-                   console.log(images);
+                   //console.log(images);
                    angular.forEach(locIds, function(hotel){
                        var tempImages = [];
                        angular.forEach(images.data, function(image){
@@ -198,8 +198,8 @@ angular.module('clientApp')
                    });
                });
 
-              console.log('siteLocation=====>');
-              console.log($scope.tourWithAllRelated[0].siteLocation);
+              //console.log('siteLocation=====>');
+              //console.log($scope.tourWithAllRelated[0].siteLocation);
               $scope.additionalservicesupplements = [];
 
               angular.forEach($scope.tourWithAllRelated[0].tourcost, function(cost){
@@ -210,16 +210,16 @@ angular.module('clientApp')
 
               $scope._events = [];
 
-              console.log($scope.tourWithAllRelated[0].tourcost);
-              console.log($scope.tourWithAllRelated[0].departuredates);
+              //console.log($scope.tourWithAllRelated[0].tourcost);
+              //console.log($scope.tourWithAllRelated[0].departuredates);
 
               angular.forEach($scope.tourWithAllRelated[0].departuredates, function(date){
                 // Parse a RRuleSet string, return a RRuleSet object
                 //BYDAY=MO,FR
-                console.log(moment(date.startdate).toDate());
+                //console.log(moment(date.startdate).toDate());
                   var BYDAY = [];
                   if(date.repeatfrequency == 'Week') {
-                      console.log(date.repeatondayofweek);
+                      //console.log(date.repeatondayofweek);
                       angular.forEach(date.repeatondayofweek.split(','), function(day){
                           BYDAY.push(day.substring(0, 2).toUpperCase());
                       })
@@ -237,7 +237,7 @@ angular.module('clientApp')
                         label: '<i class=\'glyphicon glyphicon-pencil\'></i>', // the label of the action
                         cssClass: 'edit-action', // a CSS class that will be added to the action element so you can implement custom styling
                         onClick: function(args) { // the action that occurs when it is clicked. The first argument will be an object containing the parent event
-                          console.log('Edit event', args.calendarEvent);
+                          //console.log('Edit event', args.calendarEvent);
                         }
                       }],
                       rrule: {
@@ -260,7 +260,7 @@ angular.module('clientApp')
               watchFunction();
               $scope.loading = false;
               $scope.calendarDataAvailable = true;
-              console.log('calendarDataAvailable is true now');
+              //console.log('calendarDataAvailable is true now');
            },
            function(response){
              // failure call back
@@ -281,10 +281,10 @@ angular.module('clientApp')
             until: moment(vm.viewDate).endOf(vm.calendarView).toDate()
           }));
 
-          console.log(tourWithAllRelatedModels.tourcost);
+          //console.log(tourWithAllRelatedModels.tourcost);
 
           rule.all().forEach(function(ruleDate) {
-            console.log(ruleDate);
+            //console.log(ruleDate);
             var momentDate = moment(ruleDate).format("YYYY-MM-DD") + "T" + moment(event.rrule.dtstart).format("HH:mm:ss");
 
               // get the tour type first
@@ -294,20 +294,20 @@ angular.module('clientApp')
               var eventTitle;
 
               if(tourWithAllRelatedModels.tourtype == 'Regular') {
-                console.log('tourType is Regular');
+                //console.log('tourType is Regular');
                 angular.forEach(tourWithAllRelatedModels.tourcost, function(cost) {
 
                     if(cost.tourtype == 'Regular') {
-                      console.log('Cost is regular');
-                      console.log(momentDate);
-                      console.log(cost.startdate);
-                      console.log(cost.enddate);
+                      //console.log('Cost is regular');
+                      //console.log(momentDate);
+                      //console.log(cost.startdate);
+                      //console.log(cost.enddate);
                       if(momentDate > cost.startdate && momentDate < cost.enddate) {
-                          console.log('Cost exist for the date');
+                          //console.log('Cost exist for the date');
                           angular.forEach(cost.individualcostsjson, function(indvCost) {
-                              console.log('======' + indvCost.costitem +'====');
+                              //console.log('======' + indvCost.costitem +'====');
                               if(indvCost.costitem == 'Minimum paying pax  02') {
-                                console.log('min paying pax 02 is available');
+                                //console.log('min paying pax 02 is available');
                                 event.title = indvCost.budget;
                                 //break;
                               }
@@ -316,27 +316,27 @@ angular.module('clientApp')
                     }
                 });
               } else if(tourWithAllRelatedModels.tourtype == 'Group') {
-                console.log('tourType is Group');
+                //console.log('tourType is Group');
                 angular.forEach(tourWithAllRelatedModels.tourcost, function(cost) {
                     if(cost.tourtype == 'Group') {
-                        console.log('Cost type is group');
-                        console.log(momentDate);
-                        console.log(cost.startdate);
-                        console.log(cost.enddate);
-                        console.log( momentDate > cost.startdate);
-                        console.log( momentDate < cost.enddate);
+                        //console.log('Cost type is group');
+                        //console.log(momentDate);
+                        //console.log(cost.startdate);
+                        //console.log(cost.enddate);
+                        //console.log( momentDate > cost.startdate);
+                        //console.log( momentDate < cost.enddate);
                         if(momentDate > cost.startdate && momentDate < cost.enddate) {
                             angular.forEach(cost.individualcostsjson, function(indvCost) {
-                                console.log('====' + indvCost.costitem + '====');
+                                //console.log('====' + indvCost.costitem + '====');
                                 if(indvCost.costitem == 'Minimum paying pax  02') {
-                                  console.log(indvCost.budget);
+                                  //console.log(indvCost.budget);
                                   event.title = indvCost.budget;
                                 }
                             });
                         }
                     }
                 });
-                console.log(event.title);
+                //console.log(event.title);
               }
 
             vm.events.push(angular.extend({}, event, {
@@ -357,11 +357,11 @@ angular.module('clientApp')
     ], watchFunction);
 
     vm.eventClicked = function(event) {
-      console.log(event);
+      //console.log(event);
     };
 
     vm.timespanClicked = function(date, cell) {
-      console.log('Timespan clicked.....');
+      //console.log('Timespan clicked.....');
 
       if (vm.calendarView === 'month') {
         if ((vm.cellIsOpen && moment(date).startOf('day').isSame(moment(vm.viewDate).startOf('day'))) || cell.events.length === 0 || !cell.inMonth) {
