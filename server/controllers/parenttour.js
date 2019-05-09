@@ -60,7 +60,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    ParentTour.findById(req.query.id,
+    ParentTour.findByPk(req.query.id,
     {
       include:
       [
