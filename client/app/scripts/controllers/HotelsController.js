@@ -39,6 +39,14 @@ angular.module('clientApp')
                         hotel.images = imagesMap.get(hotel.id);
                       });
                   });
+
+
+                  // Remove hotels without images
+                  for( var i = 0; i < $scope.allHotels.length; i++){
+                     if ( $scope.allHotels[i].images === undefined) {
+                       arr.splice(i, 1);
+                     }
+                  }
                   $scope.loading = false;
                   console.log(imagesMap);
               });
