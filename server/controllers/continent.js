@@ -46,7 +46,8 @@ module.exports= {
     Continent.findById(req.query.id, {
       include: [{
         model: models.Country,
-        where: { isvisible : true }
+        where: { isvisible : true },
+        order: [['name', 'DESC']]
       }]
     })
     .then(function (author) {
