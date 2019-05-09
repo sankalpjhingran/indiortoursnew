@@ -38,7 +38,9 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Continent.findById(req.query.id, {
+    console.log('Query is===>');
+    console.log(req.query);
+    Continent.findByPk(req.query.id, {
       include: [{
         model: models.Country,
         where: { isvisible : true }
@@ -48,6 +50,8 @@ module.exports= {
       res.status(200).json(author);
     })
     .catch(function (error){
+      console.log('Error is===>');
+      console.log(error);
       res.status(500).json(error);
     });
   },

@@ -76,7 +76,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Location.findById(req.query.id, {
+    Location.findByPk(req.query.id, {
       include: [{
         association : 'siteTour',
         include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }],
