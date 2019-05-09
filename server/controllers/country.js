@@ -68,8 +68,8 @@ module.exports= {
                   association : 'siteTour',
                   where: {isactive : true},
                   order: [
-                            Sequelize.fn('isnull', Sequelize.col('order')),
-                            ['order', 'ASC']
+                            Sequelize.fn('isnull', Sequelize.col('price')),
+                            ['price', 'ASC']
                           ],
                   include : [
                     { association : 'tourGroup'},

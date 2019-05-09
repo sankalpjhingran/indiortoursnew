@@ -253,14 +253,16 @@
                           heading="{{key}}"
                           is-open="$first">
 
-                      <div ng-repeat="hotel in value">
+                      <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="hotel in value">
                           <div class="media">
                             <div class="media-left">
                               <img style="height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
                             </div>
                             <div class="media-body">
                               <h4 class="media-heading">{{hotel.name}}</h4>
-                              <p>{{hotel.description}}</p>
+                              <p>{{ hotel.description | truncate: 800 : '...' : true }}
+                                <a href="/hotel?id={{hotel.id}}&name={{hotel.name | slugify}}">Read more</a>
+                              </p>
                             </div>
                           </div>
                       </div>
@@ -272,12 +274,30 @@
 
               <!-- Destinations Start -->
               <uib-tab index="4" heading="Destinations">
-                <div ng-repeat="x in tourWithAllRelated[0].siteLocation">
-                  <h4>
-                    {{x.city}}, {{x.country}}
-                  </h4>
-                  <p style="white-space: pre-wrap;">{{x.description}}</p>
+                <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
+                    <div class="media">
+                      <div class="media-left">
+                        <img style="height:150px; width:200px;" ng-src="/images/{{x.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
+                      </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">{{x.city}}, {{x.country}}</h4>
+                        <p>{{ x.description | truncate: 800 : '...' : true }}
+                          <a href="/city?id={{x.id}}&countryid={{x.country_id}}&name={{x.city}}">Read more</a>
+                        </p>
+                      </div>
+                    </div>
                 </div>
+
+                <!--
+                <div style="margin-top:10px;margin-bottom:5px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
+                      <img style="float:left;margin-right:5px;margin-bottom:5px;height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView" style="float:left;">
+                      <h4 class="media-heading">{{x.city}}, {{x.country}}</h4>
+                      <p>
+                          {{ x.description | truncate: 800 : '...' : true }}
+                          <a href="/city?id={{x.id}}&countryid={{x.country_id}}&name={{x.city}}">Read more</a>
+                      </p>
+                </div>
+                -->
 
               </uib-tab>
               <!-- Destinations End -->
