@@ -255,7 +255,7 @@
 
                       <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="hotel in value">
                           <div class="media">
-                            <div class="media-left" style="display:block !important;">
+                            <div class="media-left" style="display:block !important; float: left !important;">
                               <img style="height:150px; width:200px; display: block !important;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
                             </div>
                             <div class="media-body">
@@ -276,7 +276,7 @@
               <uib-tab index="4" heading="Destinations">
                 <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
                     <div class="media">
-                      <div class="media-left" style="display:block !important;">
+                      <div class="media-left" style="display:block !important; float: left !important;">
                         <img style="height:150px; width:200px; display: block !important;" ng-src="/images/{{x.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
                       </div>
                       <div class="media-body">
