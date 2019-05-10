@@ -5,7 +5,8 @@
       border-radius: 4px;
   }
 </style-->
-
+<div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+<div ng-show="!(loading)">
 <div ng-init="getCityDetails()">
   <h3>
     {{ name }}
@@ -62,4 +63,5 @@
           </div>
       </div>
     </div>
+</div>
 </div>
