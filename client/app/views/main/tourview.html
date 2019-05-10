@@ -187,7 +187,7 @@
                               </span>
                               <small style="position: absolute; bottom: 10px; left: 5px">
                                 <div ng-if="day.events[0].title">
-                                  From <currency-direc price="{{ day.events[0].title }}"></currency-direc>
+                                  <currency-direc price="{{ day.events[0].title }}"></currency-direc> onwards
                                   <br/>
                                   <a class="btn btn-default btn-xs" href="/book?id={{day.events[0].tourid}}&name={{ day.events[0].name | slugify }}" target="_blank">Book</a>
                                 </div>

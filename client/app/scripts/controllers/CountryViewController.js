@@ -17,6 +17,7 @@ angular.module('clientApp')
     $scope.countryData = [];
 
     $scope.getCountryDetails = function() {
+      $scope.loading = true;
       $http.get('/api/country/', {params: {id: destinationId}})
        .then(
            function(res){
@@ -166,5 +167,6 @@ angular.module('clientApp')
                // failure call back
              }
         );
+        $scope.loading = false;
     }
 }]);
