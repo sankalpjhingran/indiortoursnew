@@ -17,6 +17,7 @@ angular.module('clientApp')
   $scope.destination = [];
 
   $scope.getCityDetails = function() {
+    $scope.loading = true;
     $http.get('/api/location/', {params: {id: destinationId}})
      .then(
          function(res){
@@ -46,5 +47,6 @@ angular.module('clientApp')
            // failure call back
          }
       );
+      $scope.loading = false;
   }
 }]);
