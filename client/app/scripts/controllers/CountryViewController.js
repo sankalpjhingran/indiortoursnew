@@ -14,6 +14,8 @@ angular.module('clientApp')
     var destinationId = $stateParams.id;
     $scope.name = $stateParams.name;
 
+    $scope.loading = true;
+
     $scope.countryData = [];
 
     $scope.getCountryDetails = function() {
@@ -161,12 +163,13 @@ angular.module('clientApp')
                       tour.images.push(imageTourMap.get((tour.id).toString()));
                     });
                     console.log($scope.popularItineraries);
+                    $scope.loading = false;
                 });
              },
              function(response){
                // failure call back
              }
+
         );
-        $scope.loading = false;
     }
 }]);

@@ -1,5 +1,5 @@
 <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-<div ng-show="!(loading)">
+
 <h3>
   {{ name }}
 </h3>
@@ -15,6 +15,7 @@
 </span>
 
 <div ng-init="getRegionDetails()">
+  <div ng-show="!(loading)">
   <div ng-repeat="tour in popularItineraries">
     <div class="col-xs-12 col-sm-4 col-md-4">
         <div class="productbox">
