@@ -3,7 +3,7 @@
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
-          <li ng-repeat="img in bannerImages">
+          <li ng-repeat="img in bannerImages | limitTo:5">
               <li data-target="#carousel-example-generic" data-slide-to="{{$index}}" ng-class="{item: true, active: ($index === 0)}"></li>
           </li>
         </ol>
