@@ -254,10 +254,9 @@
                           is-open="$first">
 
                       <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="hotel in value">
-                          <img style="height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}">
                           <div class="media">
                             <div class="media-left">
-                              <img style="height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
+                              <img style="height:150px; width:200px; display: block;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
                             </div>
                             <div class="media-body">
                               <h4 class="media-heading">{{hotel.name}}</h4>
@@ -278,7 +277,7 @@
                 <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
                     <div class="media">
                       <div class="media-left">
-                        <img style="height:150px; width:200px;" ng-src="/images/{{x.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
+                        <img style="height:150px; width:200px; display: block;" ng-src="/images/{{x.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
                       </div>
                       <div class="media-body">
                         <h4 class="media-heading">{{x.city}}, {{x.country}}</h4>
