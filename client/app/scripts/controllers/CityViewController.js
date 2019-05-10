@@ -41,12 +41,12 @@ angular.module('clientApp')
             .then(function(images){
                 console.log(images);
                 $scope.destination.images = images;
+                $scope.loading = false;
             });
          },
          function(response){
            // failure call back
          }
       );
-      $scope.loading = false;
   }
 }]);

@@ -80,11 +80,11 @@ angular.module('clientApp')
              function(res){
                console.log(res);
                $scope.description = res.data.description;
+               $scope.loading = false;
              },
              function(response){
                // failure call back
              }
         );
-        $scope.loading = false;
     }
 }]);
