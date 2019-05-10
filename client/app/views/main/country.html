@@ -6,7 +6,8 @@
   }
 </style>
 -->
-
+<div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+<div ng-show="!(loading)">
 <div ng-init="getCountryDetails()">
     <h3>
       {{ countryData.name }}
@@ -150,4 +151,5 @@
           </uib-accordion>
         </uib-tab>
     </uib-tabset>
+</div>
 </div>
