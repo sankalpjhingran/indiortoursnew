@@ -10,7 +10,7 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-          <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in bannerImages">
+          <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in bannerImages | limitTo:5">
             <img style="height:485px;" class="imgScale scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
             <!--
             <div class="carousel-caption text-block"
@@ -41,7 +41,7 @@
               </div>
         </form>
         -->
-        
+
         <!-- Controls -->
         <a class="left carousel-control" role="button" data-slide="prev" data-target="#carousel-example-generic">
           <span aria-hidden="true" class="verticalalignsvg">
