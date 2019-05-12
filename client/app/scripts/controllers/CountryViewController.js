@@ -94,7 +94,9 @@ angular.module('clientApp')
                angular.forEach(apiRes, function(tour){
                   angular.forEach(tour.siteLocation, function(location){
                         location.TourLocation = null;
-                        countryLocations.push(location);
+                        if(location.country_id == destinationId) {
+                            countryLocations.push(location);
+                        }
                   });
                });
 
