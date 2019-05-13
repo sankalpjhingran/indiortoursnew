@@ -137,6 +137,8 @@ angular.module('clientApp')
                     }
                });
 
+
+               
                $scope.popularItineraries.forEach(function(tour){
                   var tempLocations = [];
                   tour.siteLocation.forEach(function(location){

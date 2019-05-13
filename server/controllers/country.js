@@ -73,7 +73,7 @@ module.exports= {
                           ],
                   include : [
                     { association : 'tourGroup'},
-                    { association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }
+                    { association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation', 'country_id'] }
                   ]
                 }]
       })
