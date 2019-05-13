@@ -9,12 +9,12 @@
  */
 angular.module('clientApp')
   .controller('TourHeaderController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
-    var tourids = $stateParams.id;
-
+    var touridsParam = [];
+    touridsParam.push($stateParams.id);
     $scope.allImagesForTour = function(){
       console.log('Calling subheader controller=====>');
       $scope.bannerImages = [];
-      var tourids = [];
+      var tourids = touridsParam;
       $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'tour'})
        .then(function(response){
             if(response.data.length){
