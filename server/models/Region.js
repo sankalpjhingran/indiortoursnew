@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Region.associate = function (models) {
     //Country.belongsTo(models.Continent, {as: 'countryContinents', foreignKey: 'country_id'});
-    Region.hasMany(models.Location, {foreignKey: 'region_id'});
+    Region.hasMany(models.Location, {foreignKey: 'region_id'}, { onDelete: 'cascade' });
   };
   return Region;
 };
