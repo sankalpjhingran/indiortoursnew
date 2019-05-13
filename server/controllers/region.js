@@ -24,12 +24,19 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Region.findById(req.query.regionid, {})
+    Region.findAll({
+      where: { id : req.query.regionid},
+      include: [{
+                  model : models.Location,
+                  where: {visible : true}
+                }]
+      })
     .then(function (author) {
-      console.log(author);
       res.status(200).json(author);
     })
     .catch(function (error){
+      console.log('Error is returning response===>');
+      console.log(error);
       res.status(500).json(error);
     });
   },
