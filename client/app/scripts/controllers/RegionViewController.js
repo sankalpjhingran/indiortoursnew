@@ -79,7 +79,35 @@ angular.module('clientApp')
          .then(
              function(res){
                console.log(res);
-               $scope.description = res.data.description;
+               $scope.regionDetails = res.data[0];
+               console.log($scope.regionDetails);
+               $scope.description = $scope.regionDetails.description;
+
+               var locIds = [];
+               angular.forEach($scope.regionDetails.Locations, function(location){
+                  locIds.push(location.id);
+               });
+
+               $http.post('/api/image/all/', {tourids:locIds, parentobjectname: 'location'})
+                .then(function(images){
+                    var imageTourMap = new Map();
+                    angular.forEach(images.data, function(image){
+                        var tempImages = [];
+                        if(!imageTourMap.has(image.parentobjectid)) {
+                           tempImages.push(image);
+                        } else {
+                          tempImages = imageTourMap.get(image.parentobjectid.toString());
+                          tempImages.push(image);
+                        }
+                        imageTourMap.set(image.parentobjectid, tempImages);
+                    })
+                    angular.forEach($scope.regionDetails.Locations, function(location){
+                      location.images = [];
+                      location.images.push(imageTourMap.get((location.id).toString()));
+                    });
+                    console.log($scope.regionDetails.Locations);
+                });
+
                $scope.loading = false;
              },
              function(response){
