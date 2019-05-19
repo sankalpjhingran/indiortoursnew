@@ -61,7 +61,12 @@ angular.module('clientApp')
                       tour.images = [];
                       tour.images.push(imageTourMap.get((tour.id).toString()));
                     });
-                    console.log($scope.popularItineraries);
+
+                    $scope.popularItineraries = _.chain($scope.popularItineraries)
+                       .sortBy('price')
+                       .partition('price')
+                       .flatten()
+                       .value();
                 });
 
              },

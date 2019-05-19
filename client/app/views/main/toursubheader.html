@@ -1,60 +1,65 @@
-<div style="background-color:rgb(49, 113, 187);opacity:0.5;">
-  <div  class="col-sm-12 carouselCol hidden-xs" ng-init="allImagesForTour()" style="padding-left:0px;padding-right:0px;margin-top: -10px;">
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li ng-repeat="img in bannerImages | limitTo:5">
-              <li data-target="#carousel-example-generic" data-slide-to="{{$index}}" ng-class="{item: true, active: ($index === 0)}"></li>
-          </li>
-        </ol>
+<div class="col-sm-4">
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-          <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in bannerImages | limitTo:5">
-            <img style="height:485px;" class="imgScale scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
-            <!--
-            <div class="carousel-caption text-block"
-                 style="background: linear-gradient(
-                        to left,
-                        rgba(0, 0, 0, 0) 0%,
-                        rgba(0, 0, 0, 0.3) 10%,
-                        rgba(0, 0, 0, 0.3) 90%,
-                        rgba(0, 0, 0, 0) 100%
-                      );
-                      left:10%;
-                      right:10%"
-              >
-              <h3>{{img.name}}</h3>
-              <p>{{img.description}}</p>
-            </div>
-            -->
-          </div>
-        </div>
+</div>
+<div class="col-sm-8">
+  <div style="background-color:rgb(49, 113, 187);opacity:0.5;">
+    <div  class="col-sm-12 carouselCol hidden-xs" ng-init="allImagesForTour()" style="padding-left:0px;padding-right:0px;margin-top: -10px;">
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li ng-repeat="img in bannerImages | limitTo:5">
+                <li data-target="#carousel-example-generic" data-slide-to="{{$index}}" ng-class="{item: true, active: ($index === 0)}"></li>
+            </li>
+          </ol>
 
-        <!--
-        <form class="col-sm-12" id="searchForm" ng-submit="goToSearch();">
-              <div class="form-group col-sm-4 col-sm-offset-4">
-                <div class="input-group input-group-lg center-block">
-                  <input type="text" class="form-control" placeholder="Search your unforgettable journey..." ng-model="key">
-                  <span class="input-group-addon"><a href="" ng-click="goToSearch();"><i class="fa fa-search"></i></a></span>
-                </div>
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in bannerImages | limitTo:5">
+              <img style="height:485px;" class="imgScale scaleSubHeader" ng-src="/images/{{img.filename}}" alt="...">
+              <!--
+              <div class="carousel-caption text-block"
+                   style="background: linear-gradient(
+                          to left,
+                          rgba(0, 0, 0, 0) 0%,
+                          rgba(0, 0, 0, 0.3) 10%,
+                          rgba(0, 0, 0, 0.3) 90%,
+                          rgba(0, 0, 0, 0) 100%
+                        );
+                        left:10%;
+                        right:10%"
+                >
+                <h3>{{img.name}}</h3>
+                <p>{{img.description}}</p>
               </div>
-        </form>
-        -->
+              -->
+            </div>
+          </div>
 
-        <!-- Controls -->
-        <a class="left carousel-control" role="button" data-slide="prev" data-target="#carousel-example-generic">
-          <span aria-hidden="true" class="verticalalignsvg">
-            <i class="fa fa-arrow-circle-left fa-lg"></i>
-          </span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" role="button" data-slide="next" data-target="#carousel-example-generic">
-          <span aria-hidden="true" class="verticalalignsvg">
-            <i class="fa fa-arrow-circle-right fa-lg"></i>
-          </span>
-          <span class="sr-only">Next</span>
-        </a>
+          <!--
+          <form class="col-sm-12" id="searchForm" ng-submit="goToSearch();">
+                <div class="form-group col-sm-4 col-sm-offset-4">
+                  <div class="input-group input-group-lg center-block">
+                    <input type="text" class="form-control" placeholder="Search your unforgettable journey..." ng-model="key">
+                    <span class="input-group-addon"><a href="" ng-click="goToSearch();"><i class="fa fa-search"></i></a></span>
+                  </div>
+                </div>
+          </form>
+          -->
+
+          <!-- Controls -->
+          <a class="left carousel-control" role="button" data-slide="prev" data-target="#carousel-example-generic">
+            <span aria-hidden="true" class="verticalalignsvg">
+              <i class="fa fa-arrow-circle-left fa-lg"></i>
+            </span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" role="button" data-slide="next" data-target="#carousel-example-generic">
+            <span aria-hidden="true" class="verticalalignsvg">
+              <i class="fa fa-arrow-circle-right fa-lg"></i>
+            </span>
+            <span class="sr-only">Next</span>
+          </a>
+      </div>
     </div>
   </div>
 </div>
