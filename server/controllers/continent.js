@@ -12,7 +12,7 @@ module.exports= {
   index(req, res) {
     Continent.findAll({
       attributes: ['id', 'name', 'isactive', 'description', 'displayorder', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
-      order: [['createdAt', 'DESC']],
+      //order: [['createdAt', 'DESC']],
       where: {isactive: true},
       order: [['displayorder', 'ASC']]
       })
@@ -47,7 +47,7 @@ module.exports= {
       include: [{
         model: models.Country,
         where: { isvisible : true },
-        order: [['name', 'DESC']]
+        order: [['name', 'ASC']]
       }]
     })
     .then(function (author) {

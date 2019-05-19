@@ -60,19 +60,14 @@ module.exports= {
   getToursForCountry(req, res){
     var popularToursMap = require('hashmap');
     let queryVars = req.query;
-
+    console.log('IN getToursForCountry=====>');
     Location.findAll({
       where: { country_id : queryVars.id, visible: true },
       attributes: [ 'city', 'id' ],
       include: [{
                   association : 'siteTour',
                   where: {isactive : true},
-                  order: [
-                            Sequelize.fn('isnull', Sequelize.col('price')),
-                            ['price', 'ASC']
-                          ],
                   include : [
-                    { association : 'tourGroup'},
                     { association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation', 'country_id'] }
                   ]
                 }]
