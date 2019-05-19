@@ -75,7 +75,7 @@ var sequelize = new Sequelize(config.db.DB_NAME, config.db.USERNAME, config.db.P
     dialect: config.db.dialect,
     logging: console.log,
     dialectOptions: {
-      charset: 'utf8mb4'
+      charset: 'utf8mb4',
     },
     define: {
       timestamps: true

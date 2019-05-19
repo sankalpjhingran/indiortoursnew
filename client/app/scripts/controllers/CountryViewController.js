@@ -138,7 +138,7 @@ angular.module('clientApp')
                });
 
 
-               
+
                $scope.popularItineraries.forEach(function(tour){
                   var tempLocations = [];
                   tour.siteLocation.forEach(function(location){
@@ -166,7 +166,12 @@ angular.module('clientApp')
                       tour.images = [];
                       tour.images.push(imageTourMap.get((tour.id).toString()));
                     });
-                    console.log($scope.popularItineraries);
+
+                    $scope.popularItineraries = _.chain($scope.popularItineraries)
+                       .sortBy('price')
+                       .partition('price')
+                       .flatten()
+                       .value();
                     $scope.loading = false;
                 });
              },
