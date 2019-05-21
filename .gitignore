@@ -58,3 +58,6 @@ typings/
 .env
 
 server/config/config.js
+
+# Images in public/images folder
+server/public/images
