@@ -60,4 +60,4 @@ typings/
 server/config/config.js
 
 # Images in public/images folder
-server/public/images
+server/public/images/
