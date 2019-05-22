@@ -1,4 +1,4 @@
-### Express Angular Jumpstarter
+### Express Angular Jumpstarter Testing
 
 This repository goes hand in hand with the updated tutorial found at:
 
