@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         showonhomepage: {type: DataTypes.BOOLEAN},
         order: {type: DataTypes.INTEGER},
         popularitinerary: {type: DataTypes.BOOLEAN},
+        videolink1: {type: DataTypes.STRING},
+        videolink2: {type: DataTypes.STRING},
+        videolink3: {type: DataTypes.STRING},
       }
   );
 
@@ -70,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       });
       */
-      
+
   });
 
   Tour.afterDestroy(function(tour, options){
