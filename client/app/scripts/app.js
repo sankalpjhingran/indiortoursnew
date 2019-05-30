@@ -41,7 +41,8 @@ angular
     'ui.grid.selection',
     'ui.grid.grouping',
     'ui.grid.resizeColumns',
-    'underscore'
+    'underscore',
+    'ngMap'
     //'ncy-angular-breadcrumb'
   ])
 
