@@ -43,7 +43,7 @@
     cursor: pointer;
   }
 </style>
-<uib-tabset id="headerTab" active="activePill" justified="true" style="margin-top: -10px;">
+<uib-tabset id="headerTab" active="activePill" justified="true" type="pills" style="margin-top: -10px;">
   <uib-tab index="0">
     <uib-tab-heading>
       <strong>Photos</strong><i class="fas fa-angle-down middle-of-text"></i>
@@ -92,7 +92,7 @@
       <strong>Map</strong><i class="fas fa-angle-down middle-of-text"></i>
     </uib-tab-heading>
     <div ng-controller="TourHeaderController as vm">
-  <ng-map center="37.09024, -95.712891" zoom="4" mayTypeId="TERRAIN">
+  <ng-map center="37.09024, -95.712891" zoom="3" mayTypeId="TERRAIN">
     <shape name="circle" ng-repeat="city in vm.cities" no-watcher="true"
       stroke-color="#FF0000"
       stroke-opacity="0.8"
