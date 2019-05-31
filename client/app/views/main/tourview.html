@@ -3,53 +3,53 @@
 </style>
 
 <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-  <div ng-show="!(loading)">
-    <!-- main div -->
-    <div ng-init="getTourDetailsWithRelatedModels()">
-      <!-- Tour Name -->
-      <div class="row-fluid">
-        <div class="col-sm-8" style="margin-left:0px; padding-left:0px;">
-          <h3 class="pull-left">
-            {{tourWithAllRelated[0].name}}
-          </h3>
+<div ng-show="!(loading)">
+  <!-- main div -->
+  <div ng-init="getTourDetailsWithRelatedModels()">
+    <!-- Tour Name -->
+    <div class="row-fluid">
+      <div class="col-sm-8" style="margin-left:0px; padding-left:0px;">
+        <h3 class="pull-left">
+          {{tourWithAllRelated[0].name}}
+        </h3>
+      </div>
+      <div class="col-sm-4" style="padding-right:0px;">
+        <span class="btn-group pull-right">
+          <a ng-click="showEnquiryForm();" class="btn btn-default" style="margin-top:12px;">
+            Send Enquiry
+          </a>
+          <a ng-href="/book" class="btn btn-primary" style="margin-top:12px;">
+            Book Now
+          </a>
+        </span>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-sm-12 tourPageCols">
+        <!-- This is a repeat on all locations -->
+        <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
+          <span style="color:orange;">
+            <a style="color: orange;" href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last">|</span>
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="col-sm-3" style="padding-left:0px;">
+        <div style="color:orange;">
+          {{tourWithAllRelated[0].tourtype}}
         </div>
-        <div class="col-sm-4" style="padding-right:0px;">
-          <span class="btn-group pull-right">
-            <a ng-click="showEnquiryForm();" class="btn btn-default" style="margin-top:12px;">
-                Send Enquiry
-            </a>
-            <a ng-href="/book" class="btn btn-primary" style="margin-top:12px;">
-                Book Now
-            </a>
+        <div style="color:orange;">
+          {{tourWithAllRelated[0].days}} days | {{tourWithAllRelated[0].nights}} nights
+        </div>
+        <div style="color:orange;">
+          <span>
+            <currency-direc price="{{tourWithAllRelated[0].price}}"></currency-direc> onwards
           </span>
         </div>
-      </div>
-      <div class="row-fluid">
-        <div class="col-sm-12 tourPageCols">
-          <!-- This is a repeat on all locations -->
-          <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
-              <span style="color:orange;">
-                <a style="color: orange;" href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last">|</span>
-              </span>
-          </span>
-        </div>
-      </div>
 
-      <div class="row-fluid">
-        <div class="col-sm-3" style="padding-left:0px;">
-          <div style="color:orange;">
-              {{tourWithAllRelated[0].tourtype}}
-          </div>
-          <div style="color:orange;">
-              {{tourWithAllRelated[0].days}} days | {{tourWithAllRelated[0].nights}} nights
-          </div>
-          <div style="color:orange;">
-            <span>
-                <currency-direc price="{{tourWithAllRelated[0].price}}"></currency-direc> onwards
-            </span>
-          </div>
-
-        <div class="col-sm-10" >
+        <div class="col-sm-10">
 
         </div>
 
@@ -70,23 +70,23 @@
         <div class="col-sm-12 tourPageCols">
           <!-- tabs go here -->
           <uib-tabset active="activeJustified" justified="true">
-              <!-- Itinerary Start -->
-              <uib-tab index="0" heading="Itinerary">
-                <div class="col-sm-12">
-                		<div class="col-md-12">
-                			<ul class="timeline">
-                				<li ng-repeat="itinerary in tourWithAllRelated[0].itinerary">
-                					<h5>{{itinerary.day}}</h5>
-                					<p style="white-space: pre-wrap;">{{itinerary.description}}</p>
-                				</li>
-                			</ul>
-                		</div>
+            <!-- Itinerary Start -->
+            <uib-tab index="0" heading="Itinerary">
+              <div class="col-sm-12">
+                <div class="col-md-12">
+                  <ul class="timeline">
+                    <li ng-repeat="itinerary in tourWithAllRelated[0].itinerary">
+                      <h5>{{itinerary.day}}</h5>
+                      <p style="white-space: pre-wrap;">{{itinerary.description}}</p>
+                    </li>
+                  </ul>
                 </div>
-              </uib-tab>
-              <!-- Itinerary End -->
+              </div>
+            </uib-tab>
+            <!-- Itinerary End -->
 
-              <!-- Prices Start -->
-              <!--
+            <!-- Prices Start -->
+            <!--
               <uib-tab index="1" heading="Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
 
                 <table class="table table-bordered" ng-show="!(error)">
@@ -152,34 +152,27 @@
 
               </uib-tab>
               -->
-              <!-- Prices End -->
+            <!-- Prices End -->
 
-              <!-- Dates Start -->
-              <uib-tab index="2" heading="Dates & Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
-                <table class="table table-hover table-bordered" ng-show="!(error)">
-                  <thead>
-                    <tr>
-                      <td style="text-align:center;">
-                        <div ng-if="calendarDataAvailable" ng-controller="TourViewController as vm" class="col-lg-1 col-centered" style="width:100%;height:100%;margin: auto;">
-                          <h3 style="margin-top:10px;margin-bottom:10px;" class="text-center">{{ vm.calendarTitle }}</h3>
-                          <ng-include src="'views/main/calendarControls.html'"></ng-include>
-                          <mwl-calendar
-                            events="vm.events"
-                            view="vm.calendarView"
-                            view-date="vm.viewDate"
-                            cell-auto-open-disabled="true"
-                            view-title="vm.calendarTitle"
-                            custom-template-urls="{calendarMonthCell: 'customMonthCell.html'}"
-                            >
-                          </mwl-calendar>
+            <!-- Dates Start -->
+            <uib-tab index="2" heading="Dates & Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
+              <table class="table table-hover table-bordered" ng-show="!(error)">
+                <thead>
+                  <tr>
+                    <td style="text-align:center;">
+                      <div ng-if="calendarDataAvailable" ng-controller="TourViewController as vm" class="col-lg-1 col-centered" style="width:100%;height:100%;margin: auto;">
+                        <h3 style="margin-top:10px;margin-bottom:10px;" class="text-center">{{ vm.calendarTitle }}</h3>
+                        <ng-include src="'views/main/calendarControls.html'"></ng-include>
+                        <mwl-calendar events="vm.events" view="vm.calendarView" view-date="vm.viewDate" cell-auto-open-disabled="true" view-title="vm.calendarTitle" custom-template-urls="{calendarMonthCell: 'customMonthCell.html'}">
+                        </mwl-calendar>
 
-                          <!--
+                        <!--
                           on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
                           cell-is-open="vm.cellIsOpen"
                           -->
 
-                          <script id="customMonthCell.html" type="text/ng-template">
-                            <div class="cal-month-day {{day.cssClass}}">
+                        <script id="customMonthCell.html" type="text/ng-template">
+                          <div class="cal-month-day {{day.cssClass}}">
                               <span
                                 class="pull-right"
                                 data-cal-date
@@ -195,100 +188,96 @@
 
                             </div>
                           </script>
-                        </div>
-                      </td>
-                    </tr>
-                  </thead>
-                </table>
-              </uib-tab>
-              <!-- Dates End -->
-
-              <!-- Hotels Start -->
-              <uib-tab index="3" heading="Hotels">
-                <table class="table table-hover table-bordered" ng-show="!(error)">
-                  <thead>
-                    <tr>
-                      <th class="col-xs-2">City</th>
-                      <th class="col-xs-2">Budget</th>
-                      <th class="col-xs-2">Economy</th>
-                      <th class="col-xs-2">Elegant</th>
-                      <th class="col-xs-2">Deluxe</th>
-                      <th class="col-xs-2">Luxury</th>
-                    </tr>
-                  </thead>
-                  <tr ng-repeat="x in output">
-                    <td><a ng-href="/destination?id={{x.location_id}}&amp;name={{x.city | slugify}}">{{ x["city"] }}</a></td>
-                    <td>
-                      <div ng-repeat="budget in x.budget">
-                        <a ng-href="/hotel?id={{budget.hotelid}}&amp;name={{budget.name | slugify}}">{{ budget.name }}</a>
-                      </div>
-                    </td>
-                    <td>
-                      <div ng-repeat="economy in x.economy">
-                        <a ng-href="/hotel?id={{economy.hotelid}}&amp;name={{economy.name | slugify}}">{{ economy.name }}</a>
-                      </div>
-                    </td>
-                    <td>
-                      <div ng-repeat="elegant in x.elegant">
-                        <a ng-href="/hotel?id={{elegant.hotelid}}&amp;name={{elegant.name | slugify}}">{{ elegant.name }}</a>
-                      </div>
-                    </td>
-                    <td>
-                      <div ng-repeat="deluxe in x.deluxe">
-                        <a ng-href="/hotel?id={{deluxe.hotelid}}&amp;name={{deluxe.name | slugify}}">{{ deluxe.name }}</a>
-                      </div>
-                    </td>
-                    <td>
-                      <div ng-repeat="luxury in x.luxury">
-                        <a ng-href="/hotel?id={{luxury.hotelid}}&amp;name={{luxury.name | slugify}}">{{ luxury.name }}</a>
                       </div>
                     </td>
                   </tr>
-                </table>
+                </thead>
+              </table>
+            </uib-tab>
+            <!-- Dates End -->
 
-                <uib-accordion close-others="false">
-                    <div  uib-accordion-group
-                          class="panel-default"
-                          ng-repeat="(key, value) in tourWithAllRelated[0].accomodationHotel | groupBy: 'type'"
-                          heading="{{key}}"
-                          is-open="$first">
-
-                      <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="hotel in value">
-                          <div class="media">
-                            <div class="media-left" style="display:block !important; float: left !important;">
-                              <img style="height:150px; width:200px; display: block !important;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
-                            </div>
-                            <div class="media-body">
-                              <h4 class="media-heading">{{hotel.name}}</h4>
-                              <p>{{ hotel.description | truncate: 800 : '...' : true }}
-                                <a href="/hotel?id={{hotel.id}}&name={{hotel.name | slugify}}">Read more</a>
-                              </p>
-                            </div>
-                          </div>
-                      </div>
+            <!-- Hotels Start -->
+            <uib-tab index="3" heading="Hotels">
+              <table class="table table-hover table-bordered" ng-show="!(error)">
+                <thead>
+                  <tr>
+                    <th class="col-xs-2">City</th>
+                    <th class="col-xs-2">Budget</th>
+                    <th class="col-xs-2">Economy</th>
+                    <th class="col-xs-2">Elegant</th>
+                    <th class="col-xs-2">Deluxe</th>
+                    <th class="col-xs-2">Luxury</th>
+                  </tr>
+                </thead>
+                <tr ng-repeat="x in output">
+                  <td><a ng-href="/destination?id={{x.location_id}}&amp;name={{x.city | slugify}}">{{ x["city"] }}</a></td>
+                  <td>
+                    <div ng-repeat="budget in x.budget">
+                      <a ng-href="/hotel?id={{budget.hotelid}}&amp;name={{budget.name | slugify}}">{{ budget.name }}</a>
                     </div>
-                </uib-accordion>
+                  </td>
+                  <td>
+                    <div ng-repeat="economy in x.economy">
+                      <a ng-href="/hotel?id={{economy.hotelid}}&amp;name={{economy.name | slugify}}">{{ economy.name }}</a>
+                    </div>
+                  </td>
+                  <td>
+                    <div ng-repeat="elegant in x.elegant">
+                      <a ng-href="/hotel?id={{elegant.hotelid}}&amp;name={{elegant.name | slugify}}">{{ elegant.name }}</a>
+                    </div>
+                  </td>
+                  <td>
+                    <div ng-repeat="deluxe in x.deluxe">
+                      <a ng-href="/hotel?id={{deluxe.hotelid}}&amp;name={{deluxe.name | slugify}}">{{ deluxe.name }}</a>
+                    </div>
+                  </td>
+                  <td>
+                    <div ng-repeat="luxury in x.luxury">
+                      <a ng-href="/hotel?id={{luxury.hotelid}}&amp;name={{luxury.name | slugify}}">{{ luxury.name }}</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
 
-              </uib-tab>
-              <!-- Hotels End -->
+              <uib-accordion close-others="false">
+                <div uib-accordion-group class="panel-default" ng-repeat="(key, value) in tourWithAllRelated[0].accomodationHotel | groupBy: 'type'" heading="{{key}}" is-open="$first">
 
-              <!-- Destinations Start -->
-              <uib-tab index="4" heading="Destinations">
-                <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
+                  <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="hotel in value">
                     <div class="media">
                       <div class="media-left" style="display:block !important; float: left !important;">
-                        <img style="height:150px; width:200px; display: block !important;" ng-src="/images/{{x.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
+                        <img style="height:150px; width:200px; display: block !important;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
                       </div>
                       <div class="media-body">
-                        <h4 class="media-heading">{{x.city}}, {{x.country}}</h4>
-                        <p>{{ x.description | truncate: 800 : '...' : true }}
-                          <a href="/city?id={{x.id}}&countryid={{x.country_id}}&name={{x.city}}">Read more</a>
+                        <h4 class="media-heading">{{hotel.name}}</h4>
+                        <p>{{ hotel.description | truncate: 800 : '...' : true }}
+                          <a href="/hotel?id={{hotel.id}}&name={{hotel.name | slugify}}">Read more</a>
                         </p>
                       </div>
                     </div>
+                  </div>
                 </div>
+              </uib-accordion>
 
-                <!--
+            </uib-tab>
+            <!-- Hotels End -->
+
+            <!-- Destinations Start -->
+            <uib-tab index="4" heading="Destinations">
+              <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
+                <div class="media">
+                  <div class="media-left" style="display:block !important; float: left !important;">
+                    <img style="height:150px; width:200px; display: block !important;" ng-src="/images/{{x.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading">{{x.city}}, {{x.country}}</h4>
+                    <p>{{ x.description | truncate: 800 : '...' : true }}
+                      <a href="/city?id={{x.id}}&countryid={{x.country_id}}&name={{x.city}}">Read more</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!--
                 <div style="margin-top:10px;margin-bottom:5px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
                       <img style="float:left;margin-right:5px;margin-bottom:5px;height:150px; width:200px;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView" style="float:left;">
                       <h4 class="media-heading">{{x.city}}, {{x.country}}</h4>
@@ -299,31 +288,27 @@
                 </div>
                 -->
 
-              </uib-tab>
-              <!-- Destinations End -->
+            </uib-tab>
+            <!-- Destinations End -->
 
-              <!-- More Info Start -->
-              <uib-tab index="5" heading="More Info">
-                <uib-accordion close-others="false">
-                    <div  uib-accordion-group
-                          class="panel-default"
-                          ng-repeat="x in tourWithAllRelated[0].tourNote | filternotes: 'important'"
-                          heading="{{x.type}}"
-                          is-open="$first">
-                      <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
-                    </div>
-                </uib-accordion>
-              </uib-tab>
-              <!-- More Info End -->
+            <!-- More Info Start -->
+            <uib-tab index="5" heading="More Info">
+              <uib-accordion close-others="false">
+                <div uib-accordion-group class="panel-default" ng-repeat="x in tourWithAllRelated[0].tourNote | filternotes: 'important'" heading="{{x.type}}" is-open="$first">
+                  <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
+                </div>
+              </uib-accordion>
+            </uib-tab>
+            <!-- More Info End -->
           </uib-tabset>
         </div>
       </div>
-</div>
+    </div>
 
-<!-- Tour Enquiry Modal begins -->
-<div class="modal-demo">
-  <script type="text/ng-template" id="myModalContent.html">
-      <div class="alert alert-success alert-dismissible fade in" ng-show="showSuccessBanner">
+    <!-- Tour Enquiry Modal begins -->
+    <div class="modal-demo">
+      <script type="text/ng-template" id="myModalContent.html">
+        <div class="alert alert-success alert-dismissible fade in" ng-show="showSuccessBanner">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Success!</strong> Enquiry submitted, thanks!
       </div>
@@ -420,5 +405,5 @@
         </div>
       </form>
   </script>
-  <div class="modal-parent"></div>
-</div>
+      <div class="modal-parent"></div>
+    </div>
