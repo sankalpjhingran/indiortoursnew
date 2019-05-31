@@ -14,6 +14,12 @@ angular.module('clientApp')
     $scope.toursMap = new Map();
     $scope.recentTours = [];
 
+    $scope.currencyFromFact = { name : {oldValue : 'USD', newValue : 'USD'}};
+
+    $scope.$on('currency', function(event, data) {
+      $scope.currencyFromFact = currencyFact;
+    });
+
     $rootScope.$state = $state;
     $scope.rate = 7;
     $scope.max = 5;

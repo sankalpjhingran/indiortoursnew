@@ -12,8 +12,8 @@ var app = angular.module('clientApp');
 
 app.factory('currencyFact', function(){
   var name = {
-      oldValue : '',
-      newValue : ''
+      oldValue : 'USD',
+      newValue : 'USD'
   };
 
   name.get = function(){

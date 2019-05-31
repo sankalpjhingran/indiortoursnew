@@ -34,7 +34,7 @@
                   </div>
 
                   <div class="producttitle text-center">
-                    <a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">
+                    <a style="text-decoration: none;" ng-href="/tourView?id={{tour.id}}&currency={{currencyFromFact.name}}&name={{tour.name | slugify}}" ng-click="addToRecentItems(tour.id);">
                       {{ tour.name }}
                     </a>
                   </div>
