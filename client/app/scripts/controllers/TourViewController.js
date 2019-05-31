@@ -13,6 +13,13 @@ angular.module('clientApp')
 
     $rootScope.$state = $state;
     var tourId = $stateParams.id;
+    var currencyFactFromURL = JSON.parse($stateParams.currency);
+
+    var fromTo = {
+      from: currencyFactFromURL.oldValue ? currencyFactFromURL.oldValue : 'USD',
+      to: currencyFactFromURL.newValue ? currencyFactFromURL.newValue : 'USD'
+    }
+
     $scope.tourWithAllRelated = [];
     var imagesMap = new Map();
 
@@ -30,16 +37,11 @@ angular.module('clientApp')
         $scope.showForm();
     }
 
-
     $scope.showForm = function (isNew) {
         $scope.message = "Show Form Button Clicked";
-        //console.log($scope.message);
-
         if(isNew){
           //$scope.hotelData = null;
         }
-
-        //console.log($uibModal);
 
         $scope.modalInstance = $uibModal.open({
             templateUrl: 'myModalContent.html',
@@ -92,16 +94,16 @@ angular.module('clientApp')
              $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
              $scope.hotelsjson = [];
 
-             $scope.currency = {
-               newValue: 'USD',
-               oldValue: 'USD'
-             }
-
              vm.tourid = $scope.tourWithAllRelated[0].id;
              vm.name = $scope.tourWithAllRelated[0].name;
 
-             $scope.tourWithAllRelated[0].price = accounting.formatMoney($scope.tourWithAllRelated[0].price, { symbol: $scope.currency.newValue,  format: "%v %s" });
-             $scope.tourWithAllRelated[0].offerprice = accounting.formatMoney($scope.tourWithAllRelated[0].offerprice, { symbol: $scope.currency.newValue,  format: "%v %s" });
+             if($scope.tourWithAllRelated[0].price) {
+               $scope.tourWithAllRelated[0].price = accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].price, fromTo) , { symbol: fromTo.to,  format: "%v %s" });
+             }
+
+             if($scope.tourWithAllRelated[0].offerprice) {
+               $scope.tourWithAllRelated[0].offerprice = accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].offerprice, fromTo), { symbol: fromTo.to,  format: "%v %s" });
+             }
 
              angular.forEach($scope.allHotels, function(hotel){
                   $scope.hotelsjson.push(
@@ -309,6 +311,7 @@ angular.module('clientApp')
                               if(indvCost.costitem == 'Minimum paying pax  02') {
                                 //console.log('min paying pax 02 is available');
                                 event.title = indvCost.budget;
+                                event.title = accounting.formatMoney(fx.convert(event.title, fromTo), { symbol: fromTo.to,  format: "%v %s" });
                                 //break;
                               }
                           });
@@ -331,6 +334,7 @@ angular.module('clientApp')
                                 if(indvCost.costitem == 'Minimum paying pax  02') {
                                   //console.log(indvCost.budget);
                                   event.title = indvCost.budget;
+                                  event.title = accounting.formatMoney(fx.convert(event.title, fromTo), { symbol: fromTo.to,  format: "%v %s" });
                                 }
                             });
                         }
