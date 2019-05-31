@@ -106,7 +106,7 @@ angular
             }
         })
         .state('tourView', {
-            url:'/tourView?id',
+            url:'/tourView?id&currency',
             views:{
               subheader: {
                 templateUrl: 'views/main/toursubheader.html',
