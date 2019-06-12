@@ -10,7 +10,7 @@
 
 var app = angular.module('clientApp');
 
-app.directive('currencyDirec', function($http, currencyFact) {
+app.directive('currencyDirec', function($localStorage, $http, currencyFact) {
   return {
     scope: {
       price : '@'
@@ -18,29 +18,25 @@ app.directive('currencyDirec', function($http, currencyFact) {
     restrict: 'EA',
     template: '{{ price }}',
     link: function (scope, element, attrs) {
-      var fromTo = {};
-      scope.currency = currencyFact.name;
-
-      fromTo = {
-        from: scope.currency.oldValue,
-        to: scope.currency.newValue
-      }
-
       if(scope.price != null) {
-          scope.price = accounting.unformat(scope.price);
-          scope.price = accounting.formatMoney(fx.convert(scope.price, fromTo), { symbol: fromTo.to,  format: "%v %s" });
+          if($localStorage.currencypreference.to === 'USD' && $localStorage.currencypreference.from === 'USD') {
+              scope.price = accounting.unformat(scope.price);
+              scope.price = accounting.unformat(scope.price);
+              scope.price = accounting.formatMoney(fx.convert(scope.price, $localStorage.currencypreference), { symbol: $localStorage.currencypreference.to,  format: "%v %s" });
+          } else {
+              scope.price = accounting.unformat(scope.price);
+
+              //Convert to current or new currency
+              scope.price = fx.convert(scope.price, { to: $localStorage.currencypreference.to, from: "USD" });
+              scope.price = fx.convert(scope.price, $localStorage.currencypreference);
+              scope.price = accounting.formatMoney(scope.price, { symbol: $localStorage.currencypreference.to,  format: "%v %s" });
+          }
       }
 
       scope.$on('currency', function(event, data) {
-        console.log(currencyFact.name);
-        scope.currency = currencyFact.name;
-        fromTo = {
-          from: scope.currency.oldValue,
-          to: scope.currency.newValue
-        }
         if(scope.price != null) {
             scope.price = accounting.unformat(scope.price);
-            scope.price = accounting.formatMoney(fx.convert(scope.price, fromTo), { symbol: fromTo.to,  format: "%v %s" });
+            scope.price = accounting.formatMoney(fx.convert(scope.price, $localStorage.currencypreference), { symbol: $localStorage.currencypreference.to,  format: "%v %s" });
         }
       });
     }
