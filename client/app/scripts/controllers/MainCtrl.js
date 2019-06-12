@@ -8,17 +8,13 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', ['$http','$state', '$rootScope', '$scope', 'localStorageService', 'Carousel', 'currencyFact', '$uibModal', function ($http, $state, $rootScope, $scope, localStorageService, Carousel, currencyFact, $uibModal) {
+  .controller('MainCtrl', ['$localStorage', '$http','$state', '$rootScope', '$scope', 'Carousel', 'currencyFact', '$uibModal', function ($localStorage, $http, $state, $rootScope, $scope, Carousel, currencyFact, $uibModal) {
 
     var imagesMap = new Map();
     $scope.toursMap = new Map();
     $scope.recentTours = [];
 
-    $scope.currencyFromFact = { name : {oldValue : 'USD', newValue : 'USD'}};
-
-    $scope.$on('currency', function(event, data) {
-      $scope.currencyFromFact = currencyFact;
-    });
+    $scope.fromTo = $localStorage.currencypreference;
 
     $rootScope.$state = $state;
     $scope.rate = 7;
@@ -40,7 +36,7 @@ angular.module('clientApp')
 
     $scope.addToRecentItems = function(val) {
       // Parse the JSON stored in allEntriesP
-      var existingEntries = JSON.parse(localStorageService.get("recenttours"));
+      var existingEntries = $localStorage.recenttours;
       if(existingEntries == null) existingEntries = [];
       var recent = {
           tourid: val,
@@ -48,7 +44,7 @@ angular.module('clientApp')
 
       existingEntries.push(recent);
       var uniqueEntries = $scope.removeDuplicates(existingEntries);
-      localStorageService.set("recenttours", JSON.stringify(uniqueEntries));
+      $localStorage.recenttours = uniqueEntries;
     }
 
     $scope.removeDuplicates = function (arr){
@@ -67,11 +63,6 @@ angular.module('clientApp')
       $http.get('/api/tours/alltourswithlocations')
        .then(
            function(res){
-             $scope.currency = {
-               newValue : 'USD',
-               oldValue : 'USD'
-             }
-
              // success callback
              $scope.allTours = JSON.parse(res.data);
              var tourids = [];
@@ -83,8 +74,31 @@ angular.module('clientApp')
                     tempLocations.push(location.city);
                 });
                 tour.locations = tempLocations;
-                tour.price = accounting.formatMoney(tour.price, { symbol: $scope.currency.newValue,  format: "%v %s" });
-                tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: $scope.currency.newValue,  format: "%v %s" });
+
+                //Convert first if saved currency is not USD
+                console.log($scope.fromTo);
+                if($scope.fromTo.to == 'USD' && $scope.fromTo.from == 'USD') {
+                  if(tour.price) {
+                    tour.price = accounting.formatMoney(tour.price, { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+
+                  if(tour.offerprice) {
+                    tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+                } else {
+                  console.log($scope.fromTo);
+                  if(tour.price) {
+                    tour.price = accounting.unformat(tour.price);
+                    tour.price = fx.convert(tour.price, {from: "USD", to: $scope.fromTo.from});
+                    tour.price = accounting.formatMoney(fx.convert(tour.price, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+
+                  if(tour.offerprice) {
+                    tour.offerprice = accounting.unformat(tour.offerprice);
+                    tour.offerprice = fx.convert(tour.offerprice, {from: "USD", to: $scope.fromTo.from});
+                    tour.offerprice = accounting.formatMoney(fx.convert(tour.offerprice, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+                }
              });
 
              $http.post('/api/image/all', {tourids: tourids, parentobjectname: 'tour'})
@@ -107,7 +121,7 @@ angular.module('clientApp')
                   });
                   $scope.loading = false;
 
-                  angular.forEach(JSON.parse(localStorageService.get("recenttours")), function(tour){
+                  angular.forEach($localStorage.recenttours, function(tour){
                     $scope.recentTours.push($scope.toursMap.get(tour.tourid));
                   });
                   var uniqueEntries = $scope.removeDuplicates($scope.recentTours);

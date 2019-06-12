@@ -33,6 +33,7 @@ angular
     'ng.group',
     'angular.filter',
     'LocalStorageModule',
+    'ngStorage',
     'ui.carousel',
     'mwl.calendar',
     'ui.grid',
@@ -46,10 +47,15 @@ angular
     //'ncy-angular-breadcrumb'
   ])
 
+  .config(['$localStorageProvider',
+      function ($localStorageProvider) {
+          if(!$localStorageProvider.get('currencypreference')) {
+              $localStorageProvider.set('currencypreference', { from: 'USD', to: 'USD' });
+          }
+      }])
+
   .config(['calendarConfig', function(calendarConfig) {
     calendarConfig.allDateFormats.moment.date.hour = 'hh:mm a';
-    // View all available config
-    console.log(calendarConfig);
   }])
 
   .run(['Carousel', function(Carousel) {
@@ -74,7 +80,7 @@ angular
 .config(function (localStorageServiceProvider) {
   localStorageServiceProvider
     .setPrefix('clientApp')
-    .setStorageType('sessionStorage')
+    .setStorageType('localStorage')
     .setNotify(true, true)
 })
 

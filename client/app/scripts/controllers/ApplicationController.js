@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-.controller('ApplicationController', function ($scope, $http, $location, $rootScope, $window, currencyFact) {
+.controller('ApplicationController', function ($localStorage, $scope, $http, $location, $rootScope, $window, currencyFact) {
       console.log('In Application controller');
       var vm = this;
 
@@ -30,7 +30,7 @@ angular.module('clientApp')
              }
          }
       });
-      
+
       $http.get('/api/isAuthenticated/')
        .then(
            function(response){
@@ -52,18 +52,31 @@ angular.module('clientApp')
         );
 
       vm.currencyCodes = ['INR', 'EUR', 'GBP', 'USD'];
-      vm.selected = 'USD';
-      currencyFact.name = {
-        newValue : 'USD',
-        oldValue : 'USD'
+      $scope.$storage = $localStorage;
+
+      //Set default currency is USD
+      if($localStorage.currencypreference && $localStorage.currencypreference.to) {
+          vm.selected = $localStorage.currencypreference.to;
+      } else {
+        vm.selected = 'USD';
       }
-      $rootScope.$broadcast('currency', currencyFact.name);
 
       $scope.$watch('vm.selected', function(newValue, oldValue){
-        currencyFact.name = {
-          newValue : newValue,
-          oldValue : oldValue
+        if(!$localStorage.currencypreference) {
+          $localStorage.currencypreference = {
+            to : newValue,
+            from : oldValue
+          }
         }
-        $rootScope.$broadcast('currency', currencyFact.name);
+
+        if(newValue != oldValue) {
+          if($localStorage.currencypreference.newValue != newValue) {
+            $localStorage.currencypreference = {
+              to : newValue,
+              from : oldValue
+            }
+            $rootScope.$broadcast('currency', $localStorage.currencypreference);
+          }
+        }
       });
 });
