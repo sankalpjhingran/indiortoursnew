@@ -48,12 +48,11 @@
       <div class="sticky" style="background-color:#3171bb;" ng-include src="'views/header.html'" ng-init="checkAuthenticationStatus">
       </div>
 
-      <div ui-view="subheader">
-            <!--View for SUBHEADER -->
-      </div>
+        <div ui-view="subheader">
+              <!--View for SUBHEADER -->
+        </div>
 
       <!--Dont show sidebar on home page-->
-
       <div class="container">
         <div class="row" ng-show="$state.current.name == 'main' || $state.current.name == 'myprofile'">
           <div class="col-sm-12">
