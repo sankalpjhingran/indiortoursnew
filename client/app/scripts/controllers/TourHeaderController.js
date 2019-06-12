@@ -38,17 +38,12 @@ angular.module('clientApp')
         })
         .then(function(response) {
           if (response.data.length) {
-            console.log('Res======>');
-            console.log(response.data);
             angular.forEach(response.data, function(image) {
-              console.log(image);
               $scope.bannerImages.push(image);
             });
           }
         });
     }
-
     $scope.getAllCities = function() {
-
     }
   }]);
