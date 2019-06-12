@@ -8,17 +8,13 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('TourViewController', ['$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
-  function ($uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
+  .controller('TourViewController', ['$localStorage', '$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
+  function ($localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
 
     $rootScope.$state = $state;
     var tourId = $stateParams.id;
-    var currencyFactFromURL = JSON.parse($stateParams.currency);
 
-    var fromTo = {
-      from: currencyFactFromURL.oldValue ? currencyFactFromURL.oldValue : 'USD',
-      to: currencyFactFromURL.newValue ? currencyFactFromURL.newValue : 'USD'
-    }
+    $scope.fromTo = $localStorage.currencypreference;
 
     $scope.tourWithAllRelated = [];
     var imagesMap = new Map();
@@ -98,11 +94,15 @@ angular.module('clientApp')
              vm.name = $scope.tourWithAllRelated[0].name;
 
              if($scope.tourWithAllRelated[0].price) {
-               $scope.tourWithAllRelated[0].price = accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].price, fromTo) , { symbol: fromTo.to,  format: "%v %s" });
+               $scope.tourWithAllRelated[0].price = accounting.unformat($scope.tourWithAllRelated[0].price);
+               $scope.tourWithAllRelated[0].price = fx.convert($scope.tourWithAllRelated[0].price, {from: "USD", to: $scope.fromTo.from});
+               $scope.tourWithAllRelated[0].price= accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].price, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
              }
 
              if($scope.tourWithAllRelated[0].offerprice) {
-               $scope.tourWithAllRelated[0].offerprice = accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].offerprice, fromTo), { symbol: fromTo.to,  format: "%v %s" });
+               $scope.tourWithAllRelated[0].offerprice = accounting.unformat($scope.tourWithAllRelated[0].offerprice);
+               $scope.tourWithAllRelated[0].offerprice = fx.convert($scope.tourWithAllRelated[0].offerprice, {from: "USD", to: $scope.fromTo.from});
+               $scope.tourWithAllRelated[0].offerprice= accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].offerprice, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
              }
 
              angular.forEach($scope.allHotels, function(hotel){
@@ -310,9 +310,12 @@ angular.module('clientApp')
                               //console.log('======' + indvCost.costitem +'====');
                               if(indvCost.costitem == 'Minimum paying pax  02') {
                                 //console.log('min paying pax 02 is available');
-                                event.title = indvCost.budget;
-                                event.title = accounting.formatMoney(fx.convert(event.title, fromTo), { symbol: fromTo.to,  format: "%v %s" });
-                                //break;
+                                var cost = indvCost.budget;
+                                cost = accounting.unformat(cost);
+                                cost = fx.convert(cost, {from: "USD", to: $scope.fromTo.from});
+                                cost = accounting.formatMoney(fx.convert(cost, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+
+                                event.title = cost;
                               }
                           });
                       }
@@ -333,8 +336,12 @@ angular.module('clientApp')
                                 //console.log('====' + indvCost.costitem + '====');
                                 if(indvCost.costitem == 'Minimum paying pax  02') {
                                   //console.log(indvCost.budget);
-                                  event.title = indvCost.budget;
-                                  event.title = accounting.formatMoney(fx.convert(event.title, fromTo), { symbol: fromTo.to,  format: "%v %s" });
+                                  var cost = indvCost.budget;
+                                  cost = accounting.unformat(cost);
+                                  cost = fx.convert(cost, {from: "USD", to: $scope.fromTo.from});
+                                  cost = accounting.formatMoney(fx.convert(cost, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+
+                                  event.title = cost;
                                 }
                             });
                         }
