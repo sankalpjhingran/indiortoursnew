@@ -8,10 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('TourHeaderController', ['$http', '$state', '$rootScope', '$scope', '$stateParams', '$document', function($http, $state, $rootScope, $scope, $stateParams, $document) {
-
-
-
+  .controller('TourHeaderController', ['$http', '$state', '$rootScope', '$scope', '$stateParams', '$document', '$sce', '_', function($http, $state, $rootScope, $scope, $stateParams, $document, $sce, _) {
     var touridsParam = [];
     touridsParam.push($stateParams.id);
 
@@ -24,6 +21,7 @@ angular.module('clientApp')
       losangeles: {population:3857799, position: [34.052234, -118.243684]},
       vancouver: {population:603502, position: [49.25, -123.1]},
     }
+
     vm.getRadius = function(num) {
       return Math.sqrt(num) * 100;
     }
@@ -44,6 +42,33 @@ angular.module('clientApp')
           }
         });
     }
-    $scope.getAllCities = function() {
+
+    $scope.trustSrc = function(src) {
+      return $sce.trustAsResourceUrl(src);
     }
+
+    $scope.allVideosForTour = function() {
+      $http.get('/api/tours/tourwithlocations/', {params: {id: $stateParams.id}})
+       .then(
+           function(res){
+             //Success callback
+             console.log(res.data[0]);
+             $scope.tourWithLocations = res.data[0];
+             $scope.videoLinks = [];
+
+             $scope.videoLinks.push($scope.tourWithLocations.videolink1);
+             $scope.videoLinks.push($scope.tourWithLocations.videolink2);
+             $scope.videoLinks.push($scope.tourWithLocations.videolink3);
+             console.log($scope.videoLinks);
+             _.without($scope.videoLinks, null);
+             console.log($scope.videoLinks);
+           },
+           function(response){
+             // failure call back
+           }
+        );
+    }
+
+    $scope.getAllCities = function() {}
+
   }]);
