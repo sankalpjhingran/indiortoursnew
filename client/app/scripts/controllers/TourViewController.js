@@ -8,17 +8,54 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('TourViewController', ['$localStorage', '$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
-  function ($localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
+  .controller('TourViewController', ['$sce', '_', '$localStorage', '$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
+  function ($sce, _, $localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
 
     $rootScope.$state = $state;
     var tourId = $stateParams.id;
 
-    $scope.fromTo = $localStorage.currencypreference;
+    var touridsParam = [];
+    touridsParam.push($stateParams.id);
 
+    var vm = this;
+    vm.$inject = ['NgMap'];
+
+    vm.cities = {
+      chicago: {population:2714856, position: [41.878113, -87.629798]},
+      newyork: {population:8405837, position: [40.714352, -74.005973]},
+      losangeles: {population:3857799, position: [34.052234, -118.243684]},
+      vancouver: {population:603502, position: [49.25, -123.1]},
+    }
+
+    vm.getRadius = function(num) {
+      return Math.sqrt(num) * 100;
+    }
+
+    $scope.allImagesForTour = function() {
+      console.log('Calling subheader controller=====>');
+      $scope.bannerImages = [];
+      var tourids = touridsParam;
+      $http.post('/api/image/all', {
+          tourids: tourids,
+          parentobjectname: 'tour'
+        })
+        .then(function(response) {
+          if (response.data.length) {
+            angular.forEach(response.data, function(image) {
+              $scope.bannerImages.push(image);
+            });
+          }
+        });
+    }
+
+    $scope.trustSrc = function(src) {
+      return $sce.trustAsResourceUrl(src);
+    }
+
+    $scope.getAllCities = function() {}
+    $scope.fromTo = $localStorage.currencypreference;
     $scope.tourWithAllRelated = [];
     var imagesMap = new Map();
-
     var vm = this;
     vm.calendarView = 'month';
     vm.viewDate = moment().toDate();
@@ -28,7 +65,6 @@ angular.module('clientApp')
     vm.name;
 
     $scope.calendarDataAvailable = false;
-
     $scope.showEnquiryForm = function(tourId, tourname, price, days){
         $scope.enquiryTourId = tourId;
         $scope.tourName = tourname;
@@ -95,6 +131,16 @@ angular.module('clientApp')
 
              vm.tourid = $scope.tourWithAllRelated[0].id;
              vm.name = $scope.tourWithAllRelated[0].name;
+
+             $scope.videoLinks = [];
+
+             $scope.videoLinks.push($scope.tourWithAllRelated[0].videolink1);
+             $scope.videoLinks.push($scope.tourWithAllRelated[0].videolink2);
+             $scope.videoLinks.push($scope.tourWithAllRelated[0].videolink3);
+             _.without($scope.videoLinks, null);
+             
+             console.log($scope.videoLinks);
+
 
              if($scope.tourWithAllRelated[0].price) {
                $scope.tourWithAllRelated[0].price = accounting.unformat($scope.tourWithAllRelated[0].price);
