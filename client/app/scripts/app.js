@@ -115,8 +115,8 @@ angular
             url:'/tourView?id&currency',
             views:{
               subheader: {
-                templateUrl: 'views/main/toursubheader.html',
-                controller: 'TourHeaderController'
+                //templateUrl: 'views/main/toursubheader.html',
+                //controller: 'TourHeaderController'
               },
               sidesection: {
                 templateUrl: 'views/main/toursidesection.html',
