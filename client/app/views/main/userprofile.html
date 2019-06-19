@@ -79,6 +79,47 @@
                       </table>
                     </div>
                   </uib-tab>
+                  <uib-tab heading="Bookings">
+                    <div class=" col-md-12 col-lg-12">
+                      <table class="table table-user-information">
+                        <tbody>
+                          <tr>
+                            <td>Name</td>
+                            <td>{{loggedInUser.firstname | ucfirst}} {{loggedInUser.lastname | ucfirst}}</td>
+                          </tr>
+                          <tr>
+                            <td>Date of Birth</td>
+                            <td>{{loggedInUser.dateofbirth | date: 'MMMM d, yyyy' }}</td>
+                          </tr>
+                          <tr>
+                            <td>Gender</td>
+                            <td>{{loggedInUser.gender}}</td>
+                          </tr>
+                          <tr>
+                            <td>Address</td>
+                            <td>
+                              <address>
+                                  {{ loggedInUser.addressline1 }}, {{ loggedInUser.addressline2 }}<br>
+                                  {{ loggedInUser.addresscity }}, {{ loggedInUser.addresstate }} {{ loggedInUser.addresscountry }} {{ loggedInUser.addresszippin }}
+                              </address>
+                            </td>
+                          </tr>
+                            <tr>
+                            <td>Last Login Date</td>
+                            <td> {{ loggedInUser.lastLogin | date:'medium' }}</td>
+                          </tr>
+                          <tr>
+                            <td>Email</td>
+                            <td><a href="{{ loggedInUser.email }}">{{ loggedInUser.email }}</a></td>
+                          </tr>
+                          <tr>
+                            <td>Phone Number</td>
+                            <td>{{ loggedInUser.phone }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </uib-tab>
                   <!-- <uib-tab index="1">
                     <uib-tab-heading>
                       My Tours

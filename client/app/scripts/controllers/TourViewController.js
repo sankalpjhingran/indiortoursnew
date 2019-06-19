@@ -29,27 +29,30 @@ angular.module('clientApp')
 
     $scope.calendarDataAvailable = false;
 
-    $scope.showEnquiryForm = function(){
-        $scope.showForm();
+    $scope.showEnquiryForm = function(tourId, tourname, price, days){
+        $scope.enquiryTourId = tourId;
+        $scope.tourName = tourname;
+        $scope.tourPrice = price;
+        $scope.tourDays = days;
+        $scope.showForm('myModalContent.html', 'ContactusController');
     }
 
-    $scope.showForm = function (isNew) {
-        $scope.message = "Show Form Button Clicked";
-        if(isNew){
-          //$scope.hotelData = null;
-        }
+    $scope.showBookingForm = function(tourId, tourname, price, days){
+        $scope.enquiryTourId = tourId;
+        $scope.tourName = tourname;
+        $scope.tourPrice = price;
+        $scope.tourDays = days;
+        $scope.showForm('bookingModal.html', 'ContactusController');
+    }
 
+    $scope.showForm = function (htmlfile, controllername) {
+        $scope.message = "Show Form Button Clicked";
         $scope.modalInstance = $uibModal.open({
-            templateUrl: 'myModalContent.html',
-            controller: 'ContactusController',
+            templateUrl: htmlfile,
+            controller: controllername,
             scope: $scope,
             backdrop: 'static',
             size: 'md',
-            resolve: {
-                userForm: function () {
-                    return $scope.userForm;
-                }
-            }
         });
 
         $scope.modalInstance.result.then(function (selectedItem) {
