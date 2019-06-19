@@ -1,26 +1,34 @@
 <style>
-.navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
-.navbar {min-height:32px !important; border-radius: 0px !important;}
-.navbar-collapse {
-      padding-left: 0px;
-}
+  .navbar-nav>li>a {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+  }
+
+  .navbar {
+    min-height: 32px !important;
+    border-radius: 0px !important;
+  }
+
+  .navbar-collapse {
+    padding-left: 0px;
+  }
 </style>
 <div class="header" ng-controller="ApplicationController as vm">
   <nav class="navbar navbar">
-      <div class="container">
-        <div class="row">
-      <div style="float: left; width:350px;height:9rem;margin-top: -7px;padding-left: 15px;">
-        <div class="page-header" style="margin-top:auto; border-bottom:none;">
-          <div class="logo-img" style="width: 111.5px; height: 94.5px; overflow: hidden;float:left;">
-               <a href="/"><img src="/images/indior_transperent cropped.ae58292c.png"  style="overflow: hidden; width:100%;" /></a>
-          </div>
-          <div style="color: rgb(255, 255, 255);">
+    <div class="container">
+      <div class="row">
+        <div style="float: left; width:350px;height:9rem;margin-top: -7px;padding-left: 15px;">
+          <div class="page-header" style="margin-top:auto; border-bottom:none;">
+            <div class="logo-img" style="width: 111.5px; height: 94.5px; overflow: hidden;float:left;">
+              <a href="/"><img src="/images/indior_transperent cropped.ae58292c.png" style="overflow: hidden; width:100%;" /></a>
+            </div>
+            <div style="color: rgb(255, 255, 255);">
               <h4 class="display-2" style="font-size: 15px;padding-top:30px;font-weight: 100;">The World is Our Family</h4>
               <span class="glyphicon"></span>
+            </div>
           </div>
         </div>
-      </div>
-      <div style="float:right;">
+        <div style="float:right;">
           <ul class="nav navbar-nav collapse navbar-collapse">
             <li><a href="https://api.whatsapp.com/send?phone=919311463467" target="_blank" class="pull-right" style="color:white;"><i class="fab fa-whatsapp" style="font-size:22px"></i></a></li>
             <li><a href="tel:+919311463467" class="phone pull-right" style="color:white;"><i class="fas fa-phone"></i> +91 9311-INDIOR</a></li>
@@ -35,25 +43,25 @@
               </ui-select>
             </li>
             <li uib-dropdown class="nav-item dropdown">
-                <a uib-dropdown-toggle style="color:#ffffff;" class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a uib-dropdown-toggle style="color:#ffffff;" class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="flag-icon flag-icon-us"> </span> English
                 <span class="caret"></span>
-                </a>
-                <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dropdown09">
-                    <li><a class="dropdown-item" href="#ar"><span class="flag-icon flag-icon-ar"> </span>  اللغة</a></li>
-                    <li><a class="dropdown-item" href="#cn"><span class="flag-icon flag-icon-cn"> </span>  简体中文</a></li>
-                    <li><a class="dropdown-item" href="#de"><span class="flag-icon flag-icon-de"> </span>  Deutsch</a></li>
-                    <li><a class="dropdown-item" href="http://translate.google.com/translate?langpair=en|fr&u=http://www.indior.tours"><span class="flag-icon flag-icon-fr"> </span>  French</a></li>
-                    <li><a class="dropdown-item" href="#it"><span class="flag-icon flag-icon-it"> </span>  Italian</a></li>
-                    <li><a class="dropdown-item" href="#jp"><span class="flag-icon flag-icon-jp"> </span>  日本語</a></li>
-                    <li><a class="dropdown-item" href="#pt"><span class="flag-icon flag-icon-pt"> </span>  Portuguese</a></li>
-                    <li><a class="dropdown-item" href="#sp"><span class="flag-icon flag-icon-ru"> </span>  русский</a></li>
-                    <li><a class="dropdown-item" href="#es"><span class="flag-icon flag-icon-es"> </span>  Español</a></li>
-                </ul>
+              </a>
+              <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dropdown09">
+                <li><a class="dropdown-item" href="#ar"><span class="flag-icon flag-icon-ar"> </span> اللغة</a></li>
+                <li><a class="dropdown-item" href="#cn"><span class="flag-icon flag-icon-cn"> </span> 简体中文</a></li>
+                <li><a class="dropdown-item" href="#de"><span class="flag-icon flag-icon-de"> </span> Deutsch</a></li>
+                <li><a class="dropdown-item" href="http://translate.google.com/translate?langpair=en|fr&u=http://www.indior.tours"><span class="flag-icon flag-icon-fr"> </span> French</a></li>
+                <li><a class="dropdown-item" href="#it"><span class="flag-icon flag-icon-it"> </span> Italian</a></li>
+                <li><a class="dropdown-item" href="#jp"><span class="flag-icon flag-icon-jp"> </span> 日本語</a></li>
+                <li><a class="dropdown-item" href="#pt"><span class="flag-icon flag-icon-pt"> </span> Portuguese</a></li>
+                <li><a class="dropdown-item" href="#sp"><span class="flag-icon flag-icon-ru"> </span> русский</a></li>
+                <li><a class="dropdown-item" href="#es"><span class="flag-icon flag-icon-es"> </span> Español</a></li>
+              </ul>
             </li>
             <!-- <li><a ng-href="" ng-show="firstname" style="color:#ffffff;">Welcome {{firstname}}!</a></li> -->
             <li uib-dropdown>
-              <a uib-dropdown-toggle href=""  style="color:#ffffff;">
+              <a uib-dropdown-toggle href="" style="color:#ffffff;">
                 My Account
                 <span class="caret"></span>
               </a>
@@ -64,10 +72,10 @@
               </ul>
             </li>
           </ul>
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
-</nav>
+  </nav>
 
   <!-- Navigation -->
   <nav class="navbar navbar-default" style="margin-top:0px;margin-bottom:auto;">
@@ -103,7 +111,7 @@
           <li><a href="/hotels">Accommodation</a></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account
-            <span class="caret"></span></a>
+              <span class="caret"></span></a>
             <ul class="dropdown-menu navbar-right">
               <li><a ng-href="" role="button"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
               <li><a ng-href="/signup"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
