@@ -76,7 +76,6 @@ angular.module('clientApp')
                 tour.locations = tempLocations;
 
                 //Convert first if saved currency is not USD
-                console.log($scope.fromTo);
                 if($scope.fromTo.to == 'USD' && $scope.fromTo.from == 'USD') {
                   if(tour.price) {
                     tour.price = accounting.formatMoney(tour.price, { symbol: $scope.fromTo.to,  format: "%v %s" });
@@ -86,7 +85,6 @@ angular.module('clientApp')
                     tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: $scope.fromTo.to,  format: "%v %s" });
                   }
                 } else {
-                  console.log($scope.fromTo);
                   if(tour.price) {
                     tour.price = accounting.unformat(tour.price);
                     tour.price = fx.convert(tour.price, {from: "USD", to: $scope.fromTo.from});
@@ -137,30 +135,27 @@ angular.module('clientApp')
     }
 
     $scope.showEnquiryForm = function(tourId, tourname, price, days){
-        console.log(tourId);
-        console.log(tourname);
-        console.log(price);
-        console.log(days);
-        $scope.showForm(tourId, tourname, price, days);
+        $scope.enquiryTourId = tourId;
+        $scope.tourName = tourname;
+        $scope.tourPrice = price;
+        $scope.tourDays = days;
+        $scope.showForm('myModalContent.html', 'ContactusController');
+    }
+
+    $scope.showBookingForm = function(tourId, tourname, price, days){
+        $scope.enquiryTourId = tourId;
+        $scope.tourName = tourname;
+        $scope.tourPrice = price;
+        $scope.tourDays = days;
+        $scope.showForm('bookingModal.html', 'ContactusController');
     }
 
 
-    $scope.showForm = function (tourId, tourName, price, days) {
+    $scope.showForm = function (htmlfile, controllername) {
         $scope.message = "Show Form Button Clicked";
-        console.log($scope.message);
-        $scope.enquiryTourId = tourId;
-        $scope.tourName = tourName;
-        $scope.tourPrice = price;
-        $scope.tourDays = days;
-
-        console.log($scope.enquiryTourId);
-        console.log($scope.tourName);
-        console.log($scope.tourPrice);
-        console.log($scope.tourDays);
-
         $scope.modalInstance = $uibModal.open({
-            templateUrl: 'myModalContent.html',
-            controller: 'ContactusController',
+            templateUrl: htmlfile,
+            controller: controllername,
             scope: $scope,
             backdrop: 'static',
             size: 'md',
