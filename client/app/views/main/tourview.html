@@ -88,60 +88,81 @@
     color: #fff;
     background-color: #3071ba;
   }
+
+  .col3 {
+      height: 100%;
+      background-color: #3171bb;
+    }
 </style>
 
 <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
 <div ng-show="!(loading)">
   <!-- Header div -->
-  <div class="col-sm-3">
+  <div class="col-sm-3 col3" style="margin-top: -10px;">
     <div class="row">
-      <h4 class="pull-left" style="color:orange;">
-        {{tourWithAllRelated[0].name}}
-      </h4>
+      <div style="padding-top:20px;padding-left:5px;padding-right:5px;padding-bottom:0px;">
+        <h4 class="pull-left" style="color:orange;">
+          {{tourWithAllRelated[0].name}}
+        </h4>
+      </div>
     </div>
+
     <div class="row">
-      <!-- This is a repeat on all locations -->
-      <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
-        <span style="color:orange;">
-          <a style="color: orange;" href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a><span ng-hide="$last"> > </span>
+      <div style="padding:5px;padding-bottom:0px;padding-top:2px;">
+        <!-- This is a repeat on all locations -->
+        <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
+          <span style="color:orange;">
+            <a style="color: orange;" href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a><span ng-hide="$last"> <i class="fas fa-angle-right fa-sm"></i> </span>
+          </span>
         </span>
-      </span>
-    </div>
-    <div class="row">
-      <div style="color:orange;">
-        {{tourWithAllRelated[0].tourtype}}
       </div>
-    </div>
-    <div class="row">
-      <div style="color:orange;">
-        {{tourWithAllRelated[0].days}} days | {{tourWithAllRelated[0].nights}} nights
-      </div>
-    </div>
-    <div class="row">
-      <div style="color:orange;">
-        <span>
+      <div style="padding:5px;padding-bottom:2px;padding-top:2px;">
+        <div style="color:orange;display:block;">
+          {{tourWithAllRelated[0].tourtype}}
+        </div>
+        <div style="color:orange;display:block;">
+          {{tourWithAllRelated[0].days}} days | {{tourWithAllRelated[0].nights}} nights
+        </div>
+        <div style="color:orange;display:block;">
           <currency-direc price="{{tourWithAllRelated[0].price}}"></currency-direc> onwards
-        </span>
+        </div>
       </div>
     </div>
-    <div class="row">
+
+    <div class="row" style="padding:5px;">
       <span class="btn-group btn-group-justified">
         <a ng-click="showEnquiryForm(tourWithAllRelated[0].id, tourWithAllRelated[0].name, tourWithAllRelated[0].price, tourWithAllRelated[0].days);" class="btn btn-default">
           Send Enquiry
         </a>
-        <a ng-click="showBookingForm(tourWithAllRelated[0].id, tourWithAllRelated[0].name, tourWithAllRelated[0].price, tourWithAllRelated[0].days);" class="btn btn-primary">
+        <a ng-click="showBookingForm(tourWithAllRelated[0].id, tourWithAllRelated[0].name, tourWithAllRelated[0].price, tourWithAllRelated[0].days);" class="btn btn-default">
           Book Now
         </a>
       </span>
+      <div class="col3" style="height:100%">
+
+      </div>
+    </div>
+
+    <div class="row" style="padding:5px;">
+      <div>
+        <span class="btn-group-vertical" style="width: 100%;">
+          <a ng-click="activePill = 0" class="btn btn-default btn-sm">
+            Photos
+          </a>
+          <a ng-click="activePill = 1" class="btn btn-default btn-sm">
+            Videos
+          </a>
+          <a ng-click="activePill = 2" class="btn btn-default btn-sm">
+            Map
+          </a>
+        </span>
+      </div>
     </div>
   </div>
 
-<div class="col-sm-9" style="padding-right: 0px;">
-  <uib-tabset id="headerTab" active="activePill" justified="true" type="pills" style="margin-top: -10px;">
-    <uib-tab index="0">
-      <uib-tab-heading>
-        <strong>Photos</strong>
-      </uib-tab-heading>
+<div class="col-sm-9" style="padding-right: 0px;padding-left: 0px;">
+  <uib-tabset style="margin-top: -30px !important;" id="photosTab" active="activePill" justified="true" type="pills" style="margin-top: -10px;">
+    <uib-tab style="margin-top: -30px !important;" index="0">
       <div class="col-sm-12 carouselCol hidden-xs" ng-init="allImagesForTour()" style="padding-left:0px;padding-right:0px;margin-top: 0px;">
         <div id="carousel-header-pics" class="carousel slide" data-ride="carousel">
           <!-- Indicators -->
@@ -177,11 +198,7 @@
     </uib-tab>
 
 
-    <uib-tab index="1">
-      <uib-tab-heading>
-        <strong>Videos</strong>
-      </uib-tab-heading>
-
+    <uib-tab index="1" style="margin-top: -30px !important;"  id="videoTab">
       <div class="col-sm-12 carouselCol hidden-xs" ng-init="allVideosForTour()" style="padding-left:0px;padding-right:0px;margin-top: 0px;">
         <div id="carousel-header-videos" class="carousel slide" data-ride="carousel">
           <!-- Indicators -->
@@ -217,10 +234,7 @@
     </uib-tab>
 
 
-    <uib-tab index="2" ng-init="getAllCities()" id="mapTab">
-      <uib-tab-heading>
-        <strong>Map</strong>
-      </uib-tab-heading>
+    <uib-tab index="2" style="margin-top: -30px !important;" ng-init="getAllCities()" id="mapTab">
       <div ng-controller="TourViewController as vm" style="height:350px;">
         <ng-map center="37.09024, -95.712891" zoom="3" mayTypeId="TERRAIN" style="height:350px;">
           <shape name="circle" ng-repeat="city in vm.cities" no-watcher="true" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" center="{{city.position}}"
