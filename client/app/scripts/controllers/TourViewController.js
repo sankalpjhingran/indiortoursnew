@@ -11,6 +11,10 @@ angular.module('clientApp')
   .controller('TourViewController', ['$sce', '_', '$localStorage', '$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
   function ($sce, _, $localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
 
+    $scope.myInterval = 5000;
+    $scope.active = 0;
+    var currIndex = 0;
+
     $rootScope.$state = $state;
     var tourId = $stateParams.id;
 
@@ -138,7 +142,7 @@ angular.module('clientApp')
              $scope.videoLinks.push($scope.tourWithAllRelated[0].videolink2);
              $scope.videoLinks.push($scope.tourWithAllRelated[0].videolink3);
              _.without($scope.videoLinks, null);
-             
+
              console.log($scope.videoLinks);
 
 
