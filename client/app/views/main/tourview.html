@@ -370,7 +370,7 @@ body,
             <div style="height:400px;">
               <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
                 <div uib-slide ng-repeat="slide in bannerImages track by slide.id" index="$index">
-                  <img ng-src="/images/{{slide.filename}}" style="height:400px;margin:auto;">
+                  <img ng-src="/images/{{slide.filename}}" class="scaleSubHeader" style="width:100%;height:400px;margin:auto;">
                   <div class="carousel-caption">
                   </div>
                 </div>
