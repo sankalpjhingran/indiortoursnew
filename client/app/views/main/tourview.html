@@ -199,6 +199,7 @@
     //background: rgba(248, 148, 6, 0.67);
     height: 400px;
     padding: 0px;
+    padding-right: 15px;
     display: none;
     -webkit-animation: opendoor 0.75s ease 0s alternate;
     -webkit-transform-style: preserve-3d;
@@ -326,7 +327,7 @@ body,
 
 <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
 <div ng-show="!(loading)">
-    <div class="row">
+    <div class="row-fluid">
       <div class="col-md-3 information hidden-sm hidden-xs">
         <h3 style="padding-left:0px;">{{ tourWithAllRelated[0].name }}</h3>
           <div>
@@ -414,7 +415,7 @@ body,
   <!-- main div -->
   <div ng-init="getTourDetailsWithRelatedModels()">
     <!-- Tour Name -->
-    <div class="row">
+    <div class="row-fluid">
       <div class="col-sm-12 tourPageCols">
         <!-- This is tour description -->
         <p class="main">
@@ -875,14 +876,6 @@ body,
   		    $(".overlay-id"+$(this).data("id")).addClass("active").removeClass("inactive");
           $(".overlay-id"+$(this).data("id")).prev().addClass("inactive")
       });
-
-  	/*
-      $('.slideshow').children().on('mouseleave',function(e) {
-  		$(this).removeClass("active");
-  	});
-  	*/
-
-      $('.carousel').carousel();
      });
   })(jQuery);
 </script>
