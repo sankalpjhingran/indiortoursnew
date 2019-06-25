@@ -328,9 +328,8 @@ body,
 <div ng-show="!(loading)">
     <div class="row">
       <div class="col-md-3 information hidden-sm hidden-xs">
-        <h3 style="padding-left:0px;">Taste of India</h3>
+        <h3 style="padding-left:0px;">{{ tourWithAllRelated[0].name }}</h3>
           <div>
-            <!-- This is a repeat on all locations -->
             <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
               <span style="color:white;">
                 <a style="color:white;" href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a><span ng-hide="$last"> <i class="fas fa-angle-right fa-sm"></i> </span>
@@ -380,15 +379,9 @@ body,
 
           <div class="overlay-id2 overlay-item">
             <div style="height:400px;">
-              <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-                <div uib-slide ng-repeat="slide in videoLinks track by slide.id" index="$index">
-                  <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item"  ng-src="{{ trustSrc(slide.link) }}" width="auto">></iframe>
-                  </div>
-                  <div class="carousel-caption">
-                  </div>
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe style="height:400px; class="embed-responsive-item"  ng-src="{{ trustSrc(videoLinks[0].link) }}" width="auto">></iframe>
                 </div>
-              </div>
             </div>
           </div>
           <div class="overlay-id3 overlay-item">
