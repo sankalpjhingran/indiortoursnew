@@ -55,6 +55,7 @@ module.exports = function(config) {
       'bower_components/rrule/lib/rrule.js',
       'bower_components/underscore/underscore.js',
       'bower_components/ngmap/build/scripts/ng-map.js',
+      'bower_components/angular-mapboxgl-directive/dist/angular-mapboxgl-directive.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
