@@ -43,9 +43,14 @@ angular
     'ui.grid.grouping',
     'ui.grid.resizeColumns',
     'underscore',
-    'ngMap'
+    'ngMap',
+    'mapboxgl-directive'
     //'ncy-angular-breadcrumb'
   ])
+
+  .run([function () {
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2Fua2FscC1qaGluZ3JhbiIsImEiOiJjanhjbGZuaXcwNGF5M25tZHhuNXZiM2tmIn0.PEHlpxwxbDdpVVfv8MZt8Q';
+      }])
 
   .config(['$localStorageProvider',
       function ($localStorageProvider) {

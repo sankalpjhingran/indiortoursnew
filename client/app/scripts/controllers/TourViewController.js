@@ -22,18 +22,50 @@ angular.module('clientApp')
     touridsParam.push($stateParams.id);
 
     var vm = this;
-    vm.$inject = ['NgMap'];
-
-    vm.cities = {
-      chicago: {population:2714856, position: [41.878113, -87.629798]},
-      newyork: {population:8405837, position: [40.714352, -74.005973]},
-      losangeles: {population:3857799, position: [34.052234, -118.243684]},
-      vancouver: {population:603502, position: [49.25, -123.1]},
+    function createElement () {
+          var element = document.createElement('i');
+          element.class = 'fa fa-map-marker';
+          return element;
     }
 
-    vm.getRadius = function(num) {
-      return Math.sqrt(num) * 100;
-    }
+    $scope.glMarkers = [
+      {
+        coordinates: [-99.20415, 19.42257],
+        element: createElement()
+      }, {
+        coordinates: [-99.10415, 19.44257],
+        element: createElement()
+      }
+    ];
+
+    $scope.glSources = [
+          {
+            id: 'routeSource',
+            type: 'geojson',
+            data: {
+               type: 'Feature',
+               geometry: {
+                  type: 'LineString',
+                  coordinates: [
+                     [-99.20415, 19.42257],
+                     [-99.10415, 19.44257]
+                  ]
+               }
+            }
+         }
+        ];
+
+    $scope.glLayers = [
+      {
+        id: 'routeLayer',
+        source: 'routeSource',
+        type: 'line',
+        paint: {
+          'line-width': 5,
+          'line-color': '#FF1A47'
+        }
+      }
+    ];
 
     $scope.allImagesForTour = function() {
       console.log('Calling subheader controller=====>');
