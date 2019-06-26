@@ -28,7 +28,8 @@
     "angular-bootstrap-calendar": "^1.0.0",
     "rrule": "^2.2.0",
     "underscore": "^1.9.1",
-    "ngmap": "^1.18.4"
+    "ngmap": "^1.18.4",
+    "angular-mapboxgl-directive": "^0.44.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
