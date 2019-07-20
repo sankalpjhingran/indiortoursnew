@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var jade = require('pug');
 var compression = require('compression');
-//var braintree = require('braintree');
+
 var util = require('util');
 var fs = require('fs');
 var debug = require('debug')('http')
@@ -225,6 +225,18 @@ if (app.get('env') === 'prod' || app.get('env') === 'dev') {
     });
   });
 }
+
+app.get('/api/sitemap', function (request, res) {
+    fs = require('fs');
+    fs.readFile(path.join(__dirname + '/site-map.xml'), function(err, data){
+        console.log('Sending response ====>');
+        res.set('Content-Type', 'text/xml');
+        res.set('vary', 'User-Agent');
+        res.set('content-encoding', 'compress');
+        res.set('transfer-encoding', 'compress');
+        res.send(data.toString());
+    });
+});
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/dist/index.html'));
