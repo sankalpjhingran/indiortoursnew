@@ -8,8 +8,11 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('TourViewController', ['$sce', '_', '$localStorage', '$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
-  function ($sce, _, $localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
+  .controller('TourViewController', ['$sce', '_', '$localStorage', '$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'MetaService', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
+  function ($sce, _, $localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, MetaService,  calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
+
+    console.log(MetaService);
+    $rootScope.metaservice = MetaService;
 
     $scope.myInterval = 3000;
     $scope.active = 0;
@@ -167,6 +170,7 @@ angular.module('clientApp')
 
              vm.tourid = $scope.tourWithAllRelated[0].id;
              vm.name = $scope.tourWithAllRelated[0].name;
+             $rootScope.metaservice.set("India Tours | " + vm.name , $scope.tourWithAllRelated[0].description, "");
 
              $scope.videoLinks = [];
 

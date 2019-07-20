@@ -89,6 +89,28 @@ angular
     .setNotify(true, true)
 })
 
+.service('MetaService', function() {
+      var title = '';
+      var metaDescription = '';
+      var metaKeywords = '';
+      return {
+        set: function(newTitle, newMetaDescription, newKeywords) {
+          metaKeywords = newKeywords;
+          metaDescription = newMetaDescription;
+          title = newTitle;
+        },
+        metaTitle: function() {
+          return title;
+        },
+        metaDescription: function() {
+          return metaDescription;
+        },
+        metaKeywords: function() {
+          return metaKeywords;
+        }
+      }
+})
+
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider, calendarConfig, $timeout) {
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/404');
