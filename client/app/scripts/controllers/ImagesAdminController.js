@@ -75,6 +75,41 @@ $scope.saveNew = function(){
 }
 */
 
+$scope.searchBackend = false;
+$scope.filterData = function() {
+      if($scope.searchBackend) {
+          console.log('Calling filter data...');
+          // populate $scope.allImages = response.data; here
+
+          $http.get('/api/image/search/', {params: {searchterm: $scope.search}})
+           .then(
+               function(response){
+                 console.log(response.data);
+                 // success callback
+                 $scope.allImages = response.data;
+                 angular.forEach($scope.allImages, function(image) {
+                   $scope.allImagesMap.set(image.id, image);
+                 });
+
+                 $scope.totalItems = $scope.allImages.length;
+                 $scope.currentPage = 1;
+                 $scope.pageChanged();
+
+                 var pagedData = [];
+                 if($scope.allImages) {
+                   pagedData = $scope.allImages.slice(0,$scope.itemsPerPage);
+                 }
+                 $scope.aImages = pagedData;
+               },
+               function(response){
+                 // failure call back
+               }
+            );
+      } else {
+          console.log('searching client side only...');
+      }
+}
+
 // get all locations to be displayed on page load
 $scope.loadImagesData = function(){
   $scope.allImages = undefined;
