@@ -12,8 +12,11 @@
   <div class="form-group">
     <div class="input-group">
       <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-      <input type="text" class="form-control" placeholder="Search Images..." ng-model="search">
+      <input type="text" class="form-control" placeholder="Search Images..." ng-model="search" ng-change="filterData();">
     </div>
+    <label class="checkbox-inline">
+          <input type="checkbox" name="searchBackend" ng-model="searchBackend"> Search Backend
+    </label>
   </div>
 
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>

@@ -115,6 +115,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use('/api/image', images);
 app.use('/api/image/all', images);
 app.use('/api/image/allImages', images);
+app.use('/api/image/search', images);
 
 //app.use('/*', index); //<-- COMMENT THIS
 //app.use('/api/login', login);
