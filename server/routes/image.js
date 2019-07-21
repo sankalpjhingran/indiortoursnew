@@ -27,6 +27,7 @@ var upload = multer({ storage: storage }).single('file');
 */
 router.post('/', upload, imageController.create);
 router.get('/', imageController.show);
+router.get('/search', imageController.search);
 router.post('/all/', imageController.index);
 router.post('/update/', imageController.update);
 router.get('/allImages/', imageController.indexAll);
