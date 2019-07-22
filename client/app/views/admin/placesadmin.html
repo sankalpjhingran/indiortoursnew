@@ -157,25 +157,52 @@
                 <option>Zoo</option>
               </select>
             </div>
-          <div class="form-group">
-            <div id="remote">
-              <label for="location_id">Location</label>
-              <input type="text"  ng-model="placeData.location"
-                                  placeholder="Search Locations By City..."
-                                  uib-typeahead="location as location.city for location in allLocations | filter: {city:$viewValue}"
-                                  typeahead-wait-ms="1000"
-                                  typeahead-min-length="3"
-                                  typeahead-loading="loadingLocations"
-                                  typeahead-no-results="noResults"
-                                  typeahead-editable=false
-                                  class="form-control"
-                                  value="location.city">
-              <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-              <div ng-show="noResults">
-                <i class="glyphicon glyphicon-remove"></i> No Results Found
+
+
+            <div class="form-group">
+              <div id="remote">
+                <label for="location_id">Location</label>
+                <input type="text"  ng-model="placeData.location"
+                                    placeholder="Search Locations By City..."
+                                    uib-typeahead="location as location.city for location in allLocations | filter: {city:$viewValue}"
+                                    typeahead-wait-ms="1000"
+                                    typeahead-min-length="3"
+                                    typeahead-loading="loadingLocations"
+                                    typeahead-no-results="noResults"
+                                    typeahead-editable=false
+                                    class="form-control"
+                                    value="location.city"
+                                    typeahead-template-url="customTemplate.html"
+                                    class="form-control"
+                                    typeahead-show-hint="true">
+                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                <div ng-show="noResults">
+                  <i class="glyphicon glyphicon-remove"></i> No Results Found
+                </div>
               </div>
             </div>
+
+          <!--
+          <div class="form-group">
+            <div id="remote">
+                <label for="locationids">Locations</label>
+                <!-- New locations multi select -->
+                <!--
+                <ui-select ng-model="placeData.location" theme="bootstrap" close-on-select="false"  title="Select Locations...">
+                <ui-select-match placeholder="Select Locations...">{{$item.city}}, {{$item.country}}</ui-select-match>
+                <ui-select-choices repeat="location in allLocations | propsFilter: {city: $select.search}">
+                  <div ng-bind-html="location.city | highlight: $select.search"></div>
+                  <small>
+                    City: {{location.city}},
+                    State: {{ location.state }},
+                    Country: <span ng-bind-html="''+location.country | highlight: $select.search"></span>
+                  </small>
+                </ui-select-choices>
+            </ui-select>
+            </div>
           </div>
+          -->
+
           <div class="form-group">
             <label for="latitude">Latitude</label>
             <input type="text" class="form-control input-sm" ng-model="placeData.latitude" id="latitude" placeholder="Latitude">
@@ -237,5 +264,16 @@
     </script>
     <div class="modal-parent">
     </div>
+
+    <script type="text/ng-template" id="customTemplate.html">
+      <a>
+        <div ng-bind-html="''+match.label | uibTypeaheadHighlight:query"></div>
+        <small>
+          State: {{ match.model.state }},
+          Country: {{ match.model.country }}
+        </small>
+      </a>
+
+    </script>
 </div>
 <!--Ends----->
