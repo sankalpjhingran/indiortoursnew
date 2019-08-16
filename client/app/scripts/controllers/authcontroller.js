@@ -8,8 +8,9 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-.controller('authcontroller', function ($scope, $http, $location, $rootScope, $window) {
+.controller('authcontroller', function ($scope, $http, $location, $rootScope, $window, MetaService) {
       console.log('In Auth controller');
+      $rootScope.metaservice = MetaService;
 
       $scope.visibility = {
         isLoginFormOpen: true,
