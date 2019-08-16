@@ -9,14 +9,11 @@
  */
 angular.module('clientApp')
   .controller('MainCtrl', ['$localStorage', '$http','$state', '$rootScope', '$scope', 'Carousel', 'currencyFact', '$uibModal', 'MetaService', function ($localStorage, $http, $state, $rootScope, $scope, Carousel, currencyFact, $uibModal, MetaService) {
-
-    console.log('Setting MetaService');
-    $rootScope.metaservice = MetaService;
+    //$rootScope.metaservice = MetaService;
     $rootScope.metaservice.set("India Tours | India Tourism | Tours and Travels | Book Holiday Packages | India Tour Packages HomeTravel Guide| Travel deals India | Tours to India-from Indior Tours India's Great Travel specialists","","");
 
     console.log($rootScope.metaservice.metaTitle());
     console.log($rootScope.metaservice.metaDescription());
-    console.log($rootScope.metaservice.metaKeywords());
 
     var imagesMap = new Map();
     $scope.toursMap = new Map();

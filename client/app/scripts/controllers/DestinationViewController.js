@@ -8,8 +8,10 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('DestinationViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
+  .controller('DestinationViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', 'MetaService', '$timeout', function ($http, $state, $rootScope, $scope, $stateParams, MetaService, $timeout) {
   $rootScope.$state = $state;
+
+  //$rootScope.metaservice = MetaService;
 
   var destinationId = $stateParams.id;
   $scope.name = $stateParams.name;
@@ -23,6 +25,11 @@ angular.module('clientApp')
          function(res){
            // success callback
            $scope.destination = res.data;
+
+           $timeout(function () {
+             $rootScope.metaservice.set("India Tours | " + $scope.destination.name , $scope.destination.description, "");
+           }, 250);
+
            var destinations = res.data.Countries;
            var imageIds = [];
            angular.forEach(destinations, function(destination){
