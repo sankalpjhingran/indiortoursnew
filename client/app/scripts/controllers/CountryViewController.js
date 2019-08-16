@@ -8,10 +8,8 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('CountryViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', '_', '$timeout', 'MetaService', function ($http, $state, $rootScope, $scope, $stateParams, _, $timeout, MetaService) {
-    $rootScope.$state = $state;
-
-    //$rootScope.metaservice = MetaService;
+  .controller('CountryViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', '_', function ($http, $state, $rootScope, $scope, $stateParams, _) {
+  $rootScope.$state = $state;
 
     var destinationId = $stateParams.id;
     $scope.name = $stateParams.name;
@@ -32,10 +30,6 @@ angular.module('clientApp')
 
              var regionids = [];
              $scope.countryData = res.data;
-             $timeout(function () {
-               $rootScope.metaservice.set("India Tours | " + $scope.countryData.name , $scope.countryData.description, "");
-             }, 250);
-
              regions.forEach(function(region) {
                regionids.push(regions.id);
              })
