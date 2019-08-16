@@ -70,6 +70,21 @@ angular.module('clientApp')
       }
     ];
 
+    $scope.glControls = {
+          navigation: {
+            enabled: true,
+            options: {
+              position: 'top-right'
+            }
+          },
+          geolocate: {
+            enabled: true,
+            options: {
+              position: 'top-left'
+            }
+          }
+    };
+
     $scope.allImagesForTour = function() {
       console.log('Calling subheader controller=====>');
       $scope.bannerImages = [];
