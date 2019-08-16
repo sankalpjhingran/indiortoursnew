@@ -12,6 +12,7 @@ angular.module('clientApp')
   function ($sce, _, $localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, MetaService,  calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
 
     console.log(MetaService);
+    $rootScope.metaservice = MetaService;
 
     $scope.myInterval = 3000;
     $scope.active = 0;
@@ -39,21 +40,6 @@ angular.module('clientApp')
         element: createElement()
       }
     ];
-
-    $scope.glControls = {
-          navigation: {
-            enabled: true,
-            options: {
-              position: 'top-right'
-            }
-          },
-          geolocate: {
-            enabled: true,
-            options: {
-              position: 'top-left'
-            }
-          }
-    };
 
     $scope.glSources = [
           {
@@ -85,6 +71,7 @@ angular.module('clientApp')
     ];
 
     $scope.allImagesForTour = function() {
+      console.log('Calling subheader controller=====>');
       $scope.bannerImages = [];
       var tourids = touridsParam;
       $http.post('/api/image/all', {
@@ -183,7 +170,6 @@ angular.module('clientApp')
 
              vm.tourid = $scope.tourWithAllRelated[0].id;
              vm.name = $scope.tourWithAllRelated[0].name;
-             $rootScope.metaservice.clear();
              $rootScope.metaservice.set("India Tours | " + vm.name , $scope.tourWithAllRelated[0].description, "");
 
              $scope.videoLinks = [];
