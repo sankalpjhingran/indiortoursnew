@@ -258,17 +258,6 @@ body,
     height: 100%;
 }
 
-@-webkit-keyframes opendoor {
-    from {
-        -webkit-transform: perspective(1000px) rotateY(90deg);
-        -webkit-transform-origin: 0% 50%;
-    }
-    to {
-        -webkit-transform: perspective(1000px) rotateY(0deg);
-        -webkit-transform-origin: 0% 50%;
-    }
-}
-
 .mapboxgl-map {
   height:400px !important;
   display: block;
@@ -278,6 +267,17 @@ body,
   height:400px !important;
   display: block;
   width: 100% !important;
+}
+
+@-webkit-keyframes opendoor {
+    from {
+        -webkit-transform: perspective(1000px) rotateY(90deg);
+        -webkit-transform-origin: 0% 50%;
+    }
+    to {
+        -webkit-transform: perspective(1000px) rotateY(0deg);
+        -webkit-transform-origin: 0% 50%;
+    }
 }
 </style>
 
@@ -337,19 +337,15 @@ body,
             </div>
           </div>
           <div class="overlay-id2 overlay-item">
-            <iframe
-                id="ytplayer"
-                type="text/html"
-                style="width: inherit;" height="400"
-                src="{{ trustSrc(tourWithAllRelated[0].videolink1) }}"
-                frameborder="0"
-                allowfullscreen />
+            <div style="height:400px;">
+              
+            </div>
           </div>
           <div class="overlay-id3 overlay-item">
             <div ng-controller="TourViewController as vm">
               <div style="height:400px !important;"
                 mapboxgl
-                gl-zoom="{ value: 15 }"
+                gl-zoom="{ value: 10 }"
                 gl-center="{ lat: 19.44257, lng: -99.20415 }"
                 gl-markers="glMarkers"
                 gl-sources="glSources"
@@ -395,7 +391,7 @@ body,
         <!-- This is a repeat on all locations -->
         <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
           <span style="color:orange;">
-            <a style="color: orange;" href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last">></span>
+            <a style="color: orange;" href="/city?id={{ location.id }}&countryid={{ location.country_id }}&name={{ location.city }}">{{ location.city }}</a> <span ng-hide="$last"> > </span>
           </span>
         </span>
       </div>
