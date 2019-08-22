@@ -60,4 +60,7 @@ typings/
 server/config/config.js
 
 # Images in public/images folder
-server/public/images
+server/public/images/
+
+# ignore sql backup
+db1-backup-2018-09-21.sql
