@@ -6,6 +6,14 @@
     </p>
   </div>
 
+  <div ng-show="statusinactive" class="alert alert-info" style="margin-top:10px;">
+    User inactive, please check you email and click on the activation link to complete your registration.
+  </div>
+
+  <div ng-show="statuspending" class="alert alert-info" style="margin-top:10px;">
+    Please check you email and click on the activation link to complete your registration.
+  </div>
+
   <div ng-show="invaliduser" class="alert alert-danger" style="margin-top:10px;">
     User does not exist or is invalid or activation link has expired.
   </div>
@@ -13,7 +21,7 @@
   <div ng-show="linkExpired" class="alert alert-warning" style="margin-top:10px;">
     The activation link is expired, enter your email below to receive a new activation link.
     <div class="clearfix"></div>
-      <input type="email" style="width:30%;" class="form-control input-sm" id="email" ng-model="useremail" placeholder="Enter your email...">
-      <p class="btn btn-warning btn-sm" style="margin-top:10px;" ng-click="sendNewVerifyLink()">Submit</p>
+    <input type="email" style="width:30%;" class="form-control input-sm" id="email" ng-model="useremail" placeholder="Enter your email...">
+    <p class="btn btn-warning btn-sm" style="margin-top:10px;" ng-click="sendNewVerifyLink()">Submit</p>
   </div>
 </div>

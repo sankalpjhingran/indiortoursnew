@@ -377,7 +377,7 @@ angular
             }
         })
         .state('verify', {
-            url: '/verify?link&id',
+            url: '/verify?link&id&status',
             views:{
               subheader: {
                 //templateUrl: 'views/homesubheader.html',
@@ -425,8 +425,7 @@ angular
                 templateUrl: 'views/main/userprofile.html',
                 controller: 'UserProfileController'
               }
-            },
-            resolve: { authenticate: authenticate }
+            }
         })
         .state('login', {
             url: '/login',
@@ -546,7 +545,7 @@ angular
                 templateUrl: 'views/admin/toursadmin.html',
                 controller: 'ToursAdminController'
               }
-            },resolve: { authenticate: authenticate }
+            },resolve: { authenticate: authenticateAdmin }
         })
         .state('parenttours', {
             url: '/parenttours',
@@ -565,7 +564,7 @@ angular
                 controller: 'ParentToursAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('locationadmin', {
             url: '/locationadmin',
@@ -584,7 +583,7 @@ angular
                 controller: 'LocationAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('regionsadmin', {
             url: '/regionsadmin',
@@ -603,7 +602,7 @@ angular
                 controller: 'RegionAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('countriesadmin', {
             url: '/countriesadmin',
@@ -622,7 +621,7 @@ angular
                 controller: 'CountryAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('continentsadmin', {
             url: '/continentsadmin',
@@ -641,7 +640,7 @@ angular
                 controller: 'ContinentAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('placeadmin', {
             url: '/placeadmin',
@@ -660,7 +659,7 @@ angular
                 controller: 'PlacesAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('imageadmin', {
             url: '/imageadmin',
@@ -679,7 +678,7 @@ angular
                 controller: 'ImagesAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('leadsadmin', {
             url: '/leadsadmin',
@@ -698,7 +697,7 @@ angular
                 controller: 'LeadsAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('usersadmin', {
             url: '/usersadmin',
@@ -717,7 +716,7 @@ angular
                 controller: 'UsersAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('hotelsadmin', {
             url: '/hotelsadmin',
@@ -736,7 +735,7 @@ angular
                 controller: 'HotelsAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('itineraryadmin', {
             url: '/itineraryadmin',
@@ -755,7 +754,7 @@ angular
                 controller: 'ItineraryAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('departuredateadmin', {
             url: '/departuredateadmin',
@@ -774,7 +773,7 @@ angular
                 controller: 'DepartureDateAdminController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('tourcostsadmin', {
             url: '/tourcostsadmin',
@@ -793,7 +792,7 @@ angular
                 controller: 'TourCostsController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('tournotesadmin', {
             url: '/tournotesadmin',
@@ -812,7 +811,7 @@ angular
                 controller: 'TourNotesController'
               }
             }
-            ,resolve: { authenticate: authenticate }
+            ,resolve: { authenticate: authenticateAdmin }
         })
         .state('404', {
           url: '/404',
@@ -928,20 +927,44 @@ angular
             }
         })*/;
 
+        function authenticateAdmin($q, $state, $timeout, $http) {
+          $http.get('/api/isAuthenticated/')
+           .then(
+               function(response) {
+                 // success callback
+                 if(response.data.isLoggedIn) {
+                   if(response.data.user && response.data.user.type === 'Admin'){
+                      return $q.when();
+                   } else {
+                     $timeout(function() {
+                       // This code runs after the authentication promise has been rejected.
+                       // Go to the log-in page
+                       $stateProvider.stateService.go('unauthorised');
+                     })
+                   }
+                 } else{
+                   $timeout(function() {
+                     // This code runs after the authentication promise has been rejected.
+                     // Go to the log-in page
+                     $stateProvider.stateService.go('unauthorised');
+                   })
+                 }
+               },
+               function(response){
+                 //failure call back
+                 console.log('Error checking authentication OR unauthorised login.');
+               }
+            );
+        }
+
       function authenticate($q, $state, $timeout, $http) {
         $http.get('/api/isAuthenticated/')
          .then(
              function(response) {
                // success callback
                if(response.data.isLoggedIn) {
-                 if(response.data.user && response.data.user.type === 'Admin'){
+                 if(response.data.user){
                     return $q.when();
-                 } else {
-                   $timeout(function() {
-                     // This code runs after the authentication promise has been rejected.
-                     // Go to the log-in page
-                     $stateProvider.stateService.go('unauthorised');
-                   })
                  }
                } else{
                  $timeout(function() {

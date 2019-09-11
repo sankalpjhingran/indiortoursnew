@@ -26,8 +26,10 @@ var config = {
      service: process.env.NOREPLY_SERVICE,
    },
    fb:{
-     CLIENT_ID: process.env.FB_CLIENT_ID,
-     CLIENT_SECRET: process.env.FB_CLIENT_SECRET
+     clientID: process.env.FB_CLIENT_ID,
+     clientSecret: process.env.FB_CLIENT_SECRET,
+     callbackURL: process.env.FB_CALLBACK_URL,
+     enableProof: false
    }
 }
 
