@@ -8,46 +8,53 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('VerifyLinkController', ['$http','$state', '$rootScope', '$scope', '$stateParams', 'uiGridGroupingConstants', function ($http, $state, $rootScope, $scope, $stateParams, calendarConfig, uiGridGroupingConstants) {
+  .controller('VerifyLinkController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
       console.log('In VerifyLinkController===>');
 
       $scope.verificationSuccess = false;
       $scope.linkExpired = false;
       $scope.invaliduser = false;
+      $scope.statuspending = false;
+      $scope.statusinactive = false;
       $scope.newverificationemailsent = false;
       $scope.newforgorpasswordlinksent = false;
       $scope.passwordchangedsuccess = false;
 
       var link = $stateParams.link;
       var userId = $stateParams.id;
+      var status = $stateParams.status;
+      var email = $stateParams.email;
 
       $scope.verifyLink = function() {
-          //Write code to check if link exists for user id and is still active
-          var config = {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }
+          if(status === 'pending') {
+                $scope.statuspending = true;
+          } else {
+            //Write code to check if link exists for user id and is still active
+            var config = {
+                  headers : {
+                      'Content-Type': 'application/x-www-form-urlencoded'
+                  }
+              }
 
-          var data = $.param({
-                id: userId,
-                verifylink: link
-          });
-
-          $http.post('/api/users/verify', data, config)
-           .then(function(response){
-                console.log(response);
-                if(response.data && response.data.result == 'success') {
-                    $scope.verificationSuccess = true;
-                } else if(response.data && response.data.error == "Link expired") {
-                    $scope.verificationSuccess = false;
-                    $scope.linkExpired = true;
-                } else {
-                    $scope.invaliduser = true;
-                    $scope.linkExpired = true;
-                }
-
+            var data = $.param({
+                  id: userId,
+                  verifylink: link
             });
+
+            $http.post('/api/users/verify', data, config)
+             .then(function(response){
+                  if(response.data && response.data.result == 'success') {
+                      $scope.verificationSuccess = true;
+                  } else if(response.data && response.data.error == "Link expired") {
+                      $scope.verificationSuccess = false;
+                      $scope.linkExpired = true;
+                  } else {
+                      $scope.invaliduser = true;
+                      $scope.linkExpired = true;
+                  }
+
+              });
+          }
       }
 
       $scope.updatePassword = function() {
@@ -65,7 +72,6 @@ angular.module('clientApp')
 
           $http.post('/api/users/updatepassword', data, config)
            .then(function(response){
-                console.log(response);
                 if(response.data && response.data == true) {
                     $scope.passwordchangedsuccess = true;
                     $scope.verificationSuccess = false;
@@ -91,7 +97,6 @@ angular.module('clientApp')
 
           $http.post('/api/users/verify', data, config)
            .then(function(response){
-                console.log(response);
                 if(response.data && response.data.result == 'success') {
                     $scope.verificationSuccess = true;
                     $scope.userfirstname = response.data.name;
@@ -120,13 +125,11 @@ angular.module('clientApp')
 
           $http.post('/api/users/newverifylink', data, config)
            .then(function(response){
-                console.log(response);
                 if(response.data && response.data == true) {
                     $scope.newverificationemailsent = response.data;
                 } else {
                     $scope.invaliduser = true;
                 }
-
             });
       }
 
@@ -144,7 +147,6 @@ angular.module('clientApp')
 
           $http.post('/api/users/forgotpassword/', data, config)
            .then(function(response){
-                console.log(response);
                 if(response.data && response.data == true) {
                     $scope.newforgorpasswordlinksent = true;
                 } else {

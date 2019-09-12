@@ -12,6 +12,7 @@ var bcrypt = require('bcrypt-nodejs');
       isactive: DataTypes.BOOLEAN,
       verifylink: DataTypes.STRING,
       verifylinkcreateddate: DataTypes.DATE,
+      islinkverified: DataTypes.BOOLEAN,
       email: {type: DataTypes.STRING, allowNull: false, unique: true,  validate: {isEmail: true}},
       type: {type: DataTypes.ENUM, values: ['Admin', 'Direct Customer', 'DMC', 'Tour Operator', 'Travel Agent'], defaultValue: 'Direct Customer', allowNull: false},
       status: {type: DataTypes.ENUM, values: ['Active', 'Inactive'], defaultValue: 'Inactive'},

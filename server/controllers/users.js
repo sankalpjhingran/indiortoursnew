@@ -25,16 +25,21 @@ var users = {
   },
 
   verifylink(req, res) {
+    console.log('Veryfying link====>');
     User.find({
         where: {id : req.body.id, verifylink: req.body.verifylink}
     })
       .then(function (user) {
+        console.log('User found===> ', user);
         if(user) {
+          console.log('User found====>');
           var hours = Math.abs(user.verifylinkcreateddate - Date.now()) / 36e5;
 
           if( hours < 24 ) {
+            console.log('Hours is less than 24 hours====>');
             req.body.isactive = true;
             req.body.status = 'Active';
+            req.body.islinkverified = true;
             User.update(req.body, {
               where: {
                 id: user.id

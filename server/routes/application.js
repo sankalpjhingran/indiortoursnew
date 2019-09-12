@@ -30,8 +30,7 @@ router.get('/', function(req, res){
 			};
 			res.status(200).json({"isLoggedIn":true, "user": returnUser});
 	}else{
-		res.status(200).json({"isLoggedIn":false, "user": undefined});
+			res.status(200).json({"isLoggedIn":false, "user": undefined});
 	}
-
 });
 module.exports = router;
