@@ -62,13 +62,13 @@
             <!-- <li><a ng-href="" ng-show="firstname" style="color:#ffffff;">Welcome {{firstname}}!</a></li> -->
             <li uib-dropdown>
               <a uib-dropdown-toggle href="" style="color:#ffffff;">
-                My Account
+                {{vm.loggedInUserName}}
                 <span class="caret"></span>
               </a>
               <ul uib-dropdown-menu>
-                <li><a ng-href="/myprofile" role="button"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-                <li><a ng-href="/signup"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
-                <li><a ng-href="/" role="button" ng-click="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                <li ng-show="vm.isLoggedIn"><a ng-href="/myprofile" role="button"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                <li ng-show="!vm.isLoggedIn"><a ng-href="/signup"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+                <li ng-show="vm.isLoggedIn"><a ng-href="/" role="button" ng-click="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
               </ul>
             </li>
           </ul>

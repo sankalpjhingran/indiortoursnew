@@ -64,22 +64,9 @@ angular.module('clientApp')
         });
       }
 
-      $scope.facebookSignIn = function(){
+      $scope.facebookSignIn = function() {
         console.log('Signing in...');
-        $http.get('/api/auth/fb/').then(function(res, err){
-          if(res.status == 200){
-              console.log(res);
-              console.log('Authentication Successful...');
-              $rootScope.loggedInUser = res.data;
-              $scope.loggedInUser = res.data;
-              console.log($rootScope);
-              console.log($scope);
-              $location.path('/');
-          }
-        }).catch(function(err){
-            console.log(err);
-            console.log('Invalid Username or Password...');
-        });
+        $window.location.href = '/api/signin/auth/facebook?returnTo=/';
       }
 
       $scope.forgotPassword = function(){
