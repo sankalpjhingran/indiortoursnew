@@ -78,7 +78,7 @@ redis.on('error', function(err) {
 
 redis.unref();
 
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(bodyParser.json({
   limit: '50mb'
 }));
