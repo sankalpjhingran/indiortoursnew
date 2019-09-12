@@ -132,7 +132,8 @@ passport.use('local-signin', new LocalStrategy(
                       newUser.verifylink = randomstr;
                       newUser.verifylinkcreateddate = Date.now();
                       newUser.id = user.id;
-
+                      newUser.type = 'Direct Customer';
+                      
                       models.User.update(newUser.dataValues, {
                         where: {
                           id: user.id
