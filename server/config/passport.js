@@ -133,7 +133,7 @@ passport.use('local-signin', new LocalStrategy(
                       newUser.verifylinkcreateddate = Date.now();
                       newUser.id = user.id;
                       newUser.type = 'Direct Customer';
-                      
+
                       models.User.update(newUser.dataValues, {
                         where: {
                           id: user.id
@@ -156,6 +156,7 @@ passport.use('local-signin', new LocalStrategy(
                           newUser.isactive = true;
                           newUser.status = 'Active';
                           newUser.id = user.id;
+                          newUser.type = user.type;
                           models.User.update(newUser.dataValues, {
                             where: {
                               id: user.id
