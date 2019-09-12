@@ -154,6 +154,7 @@ passport.use('local-signin', new LocalStrategy(
 
                           newUser.isactive = true;
                           newUser.status = 'Active';
+                          newUser.id = user.id;
                           models.User.update(newUser.dataValues, {
                             where: {
                               id: user.id
