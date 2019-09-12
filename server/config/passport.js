@@ -91,7 +91,8 @@ passport.use('local-signin', new LocalStrategy(
         clientID        : config.fb.clientID,
         clientSecret    : config.fb.clientSecret,
         callbackURL     : config.fb.callbackURL,
-        passReqToCallback: true
+        passReqToCallback: true,
+        profileFields: ['id', 'name', 'displayName', 'emails']
     },
 
     // facebook will send back the token and profile
@@ -104,19 +105,17 @@ passport.use('local-signin', new LocalStrategy(
           // set all of the facebook information in our user model
           newUser.facebookId    = profile.id; // set the users facebook id
           //newUser.facebook.token = token; // we will save the token that facebook provides to the user
-          //newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
-          //newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-          newUser.lastname = 'SankalpTest';
-          newUser.firstname = 'SankalpTest';
+          newUser.lastname = profile.name.familyName;
+          newUser.firstname = profile.name.givenName;
           newUser.isactive = false;
           newUser.status = 'Inactive';
-          newUser.email = 'sankalp.jhingran@salesforce.com';
+          newUser.email = profile.emails[0].value;
 
           console.log(req.get('host'));
 
           //register code starts
           models.User.findOrCreate({
-                where: {facebookId: profile.id}, // we search for this user
+                where: {email: profile.emails[0].value}, // we search for this user
                 defaults: newUser.dataValues // if it doesn't exist, we create it with this additional data
               }).then()
               .spread((user, created) => {
@@ -151,7 +150,20 @@ passport.use('local-signin', new LocalStrategy(
                       console.log('User exists...status is====> ', user.status);
                       if(user.isactive && user.status === 'Active') {
                           console.log('User exists...and is active====>');
-                          return done(null, user, {msg: 'success'});
+                          console.log('update the user with facebook id===>');
+
+                          newUser.isactive = true;
+                          newUser.status = 'Active';
+                          models.User.update(newUser.dataValues, {
+                            where: {
+                              id: user.id
+                            }
+                          })
+                          .then(function (updatedRecord) {
+                            return done(null, user, {msg: 'success'});
+                          }).error(function(err){
+                            return done(updatedRecord.errors, false, {msg: 'failed'});
+                          });
                       } else {
                           let subject = 'Welcome To Indior Tours...!';
                           let text = 'Thanks for signing up with us, please click on the link below to activate your account! This link is active for 24 hours.';
