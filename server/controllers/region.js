@@ -11,8 +11,8 @@ module.exports= {
 
   index(req, res) {
     Region.findAll({
-      attributes: ['id', 'name', 'country', 'description', 'visible', 'createdAt', 'updatedAt'],
-      order: [['createdAt', 'DESC']]
+      attributes: ['id', 'name', 'country', 'country_id', 'description', 'visible', 'createdAt', 'updatedAt'],
+      order: [['createdAt', 'DESC']],
       })
       .then(function (authors) {
         res.status(200).json(authors);

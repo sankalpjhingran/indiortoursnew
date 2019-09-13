@@ -37,12 +37,10 @@ angular.module('clientApp')
       $http.get('/api/isAuthenticated/')
        .then(
            function(response){
-             console.log(response.data);
              // success callback
              if(response.data.isLoggedIn){
                vm.isLoggedIn = true;
                vm.loggedInUserName = response.data.user.firstname;
-               console.log(response.data.user);
                if(response.data.user && response.data.user.type === 'Admin'){
                   vm.isAdminLoggedIn = true;
                }
@@ -51,7 +49,6 @@ angular.module('clientApp')
                vm.isLoggedIn = false;
                vm.loggedInUserName = 'My Account';
              }
-             console.log(vm.isAdminLoggedIn);
            },
            function(response){
              //failure call back

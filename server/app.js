@@ -120,20 +120,20 @@ app.use(logger('production'));
 
 
 // Authenticated update paths start
+//app.use('/api/location/update', ensureAuthenticated, locations);
+//app.use('/api/booking/update', ensureAuthenticated, bookings);
+//app.use('/api/continent/update', ensureAuthenticated, continents);
+//app.use('/api/country/update', ensureAuthenticated, countries);
+//app.use('/api/region/update', regions);
+//app.use('/api/itinerary/update', ensureAuthenticated, itinerary);
+//app.use('/api/itinerary/bulkcreate', ensureAuthenticated, itinerary);
+//app.use('/api/itinerary/bulkupdate', ensureAuthenticated, itinerary);
+//app.use('/api/departuredates/update', ensureAuthenticated, departuredates);
+//app.use('/api/tourcosts/update', ensureAuthenticated, tourcosts);
+//app.use('/api/tourcosts/bulkcreate', ensureAuthenticated, tourcosts);
+//app.use('/api/tourcosts/bulkupdate', ensureAuthenticated, tourcosts);
+//app.use('/api/tours/update', ensureAuthenticated, tours);
 
-app.use('/api/location/update', ensureAuthenticated, locations);
-app.use('/api/booking/update', ensureAuthenticated, bookings);
-app.use('/api/continent/update', ensureAuthenticated, continents);
-app.use('/api/country/update', ensureAuthenticated, countries);
-app.use('/api/region/update', ensureAuthenticated, regions);
-app.use('/api/itinerary/update', ensureAuthenticated, itinerary);
-app.use('/api/itinerary/bulkcreate', ensureAuthenticated, itinerary);
-app.use('/api/itinerary/bulkupdate', ensureAuthenticated, itinerary);
-app.use('/api/departuredates/update', ensureAuthenticated, departuredates);
-app.use('/api/tourcosts/update', ensureAuthenticated, tourcosts);
-app.use('/api/tourcosts/bulkcreate', ensureAuthenticated, tourcosts);
-app.use('/api/tourcosts/bulkupdate', ensureAuthenticated, tourcosts);
-app.use('/api/tours/update', ensureAuthenticated, tours);
 app.use('/api/tournotes/update', ensureAuthenticated, notes);
 app.use('/api/parenttours/update', ensureAuthenticated, parenttours);
 app.use('/api/regusers', ensureAuthenticated, regusers);
@@ -185,7 +185,6 @@ app.use('/api/tourcosts', tourcosts);
 app.use('/api/tourcosts/all', tourcosts);
 app.use('/api/tours/all', tours);
 app.use('/api/tours', tours);
-app.use('/api/tours/update', tours);
 app.use('/api/tours/find', tours);
 app.use('/api/tours/tourwithlocations', tours);
 app.use('/api/tours/alltourswithlocations', tours);
@@ -281,6 +280,7 @@ function ensureAuthenticated(req, res, next) {
       message: 'You need to be authenticated to access this page!'
     })
   } else {
+    console.log('Calling next, auth is true===>');
     next();
   }
 }
