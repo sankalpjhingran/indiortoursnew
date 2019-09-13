@@ -189,7 +189,7 @@ $scope.cancel = function () {
 $scope.createUpdateCountry = function(){
   // Update the location if location id is there
   if($scope.countryData && $scope.countryData.id && $scope.countryData.continent){
-    $scope.countryData.continent_id = $scope.countryData.continent.id;
+    //$scope.countryData.continent_id = $scope.countryData.continent.id;
     $scope.countryData.continent = $scope.countryData.continent.name;
     console.log($scope.countryData);
     $http.post('/api/country/update/', $scope.countryData).then(function(res, err){

@@ -48,7 +48,7 @@ module.exports= {
   index(req, res) {
     Location.findAll({
       //include: [{ association : 'places' }],
-      attributes: ['id', 'city', 'state', 'visible', 'region', 'country', 'description', 'continent', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+      attributes: ['id', 'city', 'state', 'visible', 'region', 'country', 'country_id', 'description', 'continent', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']],
       where: {visible: true}
       })
@@ -63,7 +63,7 @@ module.exports= {
   indexAll(req, res) {
     Location.findAll({
       //include: [{ association : 'places' }],
-      attributes: ['id', 'city', 'state', 'visible', 'region', 'country', 'description', 'continent', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
+      attributes: ['id', 'city', 'state', 'visible', 'region', 'country', 'country_id', 'description', 'continent', 'latitude', 'longitude', 'createdAt', 'updatedAt', 'elevation'],
       order: [['createdAt', 'DESC']]
       })
       .then(function (authors) {
@@ -79,7 +79,7 @@ module.exports= {
     Location.findById(req.query.id, {
       include: [{
         association : 'siteTour',
-        include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }],
+        include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'country_id', 'continent', 'latitude', 'longitude', 'elevation'] }],
       }]
     })
     .then(function (author) {

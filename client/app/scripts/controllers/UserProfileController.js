@@ -23,7 +23,6 @@ $scope.loadUserData = function(){
                $scope.loggedInUser = response.data.user;
                $scope.loggedInUser.dateofbirth = new Date($scope.loggedInUser.dateofbirth);
             }
-            console.log($scope.loggedInUser);
           }else{
             console.log('User not logged in====>');
           }
