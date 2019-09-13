@@ -328,6 +328,7 @@ module.exports= {
 
   //Edit an existing author details using model.update()
   update(req, res) {
+    console.log('update req====>', req.body);
     Tour.update(req.body, {
       where: {
         id: req.body.id
