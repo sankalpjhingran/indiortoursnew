@@ -8,6 +8,7 @@ var toursController  = require('../controllers/tours');
 
 console.log('In Tours route===>');
 router.post('/', toursController.create);
+router.post('/update', toursController.update);
 router.get('/', toursController.show);
 router.get('/all', toursController.index);
 router.get('/find', toursController.showByName);
@@ -60,5 +61,6 @@ models.Booking.sync();
 models.Continent.sync();
 models.Country.sync();
 models.Region.sync();
+models.Vendor.sync();
 
 module.exports = router;
