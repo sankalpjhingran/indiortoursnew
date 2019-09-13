@@ -185,6 +185,7 @@ app.use('/api/tourcosts', tourcosts);
 app.use('/api/tourcosts/all', tourcosts);
 app.use('/api/tours/all', tours);
 app.use('/api/tours', tours);
+app.use('/api/tours/update', tours);
 app.use('/api/tours/find', tours);
 app.use('/api/tours/tourwithlocations', tours);
 app.use('/api/tours/alltourswithlocations', tours);
