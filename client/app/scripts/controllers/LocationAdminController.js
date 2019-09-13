@@ -241,7 +241,7 @@ $scope.cancel = function () {
 $scope.createUpdateLocation = function(){
   // Update the location if location id is there
   if($scope.locationData && $scope.locationData.id && $scope.locationData.country && $scope.locationData.region && $scope.locationData.continent){
-    $scope.locationData.country_id = $scope.locationData.country.id;
+    //$scope.locationData.country_id = $scope.locationData.country.id;
     $scope.locationData.country = $scope.locationData.country.name;
 
     $scope.locationData.continent_id = $scope.locationData.continent.id;

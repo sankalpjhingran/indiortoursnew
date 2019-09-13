@@ -61,14 +61,13 @@ $scope.deleteUploadedFile = function(idx) {
       }
 }
 
-$scope.populateLocationInstance = function(locationId){
-    console.log('Calling populateLocationInstance===> ' + locationId);
-    $scope.regionData = $scope.regionMap.get(locationId);
-    console.log($scope.regionMap);
+$scope.populateLocationInstance = function(regionId){
+    console.log('Calling populateLocationInstance===> ' + regionId);
+    $scope.regionData = $scope.regionMap.get(regionId);
     console.log($scope.regionData);
     $scope.regionData.newImages = [];
     var tourids = [];
-    tourids.push(locationId);
+    tourids.push(regionId);
     $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'region'})
      .then(function(response){
           if(response.data.length){
@@ -190,8 +189,9 @@ $scope.cancel = function () {
 $scope.createUpdateLocation = function(){
   // Update the region if region id is there
   if($scope.regionData && $scope.regionData.id && $scope.regionData.country){
-    $scope.regionData.country_id = $scope.regionData.country.id;
-    $scope.regionData.country = $scope.regionData.country.name;
+    console.log($scope.regionData);
+    //$scope.regionData.country_id = $scope.regionData.country.id;
+    //$scope.regionData.country = $scope.regionData.country.name;
     console.log($scope.regionData);
     $http.post('/api/region/update/', $scope.regionData).then(function(res, err){
       console.log(res);

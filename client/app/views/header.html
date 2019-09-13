@@ -10,7 +10,7 @@
   }
 
   .navbar-collapse {
-    padding-left: 0px;
+    //padding-left: 0px;
   }
 </style>
 <div class="header" ng-controller="ApplicationController as vm">
@@ -61,7 +61,7 @@
             </li>
             <!-- <li><a ng-href="" ng-show="firstname" style="color:#ffffff;">Welcome {{firstname}}!</a></li> -->
             <li uib-dropdown>
-              <a uib-dropdown-toggle href="" style="color:#ffffff;">
+              <a uib-dropdown-toggle href="#" style="color:#ffffff;">
                 {{vm.loggedInUserName}}
                 <span class="caret"></span>
               </a>
@@ -109,13 +109,13 @@
           <li><a href="/trips">Types of Trips</a></li>
           <li><a href="/mice">M.I.C.E</a></li>
           <li><a href="/hotels">Accommodation</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account
+          <li class="uib-dropdown">
+            <a class="uib-dropdown-toggle" data-toggle="dropdown" href="#">My Account
               <span class="caret"></span></a>
-            <ul class="dropdown-menu navbar-right">
-              <li><a ng-href="" role="button"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-              <li><a ng-href="/signup"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
-              <li><a ng-href="/" role="button"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <ul class="uib-dropdown-menu navbar-right">
+              <li ng-show="vm.isLoggedIn"><a ng-href="/myprofile" role="button"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+              <li ng-show="!vm.isLoggedIn"><a ng-href="/signup"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+              <li ng-show="vm.isLoggedIn"><a ng-href="/" role="button" ng-click="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
           </li>
         </ul>
