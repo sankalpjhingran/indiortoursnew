@@ -7,8 +7,8 @@ var models  = require('../models/index');
 var toursController  = require('../controllers/tours');
 
 console.log('In Tours route===>');
-router.post('/', toursController.create);
-router.post('/update', toursController.update);
+router.post('/', function() {console.log('Calling create===>');}, toursController.create);
+router.post('/update/', toursController.update);
 router.get('/', toursController.show);
 router.get('/all', toursController.index);
 router.get('/find', toursController.showByName);
