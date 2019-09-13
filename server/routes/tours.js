@@ -61,6 +61,6 @@ models.Booking.sync();
 models.Continent.sync();
 models.Country.sync();
 models.Region.sync();
-models.Vendor.sync();
+//models.Vendor.sync();
 
 module.exports = router;
