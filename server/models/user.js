@@ -9,7 +9,7 @@ var bcrypt = require('bcrypt-nodejs');
       lastname: {type: DataTypes.STRING, allowNull: false},
       password: {type: DataTypes.STRING},
       phone: DataTypes.STRING,
-      vendorid: DataTypes.STRING,
+      //vendorid: DataTypes.STRING,
       isactive: DataTypes.BOOLEAN,
       verifylink: DataTypes.STRING,
       verifylinkcreateddate: DataTypes.DATE,
