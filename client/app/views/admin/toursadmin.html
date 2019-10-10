@@ -21,7 +21,7 @@
       <thead>
         <tr>
           <th class="fixedWidthTableCol">
-              Action
+            Action
           </th>
           <th>
             Id
@@ -94,8 +94,8 @@
 
 <!-- New Modal code using angular-ui -->
 <div class="modal-demo">
-    <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
+  <script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Create/Edit Tour</h3>
         </div>
         <form role="form" method="POST" ng-submit="createUpdatetours();">
@@ -173,7 +173,7 @@
                   <!-- New locations multi select -->
                   <ui-select multiple ng-model="tourData.hotels" theme="bootstrap" close-on-select="false"  title="Select Hotels...">
                     <ui-select-match placeholder="Select Hotels...">{{$item.name}}</ui-select-match>
-                    <ui-select-choices repeat="hotel in allHotels | propsFilter: {name: $select.search}">
+                    <ui-select-choices refresh="funcAsyncHotels($select.search)" refresh-delay="0" repeat="hotel in allHotels | propsFilter: {name: $select.search}">
                       <div ng-bind-html="hotel.name | highlight: $select.search"></div>
                       <small>
                         Name: {{hotel.name}}
@@ -303,7 +303,7 @@
           </div>
         </form>
     </script>
-    <div class="modal-parent">
-    </div>
+  <div class="modal-parent">
+  </div>
 </div>
 <!--Ends----->
