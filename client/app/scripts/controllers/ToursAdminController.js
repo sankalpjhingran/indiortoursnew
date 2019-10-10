@@ -112,23 +112,39 @@ $scope.loadtoursData = function(){
       $scope.allLocation = locations.data;
     });
 
+  /*
   $http.get('/api/hotel/all/')
     .then(function(hotels){
       $scope.allHotels = hotels.data;
     });
+  */
 
   $http.get('/api/tournotes/all/')
     .then(function(notes){
-      console.log(notes);
+      //console.log(notes);
       $scope.allNotes = notes.data;
   });
-  console.log($scope.allNotes);
+  //console.log($scope.allNotes);
 
   $http.get('/api/tags/all/')
     .then(function(tags){
-      console.log(tags);
+      //console.log(tags);
       $scope.allTags = tags.data;
   });
+
+  $scope.funcAsyncHotels = function (query) {
+    var reqStr;
+    console.log(query);
+    $http.get('/api/hotel/all/').then(
+    function (hotels) {
+      $scope.allHotels = hotels.data;
+      console.log(hotels)
+    },
+    function () {
+      console.log('ERROR!!!');
+    }
+  );
+  }
 
    //Load all tourss to be displayed
    $http.get('/api/tours/alltourswithlocationsandhotels/')

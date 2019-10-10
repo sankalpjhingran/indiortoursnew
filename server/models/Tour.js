@@ -58,22 +58,6 @@ module.exports = (sequelize, DataTypes) => {
       console.log('Executing afterUpdate hook====>');
       elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
       elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
-
-      /*
-      client.ping({
-        // ping usually has a 3000ms timeout
-        requestTimeout: 3000,
-      }, function (error) {
-        if (error) {
-          console.log(error);
-          console.trace('elasticsearch cluster is down!');
-        } else {
-          console.log('All is well');
-
-        }
-      });
-      */
-
   });
 
   Tour.afterDestroy(function(tour, options){
@@ -93,6 +77,5 @@ module.exports = (sequelize, DataTypes) => {
       days: this.days
     };
   };
-
   return Tour;
 };
