@@ -11,8 +11,8 @@ angular.module('clientApp')
   .controller('TourViewController', ['$sce', '_', '$localStorage', '$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'MetaService', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
   function ($sce, _, $localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, MetaService,  calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
 
-    console.log(MetaService);
     $rootScope.metaservice = MetaService;
+    $scope.tourWithAllRelatedModels = [];
 
     $scope.myInterval = 3000;
     $scope.active = 0;
@@ -173,41 +173,86 @@ angular.module('clientApp')
       getterSetter: true
     };
 
-    $scope.getTourDetailsWithRelatedModels = function() {
-      $scope.loading = true;
-      $http.get('/api/tours/tourdetailswithrelatedmodels/', {params: {id: tourId}})
+    $scope.getDatesAndPrices = function() {
+        console.log('Calling Dates and Prices====>');
+        //$scope.loading = true;
+        $http.get('/api/tours/tourdetailswithrelateddeparturedates/', {params: {id: tourId}})
+         .then(
+             function(resDates){
+               $scope.tourWithAllRelated[0].departuredates = JSON.parse(resDates.data)[0].departuredates;
+               $http.get('/api/tours/tourdetailswithrelatedcosts/', {params: {id: tourId}})
+                .then(
+                    function(resCosts){
+                      $scope.tourWithAllRelatedModels.tourcost = (JSON.parse(resCosts.data))[0].tourcost;
+                      $scope.tourWithAllRelated[0].tourcost = (JSON.parse(resCosts.data))[0].tourcost;
+                      $scope._events = [];
+
+                      angular.forEach($scope.tourWithAllRelated[0].departuredates, function(date){
+                        // Parse a RRuleSet string, return a RRuleSet object
+                        //BYDAY=MO,FR
+                        console.log(moment(date.startdate).toDate());
+                          var BYDAY = [];
+                          if(date.repeatfrequency == 'Week') {
+                              //console.log(date.repeatondayofweek);
+                              angular.forEach(date.repeatondayofweek.split(','), function(day){
+                                  BYDAY.push(day.substring(0, 2).toUpperCase());
+                              })
+                          }
+                          var rule = rrulestr('RRULE:BYDAY=' + BYDAY.toString())
+
+                          $scope._events.push(
+                            {
+                              title: 'Not available',
+                              color: {
+                                primary: "#1e90ff",
+                                secondary: "#d1e8ff"
+                              },
+                              actions: [{ // an array of actions that will be displayed next to the event title
+                                label: '<i class=\'glyphicon glyphicon-pencil\'></i>', // the label of the action
+                                cssClass: 'edit-action', // a CSS class that will be added to the action element so you can implement custom styling
+                                onClick: function(args) { // the action that occurs when it is clicked. The first argument will be an object containing the parent event
+                                  //console.log('Edit event', args.calendarEvent);
+                                }
+                              }],
+                              rrule: {
+                                freq: date.repeatfrequency == 'Week' ? RRule.WEEKLY :
+                                      date.repeatfrequency == 'Month' ? RRule.MONTHLY :
+                                      date.repeatfrequency == 'Year' ? RRule.YEARLY :
+                                      date.repeatfrequency == 'Day' ? RRule.DAILY :
+                                      RRule.WEEKLY,
+                                bymonthday: date.repeatfrequency == 'Month' ? date.repeatondayofmonth : null,
+                                count: date.repeatendsafteroccurrences,
+                                dtstart: moment(date.startdate).toDate(),
+                                interval: date.repeatfor,
+                                byweekday: date.repeatfrequency == 'Week' ? rule.origOptions.byweekday : null,
+                              }
+                            }
+                          );
+                      });
+
+                      $scope.tourWithAllRelatedModels = $scope.tourWithAllRelated[0];
+                      watchFunction();
+                      //$scope.loading = false;
+                      $scope.calendarDataAvailable = true;
+                      console.log('calendarDataAvailable is true now');
+                    },
+                    function(response){
+                      // failure call back
+                    })
+             },
+             function(response){
+               // failure call back
+             })
+    }
+
+    $scope.getTourDetailsWithHotels = function() {
+      $http.get('/api/tours/tourdetailswithrelatedhotels/', {params: {id: tourId}})
        .then(
            function(res){
              //Success callback
-             $scope.tourWithAllRelated = JSON.parse(res.data);
-             $scope.allHotels = $scope.tourWithAllRelated[0].accomodationHotel;
+             var tourWithAllRelatedHOtels = JSON.parse(res.data);
+             $scope.allHotels = tourWithAllRelatedHOtels[0].accomodationHotel;
              $scope.hotelsjson = [];
-
-             vm.tourid = $scope.tourWithAllRelated[0].id;
-             vm.name = $scope.tourWithAllRelated[0].name;
-             $rootScope.metaservice.set("India Tours | " + vm.name , $scope.tourWithAllRelated[0].description, "");
-
-             $scope.videoLinks = [];
-
-             $scope.videoLinks.push({id: 1, link: $scope.tourWithAllRelated[0].videolink1});
-             $scope.videoLinks.push({id: 2, link: $scope.tourWithAllRelated[0].videolink2});
-             $scope.videoLinks.push({id: 3, link: $scope.tourWithAllRelated[0].videolink3});
-             _.without($scope.videoLinks, null);
-
-             console.log($scope.videoLinks);
-
-
-             if($scope.tourWithAllRelated[0].price) {
-               $scope.tourWithAllRelated[0].price = accounting.unformat($scope.tourWithAllRelated[0].price);
-               $scope.tourWithAllRelated[0].price = fx.convert($scope.tourWithAllRelated[0].price, {from: "USD", to: $scope.fromTo.from});
-               $scope.tourWithAllRelated[0].price= accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].price, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
-             }
-
-             if($scope.tourWithAllRelated[0].offerprice) {
-               $scope.tourWithAllRelated[0].offerprice = accounting.unformat($scope.tourWithAllRelated[0].offerprice);
-               $scope.tourWithAllRelated[0].offerprice = fx.convert($scope.tourWithAllRelated[0].offerprice, {from: "USD", to: $scope.fromTo.from});
-               $scope.tourWithAllRelated[0].offerprice= accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].offerprice, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
-             }
 
              angular.forEach($scope.allHotels, function(hotel){
                   $scope.hotelsjson.push(
@@ -263,6 +308,8 @@ angular.module('clientApp')
                 hotelids.push(tour.id);
              });
 
+
+
              $http.post('/api/image/all', {tourids : hotelids, parentobjectname : 'hotel'})
               .then(function(images){
                   //console.log(images);
@@ -280,7 +327,20 @@ angular.module('clientApp')
                       //console.log($scope.allHotels);
                   });
               });
+           },
+           function(response){
+             // failure call back
+           }
+        );
+    }
 
+    $scope.getTourDetailsWithLocations = function() {
+      $http.get('/api/tours/tourdetailswithrelatedlocations/', {params: {id: tourId}})
+       .then(
+           function(res){
+             //Success callback
+             var tourWithAllRelated = JSON.parse(res.data)[0].siteLocation;
+             $scope.tourWithAllRelated[0].siteLocation = tourWithAllRelated;
               var locIds = [];
               $scope.tourWithAllRelated[0].siteLocation.forEach(function(loc){
                  locIds.push(loc.id);
@@ -298,75 +358,48 @@ angular.module('clientApp')
                        });
                        imagesMap.set(hotel, tempImages);
                        angular.forEach($scope.tourWithAllRelated[0].siteLocation, function(location){
-
                          location.images = imagesMap.get(location.id);
                        });
                    });
                });
+           },
+           function(response){
+             // failure call back
+           }
+        );
+    }
 
-              //console.log('siteLocation=====>');
-              //console.log($scope.tourWithAllRelated[0].siteLocation);
+    $scope.getTourDetailsWithNotes = function() {
+      $http.get('/api/tours/tourdetailswithrelatednotes/', {params: {id: tourId}})
+       .then(
+           function(res){
+             //Success callback
+             console.log((JSON.parse(res.data))[0].tourNote);
+             var tourWithAllRelated = (JSON.parse(res.data))[0].tourNote;
+             $scope.tourWithAllRelated[0].tourNote = tourWithAllRelated;
+           },
+           function(response){
+             // failure call back
+           }
+        );
+    }
+
+    $scope.getTourDetailsWithItinerary = function() {
+      $scope.loading = true;
+      $http.get('/api/tours/tourdetailswithrelateditineraries/', {params: {id: tourId}})
+       .then(
+           function(res){
+             //Success callback
+             $scope.tourWithAllRelated = JSON.parse(res.data);
+
+
               $scope.additionalservicesupplements = [];
-
               angular.forEach($scope.tourWithAllRelated[0].tourcost, function(cost){
                   if(cost.additionalservicesupplement === true){
                       $scope.additionalservicesupplements.push(cost);
                   }
               });
-
-              $scope._events = [];
-
-              //console.log($scope.tourWithAllRelated[0].tourcost);
-              //console.log($scope.tourWithAllRelated[0].departuredates);
-
-              angular.forEach($scope.tourWithAllRelated[0].departuredates, function(date){
-                // Parse a RRuleSet string, return a RRuleSet object
-                //BYDAY=MO,FR
-                //console.log(moment(date.startdate).toDate());
-                  var BYDAY = [];
-                  if(date.repeatfrequency == 'Week') {
-                      //console.log(date.repeatondayofweek);
-                      angular.forEach(date.repeatondayofweek.split(','), function(day){
-                          BYDAY.push(day.substring(0, 2).toUpperCase());
-                      })
-                  }
-                  var rule = rrulestr('RRULE:BYDAY=' + BYDAY.toString())
-
-                  $scope._events.push(
-                    {
-                      title: 'Not available',
-                      color: {
-                        primary: "#1e90ff",
-                        secondary: "#d1e8ff"
-                      },
-                      actions: [{ // an array of actions that will be displayed next to the event title
-                        label: '<i class=\'glyphicon glyphicon-pencil\'></i>', // the label of the action
-                        cssClass: 'edit-action', // a CSS class that will be added to the action element so you can implement custom styling
-                        onClick: function(args) { // the action that occurs when it is clicked. The first argument will be an object containing the parent event
-                          //console.log('Edit event', args.calendarEvent);
-                        }
-                      }],
-                      rrule: {
-                        freq: date.repeatfrequency == 'Week' ? RRule.WEEKLY :
-                              date.repeatfrequency == 'Month' ? RRule.MONTHLY :
-                              date.repeatfrequency == 'Year' ? RRule.YEARLY :
-                              date.repeatfrequency == 'Day' ? RRule.DAILY :
-                              RRule.WEEKLY,
-                        bymonthday: date.repeatfrequency == 'Month' ? date.repeatondayofmonth : null,
-                        count: date.repeatendsafteroccurrences,
-                        dtstart: moment(date.startdate).toDate(),
-                        interval: date.repeatfor,
-                        byweekday: date.repeatfrequency == 'Week' ? rule.origOptions.byweekday : null,
-                      }
-                    }
-                  );
-              });
-
-              $scope.tourWithAllRelatedModels = $scope.tourWithAllRelated[0];
-              watchFunction();
               $scope.loading = false;
-              $scope.calendarDataAvailable = true;
-              //console.log('calendarDataAvailable is true now');
            },
            function(response){
              // failure call back
@@ -379,6 +412,7 @@ angular.module('clientApp')
       vm.events = [];
 
       var tourWithAllRelatedModels = $scope.tourWithAllRelatedModels;
+
       if($scope._events && $scope._events.length) {
           $scope._events.forEach(function(event) {
           // Use the rrule library to generate recurring events: https://github.com/jkbrzt/rrule
@@ -386,8 +420,6 @@ angular.module('clientApp')
             dtstart: moment(vm.viewDate).startOf(vm.calendarView).toDate(),
             until: moment(vm.viewDate).endOf(vm.calendarView).toDate()
           }));
-
-          //console.log(tourWithAllRelatedModels.tourcost);
 
           rule.all().forEach(function(ruleDate) {
             //console.log(ruleDate);
@@ -402,12 +434,8 @@ angular.module('clientApp')
               if(tourWithAllRelatedModels.tourtype == 'Regular') {
                 //console.log('tourType is Regular');
                 angular.forEach(tourWithAllRelatedModels.tourcost, function(cost) {
-
                     if(cost.tourtype == 'Regular') {
                       //console.log('Cost is regular');
-                      //console.log(momentDate);
-                      //console.log(cost.startdate);
-                      //console.log(cost.enddate);
                       if(momentDate > cost.startdate && momentDate < cost.enddate) {
                           //console.log('Cost exist for the date');
                           angular.forEach(cost.individualcostsjson, function(indvCost) {
@@ -430,11 +458,6 @@ angular.module('clientApp')
                 angular.forEach(tourWithAllRelatedModels.tourcost, function(cost) {
                     if(cost.tourtype == 'Group') {
                         //console.log('Cost type is group');
-                        //console.log(momentDate);
-                        //console.log(cost.startdate);
-                        //console.log(cost.enddate);
-                        //console.log( momentDate > cost.startdate);
-                        //console.log( momentDate < cost.enddate);
                         if(momentDate > cost.startdate && momentDate < cost.enddate) {
                             angular.forEach(cost.individualcostsjson, function(indvCost) {
                                 //console.log('====' + indvCost.costitem + '====');
@@ -451,7 +474,6 @@ angular.module('clientApp')
                         }
                     }
                 });
-                //console.log(event.title);
               }
 
             vm.events.push(angular.extend({}, event, {

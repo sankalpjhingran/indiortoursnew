@@ -99,6 +99,174 @@ module.exports= {
           });
   },
 
+  getTourWithRelatedItineraries(req, res){
+        let queryVars = req.query;
+
+        redisClient.get('getTourWithRelatedItineraries:' + queryVars.id, function(error, tours) {
+            if (error) {throw error;}
+            if(tours) {
+              console.log('Available in cache so not querying again');
+              res.status(200).json(tours);
+            } else {
+              Tour.findAll({
+                where   : {id : queryVars.id},
+                include : [ { association : 'itinerary' } ]
+              })
+              .then(function (authors) {
+                console.log('Not available in cache so will set in cache first');
+                redisClient.set('getTourWithRelatedItineraries:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
+                  if (error) {throw error;}
+                });
+                res.status(200).json(authors);
+              })
+              .catch(function (error) {
+                console.log(error);
+                res.status(500).json(error);
+              })
+            }
+        });
+  },
+
+  getTourWithRelatedLocations(req, res){
+        let queryVars = req.query;
+
+        redisClient.get('getTourWithRelatedLocations:' + queryVars.id, function(error, tours) {
+            if (error) {throw error;}
+            if(tours) {
+              console.log('Available in cache so not querying again');
+              res.status(200).json(tours);
+            } else {
+              Tour.findAll({
+                where   : {id : queryVars.id},
+                include : [ { association : 'siteLocation' } ]
+              })
+              .then(function (authors) {
+                console.log('Not available in cache so will set in cache first');
+                redisClient.set('getTourWithRelatedLocations:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
+                  if (error) {throw error;}
+                });
+                res.status(200).json(authors);
+              })
+              .catch(function (error) {
+                console.log(error);
+                res.status(500).json(error);
+              })
+            }
+        });
+  },
+
+  getTourWithRelatedHotels(req, res){
+        let queryVars = req.query;
+
+        redisClient.get('getTourWithRelatedHotels:' + queryVars.id, function(error, tours) {
+            if (error) {throw error;}
+            if(tours) {
+              console.log('Available in cache so not querying again');
+              res.status(200).json(tours);
+            } else {
+              Tour.findAll({
+                where   : {id : queryVars.id},
+                include : [ { association : 'accomodationHotel' } ]
+              })
+              .then(function (authors) {
+                console.log('Not available in cache so will set in cache first');
+                redisClient.set('getTourWithRelatedHotels:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
+                  if (error) {throw error;}
+                });
+                res.status(200).json(authors);
+              })
+              .catch(function (error) {
+                console.log(error);
+                res.status(500).json(error);
+              })
+            }
+        });
+  },
+
+  getTourWithRelatedCosts(req, res){
+        let queryVars = req.query;
+
+        redisClient.get('getTourWithRelatedCosts:' + queryVars.id, function(error, tours) {
+            if (error) {throw error;}
+            if(tours) {
+              console.log('Available in cache so not querying again');
+              res.status(200).json(tours);
+            } else {
+              Tour.findAll({
+                where   : {id : queryVars.id},
+                include : [ { association : 'tourcost' } ]
+              })
+              .then(function (authors) {
+                console.log('Not available in cache so will set in cache first');
+                redisClient.set('getTourWithRelatedCosts:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
+                  if (error) {throw error;}
+                });
+                res.status(200).json(authors);
+              })
+              .catch(function (error) {
+                console.log(error);
+                res.status(500).json(error);
+              })
+            }
+        });
+  },
+
+  getTourWithRelatedDepartureDates(req, res){
+        let queryVars = req.query;
+
+        redisClient.get('getTourWithRelatedDepartureDates:' + queryVars.id, function(error, tours) {
+            if (error) {throw error;}
+            if(tours) {
+              console.log('Available in cache so not querying again');
+              res.status(200).json(tours);
+            } else {
+              Tour.findAll({
+                where   : {id : queryVars.id},
+                include : [ { association : 'departuredates' } ]
+              })
+              .then(function (authors) {
+                console.log('Not available in cache so will set in cache first');
+                redisClient.set('getTourWithRelatedDepartureDates:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
+                  if (error) {throw error;}
+                });
+                res.status(200).json(authors);
+              })
+              .catch(function (error) {
+                console.log(error);
+                res.status(500).json(error);
+              })
+            }
+        });
+  },
+
+  getTourWithRelatedNotes(req, res){
+        let queryVars = req.query;
+
+        redisClient.get('getTourWithRelatedNotes:' + queryVars.id, function(error, tours) {
+            if (error) {throw error;}
+            if(tours) {
+              console.log('Available in cache so not querying again');
+              res.status(200).json(tours);
+            } else {
+              Tour.findAll({
+                where   : {id : queryVars.id},
+                include : [ { association : 'tourNote' } ]
+              })
+              .then(function (authors) {
+                console.log('Not available in cache so will set in cache first');
+                redisClient.set('getTourWithRelatedNotes:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
+                  if (error) {throw error;}
+                });
+                res.status(200).json(authors);
+              })
+              .catch(function (error) {
+                console.log(error);
+                res.status(500).json(error);
+              })
+            }
+        });
+  },
+
   getTourWithRelatedModels(req, res){
         let queryVars = req.query;
 
@@ -110,7 +278,12 @@ module.exports= {
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
-                include : [{ association : 'siteLocation' }, { association : 'accomodationHotel'}, { association : 'tourcost' }, { association : 'itinerary' }, { association : 'tourNote' }, {association: 'departuredates'}]
+                include : [ { association : 'siteLocation' },
+                            { association : 'accomodationHotel' },
+                            { association : 'tourcost' },
+                            { association : 'itinerary' },
+                            { association : 'tourNote' },
+                            { association : 'departuredates' }]
               })
               .then(function (authors) {
                 console.log('Not available in cache so will set in cache first');
