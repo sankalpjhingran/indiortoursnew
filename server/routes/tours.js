@@ -20,6 +20,12 @@ router.get('/alltourswithcosts', toursController.getAllToursWithCosts);
 router.get('/alltourswithlocationsandhotels', toursController.getAllToursWithLocationsAndHotels);
 router.get('/tourdetailswithrelatedmodels', toursController.getTourWithRelatedModels);
 
+router.get('/tourdetailswithrelateditineraries', toursController.getTourWithRelatedItineraries);
+router.get('/tourdetailswithrelatedlocations', toursController.getTourWithRelatedLocations);
+router.get('/tourdetailswithrelatedhotels', toursController.getTourWithRelatedHotels);
+router.get('/tourdetailswithrelatedcosts', toursController.getTourWithRelatedCosts);
+router.get('/tourdetailswithrelateddeparturedates', toursController.getTourWithRelatedDepartureDates);
+router.get('/tourdetailswithrelatednotes', toursController.getTourWithRelatedNotes);
 /*
 ===Main Routes End===
 */

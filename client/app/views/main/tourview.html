@@ -68,7 +68,7 @@
     </div>
 
     <!-- main div -->
-    <div ng-init="getTourDetailsWithRelatedModels()">
+    <div ng-init="getTourDetailsWithItinerary()">
       <div class="row-fluid">
         <div class="col-sm-12 tourPageCols">
           <h3 style="padding-left:0px;" class="hidden-md hidden-lg">{{ tourWithAllRelated[0].name }}</h3>
@@ -96,6 +96,7 @@
           <uib-tabset active="activeJustified" justified="true" vertical="true" style="margin-left:0px !important;">
             <!-- Itinerary Start -->
             <uib-tab index="0" heading="Itinerary">
+              <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
               <div class="col-sm-12 col-md-12">
                 <ul class="timeline">
                   <li ng-repeat="itinerary in tourWithAllRelated[0].itinerary">
@@ -108,7 +109,7 @@
             <!-- Itinerary End -->
 
             <!-- Dates Start -->
-            <uib-tab index="2" heading="Dates & Prices" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
+            <uib-tab index="2" heading="Dates & Prices" select="getDatesAndPrices(); tabShown = !tabShown" deselect="tabShown = !tabShown">
               <table class="table table-hover table-bordered" ng-show="!(error)">
                 <thead>
                   <tr>
@@ -150,7 +151,8 @@
             <!-- Dates End -->
 
             <!-- Hotels Start -->
-            <uib-tab index="3" heading="Hotels">
+            <uib-tab index="3" heading="Hotels" select="getTourDetailsWithHotels()">
+              <!-- <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div> -->
               <table class="table table-hover table-bordered" ng-show="!(error)">
                 <thead>
                   <tr>
@@ -194,7 +196,6 @@
 
               <uib-accordion close-others="false">
                 <div uib-accordion-group class="panel-default" ng-repeat="(key, value) in tourWithAllRelated[0].accomodationHotel | groupBy: 'type'" heading="{{key}}" is-open="$first">
-
                   <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="hotel in value">
                     <div class="media">
                       <div class="media-left" style="display:block !important; float: left !important;">
@@ -215,7 +216,8 @@
             <!-- Hotels End -->
 
             <!-- Destinations Start -->
-            <uib-tab index="4" heading="Destinations">
+            <uib-tab index="4" heading="Destinations" select="getTourDetailsWithLocations();">
+              <!-- <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div> -->
               <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
                 <div class="media">
                   <div class="media-left" style="display:block !important; float: left !important;">
@@ -233,7 +235,8 @@
             <!-- Destinations End -->
 
             <!-- More Info Start -->
-            <uib-tab index="5" heading="More Info">
+            <uib-tab index="5" heading="More Info" select="getTourDetailsWithNotes()">
+              <!-- <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div> -->
               <uib-accordion close-others="false">
                 <div uib-accordion-group class="panel-default" ng-repeat="x in tourWithAllRelated[0].tourNote | filternotes: 'important'" heading="{{x.type}}" is-open="$first">
                   <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
