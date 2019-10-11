@@ -162,7 +162,7 @@ module.exports= {
             if (error) {throw error;}
             if(tours) {
               console.log('Available in cache so not querying again');
-              res.status(200).json(tours);
+              res.status(200).json(JSON.parse(tours));
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
@@ -190,7 +190,7 @@ module.exports= {
             if (error) {throw error;}
             if(tours) {
               console.log('Available in cache so not querying again');
-              res.status(200).json(tours);
+              res.status(200).json(JSON.parse(tours));
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
@@ -218,7 +218,7 @@ module.exports= {
             if (error) {throw error;}
             if(tours) {
               console.log('Available in cache so not querying again');
-              res.status(200).json(tours);
+              res.status(200).json(JSON.parse(tours));
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
@@ -246,7 +246,7 @@ module.exports= {
             if (error) {throw error;}
             if(tours) {
               console.log('Available in cache so not querying again');
-              res.status(200).json(tours);
+              res.status(200).json(JSON.parse(tours));
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
@@ -274,7 +274,7 @@ module.exports= {
             if (error) {throw error;}
             if(tours) {
               console.log('Available in cache so not querying again');
-              res.status(200).json(tours);
+              res.status(200).json(JSON.parse(tours));
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
