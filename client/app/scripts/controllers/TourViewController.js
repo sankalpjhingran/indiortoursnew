@@ -170,7 +170,7 @@ angular.module('clientApp')
 
       $scope.getDatesAndPrices = function() {
         console.log('Calling Dates and Prices====>');
-        //$scope.loading = true;
+        $scope.datesLoading = true;
         $http.get('/api/tours/tourdetailswithrelateddeparturedates/', {
             params: {
               id: tourId
@@ -231,7 +231,7 @@ angular.module('clientApp')
 
                     $scope.tourWithAllRelatedModels = $scope.tourWithAllRelated[0];
                     watchFunction();
-                    //$scope.loading = false;
+                    $scope.datesLoading = false;
                     $scope.calendarDataAvailable = true;
                     console.log('calendarDataAvailable is true now');
                   },
@@ -363,6 +363,7 @@ angular.module('clientApp')
             });
 
       $scope.getTourDetailsWithHotels = function() {
+        $scope.hotelsLoading = true;
         $http.get('/api/tours/tourdetailswithrelatedhotels/', {
             params: {
               id: tourId
@@ -459,7 +460,7 @@ angular.module('clientApp')
                     angular.forEach($scope.allHotels, function(hotel) {
                       hotel.images = imagesMap.get(hotel.id);
                     });
-                    //console.log($scope.allHotels);
+                    $scope.hotelsLoading = false;
                   });
                 });
             },
@@ -470,6 +471,7 @@ angular.module('clientApp')
       }
 
       $scope.getTourDetailsWithLocations = function() {
+        $scope.locationsLoading = true;
         $http.get('/api/tours/tourdetailswithrelatedlocations/', {
             params: {
               id: tourId
@@ -503,6 +505,7 @@ angular.module('clientApp')
                       location.images = imagesMap.get(location.id);
                     });
                   });
+                  $scope.locationsLoading = false;
                 });
             },
             function(response) {
@@ -512,6 +515,7 @@ angular.module('clientApp')
       }
 
       $scope.getTourDetailsWithNotes = function() {
+        $scope.notesLoading = true;
         $http.get('/api/tours/tourdetailswithrelatednotes/', {
             params: {
               id: tourId
@@ -522,6 +526,7 @@ angular.module('clientApp')
               //Success callback
               var tourNotes = res.data[0];
               $scope.tourWithAllRelated[0].tourNote = tourNotes.tourNote;
+              $scope.notesLoading = false;
             },
             function(response) {
               // failure call back

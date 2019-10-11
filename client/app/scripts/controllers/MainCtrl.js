@@ -133,7 +133,6 @@ angular.module('clientApp')
                   var uniqueEntries = $scope.removeDuplicates($scope.recentTours);
                   $scope.recentTours = [];
                   $scope.recentTours = uniqueEntries;
-
               });
            },
            function(response){

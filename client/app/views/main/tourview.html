@@ -110,7 +110,8 @@
 
             <!-- Dates Start -->
             <uib-tab index="2" heading="Dates & Prices" select="getDatesAndPrices(); tabShown = !tabShown" deselect="tabShown = !tabShown">
-              <table class="table table-hover table-bordered" ng-show="!(error)">
+              <div ng-class="{'loader': datesLoading, 'notLoading': !datesLoading}" id="loadingSpinner">Loading...</div>
+              <table class="table table-hover table-bordered" ng-show="!(error) && !(datesLoading)">
                 <thead>
                   <tr>
                     <td style="text-align:center;">
@@ -119,11 +120,6 @@
                         <ng-include src="'views/main/calendarControls.html'"></ng-include>
                         <mwl-calendar events="vm.events" view="vm.calendarView" view-date="vm.viewDate" cell-auto-open-disabled="true" view-title="vm.calendarTitle" custom-template-urls="{calendarMonthCell: 'customMonthCell.html'}">
                         </mwl-calendar>
-
-                        <!--
-                          on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
-                          cell-is-open="vm.cellIsOpen"
-                          -->
 
                         <script id="customMonthCell.html" type="text/ng-template">
                           <div class="cal-month-day {{day.cssClass}}">
@@ -152,8 +148,8 @@
 
             <!-- Hotels Start -->
             <uib-tab index="3" heading="Hotels" select="getTourDetailsWithHotels()">
-              <!-- <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div> -->
-              <table class="table table-hover table-bordered" ng-show="!(error)">
+              <div ng-class="{'loader': hotelsLoading, 'notLoading': !hotelsLoading}" id="loadingSpinner">Loading...</div>
+              <table class="table table-hover table-bordered" ng-show="!(error) && !(hotelsLoading)">
                 <thead>
                   <tr>
                     <th class="col-xs-2">City</th>
@@ -217,8 +213,8 @@
 
             <!-- Destinations Start -->
             <uib-tab index="4" heading="Destinations" select="getTourDetailsWithLocations();">
-              <!-- <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div> -->
-              <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
+              <div ng-class="{'loader': locationsLoading, 'notLoading': !locationsLoading}" id="loadingSpinner">Loading...</div>
+              <div ng-show="!(locationsLoading)" style="margin-top:10px;margin-bottom:15px;" ng-repeat="x in tourWithAllRelated[0].siteLocation">
                 <div class="media">
                   <div class="media-left" style="display:block !important; float: left !important;">
                     <img style="height:150px; width:200px; display: block !important;" ng-src="/images/{{x.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
@@ -236,8 +232,8 @@
 
             <!-- More Info Start -->
             <uib-tab index="5" heading="More Info" select="getTourDetailsWithNotes()">
-              <!-- <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div> -->
-              <uib-accordion close-others="false">
+              <div ng-class="{'loader': notesLoading, 'notLoading': !notesLoading}" id="loadingSpinner">Loading...</div>
+              <uib-accordion ng-show="!(notesLoading)" close-others="false">
                 <div uib-accordion-group class="panel-default" ng-repeat="x in tourWithAllRelated[0].tourNote | filternotes: 'important'" heading="{{x.type}}" is-open="$first">
                   <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
                 </div>
