@@ -74,7 +74,6 @@ angular.module('clientApp')
              // success callback
              $scope.allTours = JSON.parse(res.data);
              var tourids = [];
-
              $scope.allTours.forEach(function(tour){
                 tourids.push(tour.id);
                 var tempLocations = [];

@@ -129,7 +129,6 @@ module.exports= {
 
   getTourWithRelatedLocations(req, res){
         let queryVars = req.query;
-
         redisClient.get('getTourWithRelatedLocations:' + queryVars.id, function(error, tours) {
             if (error) {throw error;}
             if(tours) {
@@ -162,7 +161,7 @@ module.exports= {
             if (error) {throw error;}
             if(tours) {
               console.log('Available in cache so not querying again');
-              res.status(200).json(JSON.parse(tours));
+              res.status(200).json(tours);
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
@@ -190,7 +189,7 @@ module.exports= {
             if (error) {throw error;}
             if(tours) {
               console.log('Available in cache so not querying again');
-              res.status(200).json(JSON.parse(tours));
+              res.status(200).json(tours);
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
@@ -218,7 +217,7 @@ module.exports= {
             if (error) {throw error;}
             if(tours) {
               console.log('Available in cache so not querying again');
-              res.status(200).json(JSON.parse(tours));
+              res.status(200).json(tours);
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
@@ -302,8 +301,9 @@ module.exports= {
 
   getAllToursWithLocations(req, res){
           redisClient.get('getAllToursWithLocations:', function(error, tours) {
-              if (error) {throw error;}
-
+              if (error) {
+                throw error;
+              }
               if(tours) {
                 console.log('Available in cache so not querying again');
                 res.status(200).json(tours);
@@ -321,9 +321,12 @@ module.exports= {
                 .then(function (authors) {
                   console.log('Not available in cache so will set in cache first');
                   redisClient.set('getAllToursWithLocations:', JSON.stringify(authors), 'EX', 10*60, function (error) {
-                    if (error) {throw error;}
+                    if (error) {
+                      console.log(error);
+                      throw error;
+                    }
                   });
-                  res.status(200).json(JSON.stringify(authors));
+                  res.status(200).json(authors);
                 })
                 .catch(function (error) {
                   console.log(error);
@@ -335,8 +338,6 @@ module.exports= {
 
   searchAllToursWithLocations(req, res){
         let queryVars = req.query;
-        console.log('Request Query Vars====> ');
-        console.log(queryVars);
         Tour.findAll({
           where: { [Op.or]: {id: queryVars.id, name: queryVars.name}},
           include: [{ association : 'siteLocation', where: { [Op.or]: { city : queryVars.location, city: {[Op.ne]:null} }}}]
@@ -352,7 +353,6 @@ module.exports= {
 
   getAllToursWithLocationsAndHotels(req, res){
         let queryVars = req.query;
-        console.log(queryVars);
         Tour.findAll({
             include: [{ association : 'siteLocation' }, {association: 'accomodationHotel'}, {association: 'tourNote'}],
             order: [['createdAt', 'DESC']]
