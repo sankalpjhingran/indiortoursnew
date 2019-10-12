@@ -309,14 +309,13 @@ module.exports= {
                 res.status(200).json(tours);
               } else {
                 Tour.findAll({
-                  where: { showonhomepage: true, isactive : true },
-                  limit: 21,
+                  where: {showonhomepage: true, isactive : true},
                   order: [
                     Sequelize.fn('isnull', Sequelize.col('order')),
                     ['order', 'ASC']
                 ],
-                  attributes: ['id', 'order', 'name', 'slug', 'tourtype', 'days', 'nights', 'price', 'offerprice', 'ismicetour', 'micecategory', 'isactive', 'showonhomepage'],
-                  include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country'] }]
+                  attributes: ['id', 'order', 'name', 'slug', 'tourtype', 'days', 'nights', 'price', 'createdAt', 'updatedAt', 'offerprice', 'ismicetour', 'micecategory', 'isactive', 'showonhomepage'],
+                  include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }]
                 })
                 .then(function (authors) {
                   console.log('Not available in cache so will set in cache first');
