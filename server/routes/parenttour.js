@@ -10,6 +10,6 @@ router.post('/', parentTourController.create);
 router.post('/update/', parentTourController.update);
 router.get('/viewtrip', parentTourController.show);
 router.get('/all/', parentTourController.index);
-router.get('/allTripsByOrder/', parentTourController.indexAllByOrder);
+router.get('/allTripsByOrder', parentTourController.indexAllByOrder);
 router.delete('/', parentTourController.delete);
 module.exports = router;
