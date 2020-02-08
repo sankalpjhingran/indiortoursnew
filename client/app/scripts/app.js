@@ -813,23 +813,6 @@ angular
             }
             ,resolve: { authenticate: authenticateAdmin }
         })
-        .state('support', {
-            url: '/support',
-            views:{
-              subheader: {
-                //templateUrl: 'views/homesubheader.html',
-                //controller: 'MainCtrl'
-              },
-              sidesection: {
-                //templateUrl: 'views/main/toursidesection.html',
-                //controller: 'MainCtrl'
-              },
-              mainsection:{
-                templateUrl: 'views/main/support.html',
-                //controller: 'SupportController'
-              }
-            }
-        })
         .state('404', {
           url: '/404',
           views:{
