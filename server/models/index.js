@@ -36,6 +36,7 @@ var j = schedule.scheduleJob('0 0-23 * * *', function(){
     hoursDifference = (currentdatetime - jsonContent.timestamp)/(60*60);
   }
 
+  /*
   if(hoursDifference > 5) {
     request('https://openexchangerates.org/api/latest.json?app_id=a124cc01fa2144478fb93a3d07864966', function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -45,8 +46,11 @@ var j = schedule.scheduleJob('0 0-23 * * *', function(){
   } else {
     console.log('Diff is less than 1===>');
   }
+  */
+
 });
 
+/*
 request('https://openexchangerates.org/api/currencies.json', function (error, response, body) {
     if (!error && response.statusCode == 200) {
         var fs = require('fs');
@@ -59,6 +63,7 @@ request('http://www.geoplugin.net/json.gp', function (error, response, body) {
         //console.log(body)
      }
 })
+*/
 
 //Setting up the config
 console.log('Starting sequelize connection...');
