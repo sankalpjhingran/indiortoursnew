@@ -208,13 +208,11 @@ app.use('/api/places', places);
 app.use('/api/places/all', places);
 app.use('/api/tags/all', tags);
 app.use('/api/tags', tags);
-
-//app.use('/api/parenttours/all', parenttours);
-//app.use('/api/parenttours/allTripsByOrder', parenttours);
-//app.use('/api/parenttours', parenttours);
-//app.use('/api/parenttours/update', parenttours);
-//app.use('/api/parenttours/viewtrip', parenttours);
-
+app.use('/api/parenttours/all', parenttours);
+app.use('/api/parenttours/allTripsByOrder', parenttours);
+app.use('/api/parenttours', parenttours);
+app.use('/api/parenttours/viewtrip', parenttours);
+app.use('/api/parenttours/update', ensureAuthenticated, parenttours);
 app.use('/api/search', search);
 
 app.get('/api/conversionrates', function(request, res) {
