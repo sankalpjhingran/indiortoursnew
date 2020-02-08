@@ -9,7 +9,7 @@ console.log('In parenttour route===>');
 router.post('/', parentTourController.create);
 router.get('/viewtrip', parentTourController.show);
 router.get('/all/', parentTourController.index);
-router.get('/allTripsByOrder', parentTourController.indexAllByOrder);
+router.get('/allTripsByOrder/', parentTourController.indexAllByOrder);
 router.delete('/', parentTourController.delete);
 router.post('/update/', parentTourController.update);
 module.exports = router;
