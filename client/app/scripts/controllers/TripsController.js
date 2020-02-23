@@ -37,6 +37,7 @@ angular.module('clientApp')
            function(res){
              // success callback
              $scope.allTours = res.data;
+
              var tourids = [];
 
              $scope.allTours.forEach(function(tour){

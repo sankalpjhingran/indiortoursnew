@@ -5,44 +5,37 @@
   <p class="main">
     Indior Tours offers a wide variety of luxury holiday ideas, from group tours to tailor-made journeys. If you are looking for holiday inspiration you may wish to consider searching by themes such as train journeys or cultural cruises.
   </p>
-  <!--
-  <div id=searchPanel>
-      <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.id" id="seartourid" placeholder="Tour ID">
-      <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.name" id="seartourname" placeholder="Tour Name">
-      <input type="text" class="form-control form-group" ng-change="searchAllToursWithLocations()" ng-model="searchTour.location" id="seartourlocation" placeholder="Tour Location">
-  </div>
-  -->
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
   <div ng-show="!(loading)">
     <div class="row">
-      <div ng-repeat="tour in allTours">
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="productbox">
-              <!-- <img ng-src="/images/{{tour.images[0].filename}}" class="thumb-post img-responsive"> -->
-            <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                <!-- Indicators
-                <ol class="carousel-indicators">
-                  <li data-target="#myCarousel-{{$index}}" ng-repeat="img in tour.images" ng-class="{active: ($index === 0)}" data-slide-to="{{img}}"></li>
-                </ol>
-                -->
-                <div class="carousel-inner">
-                  <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
-                    <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
-                    <div class="container">
-                      <div class="carousel-caption">
+      <uib-accordion close-others="false">
+        <div uib-accordion-group class="panel-default" ng-repeat="(tourCategory, tour) in allTours | orderBy: 'category' | groupBy:'category'" heading="{{tourCategory}}" is-open="false">
+          <div ng-repeat="tour in tour" class="col-xs-12 col-sm-4 col-md-4">
+              <div class="productbox">
+              <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                    <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
+                      <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
+                      <div class="container">
+                        <div class="carousel-caption">
+                        </div>
                       </div>
                     </div>
                   </div>
+
+                  <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                  <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
                 </div>
-
-                <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-
-              </div>
-              <div class="producttitle text-center"><a ng-href="/viewtrip?id={{tour.id}}&amp;name={{tour.name | slugify}}">{{tour.name}}</a></div>
-              </div>
-          </div>
+                <div class="producttitle text-center"><a ng-href="/viewtrip?id={{tour.id}}&amp;name={{tour.name | slugify}}">{{tour.name}}</a></div>
+                </div>
+            </div>
         </div>
+      </uib-accordion>
+
+      <div ng-repeat="tour in allTours">
+
+      </div>
     </div>
   </div>
 </div>
