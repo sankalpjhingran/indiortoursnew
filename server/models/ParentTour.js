@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         name: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
         order_by: {type: DataTypes.INTEGER},
-        isactive: {type: DataTypes.BOOLEAN}
+        isactive: {type: DataTypes.BOOLEAN},
+        category: {type: DataTypes.ENUM, values: ['Religious Tours', 'Adventure Tours', 'Indior Favorites'], defaultValue: 'Indior Favorites', allowNull: false}
       }
   );
 
