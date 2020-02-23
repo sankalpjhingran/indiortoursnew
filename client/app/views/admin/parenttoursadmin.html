@@ -33,6 +33,11 @@
           </a>
         </th>
         <th>
+          <a href="" ng-click="sort('category')">
+            Category
+          </a>
+        </th>
+        <th>
           <a href="" ng-click="sort('isactive')">
             Active
           </a>
@@ -59,6 +64,7 @@
           <td>{{ x["id"] }}</td>
           <td>{{ x["name"] }}</td>
           <td>{{ x["order_by"] }}</td>
+          <td>{{ x["category"] }}</td>
           <td>{{ x["isactive"] }}</td>
           <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
           <td>{{ x["createdAt"] | date: "short" }}</td>
@@ -80,6 +86,14 @@
             <div class="form-group">
               <label for="name">Name</label>
               <input ng-model="parentTourData.name" type="text" class="form-control input-sm" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select class="form-control" id="category" ng-model="parentTourData.category">
+                <option>Religious Tours</option>
+                <option>Adventure Tours</option>
+                <option>Indior Favorites</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="order">Order of Display
