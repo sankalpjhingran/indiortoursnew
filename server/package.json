@@ -47,7 +47,7 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
-    "passport-local-sequelize": "^0.9.0",
+    "passport-local-sequelize": "^0.8.0",
     "path": "^0.12.7",
     "pug": "^2.0.4",
     "randomstring": "^1.1.5",
@@ -55,7 +55,7 @@
     "request": "^2.88.2",
     "sequelize": "^6.3.3",
     "serve-favicon": "^2.5.0",
-    "snyk": "^1.362.1",
+    "snyk": "^1.362.0",
     "util": "^0.11.1"
   },
   "devDependencies": {
