@@ -1,7 +1,0 @@
-File from: [../public/images/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}]
-
-File to: [-]
-
-Compression algorithm: [-]
-
-Description:  Directory don't not have files!: 

@@ -8,11 +8,11 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('TripViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
+  .controller('TripViewController', ['$localStorage', '$http','$state', '$rootScope', '$scope', '$stateParams', function ($localStorage, $http, $state, $rootScope, $scope, $stateParams) {
     $rootScope.$state = $state;
 
     var tourId = $stateParams.id;
-
+    $scope.fromTo = $localStorage.currencypreference;
     var imagesMap = new Map();
 
     $scope.allParentToursWithTours = function(){
@@ -25,17 +25,36 @@ angular.module('clientApp')
              $scope.childTours = $scope.allTours.childTours;
              var tourids = [];
 
-             console.log($scope.allTours);
+             console.log('$scope.allTours======> ', $scope.allTours);
              
-             $scope.allTours.childTours.forEach(function(tour){
+             $scope.childTours.forEach(function(tour){
                 tourids.push(tour.id);
                 var tempLocations = [];
                 tour.siteLocation.forEach(function(location){
                     tempLocations.push(location.city);
                 });
                 tour.locations = tempLocations;
-                //tour.price = accounting.formatMoney(tour.price, { symbol: currency.name.newValue,  format: "%v %s" });
-                //tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: currency.name.newValue,  format: "%v %s" });
+                //Convert first if saved currency is not USD
+                if($scope.fromTo.to == 'USD' && $scope.fromTo.from == 'USD') {
+                  if(tour.price) {
+                    $scope.tourWithAllRelated.price = accounting.formatMoney(tour.price, { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+                  if(tour.offerprice) {
+                    tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+                } else {
+                  if(tour.price) {
+                    tour.price = accounting.unformat(tour.price);
+                    tour.price = fx.convert(tour.price, {from: "USD", to: $scope.fromTo.from});
+                    tour.price = accounting.formatMoney(fx.convert(tour.price, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+
+                  if(tour.offerprice) {
+                    tour.offerprice = accounting.unformat(tour.offerprice);
+                    tour.offerprice = fx.convert(tour.offerprice, {from: "USD", to: $scope.fromTo.from});
+                    tour.offerprice = accounting.formatMoney(fx.convert(tour.offerprice, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+                }
              });
 
              $http.post('/api/image/all', {tourids: tourids, parentobjectname: 'tour'})
@@ -48,10 +67,14 @@ angular.module('clientApp')
                         }
                       });
                       imagesMap.set(tourid, tempImages);
-                      angular.forEach($scope.allTours.childTours, function(tour){
-                        tour.images = imagesMap.get(tour.id);
-                      });
                   });
+
+                  angular.forEach($scope.childTours, function(tour){
+                    tour.image = {};
+                    tour.image = imagesMap.get(tour.id)[0];
+                  });
+                  
+                  console.log('$scope.childTours===>', $scope.childTours);
                   $scope.loading = false;
               });
            },

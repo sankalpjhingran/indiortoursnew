@@ -1,17 +1,19 @@
 <div id="allTours" ng-init="loadtoursData()">
-  <div class="row">
-    <div class="col-sm-12 col-auto">
-      <div class="pull-left align-middle">
-        <h3 class="align-middle">Tours</h3>
-      </div>
-      <div class="pull-right align-middle">
+  <div class="row align-items-center">
+    <div class="col-sm-6 col-auto mr-auto">
+      <h3 class="align-middle">Tours</h3>
+    </div>
+    <div class="col-sm-6 col-auto">
+      <div class="text-right align-middle">
         <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:14px;" ng-click="showForm('new')">New</button>
       </div>
     </div>
   </div>
   <div class="form-group">
     <div class="input-group">
-      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-search"></i></span>
+      </div>
       <input type="text" class="form-control" placeholder="Search Tours..." ng-model="search">
     </div>
   </div>
@@ -96,7 +98,7 @@
 <div class="modal-demo">
   <script type="text/ng-template" id="myModalContent.html">
     <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Create/Edit Tour</h3>
+            <h5 class="modal-title" id="modal-title">Create/Edit Tour</h5>
         </div>
         <form role="form" method="POST" ng-submit="createUpdatetours();">
           <div class="modal-body" id="modal-body">
@@ -137,24 +139,33 @@
             <div class="form-group">
               <label for="price">Price</label>
               <div class="input-group">
-                <span class="input-group-addon">$</span>
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
                 <input ng-model="tourData.price" type="text" class="form-control input-sm" id="price" placeholder="Price">
-                <span class="input-group-addon">.00</span>
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
               </div>
             </div>
+
             <div class="form-group">
               <label for="offerprice">Offer Price</label>
               <div class="input-group">
-                <span class="input-group-addon">$</span>
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
                 <input ng-model="tourData.offerprice" type="text" class="form-control input-sm" id="offerprice" placeholder="Offer Price">
-                <span class="input-group-addon">.00</span>
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
               </div>
             </div>
             <div class="form-group">
               <div id="remote">
                   <label for="locationids">Locations</label>
                   <!-- New locations multi select -->
-                  <ui-select multiple ng-model="tourData.locations" theme="bootstrap" close-on-select="false"  title="Select Locations...">
+                  <ui-select multiple ng-model="tourData.locations" theme="selectize" close-on-select="false"  title="Select Locations...">
                   <ui-select-match placeholder="Select Locations...">{{$item.city}}, {{$item.country}}</ui-select-match>
                   <ui-select-choices repeat="location in allLocation | propsFilter: {city: $select.search}">
                     <div ng-bind-html="location.city | highlight: $select.search"></div>
@@ -171,7 +182,7 @@
               <div id="remote">
                   <label for="tourhotels">Hotels</label>
                   <!-- New locations multi select -->
-                  <ui-select multiple ng-model="tourData.hotels" theme="bootstrap" close-on-select="false"  title="Select Hotels...">
+                  <ui-select multiple ng-model="tourData.hotels" theme="selectize" close-on-select="false"  title="Select Hotels...">
                     <ui-select-match placeholder="Select Hotels...">{{$item.name}}</ui-select-match>
                     <ui-select-choices refresh="funcAsyncHotels($select.search)" refresh-delay="0" repeat="hotel in allHotels | propsFilter: {name: $select.search}">
                       <div ng-bind-html="hotel.name | highlight: $select.search"></div>
@@ -187,7 +198,7 @@
               <div id="remote">
                   <label for="tourhotels">Notes</label>
                   <!-- New locations multi select -->
-                  <ui-select multiple ng-model="tourData.notes" theme="bootstrap" close-on-select="false"  title="Select Notes...">
+                  <ui-select multiple ng-model="tourData.notes" theme="selectize" close-on-select="false"  title="Select Notes...">
                   <ui-select-match placeholder="Select Notes...">{{$item.name}}</ui-select-match>
                   <ui-select-choices repeat="note in allNotes | propsFilter: {name: $select.search}">
                     <div ng-bind-html="note.name | highlight: $select.search"></div>
@@ -202,7 +213,7 @@
             <div class="form-group">
               <div id="remote">
                   <label for="tourtags">Tags</label>
-                  <ui-select multiple tagging tagging-label="false" ng-model="tourData.tags" theme="bootstrap" sortable="true" title="Select Tags...">
+                  <ui-select multiple tagging tagging-label="false" ng-model="tourData.tags" theme="selectize" sortable="true" title="Select Tags...">
                     <ui-select-match placeholder="Select Tags...">{{$item.name || $item}}</ui-select-match>
                     <ui-select-choices repeat="tag in allTags | filter:$select.search">
                       <div ng-bind-html="tag.name | highlight: $select.search"></div>
@@ -259,7 +270,7 @@
             </div>
 
             <div class="form-group">
-              <div  class="btn btn-default"
+              <div  class="btn btn-primary"
                     ngf-select
                     ng-model="tourData.images"
                     ngf-multiple="true"
@@ -298,7 +309,7 @@
             <div class="btn-group" role="group" aria-label="footer buttons">
               <button type="submit" class="btn btn-primary">Save</button>
               <!-- <button type="button" class="btn btn-primary">Save As</button> -->
-              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+              <button type="button" class="btn btn-outline-secondary" ng-click="cancel()">Cancel</button>
             </div>
           </div>
         </form>

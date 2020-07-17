@@ -1,14 +1,5 @@
-<!--style>
-  img {
-      float: left;
-      margin: 2px 10px 10px 2px;
-      border-radius: 4px;
-  }
-</style -->
-
 <div ng-init="getContinentDetails()">
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-
     <div ng-show="!(loading)">
     <h3>
       {{ destination.name }}
@@ -22,31 +13,28 @@
     <h4>
       Destinations
     </h4>
-    <div ng-repeat="country in countries">
-      <div class="col-xs-12 col-sm-4 col-md-4" style="padding:5px;">
-          <div class="productbox">
-            <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                  <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in country.images[0]">
-                    <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
-                    <div class="container">
-                      <div class="carousel-caption">
+      <div class="row d-flex">
+          <div class="card-deck mx-2" ng-repeat="country in countries">
+              <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
+                <img class="card-img-top" ng-src="/images/{{country.images[0].filename}}"  alt="Card image cap">
+                <div class="card-body" style="padding:.5rem;">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card-title text-truncate" style="margin-bottom: 0rem;">
+                        <h6 class="pull-left mb-0">
+                          <a  style="text-decoration: none;"
+                          ng-href="/country?id={{country.id}}&name={{ country.name || slugify }}">
+                              {{ country.name | truncate: 32 : '...' : false }}
+                          </a>
+                        </h6>
                       </div>
                     </div>
                   </div>
+                  <div class="row">
+                  </div>
                 </div>
-                <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
-                <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
               </div>
-              <div class="producttitle text-center">
-                <a  style="text-decoration: none;"
-                    ng-href="/country?id={{country.id}}&name={{ country.name || slugify }}"
-                    ng-click="addToRecentItems(tour.id);">
-                    {{ country.name | truncate: 32 : '...' : false }}
-                </a>
-              </div>
-            </div>
-        </div>
+          </div>
       </div>
-      </div>
+    </div>
 </div>

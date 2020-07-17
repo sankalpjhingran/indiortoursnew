@@ -11,7 +11,7 @@
 </span>
 
 <span>
-  <h3>Popular Itineraries in {{ name }} </h3>
+  <h3>Popular Itineraries in {{ regionDetails.name }} </h3>
 </span>
 
 <div ng-init="getRegionDetails()">
@@ -20,80 +20,48 @@
     <uib-tabset active="activeJustified" justified="true">
         <!-- Itineraries Start -->
         <uib-tab index="1" heading="Popular Itineraries in {{ regionDetails.name }}" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
-          <div ng-repeat="tour in popularItineraries">
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="productbox">
-                  <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                      <div class="carousel-inner">
-                        <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images[0]">
-                          <a  style="text-decoration: none;"
-                              ng-href="/tourView?id={{tour.id}}&name={{tour.name}}"
-                              ng-click="addToRecentItems(tour.id);">
-                          <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
-                          </a>
-                          <div class="container">
-                            <div class="carousel-caption">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
-                      <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
-                    </div>
-                    <div class="producttitle text-center">
-                      <a  style="text-decoration: none;"
-                          ng-href="/tourView?id={{tour.id}}&name={{tour.name}}"
-                          ng-click="addToRecentItems(tour.id);">
-                          {{ tour.name | truncate: 25 : '...' : false }}
-                      </a>
-                    </div>
-                    <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
-                      <span>
-                        {{ tour.locations | join:' | ' | truncate: 50 : '...' : false  }}
-                      </span>
-                    </p>
-                    <p class="text-center">
-                      <strong>{{tour.days}} Days | <currency-direc price="{{tour.price}}"></currency-direc> | Offer Price: <currency-direc price="{{tour.offerprice}}"></currency-direc> </strong>
-                    </p>
-                    <div class="row" style="margin-left: 5px;margin-right: 0px;margin-top: 0px;margin-bottom: 5px;margin-right: 5px;padding-top: 0px;">
-                        <a ng-click="showEnquiryForm(tour.id, tour.name, tour.price, tour.days);" class="btn btn-default pull-left" style="margin-top:12px;">
-                            Send Enquiry
-                        </a>
-                        <a ng-href="/book?id={{tour.id}}&amp;name={{tour.name | slugify}}" class="btn btn-primary pull-right" style="margin-top:12px;">
-                            Book Now
-                        </a>
-                    </div>
-                  </div>
+          <div class="row d-flex justify-content-between">
+              <div class="card-deck mx-auto" ng-repeat="tour in popularItineraries">
+                <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
+                  <tour-box tour="tour"></tour-box>
+                </div>
               </div>
-            </div>
+          </div>
         </uib-tab>
 
         <!-- Itinerary Start -->
         <uib-tab index="0" heading="Destinations">
           <uib-accordion close-others="oneAtATime">
             <div uib-accordion-group class="panel-default" heading="Cities" is-open="true">
-              <div ng-repeat="location in regionDetails.Locations">
-                <div class="col-xs-12 col-sm-4 col-md-4" style="padding:5px;">
-                    <div class="productbox">
-                      <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                          <div class="carousel-inner">
-                            <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in location.images[0]">
-                              <a style="text-decoration: none;" ng-href="/city?id={{city.id}}&countryid={{city.country_id}}&name={{city.name}}" ng-click="addToRecentItems(tour.id);">
-                              <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
-                              </a>
-                              <div class="container">
-                                <div class="carousel-caption">
-                                </div>
+              <div class="row d-flex justify-content-between">
+                  <div class="card-deck mx-auto" ng-repeat="location in regionDetails.Locations">
+                      <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
+                        <!-- ng-src="/images/{{tour.images[0].filename}}" -->
+                        <img class="card-img-top" ng-src="/images/{{tour.images[0].filename}}" alt="Card image cap">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="card-title text-truncate">
+                                <h6 class="pull-left mb-0">
+                                  
+                                  <!--
+                                  <a style="text-decoration: none;" ng-href="/city?id={{location.id}}&countryid={{location.country_id}}">
+                                    {{ location.city | truncate: 20 : '...' : false }}
+                                  </a>
+                                -->
+                            
+                                  <a href="/city?id={{location.id}}&countryid={{location.country_id}}">{{ location.city }}</a>
+                                </h6>
                               </div>
                             </div>
                           </div>
-                          <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"></a>
-                          <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"></a>
+                          <div class="row">
+
+                          </div>
                         </div>
-                        <div class="producttitle text-center"><a style="text-decoration: none;" ng-href="/city?id={{location.id}}&countryid={{location.country_id}}&name={{location.city}}">{{location.city}}</a></div>
                       </div>
                   </div>
-                </div>
+              </div>
             </div>
           </uib-accordion>
         </uib-tab>

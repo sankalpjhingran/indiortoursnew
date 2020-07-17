@@ -8,6 +8,18 @@ module.exports = (sequelize, DataTypes) => {
         type: {type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')},
         location:{type: DataTypes.STRING}, //Name of the location from the selected location id
+        
+        /*
+        vendor_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendor',
+            key: 'vendorid'
+          }
+        }
+        */
       }
   );
 

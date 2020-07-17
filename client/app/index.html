@@ -2,128 +2,80 @@
 <html ng-app="clientApp" ng-controller="authcontroller">
 
 <head>
+  <base href="/" />
+  <!-- Meta content starts -->
   <meta charset="utf-8">
-  <title ng-bind="metaservice.metaTitle()">Test</title>
   <meta name="description" content="{{ metaservice.metaDescription() }}" />
-  <!-- <meta name="keywords" content="{{ metaservice.metaKeywords() }}" /> Google doesnt uses mata tags-->
-
-  <!-- <title>India Tours | India Tourism | Tours and Travels | Book Holiday Packages | India Tour Packages HomeTravel Guide| Travel deals India | Tours to India-from Indior Tours India's Great Travel specialists</title> -->
-  <!-- <meta name="description" content=""> -->
   <meta name="robots" content="all" />
   <meta name="google-site-verification" content="r2_bhIRxbOrfzP6mqnwUAhMP7JxJXT2JGd5ESgb1yNE" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="google" content="notranslate" />
   <meta name="google" content="nositelinkssearchbox" />
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+  <title ng-bind="metaservice.metaTitle()">India Tours | India Tourism | Tours and Travels | Book Holiday Packages | India Tour Packages HomeTravel Guide| Travel deals India | Tours to India-from Indior Tours India's Great Travel specialists</title>
+  <!-- Meta content ends -->
 
-  <!-- <link rel="stylesheet"  href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"  > -->
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.4.11/ui-grid.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css">
-  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-mapboxgl-directive/0.43.2/angular-mapboxgl-directive.min.css">
+
   <!-- build:css(.) styles/vendor.css -->
-  <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
-  <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css" />
-  <link rel="stylesheet" href="bower_components/angular-ui-carousel/dist/ui-carousel.css" />
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="bower_components/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.css" />
-  <!-- endbower -->
+  <!-- npm:css -->
+  <link rel="stylesheet" href="node_modules/ui-select/dist/select.min.css" />
+  <link rel="stylesheet" href="node_modules/textAngular/dist/textAngular.css" />
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="node_modules/ui-bootstrap4/dist/ui-bootstrap-csp.css" />
+  <link rel="stylesheet" href="node_modules/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.css" />
+  <link rel="stylesheet" href="node_modules/@ui-grid/core/css/ui-grid.core.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="node_modules/selectize/dist/css/selectize.default.css">
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- endnpm -->
   <!-- endbuild -->
 
   <!-- build:css(.tmp) styles/main.css -->
+  <!-- Usemin block -->
   <link rel="stylesheet" href="styles/main.css" />
+  <!-- Usemin block -->
   <!-- endbuild -->
 
-
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="../images/indior_transperent_favicon4.gif">
-
-  <base href="/" />
-
-  <!-- Google Tag Manager -->
-  <script>
-    (function(w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({
-        'gtm.start': new Date().getTime(),
-        event: 'gtm.js'
-      });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != 'dataLayer' ? '&l=' + l : '';
-      j.async = true;
-      j.src =
-        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-TR2ZSRC');
-  </script>
-  <!-- End Google Tag Manager -->
 </head>
 
-<body>
-  <div class="row">
+<body class="bg-light" style="padding-top:150px;font-size:0.9rem!important">
     <!-- Add your site or application content here -->
-    <div class="sticky" style="background-color:#3171bb;" ng-include src="'views/header.html'" ng-init="checkAuthenticationStatus">
-    </div>
-
-    <div class="alert alert-info alert-dismissible" role="alert" style="margin-bottom: 10px;
-    margin-top: -10px;
-    padding-left: 30px;
-    padding-right: 30px;">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-right: 12px;
-    margin-top: -12px;">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <strong>Dear Indior Friends,</strong>
-      <p>
-        We are disheartened along with you that many of our trips are having to be postponed due to the COVID-19 outbreak. We understand you are very disappointed as for many of you this was a once-in-a-lifetime trip. We at Indior Tours feel the disappointment keenly as well, as our team puts our heart and energy into what we do. During this time, Indior Tours is committed to being as fair as we can be and offer our travelers the very best service and travel experience we can provide. We ask that our travelers be fair with us as well. In many cases Indior Tours has worked with our travelers for up to a year on their travel plans. Because of this, we hope you can understand and support our need to assess a small fee in compensation for our many hours of service on your behalf. It is our goal to withstand this devastating time in the travel business so that Indior has an opportunity to serve you again when travel resumes in a safe manner.
-      </p>
-
-      <p>
-        Allianz Travel Insurance U.S. Coverage Alert – 2019 Novel Coronavirus: <a target="_blank" href="https://www.allianztravelinsurance.com/coverage-alerts/2019-novel-coronavirus.htm">https://www.allianztravelinsurance.com/coverage-alerts/2019-novel-coronavirus.htm</a>
-      </p>
-    </div>
-
-    <div ui-view="subheader">
+    <header class="header clearfix" style="margin-bottom: 0px;">
+      <!--Site's header start-->
+      <div ng-include src="'views/header.html'" >
+      </div>
+      <!--Header end -->
+    </header>
+    <div ui-view="subheader" class="mainContainer d-none d-lg-block clearfix">
       <!--View for SUBHEADER -->
     </div>
 
-    <!--Dont show sidebar on home page-->
-    <div class="container">
-      <div class="row" ng-show="$state.current.name == 'main' || $state.current.name == 'myprofile'">
+    <!--  -->
+    <div role="main" class="container bg-light" style="padding-right:0px;" ng-show="$state.current.name.includes('vacation') || $state.current.name.includes('vacations') || $state.current.name.includes('city') || $state.current.name.includes('region') || $state.current.name.includes('country') || $state.current.name.includes('destination') || $state.current.name.includes('destinations') || $state.current.name.includes('tourView') || $state.current.name.includes('home') || $state.current.name.includes('search') || $state.current.name.includes('signup') || $state.current.name.includes('myprofile')">
+      <div class="row">
+        <!--Dont show sidebar on home page-->
         <div class="col-sm-12">
+
+          <!-- <div ncy-breadcrumb></div> -->
           <div ui-view="mainsection">
             <!--View for main html templates and partials -->
           </div>
         </div>
       </div>
+    </div>
 
-      <!--Show sidebar if not on home page -->
-      <div class="row" ng-show="$state.current.name != 'tourView' && $state.current.name != 'main' && $state.current.name != '404' && $state.current.name != 'myprofile'">
-          <div class="col-sm-2 hidden-xs hidden-sm">
+    <div class="container bg-light">
+      <div class="row" style="margin-left:0px;" ng-show="$state.current.name.includes('admin') || $state.current.name.includes('trips')">
+        <!--Dont show sidebar on home page-->
+        <div class="col-sm-2 hidden-xs hidden-sm bg-dark">
           <div ui-view="sidesection">
             <!--View for SIDEBAR LINKS -->
           </div>
         </div>
-        <div class="col-sm-10">
-          <div ui-view="mainsection">
-            <!--View for main html templates and partials -->
-          </div>
-        </div>
-      </div>
-
-      <div class="row" ng-show="$state.current.name == 'tourView'">
-        <div class="col-sm-12">
-          <div ui-view="mainsection">
-            <!--View for main html templates and partials -->
-          </div>
-        </div>
-      </div>
-
-      <!--view for 404 error page-->
-      <div class="row" ng-show="$state.current.name == '404'">
-        <div class="col-sm-12">
+        <div class="col-sm-10" style="padding-right:0px;">
           <div ui-view="mainsection">
             <!--View for main html templates and partials -->
           </div>
@@ -131,52 +83,64 @@
       </div>
     </div>
 
-    <footer class="footer" style="border-top:none;">
+    <footer class="footer bg-dark">
       <!--Site's footer start-->
-      <div style="background-color:#3171bb;" ng-include src="'views/footer.html'">
+      <div ng-include src="'views/footer.html'">
       </div>
       <!--Footer end -->
     </footer>
-  </div>
+
   <!-- build:js(.) scripts/vendor.js -->
-  <!-- bower:js -->
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.js"></script>
-  <script src="bower_components/angular-aria/angular-aria.js"></script>
-  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-  <script src="bower_components/angular-messages/angular-messages.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-  <script src="bower_components/angular-touch/angular-touch.js"></script>
-  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="bower_components/ngstorage/ngStorage.js"></script>
-  <script src="bower_components/moment/moment.js"></script>
-  <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="bower_components/angular-ui-select/dist/select.js"></script>
-  <script src="bower_components/ng-group/src/ngGroup.js"></script>
-  <script src="bower_components/rangy/rangy-core.js"></script>
-  <script src="bower_components/rangy/rangy-classapplier.js"></script>
-  <script src="bower_components/rangy/rangy-highlighter.js"></script>
-  <script src="bower_components/rangy/rangy-selectionsaverestore.js"></script>
-  <script src="bower_components/rangy/rangy-serializer.js"></script>
-  <script src="bower_components/rangy/rangy-textrange.js"></script>
-  <script src="bower_components/textAngular/dist/textAngular.js"></script>
-  <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
-  <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
-  <script src="bower_components/angular-filter/dist/angular-filter.js"></script>
-  <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-  <script src="bower_components/angular-ui-carousel/dist/ui-carousel.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js"></script>
-  <script src="bower_components/underscore/underscore.js"></script>
-  <script src="bower_components/ngmap/build/scripts/ng-map.js"></script>
-  <script src="bower_components/angular-mapboxgl-directive/dist/angular-mapboxgl-directive.min.js"></script>
-  <!-- endbower -->
+  <!-- npm:js -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/angular/angular.js"></script>
+  <script src="node_modules/angular-animate/angular-animate.js"></script>
+  <script src="node_modules/angular-aria/angular-aria.js"></script>
+  <script src="node_modules/angular-cookies/angular-cookies.js"></script>
+  <script src="node_modules/angular-messages/angular-messages.js"></script>
+  <script src="node_modules/angular-resource/angular-resource.js"></script>
+  <script src="node_modules/angular-route/angular-route.js"></script>
+  <script src="node_modules/angular-sanitize/angular-sanitize.js"></script>
+  <script src="node_modules/angular-touch/angular-touch.js"></script>
+  <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="node_modules/ngstorage/ngStorage.js"></script>
+  <script src="node_modules/moment/moment.js"></script>
+  <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+  <script src="node_modules/ui-bootstrap4/dist/ui-bootstrap-tpls.js"></script>
+  <script src="node_modules/ui-select/dist/select.js"></script>
+  <script src="node_modules/@ui-grid/grouping/js/ui-grid.grouping.min.js"></script>
+  <script src="node_modules/@ui-grid/core/js/ui-grid.core.min.js"></script>
+  <script src="node_modules/rangy/lib/rangy-core.js"></script>
+  <script src="node_modules/rangy/lib/rangy-classapplier.js"></script>
+  <script src="node_modules/rangy/lib/rangy-highlighter.js"></script>
+  <script src="node_modules/rangy/lib/rangy-selectionsaverestore.js"></script>
+  <script src="node_modules/rangy/lib/rangy-serializer.js"></script>
+  <script src="node_modules/rangy/lib/rangy-textrange.js"></script>
+  <script src="node_modules/textAngular/dist/textAngular.js"></script>
+  <script src="node_modules/textAngular/dist/textAngular-sanitize.js"></script>
+  <script src="node_modules/textAngular/dist/textAngularSetup.js"></script>
+  <script src="node_modules/angular-filter/dist/angular-filter.js"></script>
+  <script src="node_modules/angular-local-storage/dist/angular-local-storage.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
+  <script src="node_modules/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js"></script>
+  <script src="node_modules/underscore/underscore.js"></script>
+  <script src="node_modules/accounting/accounting.min.js"></script>
+  <script src="node_modules/money/money.js"></script>
+  <script src="node_modules/rrule/lib/rrule.js"></script>
+  <script src="node_modules/angular-breadcrumb/dist/angular-breadcrumb.min.js"></script>
+  <script src="node_modules/ng-clamp/ng-clamp.js"></script>
+  <script src="node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+  <script src="node_modules/angular-translate/dist/angular-translate.min.js"></script>
+  <script src="node_modules/angular-translate/dist/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+  <script src="node_modules/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+  <script src="node_modules/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
+
+  <!-- <script src="node_modules/angular-mapboxgl-directive/dist/angular-mapboxgl-directive.min.js"></script> -->
+  <!-- endnpm -->
   <!-- endbuild -->
+
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="scripts/app.js"></script>
@@ -221,20 +185,9 @@
   <script src="scripts/controllers/BlogController.js"></script>
   <script src="scripts/controllers/currencyFact.js"></script>
   <script src="scripts/controllers/currency.js"></script>
+  <script src="scripts/controllers/tourbox.js"></script>
   <!-- endbuild -->
 
-  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-  <!-- <script src="https://use.fontawesome.com/7b4a02fff0.js"></script> -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/money.js/0.2.0/money.min.js"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123355635-1"></script>
-  <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMfdwSMLxnDrVqzdbAlN1kv1-YfYvDok" type="text/javascript"></script> -->
-
-  <script src="https://maps.google.com/maps/api/js?libraries=placeses,visualization,drawing,geometry,places"></script>
-  <script type="text/javascript" src="https://rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.min.js"></script>
-  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-mapboxgl-directive/0.43.2/angular-mapboxgl-directive.min.js"></script>
 
   <script>
     angular.uppercase = function(text) {
@@ -243,7 +196,6 @@
     angular.lowercase = function(text) {
       if (text) return text.toLowerCase();
     }
-
 
     var Tawk_API = Tawk_API || {},
       Tawk_LoadStart = new Date();
@@ -257,8 +209,5 @@
       s0.parentNode.insertBefore(s1, s0);
     })();
   </script>
-
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.4.11/ui-grid.min.js"></script>
-
 </html>

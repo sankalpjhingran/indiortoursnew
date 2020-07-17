@@ -11,20 +11,24 @@ angular.module('clientApp')
   .controller('SubHeaderController', ['$http','$state', '$rootScope', '$scope', '$window', function ($http, $state, $rootScope, $scope, $window) {
     $scope.allImagesForBanner = function(){
       console.log('Calling subheader controller=====>');
-      $scope.bannerImages = [];
+      $scope.slides = [];
       var tourids = [];
       $http.post('/api/image/all', { tourids:tourids , parentobjectname: 'homepagebanner'})
        .then(function(response){
+            console.log(response);
             if(response.data.length){
+                var index = 0;
                 angular.forEach(response.data, function(image){
-                      $scope.bannerImages.push(image);
+                      $scope.slides.push({
+                        image: '/images/' + image.filename,
+                        text: image.description,
+                        id: index++
+                      });
                 });
+                $scope.myInterval = 5000;
+                $scope.noWrapSlides = false;
+                $scope.active = 0;
             }
        });
-    }
-    $scope.goToSearch = function() {
-      if($scope.key) {
-          $window.location.href = '/search?key=' + $scope.key;
-      }
     }
   }]);

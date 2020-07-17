@@ -52,7 +52,6 @@ module.exports = function(config) {
       'bower_components/angular-ui-carousel/dist/ui-carousel.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
-      'bower_components/rrule/lib/rrule.js',
       'bower_components/underscore/underscore.js',
       'bower_components/ngmap/build/scripts/ng-map.js',
       'bower_components/angular-mapboxgl-directive/dist/angular-mapboxgl-directive.min.js',

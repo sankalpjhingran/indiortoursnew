@@ -1,0 +1,37 @@
+<img class="card-img-top" ng-src="/images/{{tour.image.filename}}" alt="Card image cap">
+<div class="card-body" style="padding: 0.6rem;">
+    <div class="row">
+    <div class="col-sm-12">
+        <div class="card-title text-truncate" style="margin-bottom: 0px; padding-bottom:0px;">
+        <h6 class="pull-left mb-0">
+            <a class="tourlocations" style="font-size:1rem;text-decoration: none;" ng-href="tourView?id={{tour.id}}&name={{tour.name | slugify}}">
+            {{ tour.name }}
+            </a>
+        </h6>
+        </div>
+        <div class="card-text">
+        <div class="tourlocations col-sm-12">
+            <span class="tourlocations">
+            {{ tour.locations | join:' | ' }}
+            </span>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-7">
+            <div><strong>{{tour.days}} Days</strong></div>
+            <div><strong><currency-direc price="{{tour.price}}"></currency-direc></strong></div>
+        </div>
+        <div class="col-sm-5">
+            <div role="group" class="btn-group pull-right">
+                <a ng-click="showEnquiryForm(tour.id, tour.name, tour.price, tour.days);" class="btn btn-primary btn-sm pull-left text-white">
+                    Enquire
+                </a>
+                <a ng-click="showBookingForm(tour.id, tour.name, tour.price, tour.days);" class="btn btn-outline-primary btn-sm pull-right">
+                    Book
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

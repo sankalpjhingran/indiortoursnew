@@ -23,7 +23,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Hotel.findById(req.query.id, {})
+    Hotel.findByPk(req.query.id, {})
     .then(function (author) {
       res.status(200).json(author);
     })

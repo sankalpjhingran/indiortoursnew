@@ -20,6 +20,18 @@ module.exports = (sequelize, DataTypes) => {
           validate: { min: -180, max: 180 }
         },
         elevation: {type: DataTypes.INTEGER},
+        
+        /*
+        vendor_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendor',
+            key: 'vendorid'
+          }
+        }
+        */
       },
       {
         charset: 'utf8mb4'

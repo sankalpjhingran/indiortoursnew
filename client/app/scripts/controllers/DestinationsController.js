@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('DestinationsController', ['$http','$state', '$rootScope', '$scope', function ($http, $state, $rootScope, $scope) {
+  .controller('DestinationsController', ['$http','$state', '$rootScope', '$scope', '$stateParams', function ($http, $state, $rootScope, $scope, $stateParams) {
 
     var imagesMap = new Map();
 

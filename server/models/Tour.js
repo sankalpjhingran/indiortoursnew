@@ -1,9 +1,9 @@
 "use strict";
 
 var sequelize  = require('../models/index');
-var elasticSearchWrapper = require('../elasticsearch/elasticWrapper.js');
-var es = require('../elasticsearch/connect.js');
-var client = es.esClient;
+//var elasticSearchWrapper = require('../elasticsearch/elasticWrapper.js');
+//var es = require('../elasticsearch/connect.js');
+//var client = es.esClient;
 
 module.exports = (sequelize, DataTypes) => {
   var Tour = sequelize.define("Tour", {
@@ -24,6 +24,18 @@ module.exports = (sequelize, DataTypes) => {
         videolink1: {type: DataTypes.STRING},
         videolink2: {type: DataTypes.STRING},
         videolink3: {type: DataTypes.STRING},
+        
+        /*
+        vendorId: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendors',
+            key: 'id'
+          }
+        }
+        */
       }
   );
 
@@ -32,18 +44,11 @@ module.exports = (sequelize, DataTypes) => {
   Tour.associate = function(models){
       Tour.hasMany(models.Itinerary, {as: 'itinerary', foreignKey: 'tour_id'}, { onDelete: 'cascade' });
       Tour.hasMany(models.Booking, {as: 'booking', foreignKey: 'tour_id'});
-      //Tour.belongsTo(models.ParentTour, {as: 'tours', foreignKey: 'parenttour_id'});
       Tour.hasMany(models.TourCost, {as: 'tourcost', foreignKey: 'tour_id'}, { onDelete: 'cascade' });
-      //Tour.hasMany(models.AdditionalServiceSupplements, {foreignKey: 'tour_id'});
-      //Tour.belongsTo(models.MoreInfo, {foreignKey: 'tour_id'});
-      //Tour.hasMany(models.Location, {as: 'location', foreignKey: 'tour_id'});
-      //Tour.hasMany(models.TourCostDetails, {as: 'tourcostdetails', foreignKey: 'tour_id'});
       Tour.hasMany(models.Hotel, {as: 'hotel', foreignKey: 'tour_id'}, { onDelete: 'cascade' });
       Tour.hasMany(models.DepartureDates, {as: 'departuredates', foreignKey: 'tour_id'}, { onDelete: 'cascade' });
-      //Tour.hasMany(models.TourNotes, {as: 'tournotes', foreignKey: 'tour_id'});
-      //Tour.hasMany(models.TourLocations, {as: 'tourlocations', foreignKey: 'tour_id'});
-      //Tour.belongsToMany(models.TourLocations, { through: models.TourLocations });
-      //Tour.belongsToMany(Parent, {through: 'TourLocations', foreignKey: 'location_id'});
+
+      //Tour.belongsTo(models.Vendor);
   }
 
   Tour.beforeCreate(function(tour, options){
@@ -51,21 +56,22 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Tour.afterCreate(function(tour, options){
-      elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
+      //elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
   });
 
   Tour.afterUpdate(function(tour, options){
       console.log('Executing afterUpdate hook====>');
-      elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
-      elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
+      //elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
+      //elasticSearchWrapper.postData('indior', 'tour', tour.id, tour.toElasticSchema());
   });
 
   Tour.afterDestroy(function(tour, options){
-      options.individualHooks = true;
+      //options.individualHooks = true;
       console.log('Executing afterDestroy hook====>');
-      elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
+      //elasticSearchWrapper.deleteData('indior', 'tour', tour.id);
   });
 
+  /*
   Tour.prototype.toElasticSchema = function () {
     return {
       id: this.id,
@@ -77,5 +83,7 @@ module.exports = (sequelize, DataTypes) => {
       days: this.days
     };
   };
+  */
+
   return Tour;
 };

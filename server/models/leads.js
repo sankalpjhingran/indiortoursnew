@@ -15,7 +15,19 @@ module.exports = (sequelize, DataTypes) => {
         message: {type: DataTypes.TEXT('medium')},
         attachment: {type: DataTypes.BLOB},
         relatedtotype: {type: DataTypes.STRING},
-        relatedtoid: {type: DataTypes.STRING}
+        relatedtoid: {type: DataTypes.STRING},
+        
+        /*
+        vendor_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendor',
+            key: 'vendorid'
+          }
+        }
+        */
       }
   );
   return Lead;

@@ -53,9 +53,9 @@ angular.module('clientApp')
           if(res.status == 200){
               console.log('Authentication Successful...');
               $rootScope.loggedInUser = res.data;
+              $rootScope.isLoggedIn = true;
+              $rootScope.isAdminLoggedIn = true;
               $scope.loggedInUser = res.data;
-              console.log($rootScope);
-              console.log($scope);
               $location.path('/');
           }
         }).catch(function(err){

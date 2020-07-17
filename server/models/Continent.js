@@ -21,6 +21,18 @@ module.exports = (sequelize, DataTypes) => {
           validate: { min: -180, max: 180 }
         },
         elevation: {type: DataTypes.INTEGER},
+        
+        /*
+        vendor_id: {
+          type: DataTypes.INTEGER(11),
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendors',
+            key: 'id'
+          }
+        }
+        */
       }, {
       validate: {
         bothCoordsOrNone() {
@@ -31,10 +43,11 @@ module.exports = (sequelize, DataTypes) => {
       }
   });
 
-
   Continent.associate = function (models) {
     Continent.hasMany(models.Country, {foreignKey: 'continent_id'});
     Continent.hasMany(models.Location, {foreignKey: 'continent_id'});
+    //Continent.belongsTo(models.Vendor, {foreignKey: 'vendor_id'});
+    Continent.hasMany(models.ContinentTranslation, { as: "continent_translations" });
   };
 
   return Continent;

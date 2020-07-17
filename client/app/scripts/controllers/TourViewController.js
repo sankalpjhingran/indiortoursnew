@@ -7,11 +7,16 @@
  * # TourViewController
  * Controller of the clientApp
  */
+
 angular.module('clientApp')
-  .controller('TourViewController', ['$sce', '_', '$localStorage', '$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'MetaService', 'uiGridGroupingConstants', 'currencyFact', '$document', '$log', '$timeout',
-    function ($sce, _, $localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, MetaService, calendarConfig, uiGridGroupingConstants, currencyFact, $document, $log, $timeout) {
+  .controller('TourViewController', ['$sce', '_', '$localStorage', '$uibModal', '$http', '$location', '$state', '$rootScope', '$scope', '$stateParams', 'MetaService', 'uiGridGroupingConstants', '$document', '$log', '$timeout',
+    function ($sce, _, $localStorage, $uibModal, $http, $location, $state, $rootScope, $scope, $stateParams, MetaService, calendarConfig, uiGridGroupingConstants, $document, $log, $timeout) {
       $rootScope.metaservice = MetaService;
       $scope.tourWithAllRelatedModels = [];
+      $scope.fromTo = $localStorage.currencypreference;
+      
+      //console.log($scope.fromTo);
+      $scope.$inject = ['rrule'];
 
       $scope.myInterval = 3000;
       $scope.active = 0;
@@ -25,62 +30,7 @@ angular.module('clientApp')
 
       var vm = this;
 
-      function createElement() {
-        var element = document.createElement('i');
-        element.class = 'fa fa-map-marker';
-        return element;
-      }
-
-      $scope.glMarkers = [{
-        coordinates: [-99.20415, 19.42257],
-        element: createElement()
-      }, {
-        coordinates: [-99.10415, 19.44257],
-        element: createElement()
-      }];
-
-      $scope.glSources = [{
-        id: 'routeSource',
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: [
-              [-99.20415, 19.42257],
-              [-99.10415, 19.44257]
-            ]
-          }
-        }
-      }];
-
-      $scope.glLayers = [{
-        id: 'routeLayer',
-        source: 'routeSource',
-        type: 'line',
-        paint: {
-          'line-width': 5,
-          'line-color': '#FF1A47'
-        }
-      }];
-
-      $scope.glControls = {
-        navigation: {
-          enabled: true,
-          options: {
-            position: 'top-right'
-          }
-        },
-        geolocate: {
-          enabled: true,
-          options: {
-            position: 'top-left'
-          }
-        }
-      };
-
       $scope.allImagesForTour = function () {
-        console.log('Calling subheader controller=====>');
         $scope.bannerImages = [];
         var tourids = touridsParam;
         $http.post('/api/image/all', {
@@ -101,8 +51,6 @@ angular.module('clientApp')
         return $sce.trustAsResourceUrl(src);
       };
 
-
-      $scope.fromTo = $localStorage.currencypreference;
       $scope.tourWithAllRelated = [];
       var imagesMap = new Map();
       var vm = this;
@@ -137,13 +85,13 @@ angular.module('clientApp')
           controller: controllername,
           scope: $scope,
           backdrop: 'static',
-          size: 'md',
+          size: 'lg',
         });
 
         $scope.modalInstance.result.then(function (selectedItem) {
           $scope.selected = selectedItem;
         }, function () {
-          console.log('Modal dismissed at: ' + new Date());
+          //console.log('Modal dismissed at: ' + new Date());
         });
       };
 
@@ -169,7 +117,7 @@ angular.module('clientApp')
       };
 
       $scope.getDatesAndPrices = function () {
-        console.log('Calling Dates and Prices====>');
+        //console.log('Calling Dates and Prices====>');
         $scope.datesLoading = true;
         $http.get('/api/tours/tourdetailswithrelateddeparturedates/', {
           params: {
@@ -195,16 +143,21 @@ angular.module('clientApp')
                     angular.forEach($scope.tourWithAllRelated[0].departuredates, function (date) {
                       // Parse a RRuleSet string, return a RRuleSet object
                       //BYDAY=MO,FR
-                      console.log(moment(date.startdate).toDate());
+                      //console.log(moment(date.startdate).toDate());
                       var BYDAY = [];
                       if (date.repeatfrequency == 'Week') {
-                        //console.log(date.repeatondayofweek);
+                        ////console.log(date.repeatondayofweek);
                         angular.forEach(date.repeatondayofweek.split(','), function (day) {
                           BYDAY.push(day.substring(0, 2).toUpperCase());
                         })
                       }
-                      var rule = rrulestr('RRULE:BYDAY=' + BYDAY.toString());
 
+                      //console.log(typeof RRule);
+                      //var rule = rrulestr('RRULE:BYDAY=' + BYDAY.toString());
+                      var rule = RRule.fromString('BYDAY=' + BYDAY.toString())
+                      //console.log(rule);
+                      //var rule = RRule.fromString('RRULE:BYDAY=' + BYDAY.toString());
+                      //var rule = rrule.'RRULE:BYDAY=' + BYDAY.toString()));
                       $scope._events.push({
                         title: 'Not available',
                         color: {
@@ -215,10 +168,10 @@ angular.module('clientApp')
                           label: '<i class=\'glyphicon glyphicon-pencil\'></i>', // the label of the action
                           cssClass: 'edit-action', // a CSS class that will be added to the action element so you can implement custom styling
                           onClick: function (args) { // the action that occurs when it is clicked. The first argument will be an object containing the parent event
-                            //console.log('Edit event', args.calendarEvent);
+                            ////console.log('Edit event', args.calendarEvent);
                           }
                         }],
-                        rrule: {
+                        RRule: {
                           freq: date.repeatfrequency == 'Week' ? RRule.WEEKLY : date.repeatfrequency == 'Month' ? RRule.MONTHLY : date.repeatfrequency == 'Year' ? RRule.YEARLY : date.repeatfrequency == 'Day' ? RRule.DAILY : RRule.WEEKLY,
                           bymonthday: date.repeatfrequency == 'Month' ? date.repeatondayofmonth : null,
                           count: date.repeatendsafteroccurrences,
@@ -233,7 +186,7 @@ angular.module('clientApp')
                     watchFunction();
                     $scope.datesLoading = false;
                     $scope.calendarDataAvailable = true;
-                    console.log('calendarDataAvailable is true now');
+                    //console.log('calendarDataAvailable is true now');
                   },
                   function (response) {
                     // failure call back
@@ -285,6 +238,7 @@ angular.module('clientApp')
                   }] : [],
                 });
               });
+
               // sort by name
               $scope.hotelsjson.sort(function (a, b) {
                 var nameA = a.city.toLowerCase();
@@ -305,9 +259,9 @@ angular.module('clientApp')
                 var existing = output.filter(function (v, i) {
                   return v.city == hotel.city;
                 });
+
                 if (existing.length) {
                   var existingIndex = output.indexOf(existing[0]);
-                  //console.log(output[existingIndex].deluxe);
                   output[existingIndex].budget = output[existingIndex].budget.concat(hotel.budget);
                   output[existingIndex].economy = output[existingIndex].economy.concat(hotel.economy);
                   output[existingIndex].elegant = output[existingIndex].elegant.concat(hotel.elegant);
@@ -318,7 +272,6 @@ angular.module('clientApp')
                 }
               });
               $scope.output = output;
-              //console.log($scope.output);
 
               var hotelids = [];
               $scope.allHotels.forEach(function (tour) {
@@ -330,7 +283,6 @@ angular.module('clientApp')
                 parentobjectname: 'hotel'
               })
                 .then(function (images) {
-                  //console.log(images);
                   angular.forEach(hotelids, function (hotel) {
                     var tempImages = [];
                     angular.forEach(images.data, function (image) {
@@ -374,27 +326,25 @@ angular.module('clientApp')
                 parentobjectname: 'location'
               })
                 .then(function (images) {
-                  //console.log(images);
-                  angular.forEach(locIds, function (hotel) {
+                  angular.forEach(locIds, function (locId) {
                     var tempImages = [];
                     angular.forEach(images.data, function (image) {
-                      if (image.parentobjectname == 'location' && image.parentobjectid == hotel) {
+                      if (image.parentobjectname == 'location' && image.parentobjectid == locId) {
                         tempImages.push(image);
                       }
                     });
-                    imagesMap.set(hotel, tempImages);
-                    angular.forEach($scope.tourWithAllRelated[0].siteLocation, function (location) {
-                      location.images = imagesMap.get(location.id);
-                    });
+                    imagesMap.set(locId, tempImages);
+                  });
+
+                  angular.forEach($scope.tourWithAllRelated[0].siteLocation, function (location) {
+                    var randomIndex = Math.floor((Math.random() * imagesMap.get(location.id).length) + 0);
+                    location.image = imagesMap.get(location.id)[randomIndex];
                   });
                   $scope.locationsLoading = false;
-                });
-            },
-            function (response) {
-              // failure call back
-            }
+                }
+                )}
           )
-      };
+      }
 
       $scope.getTourDetailsWithNotes = function () {
         $scope.notesLoading = true;
@@ -418,15 +368,38 @@ angular.module('clientApp')
 
       $scope.getTourDetailsWithItinerary = function () {
         $scope.loading = true;
+        $scope.priceAvailable = false;
+        $scope.fromTo = $localStorage.currencypreference;
         $http.get('/api/tours/tourdetailswithrelateditineraries/', {
           params: {
             id: tourId
           }
         })
-          .then(
-            function (res) {
+          .then(function (res) {
               //Success callback
               $scope.tourWithAllRelated = JSON.parse(res.data);
+
+              //Convert first if saved currency is not USD
+              if($scope.fromTo.to == 'USD' && $scope.fromTo.from == 'USD') {
+                if($scope.tourWithAllRelated[0].price) {
+                  $scope.tourWithAllRelated.price = accounting.formatMoney($scope.tourWithAllRelated[0].price, { symbol: $scope.fromTo.to,  format: "%v %s" });
+                }
+                if($scope.tourWithAllRelated[0].offerprice) {
+                  $scope.tourWithAllRelated[0].offerprice = accounting.formatMoney($scope.tourWithAllRelated[0].offerprice, { symbol: $scope.fromTo.to,  format: "%v %s" });
+                }
+              } else {
+                if($scope.tourWithAllRelated[0].price) {
+                  $scope.tourWithAllRelated[0].price = accounting.unformat($scope.tourWithAllRelated[0].price);
+                  $scope.tourWithAllRelated[0].price = fx.convert($scope.tourWithAllRelated[0].price, {from: "USD", to: $scope.fromTo.from});
+                  $scope.tourWithAllRelated[0].price = accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].price, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+                }
+
+                if($scope.tourWithAllRelated[0].offerprice) {
+                  $scope.tourWithAllRelated[0].offerprice = accounting.unformat($scope.tourWithAllRelated[0].offerprice);
+                  $scope.tourWithAllRelated[0].offerprice = fx.convert($scope.tourWithAllRelated[0].offerprice, {from: "USD", to: $scope.fromTo.from});
+                  $scope.tourWithAllRelated[0].offerprice = accounting.formatMoney(fx.convert($scope.tourWithAllRelated[0].offerprice, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+                }
+              }
               $scope.additionalservicesupplements = [];
               angular.forEach($scope.tourWithAllRelated[0].tourcost, function (cost) {
                 if (cost.additionalservicesupplement === true) {
@@ -434,6 +407,7 @@ angular.module('clientApp')
                 }
               });
               $scope.loading = false;
+              $scope.priceAvailable = true;
             },
             function (response) {
               // failure call back
@@ -448,14 +422,15 @@ angular.module('clientApp')
         if ($scope._events && $scope._events.length) {
           $scope._events.forEach(function (event) {
             // Use the rrule library to generate recurring events: https://github.com/jkbrzt/rrule
-            var rule = new RRule(angular.extend({}, event.rrule, {
+            var rule = new RRule(angular.extend({}, event.RRule, {
               dtstart: moment(vm.viewDate).startOf(vm.calendarView).toDate(),
               until: moment(vm.viewDate).endOf(vm.calendarView).toDate()
             }));
+            ////console.log(event.RRule);
 
             rule.all().forEach(function (ruleDate) {
-              //console.log(ruleDate);
-              var momentDate = moment(ruleDate).format("YYYY-MM-DD") + "T" + moment(event.rrule.dtstart).format("HH:mm:ss");
+              ////console.log(ruleDate);
+              var momentDate = moment(ruleDate).format("YYYY-MM-DD") + "T" + moment(event.RRule.dtstart).format("HH:mm:ss");
 
               // get the tour type first
               var tourType = tourWithAllRelatedModels.tourtype;
@@ -464,17 +439,18 @@ angular.module('clientApp')
               var eventTitle;
 
               if (tourWithAllRelatedModels.tourtype == 'Regular') {
-                //console.log('tourType is Regular');
+                ////console.log('tourType is Regular');
                 angular.forEach(tourWithAllRelatedModels.tourcost, function (cost) {
                   if (cost.tourtype == 'Regular') {
-                    //console.log('Cost is regular');
+                    ////console.log('Cost is regular');
                     if (momentDate > cost.startdate && momentDate < cost.enddate) {
-                      //console.log('Cost exist for the date');
+                      ////console.log('Cost exist for the date ', cost.individualcostsjson);
                       angular.forEach(cost.individualcostsjson, function (indvCost) {
-                        //console.log('======' + indvCost.costitem +'====');
+                        ////console.log('======' + indvCost.costitem +'====');
                         if (indvCost.costitem == 'Minimum paying pax  02') {
-                          //console.log('min paying pax 02 is available');
+                          ////console.log('min paying pax 02 is available');
                           var cost = indvCost.budget;
+                          ////console.log(cost);
                           cost = accounting.unformat(cost);
                           cost = fx.convert(cost, {
                             from: "USD",
@@ -485,22 +461,28 @@ angular.module('clientApp')
                             format: "%v %s"
                           });
 
-                          event.title = cost;
+                          //console.log(event.title);
+                          if(event.title == 'Not available') {
+                            var num = parseFloat(cost).toFixed(2);
+                            event.title = num;
+                          }
+                          ////console.log(event.title);
                         }
                       });
                     }
                   }
                 });
+                //console.log(event.title);
               } else if (tourWithAllRelatedModels.tourtype == 'Group') {
-                //console.log('tourType is Group');
+                ////console.log('tourType is Group');
                 angular.forEach(tourWithAllRelatedModels.tourcost, function (cost) {
                   if (cost.tourtype == 'Group') {
-                    //console.log('Cost type is group');
+                    ////console.log('Cost type is group');
                     if (momentDate > cost.startdate && momentDate < cost.enddate) {
                       angular.forEach(cost.individualcostsjson, function (indvCost) {
-                        //console.log('====' + indvCost.costitem + '====');
+                        ////console.log('====' + indvCost.costitem + '====');
                         if (indvCost.costitem == 'Minimum paying pax  02') {
-                          //console.log(indvCost.budget);
+                          ////console.log(indvCost.budget);
                           var cost = indvCost.budget;
                           cost = accounting.unformat(cost);
                           cost = fx.convert(cost, {
@@ -512,12 +494,15 @@ angular.module('clientApp')
                             format: "%v %s"
                           });
                           event.title = cost;
+                          ////console.log(event.title);
                         }
                       });
                     }
                   }
                 });
               }
+
+              //console.log(event.title);
 
               vm.events.push(angular.extend({}, event, {
                 startsAt: moment(momentDate).toDate(),
@@ -526,6 +511,7 @@ angular.module('clientApp')
                 name: tourWithAllRelatedModels.name,
                 startDate: moment(momentDate).toDate()
               }));
+              //console.log(vm.events);
             });
           })
         }
@@ -537,11 +523,11 @@ angular.module('clientApp')
       ], watchFunction);
 
       vm.eventClicked = function (event) {
-        //console.log(event);
+        ////console.log(event);
       };
 
       vm.timespanClicked = function (date, cell) {
-        //console.log('Timespan clicked.....');
+        ////console.log('Timespan clicked.....');
 
         if (vm.calendarView === 'month') {
           if ((vm.cellIsOpen && moment(date).startOf('day').isSame(moment(vm.viewDate).startOf('day'))) || cell.events.length === 0 || !cell.inMonth) {
