@@ -6,46 +6,13 @@
     {{ allTours.description }}
   </p>
   <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-  <div ng-show="!(loading)">
-    <div class="row">
-      <div ng-repeat="tour in childTours">
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="productbox">
-                <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                      <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in tour.images">
-                        <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post">
-                        <div class="container">
-                          <div class="carousel-caption">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                    <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-
-                  </div>
-                  <div class="producttitle text-center"><a ng-href="/tourView?id={{tour.id}}&amp;name={{tour.name | slugify}}">{{tour.name}}</a></div>
-                  <p class="text-center" style="font-size:0.8em; word-wrap: break-word;">
-                    <span>
-                      {{ tour.locations | join:' | ' | truncate: 65 : '...' : false  }}
-                    </span>
-                  </p>
-                  <p class="text-center">
-                    <strong>{{tour.days}} Days | {{ tour.price }} | Offer Price: {{ tour.offerprice }} </strong>
-                  </p>
-                  <div class="row" style="margin-left: 5px;margin-right: 0px;margin-top: 0px;margin-bottom: 5px;margin-right: 5px;padding-top: 0px;">
-                      <a ng-click="showEnquiryForm(tour.id, tour.name, tour.price, tour.days);" class="btn btn-default pull-left" style="margin-top:12px;">
-                          Send Enquiry
-                      </a>
-                      <a ng-href="/book?id={{tour.id}}&amp;name={{tour.name | slugify}}" class="btn btn-primary pull-right" style="margin-top:12px;">
-                          Book Now
-                      </a>
-                  </div>
-              </div>
+    <div ng-show="!(loading)">
+      <div class="row">
+          <div class="card-deck mx-2" ng-repeat="tour in childTours">
+            <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
+              <tour-box tour="tour"></tour-box>
+            </div>
           </div>
-        </div>
+      </div>
     </div>
-  </div>
 </div>

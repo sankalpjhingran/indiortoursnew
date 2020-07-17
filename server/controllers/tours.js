@@ -110,7 +110,7 @@ module.exports= {
             } else {
               Tour.findAll({
                 where   : {id : queryVars.id},
-                include : [ { association : 'itinerary' } ]
+                include : [ { association : 'itinerary' }, { association : 'siteLocation', attributes: ['id', 'city']  } ]
               })
               .then(function (authors) {
                 console.log('Not available in cache so will set in cache first');
@@ -186,40 +186,38 @@ module.exports= {
   getTourWithRelatedCosts(req, res){
         let queryVars = req.query;
 
-        redisClient.get('getTourWithRelatedCosts:' + queryVars.id, function(error, tours) {
-            if (error) {throw error;}
-            if(tours) {
-              console.log('Available in cache so not querying again');
-              res.status(200).json(JSON.parse(tours));
-            } else {
+        //redisClient.get('getTourWithRelatedCosts:' + queryVars.id, function(error, tours) {
+            //if (error) {throw error;}
+            //if(tours) {
+            //  console.log('Available in cache so not querying again');
+            //  res.status(200).json(JSON.parse(tours));
+            //} else {
               Tour.findAll({
                 where   : {id : queryVars.id},
                 include : [ { association : 'tourcost' } ]
               })
               .then(function (authors) {
                 console.log('Not available in cache so will set in cache first');
-                redisClient.set('getTourWithRelatedCosts:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
-                  if (error) {throw error;}
-                });
                 res.status(200).json(authors);
               })
               .catch(function (error) {
                 console.log(error);
                 res.status(500).json(error);
               })
-            }
-        });
+        //});
   },
 
   getTourWithRelatedDepartureDates(req, res){
         let queryVars = req.query;
 
+        /*
         redisClient.get('getTourWithRelatedDepartureDates:' + queryVars.id, function(error, tours) {
             if (error) {throw error;}
             if(tours) {
               console.log('Available in cache so not querying again');
               res.status(200).json(JSON.parse(tours));
             } else {
+        */
               Tour.findAll({
                 where   : {id : queryVars.id},
                 include : [ { association : 'departuredates' } ]
@@ -235,8 +233,8 @@ module.exports= {
                 console.log(error);
                 res.status(500).json(error);
               })
-            }
-        });
+            //}
+        //});
   },
 
   getTourWithRelatedNotes(req, res){
@@ -350,6 +348,24 @@ module.exports= {
           });
   },
 
+  search(req, res){
+    
+    const searchKey = req.query.key.toLowerCase();
+    console.log('Request Query Vars for Search====> ', searchKey);
+
+    Tour.findAll({
+      where: { [Op.or]: {name: searchKey}},
+      include: [{ association : 'siteLocation'}]
+      })
+      .then(function (authors) {
+        res.status(200).json(authors);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.status(500).json(error);
+      });
+},
+
   getAllToursWithLocationsAndHotels(req, res){
         let queryVars = req.query;
         console.log(queryVars);
@@ -385,7 +401,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Tour.findById(req.query.tourid, {})
+    Tour.findByPk(req.query.tourid, {})
     .then(function (author) {
       res.status(200).json(author);
     })
@@ -510,7 +526,7 @@ module.exports= {
       individualHooks: true
     })
     .then(function (updatedRecords) {
-      Tour.findById(req.body.id, {include: [{ association : 'siteLocation' }, { association : 'accomodationHotel' }, {association: 'tourNote'}, {association: 'tourTags'}]})
+      Tour.findByPk(req.body.id, {include: [{ association : 'siteLocation' }, { association : 'accomodationHotel' }, {association: 'tourNote'}, {association: 'tourTags'}]})
       .then(function (updatedTour) {
         console.log('Updated Tour is===> ');
 

@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -24,7 +25,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Search data from ElasticSearch based on query
  * @param  {String} query query string
  * @return {Array}        Search result Array
- */
+ 
 function searchData(query) {
   var queryObj = JSON.stringify(_config.search).replace(/{query}/g, query);
 
@@ -66,7 +67,7 @@ function searchData(query) {
  * Delete index by given name of index
  * @param  {String} name name of index
  * @return {Promise}     Promise for delete index
- */
+ 
 function deleteIndex(name) {
   console.log('Calling deleteIndex===>');
   return _connect.esClient.indices.delete({ index: name });
@@ -77,7 +78,7 @@ function deleteIndex(name) {
  * @param  {String} name name of index
  * @param {Object} settings Settings for index
  * @return {Promise}     Promise for create index
- */
+ 
 function createIndex(name, settings) {
   return _connect.esClient.indices.create({
     index: name,
@@ -92,7 +93,7 @@ function createIndex(name, settings) {
  * @param  {String} id    id for data
  * @param  {Object} body  body of data
  * @return {Promise}      Promise of post data
- */
+ 
 function postData(index, type, id, body) {
   return _connect.esClient.index({
     index: index,
@@ -106,7 +107,7 @@ function postData(index, type, id, body) {
  * Post bulk data to ElasticSearch
  * @param  {Object} body Body object
  * @return {Promise}     Promise of post bulk
- */
+ 
 function postBulkData(body) {
   return _connect.esClient.bulk({ body: body });
 }
@@ -117,7 +118,8 @@ function postBulkData(body) {
  * @param  {String} type  type name
  * @param  {String} id    id of data
  * @return {Promise}      Promise of delete data
- */
+ 
+ /*
 function deleteData(index, type, id) {
   return _connect.esClient.delete({
     index: index,
@@ -125,3 +127,4 @@ function deleteData(index, type, id) {
     id: id
   });
 }
+*/

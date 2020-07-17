@@ -17,6 +17,18 @@ module.exports = (sequelize, DataTypes) => {
             key: 'id'
           }
         }
+
+        /*
+        vendor_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendor',
+            key: 'vendorid'
+          }
+        }
+        */
   });
 
   Region.associate = function (models) {

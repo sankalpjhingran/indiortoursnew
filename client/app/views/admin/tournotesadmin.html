@@ -11,7 +11,9 @@
   </div>
   <div class="form-group">
     <div class="input-group">
-      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-search"></i></span>
+      </div>
       <input type="text" class="form-control" placeholder="Search Tour Notes..." ng-model="search">
     </div>
   </div>
@@ -45,7 +47,7 @@
 <div class="modal-demo">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Create/Edit Tour Note</h3>
+            <h5 class="modal-title" id="modal-title">Create/Edit Tour Note</h5>
         </div>
         <form role="form" method="POST" ng-submit="createUpdatecosts();">
           <div class="modal-body" id="modal-body">
@@ -86,7 +88,7 @@
             <div class="btn-group" role="group" aria-label="footer buttons">
               <button type="submit" class="btn btn-primary">Save</button>
               <button type="button" class="btn btn-primary">Save As</button>
-              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+              <button type="button" class="btn btn-outline-secondary" ng-click="cancel()">Cancel</button>
             </div>
           </div>
         </form>

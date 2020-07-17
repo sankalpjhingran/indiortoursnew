@@ -20,6 +20,18 @@ module.exports = (sequelize, DataTypes) => {
         repeatendsnever: {type: DataTypes.BOOLEAN}, // Always departing tours
         repeatendsondate: {type: DataTypes.DATE}, //There is an end date
         repeatendsafteroccurrences: {type: DataTypes.INTEGER}, // Ends after number of occurrences
+        
+        /*
+        vendor_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendor',
+            key: 'vendorid'
+          }
+        }
+        */
       }
   );
 

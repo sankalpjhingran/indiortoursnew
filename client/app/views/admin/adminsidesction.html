@@ -1,25 +1,25 @@
-<ul class="nav nav-pills nav-stacked" style="margin-top:10px;">
-   <li><a ng-href="/parenttours" class="active">Tour Types</a></li>
-   <li><a ng-href="/toursadmin">Tours</a></li>
-   <li uib-dropdown>
-     <a uib-dropdown-toggle href="">
+<ul class="nav nav-pills flex-column" style="padding-top:10px;">
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/admin')}" ng-href="/admin" role="button">Tours</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/trips')}" href="/trips" role="button">Tour Types</a></li>
+   <li class="nav-item" uib-dropdown>
+     <a class="nav-link" uib-dropdown-toggle href="" role="button">
        Locations
        <span class="caret"></span>
      </a>
      <ul uib-dropdown-menu>
-       <li><a ng-href="/locationadmin" role="button"><i class="fas fa-building"></i> Cities</a></li>
-       <li><a ng-href="/regionsadmin" role="button"><i class="fas fa-map"></i> Regions</a></li>
-       <li><a ng-href="/countriesadmin"><i class="fas fa-home"></i> Countries</a></li>
-       <li><a ng-href="/continentsadmin"><i class="fas fa-globe"></i> Continents</a></li>
+       <li><a class="nav-link" ng-class="{'active': isActive('/locationadmin')}" href="/locationadmin" role="button"><i class="fas fa-building"></i> Cities</a></li>
+       <li><a class="nav-link" ng-class="{'active': isActive('/regionsadmin')}" ng-href="/regionsadmin"  role="button"><i class="fas fa-map"></i> Regions</a></li>
+       <li><a class="nav-link" ng-class="{'active': isActive('/countriesadmin')}" ng-href="/countriesadmin"><i class="fas fa-home"></i> Countries</a></li>
+       <li><a class="nav-link" ng-class="{'active': isActive('/continentsadmin')}" ng-href="/continentsadmin"><i class="fas fa-globe"></i> Continents</a></li>
      </ul>
    </li>
-   <li><a ng-href="/placeadmin">Places</a></li>
-   <li><a ng-href="/hotelsadmin">Hotels</a></li>
-   <li><a ng-href="/itineraryadmin">Itineraries</a></li>
-   <li><a ng-href="/departuredateadmin">Departure Dates</a></li>
-   <li><a ng-href="/tourcostsadmin">Costs</a></li>
-   <li><a ng-href="/tournotesadmin">Notes</a></li>
-   <li><a ng-href="/leadsadmin">Leads</a></li>
-   <li><a ng-href="/usersadmin">Users</a></li>
-   <li><a ng-href="/imageadmin">Images</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/placeadmin')}" ng-href="/placeadmin" role="button">Places</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/hotelsadmin')}" ng-href="/hotelsadmin" role="button">Hotels</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/itineraryadmin')}" ng-href="/itineraryadmin" role="button">Itineraries</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/departuredateadmin')}" ng-href="/departuredateadmin" role="button">Departure Dates</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/tourcostsadmin')}" ng-href="/tourcostsadmin" role="button">Costs</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/tournotesadmin')}" ng-href="/tournotesadmin" role="button">Notes</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/leadsadmin')}" ng-href="/leadsadmin" role="button">Leads</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/usersadmin')}" ng-href="/usersadmin" role="button">Users</a></li>
+   <li class="nav-item"><a class="nav-link" ng-class="{'active': isActive('/imageadmin')}" ng-href="/imageadmin" role="button">Images</a></li>
 </ul>

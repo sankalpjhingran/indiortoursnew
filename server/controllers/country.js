@@ -31,7 +31,7 @@ module.exports= {
   show(req, res) {
     console.log('Calling show of country');
     console.log(req.query);
-    Country.findById(req.query.id, {
+    Country.findByPk(req.query.id, {
       include: [
                 { model : models.Region,
                   where: {
@@ -60,7 +60,7 @@ module.exports= {
   getToursForCountry(req, res){
     var popularToursMap = require('hashmap');
     let queryVars = req.query;
-    console.log('IN getToursForCountry=====>');
+    console.log('IN getToursForCountry=====>', queryVars.id);
     Location.findAll({
       where: { country_id : queryVars.id, visible: true },
       attributes: [ 'city', 'id' ],
@@ -77,9 +77,9 @@ module.exports= {
         authors.forEach(function(item){
           tours.push(item.siteTour);
         })
-        console.log(tours);
+        console.log('tours1=====>', tours);
         tours = tours.filter((li, idx, self) => self.map(itm => itm.id).indexOf(li.id) === idx)
-        console.log(tours);
+        console.log('tours2=====>', tours);
         res.status(200).json(tours);
       })
       .catch(function (error) {

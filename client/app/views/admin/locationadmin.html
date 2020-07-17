@@ -11,7 +11,9 @@
   </div>
   <div class="form-group">
     <div class="input-group">
-      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-search"></i></span>
+      </div>
       <input type="text" class="form-control" placeholder="Search cities..." ng-model="search">
     </div>
   </div>
@@ -46,11 +48,13 @@
             Continent
           </a>
         </th>
+        <!--
         <th>
           <a href="" ng-click="sort('description')">
             Description
           </a>
         </th>
+        -->
         <th>
           <a href="" ng-click="sort('createdAt')">
             Created Date
@@ -66,12 +70,12 @@
         <tr ng-repeat="x in allLocations | orderBy:sortType:sortReverse | filter:search">
           <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateLocationInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delLocation(x.id)">Del</a></td>
           <td>{{ x["id"] }}</td>
-          <td>{{ x["city"] }}</td>
+          <td style="white-space: pre-wrap;">{{ x["city"] | truncate : 10 : '...' : false }}</td>
           <td>{{ x["state"] }}</td>
           <td>{{ x["region"] }}</td>
           <td>{{ x.country }}</td>
           <td>{{ x.continent }}</td>
-          <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td>
+          <!-- <td style="white-space: pre-wrap;">{{ x["description"] | truncate : 110 : '...' : false }}</td> -->
           <td>{{ x["createdAt"] | date: "short" }}</td>
           <td>{{ x["updatedAt"] | date: "short" }}</td>
         </tr>
@@ -84,7 +88,7 @@
 <div class="modal-demo">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Create/Edit Location</h3>
+            <h5 class="modal-title" id="modal-title">Create/Edit Location</h5>
         </div>
         <form role="form" method="POST" ng-submit="createUpdateLocation();">
           <div class="modal-body" id="modal-body">
@@ -178,7 +182,7 @@
                     </label>
                   </div>
                   <div class="form-group">
-                    <div  class="btn btn-default"
+                    <div  class="btn btn-primary"
                           ngf-select
                           ng-model="locationData.images"
                           ngf-multiple="true"
@@ -216,7 +220,7 @@
             <div class="btn-group" role="group" aria-label="footer buttons">
               <button type="submit" class="btn btn-primary">Save</button>
               <button type="button" class="btn btn-primary" ng-click="saveNew()">Save As</button>
-              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+              <button type="button" class="btn btn-outline-secondary" ng-click="cancel()">Cancel</button>
             </div>
           </div>
         </form>

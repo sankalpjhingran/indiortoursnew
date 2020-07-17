@@ -40,6 +40,7 @@ router.post('/update/', toursController.update);
 router.post('/update/', toursController.update);
 router.delete('/', toursController.delete);
 
+models.Vendor.sync();
 models.ParentTour.sync();
 models.Tour.sync();
 models.TourCost.sync();
@@ -67,6 +68,7 @@ models.Booking.sync();
 models.Continent.sync();
 models.Country.sync();
 models.Region.sync();
-//models.Vendor.sync();
-
+models.Continent.sync();
+models.ContinentTranslation.sync();
+models.Language.sync();
 module.exports = router;

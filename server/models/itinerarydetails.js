@@ -7,6 +7,18 @@ module.exports = (sequelize, DataTypes) => {
         itndetailid: {type: DataTypes.STRING},
         day: {type: DataTypes.STRING},
         daydescription: {type: DataTypes.TEXT('medium')},
+        
+        /*
+        vendor_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendor',
+            key: 'vendorid'
+          }
+        }
+        */
       },
       {
         classMethods:

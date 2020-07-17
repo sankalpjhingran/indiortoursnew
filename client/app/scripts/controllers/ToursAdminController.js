@@ -8,9 +8,9 @@
 * Controller of the clientApp
 */
 angular.module('clientApp')
-.controller('ToursAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout) {
+.controller('ToursAdminController', function ($scope, $uibModal, $http, $location, $document, $log, Upload, $timeout, $stateParams, $rootScope, $state) {
 $scope.toursMap = new Map();
-
+$rootScope.$state = $state;
 $scope.sortType     = 'name'; // set the default sort type
 $scope.sortReverse  = false;  // set the default sort order
 

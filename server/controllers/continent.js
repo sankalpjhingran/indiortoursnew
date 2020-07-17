@@ -43,7 +43,7 @@ module.exports= {
   show(req, res) {
     console.log('Query is===>');
     console.log(req.query);
-    Continent.findById(req.query.id, {
+    Continent.findByPk(req.query.id, {
       include: [{
         model: models.Country,
         where: { isvisible : true },

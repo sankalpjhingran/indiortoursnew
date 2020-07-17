@@ -25,7 +25,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Itinerary.findById(req.params.id, {})
+    Itinerary.findByPk(req.params.id, {})
     .then(function (author) {
       res.status(200).json(author);
     })

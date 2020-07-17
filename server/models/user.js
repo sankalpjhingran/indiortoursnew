@@ -9,7 +9,6 @@ var bcrypt = require('bcrypt-nodejs');
       lastname: {type: DataTypes.STRING, allowNull: false},
       password: {type: DataTypes.STRING},
       phone: DataTypes.STRING,
-      //vendorid: DataTypes.STRING,
       isactive: DataTypes.BOOLEAN,
       verifylink: DataTypes.STRING,
       verifylinkcreateddate: DataTypes.DATE,
@@ -28,6 +27,18 @@ var bcrypt = require('bcrypt-nodejs');
       addresstate: {type: DataTypes.STRING},
       addresscountry: {type: DataTypes.STRING},
       addresszippin: {type: DataTypes.STRING},
+      
+      /*
+      vendor_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: false,
+        references: {
+          model: 'Vendor',
+          key: 'vendorid'
+        }
+      }
+      */
     }
   );
 

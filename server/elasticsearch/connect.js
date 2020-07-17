@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19,3 +20,4 @@ var esClient = exports.esClient = new _elasticsearch2.default.Client({
   host: _config2.default.elasticSearch.url,
   log: 'error'
 });
+*/

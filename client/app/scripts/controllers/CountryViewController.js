@@ -8,12 +8,12 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('CountryViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', '_', function ($http, $state, $rootScope, $scope, $stateParams, _) {
+  .controller('CountryViewController', ['$http','$state', '$rootScope', '$scope', '$stateParams', '_', 'currencyFact', '$localStorage', function ($http, $state, $rootScope, $scope, $stateParams, _, currencyFact, $localStorage) {
   $rootScope.$state = $state;
-
     var destinationId = $stateParams.id;
     $scope.name = $stateParams.name;
 
+    $scope.fromTo = $localStorage.currencypreference;
     $scope.loading = true;
 
     $scope.countryData = [];
@@ -24,47 +24,42 @@ angular.module('clientApp')
        .then(
            function(res){
              // success callback
-             console.log(res.data);
              var regions = res.data.Regions;
              //var locations = res.data.Locations;
 
              var regionids = [];
              $scope.countryData = res.data;
              regions.forEach(function(region) {
-               regionids.push(regions.id);
+               console.log('Region is====>', region);
+               regionids.push(region.id.toString());
              })
-
-             /*
-             var locationIds = [];
-             locations.forEach(function(loc) {
-               locationIds.push(loc.id);
-             })
-             */
 
              var imageMap = new Map();
-
+             console.log('regionids===>', regionids);
              $http.post('/api/image/all/', {tourids:regionids, parentobjectname: 'region'})
               .then(function(images){
+                console.log('images.data====>', images.data);
                   var imageMapUnderscore = new Map();
                   angular.forEach(images.data, function(image){
+                      console.log('images.data====>', images.data);
                       var tempImages = [];
                       if(!imageMapUnderscore.has(image.parentobjectid)) {
                          tempImages.push(image);
                       } else {
-                        tempImages = imageMapUnderscore.get(image.parentobjectid);
+                        tempImages = imageMapUnderscore.get(image.parentobjectid.toString());
                         tempImages.push(image);
                       }
-                      imageMapUnderscore.set(image.parentobjectid, tempImages);
+                      imageMapUnderscore.set(image.parentobjectid.toString(), tempImages);
                   })
 
+                  console.log('imageMapUnderscore====> ', imageMapUnderscore);
+                  console.log('region.id=====> ', regions[0].id);
                   angular.forEach(regions, function(region){
                     region.images = [];
-                    region.images.push(imageMapUnderscore.get(JSON.stringify(region.id)));
+                    region.images = imageMapUnderscore.get(JSON.stringify(region.id));
                   })
                   $scope.countryData.regions = regions;
-                  //$scope.countryData.locations = res.data.Locations;
-                  //console.log($scope.countryData.locations);
-                  console.log($scope.countryData.regions);
+                  console.log('$scope.countryData.regions===> ', $scope.countryData.regions);
               });
 
               /*
@@ -87,7 +82,6 @@ angular.module('clientApp')
                $scope.popularItineraries = [];
                var toursIds = [];
                var apiRes = res.data[0];
-               console.log(apiRes);
 
                var countryLocations = [];
 
@@ -101,9 +95,6 @@ angular.module('clientApp')
                });
 
                $scope.countrylocations = _.uniq(countryLocations, false, function(p){ return p.city; });
-
-               console.log($scope.countrylocations);
-
                var locationIds = [];
 
                angular.forEach($scope.countrylocations, function(location) {
@@ -126,7 +117,7 @@ angular.module('clientApp')
 
                     angular.forEach($scope.countrylocations, function(loc){
                       loc.images = [];
-                      loc.images.push(imageMapUnderscore.get(JSON.stringify(loc.id)));
+                      loc.images = imageMapUnderscore.get(JSON.stringify(loc.id));
                     })
                 });
 
@@ -138,16 +129,38 @@ angular.module('clientApp')
                });
 
 
+              $scope.popularItineraries.forEach(function(tour){
+                var tempLocations = [];
+                tour.siteLocation.forEach(function(location){
+                    tempLocations.push(location.city);
+                });
+                tour.locations = tempLocations;
+                //tour.price = accounting.formatMoney(tour.price, { symbol: currency.name.newValue,  format: "%v %s" });
+                //tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: currency.name.newValue,  format: "%v %s" });
 
-               $scope.popularItineraries.forEach(function(tour){
-                  var tempLocations = [];
-                  tour.siteLocation.forEach(function(location){
-                      tempLocations.push(location.city);
-                  });
-                  tour.locations = tempLocations;
-                  //tour.price = accounting.formatMoney(tour.price, { symbol: currency.name.newValue,  format: "%v %s" });
-                  //tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: currency.name.newValue,  format: "%v %s" });
-               });
+                //Convert first if saved currency is not USD
+                if($scope.fromTo.to == 'USD' && $scope.fromTo.from == 'USD') {
+                  if(tour.price) {
+                    tour.price = accounting.formatMoney(tour.price, { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+
+                  if(tour.offerprice) {
+                    tour.offerprice = accounting.formatMoney(tour.offerprice, { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+                } else {
+                  if(tour.price) {
+                    tour.price = accounting.unformat(tour.price);
+                    tour.price = fx.convert(tour.price, {from: "USD", to: $scope.fromTo.from});
+                    tour.price = accounting.formatMoney(fx.convert(tour.price, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+
+                  if(tour.offerprice) {
+                    tour.offerprice = accounting.unformat(tour.offerprice);
+                    tour.offerprice = fx.convert(tour.offerprice, {from: "USD", to: $scope.fromTo.from});
+                    tour.offerprice = accounting.formatMoney(fx.convert(tour.offerprice, $scope.fromTo), { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  }
+                }
+              });
 
                $http.post('/api/image/all/', {tourids:toursIds, parentobjectname: 'tour'})
                 .then(function(images){
@@ -162,9 +175,13 @@ angular.module('clientApp')
                         }
                         imageTourMap.set(image.parentobjectid, tempImages);
                     })
-                    angular.forEach($scope.popularItineraries, function(tour){
-                      tour.images = [];
-                      tour.images.push(imageTourMap.get((tour.id).toString()));
+
+                    angular.forEach($scope.popularItineraries, function(tour){    
+                      tour.image = {};
+                      if(imageTourMap.get(tour.id.toString()) && imageTourMap.get(tour.id.toString()).length) {
+                        var randomIndex = Math.floor((Math.random() * imageTourMap.get(tour.id.toString()).length) + 0);
+                        tour.image = imageTourMap.get(tour.id.toString())[randomIndex];
+                      }
                     });
 
                     $scope.popularItineraries = _.chain($scope.popularItineraries)

@@ -4,7 +4,19 @@ var sequelize  = require('../models/index');
 
 module.exports = (sequelize, DataTypes) => {
   var MoreInfoItem = sequelize.define("MoreInfoItem", {
-        name: {type: DataTypes.STRING}
+        name: {type: DataTypes.STRING},
+        
+        /*
+        vendor_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendor',
+            key: 'vendorid'
+          }
+        }
+        */
       },
       {
         classMethods:

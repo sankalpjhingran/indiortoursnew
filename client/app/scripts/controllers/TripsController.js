@@ -30,14 +30,13 @@ angular.module('clientApp')
     var imagesMap = new Map();
 
     $scope.allParentToursWithTours = function(){
-      console.log('Calling allToursWithLocations on ng-change===> ' + JSON.stringify($scope.searchTour));
       $scope.loading = true;
       $http.get('/api/parenttours/allTripsByOrder')
        .then(
            function(res){
              // success callback
              $scope.allTours = res.data;
-
+             console.log('$scope.allTours====>', $scope.allTours);
              var tourids = [];
 
              $scope.allTours.forEach(function(tour){
@@ -56,6 +55,7 @@ angular.module('clientApp')
                       });
                       imagesMap.set(tourid, tempImages);
                       angular.forEach($scope.allTours, function(tour){
+                        tour.images = [];
                         tour.images = imagesMap.get(tour.id);
                       });
                   });

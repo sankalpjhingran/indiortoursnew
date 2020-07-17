@@ -53,7 +53,7 @@ var search = require('./routes/search');
 require('./config/passport')(passport, models.User);
 
 var app = express();
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/../public')));
 
 //Use Compression for gzip compression, for Production, use nginx gzip compression
 app.use(compression());
@@ -228,6 +228,8 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+app.use(express.static(path.join(__dirname, '/dist')));
 
 // In production, we'll actually serve our angular app from express
 if (app.get('env') === 'prod' || app.get('env') === 'dev') {

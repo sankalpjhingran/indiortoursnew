@@ -11,7 +11,7 @@ angular.module('clientApp')
   .controller('TourHeaderController', ['$http', '$state', '$rootScope', '$scope', '$stateParams', '$document', '$sce', '_', function($http, $state, $rootScope, $scope, $stateParams, $document, $sce, _) {
     var touridsParam = [];
     touridsParam.push($stateParams.id);
-
+    $scope.slides = [];
     var vm = this;
     vm.$inject = ['NgMap'];
 
@@ -27,18 +27,69 @@ angular.module('clientApp')
     }
 
     $scope.allImagesForTour = function() {
-      console.log('Calling subheader controller=====>');
-      $scope.bannerImages = [];
+      console.log('Calling tour subheader controller=====>');
       var tourids = touridsParam;
       $http.post('/api/image/all', {
           tourids: tourids,
-          parentobjectname: 'tour'
+          parentobjectname: 'tourbanner'
         })
         .then(function(response) {
           if (response.data.length) {
-            angular.forEach(response.data, function(image) {
-              $scope.bannerImages.push(image);
-            });
+            $scope.myInterval = 5000;
+            $scope.noWrapSlides = false;
+            $scope.active = 0;
+            var slides = $scope.slides = [];
+            var currIndex = 0;
+
+            $scope.addSlide = function() {
+              //var newWidth = 1920 + slides.length + 1; + 450 // get images of 1920/450 size
+              angular.forEach(response.data, function(image) {
+                slides.push({
+                  image: '/images/' + image.filename,
+                  text: image.description,
+                  id: currIndex++
+                });
+              });
+            };
+
+            $scope.randomize = function() {
+              var indexes = generateIndexesArray();
+              assignNewIndexesToSlides(indexes);
+            };
+
+            for (var i = 0; i < response.data.length; i++) {
+              $scope.addSlide();
+            }
+
+            // Randomize logic below
+
+            function assignNewIndexesToSlides(indexes) {
+              for (var i = 0, l = slides.length; i < l; i++) {
+                slides[i].id = indexes.pop();
+              }
+            }
+
+            function generateIndexesArray() {
+              var indexes = [];
+              for (var i = 0; i < currIndex; ++i) {
+                indexes[i] = i;
+              }
+              return shuffle(indexes);
+            }
+
+            // http://stackoverflow.com/questions/962802#962890
+            function shuffle(array) {
+              var tmp, current, top = array.length;
+              if (top) {
+                while (--top) {
+                  current = Math.floor(Math.random() * (top + 1));
+                  tmp = array[current];
+                  array[current] = array[top];
+                  array[top] = tmp;
+                }
+              }
+              return array;
+            }
           }
         });
     }
@@ -46,29 +97,4 @@ angular.module('clientApp')
     $scope.trustSrc = function(src) {
       return $sce.trustAsResourceUrl(src);
     }
-
-    $scope.allVideosForTour = function() {
-      $http.get('/api/tours/tourwithlocations/', {params: {id: $stateParams.id}})
-       .then(
-           function(res){
-             //Success callback
-             console.log(res.data[0]);
-             $scope.tourWithLocations = res.data[0];
-             $scope.videoLinks = [];
-
-             $scope.videoLinks.push($scope.tourWithLocations.videolink1);
-             $scope.videoLinks.push($scope.tourWithLocations.videolink2);
-             $scope.videoLinks.push($scope.tourWithLocations.videolink3);
-             console.log($scope.videoLinks);
-             _.without($scope.videoLinks, null);
-             console.log($scope.videoLinks);
-           },
-           function(response){
-             // failure call back
-           }
-        );
-    }
-
-    $scope.getAllCities = function() {}
-
   }]);
