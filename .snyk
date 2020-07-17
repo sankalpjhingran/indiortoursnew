@@ -1,0 +1,13 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-MONGODB-473855:
+    - mongodb:
+        reason: Will uninstall it
+        expires: '2020-08-14T19:36:31.676Z'
+  SNYK-JS-BSON-561052:
+    - mongodb > mongodb-core > bson:
+        reason: Will uninstall it
+        expires: '2020-08-14T19:36:31.677Z'
+patch: {}

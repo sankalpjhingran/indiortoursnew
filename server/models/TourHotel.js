@@ -11,6 +11,5 @@ module.exports = (sequelize, DataTypes) => {
     models.Hotel.belongsToMany(models.Tour, { through: TourHotel, as: 'accomodationTour'});
     models.Tour.belongsToMany(models.Hotel, { through: TourHotel, as: 'accomodationHotel'}, { onDelete: 'cascade' });
   };
-
   return TourHotel;
 };

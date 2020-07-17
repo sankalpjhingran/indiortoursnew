@@ -32,5 +32,4 @@ var config = {
      enableProof: false
    }
 }
-
 module.exports = config;

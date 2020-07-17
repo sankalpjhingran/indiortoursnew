@@ -7,19 +7,16 @@ var crypto = require('crypto');
 var DataTypes = require("sequelize");
 var fsPath = require('fs-path');
 var fs = require('fs');
-//var env       = process.env.NODE_ENV || 'development';
 var config    = require('../config/config2.js');
 var db        = {};
-
 
 var schedule = require('node-schedule');
 var request = require('request');
 var parser = require('cron-parser');
 
 var interval = parser.parseExpression('0 0-23 * * *');
-//console.log('Next Fetch: ', interval.next().toString());
 
-var j = schedule.scheduleJob('0 0-23 * * *', function(){
+var j = schedule.scheduleJob('0 0-23 * * *', function() {
   var rates = fs.readFileSync('./config/conversionrates.json');
   var jsonContent;
 
@@ -40,7 +37,9 @@ var j = schedule.scheduleJob('0 0-23 * * *', function(){
   if(hoursDifference > 5) {
     request('https://openexchangerates.org/api/latest.json?app_id=a124cc01fa2144478fb93a3d07864966', function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            fsPath.writeFile('./config/conversionrates.json', body, 'utf8');
+            fsPath.writeFile('./config/conversionrates.json', body, 'utf8', function(err, res){
+                if(err) console.log('error', err);
+            });
          }
     })
   } else {
@@ -54,7 +53,10 @@ var j = schedule.scheduleJob('0 0-23 * * *', function(){
 request('https://openexchangerates.org/api/currencies.json', function (error, response, body) {
     if (!error && response.statusCode == 200) {
         var fs = require('fs');
-        fsPath.writeFile('./config/currencies.json', body, 'utf8');
+        fsPath.writeFile('./config/currencies.json', body, 'utf8', function(err, res){
+            if(err) console.log('error', err);
+        });
+
      }
 })
 
@@ -67,8 +69,6 @@ request('http://www.geoplugin.net/json.gp', function (error, response, body) {
 
 //Setting up the config
 console.log('Starting sequelize connection...');
-//console.log(config);
-
 var sequelize = new Sequelize(config.db.DB_NAME, config.db.USERNAME, config.db.PASSWORD, {
     host: 'localhost',
     port: config.db.port,
@@ -91,8 +91,7 @@ sequelize.authenticate()
         sequelize.authenticate().then(function(){
           console.log('Attempting again...');
         });
-    })
-    .done();
+    });
 
 fs
   .readdirSync(__dirname)
@@ -100,11 +99,9 @@ fs
     return (file.indexOf(".") !== 0) && (file !== "index.js");
   })
   .forEach(function(file) {
-    var model = sequelize.import(path.join(__dirname, file));
+    var model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
-
-  console.log(db);
 
   Object.keys(db).forEach(function(modelName) {
     if (db[modelName].associate) {

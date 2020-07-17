@@ -60,7 +60,7 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    ParentTour.findById(req.query.id,
+    ParentTour.findByPk(req.query.id,
     {
       include:
       [
@@ -124,7 +124,7 @@ module.exports= {
       },
     })
     .then(function (updatedRecords) {
-      ParentTour.findById(req.body.id, {include: [{ association : 'childTours' }]})
+      ParentTour.findByPk(req.body.id, {include: [{ association : 'childTours' }]})
       .then(function (updatedTour) {
         console.log('Updated Tour is===> ');
 

@@ -1,3 +1,5 @@
+/*
+
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -73,3 +75,4 @@ var indexSettings = exports.indexSettings = {
     }
   }
 };
+*/

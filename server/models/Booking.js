@@ -4,7 +4,7 @@ var sequelize  = require('../models/index');
 
 module.exports = (sequelize, DataTypes) => {
   var Booking = sequelize.define("Booking", {
-        bookingid: {
+        id: {
           type: DataTypes.UUID,
           defaultValue: DataTypes.UUIDV1,
           primaryKey: true
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         tourinfo : {type: DataTypes.JSON},
         flightdetails: {type: DataTypes.JSON},
         otherdetails : {type: DataTypes.JSON},
-        emergencycontact: {type: DataTypes.JSON}, 
+        emergencycontact: {type: DataTypes.JSON},
         tour_id: {
           type: DataTypes.INTEGER(11),
           allowNull: false,
@@ -25,13 +25,21 @@ module.exports = (sequelize, DataTypes) => {
             model: 'Tours',
             key: 'id'
           }
+        },
+        vendor_id: {
+          type: DataTypes.INTEGER(11),
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendors',
+            key: 'id'
+          }
         }
       });
 
-  /*
+
   Booking.associate = function(models) {
-    Booking.belongsTo(models.Tour, {as: 'booking', foreignKey: 'booking_id'});
+    Booking.belongsTo(models.Vendor, {foreignKey: 'vendor_id'});
   };
-  */
   return Booking;
 };

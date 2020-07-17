@@ -11,7 +11,9 @@
   </div>
   <div class="form-group">
     <div class="input-group">
-      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-search"></i></span>
+      </div>
       <input type="text" class="form-control" placeholder="Search Trips..." ng-model="search">
     </div>
   </div>
@@ -79,7 +81,7 @@
 <div class="modal-demo">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Create/Edit Trip</h3>
+            <h5 class="modal-title" id="modal-title">Create/Edit Trip</h5>
         </div>
         <form role="form" method="POST" ng-submit="createUpdateParentTour();">
           <div class="modal-body" id="modal-body">
@@ -113,16 +115,16 @@
               <div id="remote">
                   <label for="parenttourids">Tours</label>
                   <!-- New locations multi select -->
-                  <ui-select id="parenttourids" multiple ng-model="parentTourData.tours" theme="bootstrap" close-on-select="false"  title="Select Tours...">
-                  <ui-select-match placeholder="Select Tours...">{{$item.name}}</ui-select-match>
-                  <ui-select-choices repeat="tour in allTours | propsFilter: {name: $select.search}">
-                    <div ng-bind-html="tour.name | highlight: $select.search"></div>
-                  </ui-select-choices>
-              </ui-select>
+                  <ui-select id="parenttourids" multiple ng-model="parentTourData.tours" theme="selectize" close-on-select="false"  title="Select Tours...">
+                    <ui-select-match placeholder="Select Tours...">{{$item.name}}</ui-select-match>
+                    <ui-select-choices repeat="tour in allTours | propsFilter: {name: $select.search}">
+                      <div ng-bind-html="tour.name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                  </ui-select>
               </div>
             </div>
             <div class="form-group">
-              <div  class="btn btn-default"
+              <div  class="btn btn-primary"
                     ngf-select
                     ng-model="parentTourData.images"
                     ngf-multiple="true"
@@ -161,7 +163,7 @@
             <div class="btn-group" role="group" aria-label="footer buttons">
               <button type="submit" class="btn btn-primary">Save</button>
               <!-- <button type="button" class="btn btn-primary">Save As</button> -->
-              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+              <button type="button" class="btn btn-outline-secondary" ng-click="cancel()">Cancel</button>
             </div>
           </div>
         </form>

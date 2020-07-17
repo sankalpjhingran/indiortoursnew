@@ -88,7 +88,7 @@
                     <div class="row" style="margin-left:0px !important"><label>Phone</label></div>
                     <div class="row" style="margin-left:0px !important">
                       <div class="col-sm-6" style="padding-left: 0px;padding-right: 0px;">
-                        <ui-select id="parenttourids" ng-model="traveller.countryandcode" theme="bootstrap" close-on-select="true"  title="Country and code...">
+                        <ui-select id="parenttourids" ng-model="traveller.countryandcode" theme="selectize" close-on-select="true"  title="Country and code...">
                           <ui-select-match placeholder="Country and code...">{{$select.selected.name + ' ' + $select.selected.dial_code}}</ui-select-match>
                           <ui-select-choices repeat="tour in vm.countrycodes | propsFilter: {name: $select.search}">
                             <div ng-bind-html="tour.name + ' ' + tour.dial_code | highlight: $select.search"></div>

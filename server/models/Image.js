@@ -11,6 +11,17 @@ module.exports = (sequelize, DataTypes) => {
         parentobjectid:{type: DataTypes.STRING},
         parentobjectname:{type: DataTypes.STRING},
         description: {type: DataTypes.TEXT('medium')}
+        /*
+        vendor_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendor',
+            key: 'vendorid'
+          }
+        }
+        */
       }
   );
   return Image;

@@ -1,3 +1,4 @@
+/*
 var  indexSettings =  require('./config.js').indexSettings;
 
 var deleteIndex = require('./elasticWrapper.js');
@@ -17,7 +18,7 @@ console.log('Initializing postgresToElastic===>');
  * Post to ElasticSearch with delay
  * @param  {Object} body body object
  * @param  {Integer} time delay time
- */
+ 
 function postWithDelay(body, time) {
   console.log('Calling postWithDelay====>');
   setTimeout(() => {
@@ -33,7 +34,7 @@ function postWithDelay(body, time) {
 
 /**
  * Get Instance data from database and post to ElasticSearch
- */
+ 
 function postInstances() {
   console.log('Calling postInstances====>');
   let body = [];
@@ -99,7 +100,7 @@ function postInstanceAliases() {
 
 /**
  * Setup index if not present otherwise remove old and setup again
- */
+ 
 function setupIndex() {
   console.log('Settingup index===>');
   return wrapper.deleteIndex(index.elasticSearch.index)
@@ -117,3 +118,4 @@ setupIndex()
     console.log(err);
     process.exit(1);
   });
+  */

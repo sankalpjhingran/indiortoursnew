@@ -25,13 +25,8 @@ passport.deserializeUser(function(id, done){
     } else {
       done(null, null);
     }
-	}).error(function(err){
-		done(user.errors, null);
-	});
+	})
 });
-
-
-
 
 // For Authentication Purposes
 passport.use('local-signin', new LocalStrategy(
@@ -59,14 +54,15 @@ passport.use('local-signin', new LocalStrategy(
       console.log(passwd);
 
       bCrypt.compare(password, passwd, function(err, res) {
-          if (res) {
+        let callBack;  
+        if (res) {
             console.log('password matched...');
             //update user's last login time
 
             user.lastLogin = new Date(Date.now()).toLocaleString();
             console.log(email.toLowerCase());
             console.log(user.lastLogin);
-
+          
             models.User.update({lastLogin : new Date(Date.now()).toLocaleString()},
               {
                 where: {
@@ -75,9 +71,10 @@ passport.use('local-signin', new LocalStrategy(
               }).then(function(user) {
                 console.log(user);
             });
+            console.log('Returning response====>');
             return cb(null, user);
           } else {
-            return cb(null, false);
+            return (null, false);
           }
       });
     });

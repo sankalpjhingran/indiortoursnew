@@ -43,7 +43,7 @@ module.exports= {
 
   //Create a new author using model.create()
   create(req, res) {
-    console.log('req===>', req.body);
+    //console.log('req===>', req.body);
     Region.create(req.body).then(function(CountryInstance){
         res.status(200).json(CountryInstance);
     })
@@ -54,7 +54,7 @@ module.exports= {
 
   //Edit an existing author details using model.update()
   update(req, res) {
-    console.log('update req===>', req.body);
+    //console.log('update req===>', req.body);
     let queryVars = req.body;
     Region.update(req.body, {
       where: {
@@ -71,7 +71,7 @@ module.exports= {
 
   //Delete an existing author by the unique ID using model.destroy()
   delete(req, res) {
-    console.log(req);
+    //console.log(req);
     let queryVars = req.query;
     Region.destroy({
       where: {

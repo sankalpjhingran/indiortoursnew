@@ -27,10 +27,7 @@ router.post("/", passport.authenticate('local-signin'), function(req, res) {
     addresscountry: req.user.addresscountry,
     addresszippin: req.user.addresszippin,
   };
-  //console.log(returnUser);
-  //console.log(req.session);
-  //res.json(returnUser);
-  return res.redirect('/');
+  res.json(returnUser);
 });
 
 // Facebook auth routes

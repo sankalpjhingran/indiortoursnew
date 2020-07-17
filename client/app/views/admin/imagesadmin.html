@@ -11,7 +11,9 @@
   </div>
   <div class="form-group">
     <div class="input-group">
-      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-search"></i></span>
+      </div>
       <input type="text" class="form-control" placeholder="Search Images..." ng-model="search" ng-change="filterData();">
     </div>
     <label class="checkbox-inline">
@@ -66,7 +68,7 @@
 <div class="modal-demo">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Create Image</h3>
+            <h5 class="modal-title" id="modal-title">Create Image</h5>
         </div>
         <form role="form" method="POST" ng-submit="createUpdateImage();">
           <div class="modal-body" id="modal-body">
@@ -78,12 +80,16 @@
                     <label for="parentobjectname">Parent Object Name</label>
                     <input type="text" class="form-control input-sm" ng-model="imageData.parentobjectname" id="pname" placeholder="Parent Object Name">
                   </div>
+                  <div class="form-group" >
+                    <label for="parentobjectname">Parent Id</label>
+                    <input type="text" class="form-control input-sm" ng-model="imageData.parentobjectid" id="pname" placeholder="Parent Id">
+                  </div>
                   <div class="form-group">
                     <label for="description">Description</label>
                     <textarea class="form-control input-sm" rows="5" ng-model="imageData.description" id="description" placeholder="Description"></textarea>
                   </div>
                   <div class="form-group">
-                    <div  class="btn btn-default"
+                    <div  class="btn btn-primary"
                           ngf-select
                           ng-model="imageData.images"
                           ngf-multiple="true"
@@ -120,8 +126,8 @@
           <div class="modal-footer">
             <div class="btn-group" role="group" aria-label="footer buttons">
               <button type="submit" class="btn btn-primary">Save</button>
-              <button type="button" class="btn btn-primary" ng-click="saveNew()">Save As</button>
-              <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+              <!-- <button type="button" class="btn btn-primary" ng-click="saveNew()">Save As</button> -->
+              <button type="button" class="btn btn-outline-secondary" ng-click="cancel()">Cancel</button>
             </div>
           </div>
         </form>

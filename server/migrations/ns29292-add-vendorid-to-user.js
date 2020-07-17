@@ -12,9 +12,9 @@ module.exports = {
       */
       return queryInterface.addColumn(
         'Users', // name of Target model
-        'vendorid', // name of the key we're adding
+        'vendor_id', // name of the key we're adding
         {
-          type: Sequelize.STRING,
+          type: Sequelize.INTEGER(11),
         }
       );
 

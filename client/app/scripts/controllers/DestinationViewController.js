@@ -37,16 +37,18 @@ angular.module('clientApp')
                     if(!imageMapUnderscore.has(image.parentobjectid)) {
                        tempImages.push(image);
                     } else {
-                      tempImages = imageMapUnderscore.get(image.parentobjectid);
+                      tempImages = imageMapUnderscore.get(image.parentobjectid.toString());
                       tempImages.push(image);
                     }
-                    imageMapUnderscore.set(image.parentobjectid, tempImages);
+                    imageMapUnderscore.set(image.parentobjectid.toString(), tempImages);
                 })
 
+                console.log('imageMapUnderscore====> ', imageMapUnderscore);
                 angular.forEach(destinations, function(destination){
                   destination.images = [];
-                  destination.images.push(imageMapUnderscore.get(JSON.stringify(destination.id)));
+                  destination.images = imageMapUnderscore.get(destination.id.toString());
                 })
+                console.log('destinations====> ', destinations);
                 $scope.countries = destinations;
                 $scope.loading = false;
             });

@@ -24,6 +24,5 @@ app.factory('currencyFact', function(){
     name.oldValue = oldValue;
     name.newValue = newValue;
   }
-
   return name;
 });

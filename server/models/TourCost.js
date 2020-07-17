@@ -13,6 +13,18 @@ module.exports = (sequelize, DataTypes) => {
         startdate: {type: DataTypes.DATE},
         enddate: {type: DataTypes.DATE},
         individualcostsjson : {type: DataTypes.JSON},
+        
+        /*
+        vendor_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          primaryKey: false,
+          references: {
+            model: 'Vendor',
+            key: 'vendorid'
+          }
+        }
+        */
       }
   );
 

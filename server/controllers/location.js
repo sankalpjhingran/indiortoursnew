@@ -15,8 +15,6 @@ module.exports= {
   getGroupedLocations(req, res) {
     var type = req.query.type;
     var name = req.query.name;
-    console.log('type====' + type);
-    console.log('name====' + name);
     Location.findAll({
       where: {type : name},
       attributes: [
@@ -76,15 +74,18 @@ module.exports= {
 
   //Get an author by the unique ID using model.findById()
   show(req, res) {
-    Location.findById(req.query.id, {
+    Location.findByPk(req.query.id, {
       include: [{
         association : 'siteTour',
-        include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'country_id', 'continent', 'latitude', 'longitude', 'elevation'] }],
+        include: [
+          { association : 'siteLocation',
+            attributes: ['id', 'city', 'state', 'country', 'country_id', 'continent', 'latitude', 'longitude', 'elevation']
+          }
+        ],
       }]
     })
     .then(function (author) {
       var parentIds = [];
-
       author.siteTour.forEach(function(tour){
         parentIds.push(tour.id);
       });
@@ -112,15 +113,11 @@ module.exports= {
               tourImageMap.set(image.parentobjectid, lstImages);
           }
         });
-        console.log(tourImageMap);
 
         author.siteTour.forEach(function(tourNew){
-          console.log(tourNew.name);
           tourNew.dataValues.images = [];
           tourNew.dataValues.images.push(tourImageMap.get(JSON.stringify(tourNew.id)));
         })
-        console.log('Authors are====>');
-        console.log(author);
         res.status(200).json(author);
       })
       .catch(function (error) {
@@ -136,7 +133,6 @@ module.exports= {
 
   //Create a new author using model.create()
   create(req, res) {
-    console.log('req===>', req.body);
     Location.create(req.body).then(function(LocationInstance){
         res.status(200).json(LocationInstance);
     })
@@ -147,7 +143,6 @@ module.exports= {
 
   //Edit an existing author details using model.update()
   update(req, res) {
-    console.log('update req===>', req.body);
     let queryVars = req.body;
     Location.update(req.body, {
       where: {

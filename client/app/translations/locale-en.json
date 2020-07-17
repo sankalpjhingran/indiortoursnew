@@ -1,0 +1,82 @@
+{
+  "INDIOR": {
+    "HEADER": {
+       "TAGLINE": "The World Is Our Family",
+       "SUPPORT": "Support",
+       "HOME": "Home",
+       "DESTINATIONS": "DESTINATIONS",
+       "VACATIONS": "VACATIONS"
+    },
+    "MENU": {
+      "HOME": "Home",
+      "DESTINATIONS": "Destinations",
+      "VACATIONS": "Vacations"
+    },
+    "BUTTONS": {
+      "ENQUIRE": "Enquire",
+      "BOOK": "Book",
+      "SEND_ENQUIRY": "Send Enquiry"
+    },
+    "TOUR_LABELS": {
+      "DAYS": "Days",
+      "STARTING_FROM": "Starting from",
+      "ITINERARY": "Itinerary",
+      "DATES_AND_PRICES": "Dates & Prices",
+      "HOTELS": "Hotels",
+      "DESTINATIONS": ".MENU.DESTINATIONS",
+      "MORE_INFO": "More Info",
+      "CITY": "City",
+      "BUDGET": "Budget",
+      "ECONOMY": "Economy",
+      "ELEGANT": "Elegant",
+      "DELUXE": "Deluxe",
+      "LUXURY": "Luxury",
+      "CITIES": "Cities",
+      "STATES": "States"
+    },
+    "MAIN": {
+      "HEADING": "Indior Tour Offers you Luxury Tours, Tailor-Made Holiday or Group Tours",
+      "SUBHEADING": "One of the best travel companies offers high quality group tours, private journeys and tailor-made holidays to one of the world's most fascinating regions: The Indian Subcontinent covering India, Nepal, Bhutan, Sri Lanka, Tibet and Maldives. We offer to a large selection from Economy Tours to luxury holidays; each one planned by experts."
+    },
+    "DESTINATIONS": {
+      "HEADING": "Indior Destinations",
+      "SUBHEADING": "Travel to Asia with Indior Tours experts and delve deeply into a rich tapestry of cultures and landscapes. Explore sacred temples in Bhutan or Tibet, or trek with Sherpa guides to through Himalayas. Set out on a rail journey through India or a explore coastline of Sri Lanka and Maldives, or a photography expedition to Bhutan or Tibet. On all of our trips, you’ll experience a unique intersection of fascinating cultures, age-old traditions, and modern life."
+    },
+    "VACATIONS": {
+      "HEADING": "Indior Trips",
+      "SUBHEADING": "Indior Tours offers a wide variety of luxury holiday ideas, from group tours to tailor-made journeys. If you are looking for holiday inspiration you may wish to consider searching by themes such as train journeys or cultural cruises."
+    },
+    "GROUP_TOURS": {
+      "HEADING": "Tours grupales",
+      "SUBHEADING": "Cada uno de nuestros viajes grupales está diseñado con la misma filosofía que nuestros viajes a medida: viajes únicos que le permiten explorar los aspectos más destacados de un país mientras se sumerge bajo la superficie para descubrir personas, lugares y culturas reales. Eche un vistazo a nuestras salidas de viajes en grupo para obtener más información, o si tiene alguna pregunta, no dude en contactarnos."
+    },
+    "FOOTER": {
+      "ABOUT_US": "About Us",
+      "INDIOR_TOURS_EXCLUSIVE": "Indior Tours Exclusive",
+      "DATING_HONEYMOONS": "Dating and Honeymoons",
+      "TRAVEL_IN_LUXURY": "Travel in Luxury",
+      "EXOTIC_BEACHES_AND_ISLANDS": "Exotic Beaches and Islands",
+      "TRAVELLING_WITH_CHILDREN": "Travelling with Children",
+      "FLY_AND_DRIVE": "Fly and Drive",
+      "GAY_FRIENDLY": "Gay Friendly",
+      "CRUISES": "Cruises",
+      "LUXURY_TRAIN_OF_INDIA": "Luxury Trains of India",
+      "HELICOPTER_TOURS": "Helicopter Tours",
+      "ROUND_THE_WORLD": "Round the World",
+      "INDIAN_URBAN_TOURS": "Indian Urban Tours",
+      "MUSIC_TOURS": "Music Tours",
+      "SPORTING_EVENTS": "Sporting Events",
+      "SKI_IN_WINTER": "Ski in Winter",
+      "DEEP_SEA_DIVING": "Deep Sea Diving",
+      "TRIBAL_TOURS": "Tribal Tours",
+      "GOLF_TOURS": "Golf Tours",
+      "SHOPPING_TOURS": "Shopping Tours",
+      "YOGA_AND_MEDITATION": "Yoga and Meditation",
+      "INLAND_CRUISE_TOURS": "Inland Cruise Tours",
+      "EARLY_BIRD_DISCOUNT": "Early Bird Discount",
+      "COPYRIGHT_LINE1": "Copyright @2017-2018 Indior Tours Pvt. Ltd. All Rights Reserved",
+      "COPYRIGHT_LINE2": "Recognized by Ministry of Tourism, Government of India",
+      "COPYRIGHT_LINE3": "Website developed and maintained by Indior Tours Pvt Ltd"
+    }
+  }
+}

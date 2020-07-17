@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
           primaryKey: false,
           references: {
-            model: 'Regions',
+            model: 'Region',
             key: 'id'
           }
         },
@@ -64,8 +64,6 @@ module.exports = (sequelize, DataTypes) => {
   Location.associate = function (models) {
     Location.hasMany(models.Hotel, {as: 'locationhotels', foreignKey: 'location_id'});
     Location.hasMany(models.Place, {as: 'places', foreignKey: 'location_id'});
-    //Location.belongsTo(models.Country, {as: 'locationcountries', foreignKey: 'country_id'});
-    //Location.belongsTo(models.Continent, {as: 'locationcontinent', foreignKey: 'continent_id'});
   };
 
   return Location;

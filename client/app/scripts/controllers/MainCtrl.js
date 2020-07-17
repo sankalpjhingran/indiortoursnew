@@ -8,8 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', ['$localStorage', '$http','$state', '$rootScope', '$scope', 'Carousel', 'currencyFact', '$uibModal', 'MetaService', function ($localStorage, $http, $state, $rootScope, $scope, Carousel, currencyFact, $uibModal, MetaService) {
-
+  .controller('MainCtrl', ['$localStorage', '$http','$state', '$rootScope', '$scope', 'MetaService', '$uibModal', function ($localStorage, $http, $state, $rootScope, $scope, MetaService, $uibModal) {
     console.log('Setting MetaService');
     $rootScope.metaservice = MetaService;
     $rootScope.metaservice.set("India Tours | India Tourism | Tours and Travels | Book Holiday Packages | India Tour Packages HomeTravel Guide| Travel deals India | Tours to India-from Indior Tours India's Great Travel specialists","","");
@@ -41,6 +40,10 @@ angular.module('clientApp')
       {stateOn: 'glyphicon-heart'},
       {stateOff: 'glyphicon-off'}
     ];
+
+    $scope.getRandomIndex = function(length){
+      return Math.floor(Math.random() * length);
+    }
 
     $scope.addToRecentItems = function(val) {
       // Parse the JSON stored in allEntriesP
@@ -117,13 +120,14 @@ angular.module('clientApp')
                         }
                       });
                       imagesMap.set(tourid, tempImages);
-                      angular.forEach($scope.allTours, function(tour){
-                        if(imagesMap.get(tour.id) && imagesMap.get(tour.id).length) {
-                          //var randomImage = Math.floor(Math.random() * imagesMap.get(tour.id).length);
-                          tour.images = imagesMap.get(tour.id); //[randomImage];
-                          $scope.toursMap.set(tour.id, tour);
-                        }
-                      });
+                  });
+
+                  angular.forEach($scope.allTours, function(tour){
+                    if(imagesMap.get(tour.id) && imagesMap.get(tour.id).length) {
+                      var randomIndex = Math.floor((Math.random() * imagesMap.get(tour.id).length) + 0);
+                      tour.image = imagesMap.get(tour.id)[randomIndex];
+                      $scope.toursMap.set(tour.id, tour);
+                    }
                   });
                   $scope.loading = false;
 
@@ -165,7 +169,7 @@ angular.module('clientApp')
             controller: controllername,
             scope: $scope,
             backdrop: 'static',
-            size: 'md',
+            size: 'lg',
         });
 
         $scope.modalInstance.result.then(function (selectedItem) {

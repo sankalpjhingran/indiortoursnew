@@ -1,125 +1,90 @@
-<style>
-  .navbar-nav>li>a {
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
-  }
+<div translate-namespace="INDIOR">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark pb-0 pt-0 fixed-top" ng-init="" ng-controller="ApplicationController as vm">
+    <div class="container" style="padding-right: 0px;">
+      <a class="navbar-brand" href="/" style="margin-right: 0rem;">
+        <!-- <img class="pull-left img-responsive thumb-post" src="/images/indior_transperent cropped.ae58292c.png"></img> -->
+        <img style="height:4.5em;width:5.1em;" src="/images/indior_transperent cropped.png" alt="IndiorTours" class="scaleSubHeader img-responsive thumb-post">
+      </a>
+      <div style="color: rgb(255, 255, 255);">
+        <h4 translate class="display-2" style="font-size: 15px;">.HEADER.TAGLINE</h4>
 
-  .navbar {
-    min-height: 32px !important;
-    border-radius: 0px !important;
-  }
+        <button ng-click="changeLanguage('es')">Spanish</button>
+        <button ng-click="changeLanguage('en')">English</button>
 
-  .navbar-collapse {
-    padding-left: 0px;
-  }
-</style>
-<div class="header" ng-controller="ApplicationController as vm">
-  <nav class="navbar navbar">
-    <div class="container">
-      <div class="row">
-        <div style="float: left; width:350px;height:9rem;margin-top:-7px;padding-left:0px;">
-          <div class="page-header" style="margin-top:auto; border-bottom:none;">
-            <div class="logo-img" style="width: 111.5px; height: 94.5px; overflow: hidden;float:left;">
-              <a href="/"><img src="/images/indior_transperent cropped.ae58292c.png" style="overflow: hidden; width:100%;" /></a>
+        <!-- <span class="fa"></span> The World is Our Family -->
+      </div>
+      <button class="navbar-toggler navbar-toggler-right align-self-center my-2" type="button" data-toggle="collapse" data-target=".navbars">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse navbars flex-column ml-lg-0 ml-3" id="navbarDiv1">
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+          <li class="nav-item dropdown">
+            <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ vm.loggedInUserName }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
+              <a class="dropdown-item" ng-href="/myprofile" ng-show="vm.isLoggedIn">Account</a>
+              <a class="dropdown-item" ng-href="/admin" ng-show="vm.isAdminLoggedIn">Admin</a>
+              <a class="dropdown-item" ng-href="/signup" ng-show="!vm.isLoggedIn">Sign In</a>
+              <a class="dropdown-item active" ng-href="/" ng-show="vm.isLoggedIn" ng-click="logout()">Logout</a>
             </div>
-            <div style="color: rgb(255, 255, 255);">
-              <h4 class="display-2" style="font-size: 15px;padding-top:30px;font-weight: 100;">The World is Our Family</h4>
-              <span class="glyphicon"></span>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <translate>.HEADER.SUPPORT</translate>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
+              <a class="dropdown-item active" href="tel:+919311463467">+91 9311-INDIOR</a>
+              <a class="dropdown-item" href="https://api.whatsapp.com/send?phone=919311463467">WhatsApp</a>
+              <a class="dropdown-item" href="mailto:support@indiortours.com">Email</a>
             </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ vm.selected }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
+              <a class="dropdown-item" ng-click="vm.selectCurrency(currency)" ng-repeat="currency in vm.currencyCodes">{{ currency }}</a>
+            </div>
+          </li>
+          <div class="input-group">
+            <input ng-model="vm.key" class="form-control" type="search" id="example-search-input">
+            <span class="input-group-append">
+              <button class="btn btn-outline-primary border-left-0" type="button" ng-click="vm.goToSearch()">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </span>
           </div>
-        </div>
-        <div style="float:right;">
-          <ul class="nav navbar-nav collapse navbar-collapse" style="padding-right: 0px;">
-            <li><a href="https://api.whatsapp.com/send?phone=919311463467" target="_blank" class="pull-right" style="color:white;"><i class="fab fa-whatsapp" style="font-size:22px"></i></a></li>
-            <li><a href="tel:+919311463467" class="phone pull-right" style="color:white;"><i class="fas fa-phone"></i> +91 9311-INDIOR</a></li>
-            <li><a ng-href="/contactus" style="color:#ffffff;">Contact Us</a></li>
-            <li><a ng-show="vm.isAdminLoggedIn" ng-href="/toursadmin" style="color:#ffffff;">Admin</a></li>
-            <li>
-              <ui-select ng-model="vm.selected" theme="bootstrap" search-enabled=false>
-                <ui-select-match>{{$select.selected}}</ui-select-match>
-                <ui-select-choices repeat="item in vm.currencyCodes">
-                  <div ng-bind-html="item"></div>
-                </ui-select-choices>
-              </ui-select>
-            </li>
-            <li uib-dropdown class="nav-item dropdown">
-              <a uib-dropdown-toggle style="color:#ffffff;" class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="flag-icon flag-icon-us"> </span> English
-                <span class="caret"></span>
-              </a>
-              <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dropdown09">
-                <li><a class="dropdown-item" href="#ar"><span class="flag-icon flag-icon-ar"> </span> اللغة</a></li>
-                <li><a class="dropdown-item" href="#cn"><span class="flag-icon flag-icon-cn"> </span> 简体中文</a></li>
-                <li><a class="dropdown-item" href="#de"><span class="flag-icon flag-icon-de"> </span> Deutsch</a></li>
-                <li><a class="dropdown-item" href="http://translate.google.com/translate?langpair=en|fr&u=http://www.indior.tours"><span class="flag-icon flag-icon-fr"> </span> French</a></li>
-                <li><a class="dropdown-item" href="#it"><span class="flag-icon flag-icon-it"> </span> Italian</a></li>
-                <li><a class="dropdown-item" href="#jp"><span class="flag-icon flag-icon-jp"> </span> 日本語</a></li>
-                <li><a class="dropdown-item" href="#pt"><span class="flag-icon flag-icon-pt"> </span> Portuguese</a></li>
-                <li><a class="dropdown-item" href="#sp"><span class="flag-icon flag-icon-ru"> </span> русский</a></li>
-                <li><a class="dropdown-item" href="#es"><span class="flag-icon flag-icon-es"> </span> Español</a></li>
-              </ul>
-            </li>
-            <!-- <li><a ng-href="" ng-show="firstname" style="color:#ffffff;">Welcome {{firstname}}!</a></li> -->
-            <li uib-dropdown>
-              <a uib-dropdown-toggle href="#" style="color:#ffffff;">
-                {{vm.loggedInUserName}}
-                <span class="caret"></span>
-              </a>
-              <ul uib-dropdown-menu>
-                <li ng-show="vm.isLoggedIn"><a ng-href="/myprofile" role="button"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-                <li ng-show="!vm.isLoggedIn"><a ng-href="/signup"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
-                <li ng-show="vm.isLoggedIn"><a ng-href="/" role="button" ng-click="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+        </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-default" style="margin-top:0px;margin-bottom:auto;">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar" style="padding-left:0px;padding-right:0px;margin-left: -30px;">
-        <ul class="nav navbar-nav">
-          <li class="active hidden-xs hidden-md"><a href="/" style="font-weight:bold;">HOME <span class="sr-only">(current)</span></a></li>
-          <li class="hidden-xs"><a href="/destinations" style="font-weight:bold;">DESTINATIONS</a></li>
-          <li class="hidden-xs"><a href="/trips" style="font-weight:bold;">TYPES OF TRIPS</a></li>
-          <li class="hidden-xs"><a href="/mice" style="font-weight:bold;">MICE</a></li>
-          <!-- <li class="hidden-xs"><a href="" style="font-weight:bold;">Special Offers</a></li> -->
-          <li class="hidden-xs"><a href="/hotels" style="font-weight:bold;">ACCOMMODATION</a></li>
-          <!-- <li class="hidden-md hidden-sm hidden-xs"><a href="" style="font-weight:bold;">Transport</a></li> -->
-          <!-- <li class="hidden-md hidden-sm hidden-xs"><a href="" style="font-weight:bold;">Catalogues</a></li> -->
-          <!-- <li class="hidden-md hidden-sm hidden-xs"><a href="/blog" style="font-weight:bold;">BLOG</a></li> -->
-          <li>
-
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right visible-xs visible-md">
-          <li><a ng-href="/contactus">Contact Us</a></li>
-          <li><a ng-show="isAdminLoggedIn" ng-href="/toursadmin" style="color:#ffffff;">Admin</a></li>
-          <li><a href="/destinations">Destinations</a></li>
-          <li><a href="/trips">Types of Trips</a></li>
-          <li><a href="/mice">M.I.C.E</a></li>
-          <li><a href="/hotels">Accommodation</a></li>
-          <li class="uib-dropdown">
-            <a class="uib-dropdown-toggle" data-toggle="dropdown" href="#">My Account
-              <span class="caret"></span></a>
-            <ul class="uib-dropdown-menu navbar-right">
-              <li ng-show="vm.isLoggedIn"><a ng-href="/myprofile" role="button"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-              <li ng-show="!vm.isLoggedIn"><a ng-href="/signup"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
-              <li ng-show="vm.isLoggedIn"><a ng-href="/" role="button" ng-click="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-            </ul>
-          </li>
-        </ul>
-
+  <nav class="navbar navbar-expand-sm navbar-light bg-light pt-0 pb-0 fixed-top" style="margin-left: -15px;z-index: 999;margin-top: 100px; opacity: 1; filter:(opacity=50);">
+    <div class="container" style="font-weight: bold;">
+      <div class="collapse navbar-collapse navbars flex-column ml-lg-0 ml-3" id="navbarDiv2">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="/">
+            <translate>.MENU.HOME</translate>
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="/destinations">
+            <translate>.MENU.DESTINATIONS</translate>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="/vacations">
+            <translate>.MENU.VACATIONS</translate>
+          </a>
+        </li>
+        <!--<li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">Activities</a>
+        </li>-->
+      </ul>
       </div>
     </div>
   </nav>
