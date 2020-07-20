@@ -7,12 +7,6 @@
     text-decoration: none;
   }
 
-  #map {
-    height: 500px;
-    width: 500px;
-    box-shadow: 3px 3px 10px gray;
-  }
-
   #repeat {
     display: inline;
   }
@@ -281,18 +275,6 @@
   .carousel-inner,
   .carousel-inner .item {
     height: 100%;
-  }
-
-  .mapboxgl-map {
-    height: 400px !important;
-    display: block;
-    width: 100% !important;
-  }
-
-  .mapboxgl-canvas {
-    height: 400px !important;
-    display: block;
-    width: 100% !important;
   }
 
   @-webkit-keyframes opendoor {
