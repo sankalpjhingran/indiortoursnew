@@ -67,3 +67,7 @@ public/images/
 
 # ignore sql backup
 db1-backup-2018-09-21.sql
+.DS_Store
+server/=1.18.1
+server/=1.18.1
+*.1

@@ -442,7 +442,6 @@ module.exports= {
       }
 
       if(req.body.locations && req.body.locations.length){
-          console.log(req.body.locations);
           let locationids = [];
           req.body.locations.forEach(function(location){
             locationids.push({id:location.id});
@@ -518,7 +517,6 @@ module.exports= {
 
   //Edit an existing author details using model.update()
   update(req, res) {
-    console.log('update req====>', req.body);
     Tour.update(req.body, {
       where: {
         id: req.body.id
