@@ -37,6 +37,6 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-connect-proxy": "^0.2.0",
-    "telmet": "^3.9.0"
+    "helmet": "^3.9.0"
   }
 }
