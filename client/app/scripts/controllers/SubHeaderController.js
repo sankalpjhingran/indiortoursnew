@@ -20,7 +20,7 @@ angular.module('clientApp')
                 var index = 0;
                 angular.forEach(response.data, function(image){
                       $scope.slides.push({
-                        image: '/images/' + image.filename + '.webp',
+                        image: '/images/' + image.filename,
                         text: image.description,
                         id: index++
                       });
