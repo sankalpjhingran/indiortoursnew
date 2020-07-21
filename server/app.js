@@ -53,6 +53,7 @@ var search = require('./routes/search');
 require('./config/passport')(passport, models.User);
 
 var app = express();
+console.log('images path is====> ', path.join(__dirname, '/../public'));
 app.use(express.static(path.join(__dirname, '/../public')));
 
 //Use Compression for gzip compression, for Production, use nginx gzip compression

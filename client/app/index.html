@@ -20,13 +20,13 @@
   <!-- npm:css -->
   <link rel="stylesheet" href="node_modules/ui-select/dist/select.min.css" />
   <link rel="stylesheet" href="node_modules/textAngular/dist/textAngular.css" />
-  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="node_modules/ui-bootstrap4/dist/ui-bootstrap-csp.css" />
   <link rel="stylesheet" href="node_modules/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.css" />
-  <link rel="stylesheet" href="node_modules/@ui-grid/core/css/ui-grid.core.css" />
+  <link rel="stylesheet" href="node_modules/@ui-grid/core/css/ui-grid.core.min.css" />
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="node_modules/selectize/dist/css/selectize.default.css">
-  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 
   <!-- endnpm -->
   <!-- endbuild -->
@@ -94,21 +94,21 @@
   <!-- npm:js -->
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
   <script src="node_modules/angular/angular.js"></script>
-  <script src="node_modules/angular-animate/angular-animate.js"></script>
-  <script src="node_modules/angular-aria/angular-aria.js"></script>
-  <script src="node_modules/angular-cookies/angular-cookies.js"></script>
-  <script src="node_modules/angular-messages/angular-messages.js"></script>
-  <script src="node_modules/angular-resource/angular-resource.js"></script>
-  <script src="node_modules/angular-route/angular-route.js"></script>
-  <script src="node_modules/angular-sanitize/angular-sanitize.js"></script>
-  <script src="node_modules/angular-touch/angular-touch.js"></script>
+  <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+  <script src="node_modules/angular-aria/angular-aria.min.js"></script>
+  <script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
+  <script src="node_modules/angular-messages/angular-messages.min.js"></script>
+  <script src="node_modules/angular-resource/angular-resource.min.js"></script>
+  <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="node_modules/angular-touch/angular-touch.min.js"></script>
+  <script src="node_modules/angular-route/angular-route.min.js"></script>
   <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="node_modules/ngstorage/ngStorage.js"></script>
+  <script src="node_modules/ngstorage/ngStorage.min.js"></script>
   <script src="node_modules/moment/moment.js"></script>
   <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
   <script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
   <script src="node_modules/ui-bootstrap4/dist/ui-bootstrap-tpls.js"></script>
-  <script src="node_modules/ui-select/dist/select.js"></script>
+  <script src="node_modules/ui-select/dist/select.min.js"></script>
   <script src="node_modules/@ui-grid/grouping/js/ui-grid.grouping.min.js"></script>
   <script src="node_modules/@ui-grid/core/js/ui-grid.core.min.js"></script>
   <script src="node_modules/rangy/lib/rangy-core.js"></script>
@@ -120,8 +120,8 @@
   <script src="node_modules/textAngular/dist/textAngular.js"></script>
   <script src="node_modules/textAngular/dist/textAngular-sanitize.js"></script>
   <script src="node_modules/textAngular/dist/textAngularSetup.js"></script>
-  <script src="node_modules/angular-filter/dist/angular-filter.js"></script>
-  <script src="node_modules/angular-local-storage/dist/angular-local-storage.js"></script>
+  <script src="node_modules/angular-filter/dist/angular-filter.min.js"></script>
+  <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
   <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
   <script src="node_modules/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js"></script>
@@ -136,8 +136,6 @@
   <script src="node_modules/angular-translate/dist/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
   <script src="node_modules/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
   <script src="node_modules/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
-
-  <!-- <script src="node_modules/angular-mapboxgl-directive/dist/angular-mapboxgl-directive.min.js"></script> -->
   <!-- endnpm -->
   <!-- endbuild -->
 
@@ -197,6 +195,7 @@
       if (text) return text.toLowerCase();
     }
 
+    /*
     var Tawk_API = Tawk_API || {},
       Tawk_LoadStart = new Date();
     (function() {
@@ -208,6 +207,7 @@
       s1.setAttribute('crossorigin', '*');
       s0.parentNode.insertBefore(s1, s0);
     })();
+    */
   </script>
 </body>
 </html>

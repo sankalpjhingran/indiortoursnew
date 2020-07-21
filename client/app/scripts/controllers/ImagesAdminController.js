@@ -198,28 +198,27 @@ $scope.cancel = function () {
 
 $scope.uploadFiles = function() {
   var files = $scope.imageData.images;
-  console.log($scope.imageData.images);
-  angular.forEach(files, function(file) {
-      file.upload = Upload.upload({
-          url: '/api/image/',
-          method: 'POST',
-          data: { file: file,
-                  'parentobjectname': $scope.imageData.parentobjectname,
-                  'description': $scope.imageData.description
-                }
+  var fd = new FormData();
+  for( var i =0; i< files.length ; i++ ){
+      fd.append('file' , files[i] );
+  }
+  fd.append('parentobjectid', $scope.imageData.parentobjectid);              
+  fd.append('parentobjectname', $scope.imageData.parentobjectname);
+  fd.append('description', $scope.imageData.description);
+  
+  $http.post( '/api/image/', fd, {
+    transformRequest: angular.identity,
+    headers: {'Content-Type': undefined }
+  }).then(function (response) {
+      $timeout(function () {
+          //file.result = response.data;
       });
-
-      file.upload.then(function (response) {
-          $timeout(function () {
-              file.result = response.data;
-          });
-      }, function (response) {
-          if (response.status > 0)
-              $scope.errorMsg = response.status + ': ' + response.data;
-      }, function (evt) {
-          file.progress = Math.min(100, parseInt(100.0 *
-                                   evt.loaded / evt.total));
-      });
+  }, function (response) {
+      if (response.status > 0)
+          $scope.errorMsg = response.status + ': ' + response.data;
+  }, function (evt) {
+      //file.progress = Math.min(100, parseInt(100.0 *
+        //                        evt.loaded / evt.total));
   });
 }
 

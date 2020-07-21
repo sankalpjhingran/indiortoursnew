@@ -13,28 +13,26 @@ $scope.placeMap = new Map();
 
 $scope.uploadFiles = function(tempPlace) {
   var files = $scope.placeData.images;
-  console.log($scope.placeData.images);
-  angular.forEach(files, function(file) {
-      file.upload = Upload.upload({
-          url: '/api/image/',
-          method: 'POST',
-          data: { file: file,
-                  'parentobjectid': tempPlace.id,
-                  'parentobjectname':  'place'
-                }
+  var fd = new FormData();
+  for( var i =0; i< files.length ; i++ ){
+      fd.append('file' , files[i] );
+  }
+  fd.append('parentobjectid', tempPlace.id );              
+  fd.append('parentobjectname', 'place');
+  
+  $http.post( '/api/image/', fd, {
+    transformRequest: angular.identity,
+    headers: {'Content-Type': undefined }
+  }).then(function (response) {
+      $timeout(function () {
+          //file.result = response.data;
       });
-
-      file.upload.then(function (response) {
-          $timeout(function () {
-              file.result = response.data;
-          });
-      }, function (response) {
-          if (response.status > 0)
-              $scope.errorMsg = response.status + ': ' + response.data;
-      }, function (evt) {
-          file.progress = Math.min(100, parseInt(100.0 *
-                                   evt.loaded / evt.total));
-      });
+  }, function (response) {
+      if (response.status > 0)
+          $scope.errorMsg = response.status + ': ' + response.data;
+  }, function (evt) {
+      //file.progress = Math.min(100, parseInt(100.0 *
+        //                        evt.loaded / evt.total));
   });
 }
 
