@@ -100,20 +100,31 @@ module.exports= {
     console.log("Image upload request reached server succesfully...");
     console.log('Creating image record...');
     console.log('req===>', req.body);
-    var imageRec = {};
-    imageRec.type = req.file.mimetype;
-    imageRec.path = req.file.path;
-    imageRec.filename = req.file.filename;
-    imageRec.size = req.file.size;
-    imageRec.parentobjectid = req.body.parentobjectid;
-    imageRec.parentobjectname = req.body.parentobjectname;
-    imageRec.description = req.body.description;
+    console.log('req.files===>', req.files);
 
-    Image.create(imageRec).then(function(ImageInstance){
+    var imageRecs = [];
 
-      res.status(200).json(ImageInstance);
+    req.files.forEach(function(file){
+      console.log('Processeeing file====> ', path.resolve('../public/images', file.filename + '.webp'));
+      let imageRec = {};
+      imageRec.type = file.mimetype;
+      imageRec.path = file.destination + '/' + file.filename + '.webp';
+      imageRec.filename = file.filename + '.webp';
+      imageRec.size = file.size;
+      imageRec.parentobjectid = req.body.parentobjectid;
+      imageRec.parentobjectname = req.body.parentobjectname;
+      //imageRec.description = req.body.description; 
+      imageRecs.push(imageRec); 
+    });
+
+    console.log('imageRecs======> ', imageRecs);
+
+    Image.bulkCreate(imageRecs).then(function(imagesCreated){
+      console.log('imagesCreated====>', imagesCreated);
+      res.status(200).json(imagesCreated);
     })
     .catch(function (error){
+      console.log('Error====> ', error);
       res.status(500).json(error);
     })
   },
@@ -141,9 +152,7 @@ module.exports= {
     console.log(req.query);
     let queryVars = req.query;
 
-    Image.find({
-        where: { id: queryVars.id }
-    }).then((result) => {
+    Image.findByPk(queryVars.id, {}).then((result) => {
         console.log('Result of find call is====>');
         return Image.destroy(
           {
