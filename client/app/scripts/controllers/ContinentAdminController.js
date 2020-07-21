@@ -13,28 +13,26 @@ $scope.locationMap = new Map();
 
 $scope.uploadFiles = function(continent) {
   var files = $scope.continentData.images;
-  console.log($scope.continentData.images);
-  angular.forEach(files, function(file) {
-      file.upload = Upload.upload({
-          url: '/api/image/',
-          method: 'POST',
-          data: { file: file,
-                  'parentobjectid': continent.id,
-                  'parentobjectname':  'continent'
-                }
+  var fd = new FormData();
+  for( var i =0; i< files.length ; i++ ){
+      fd.append('file' , files[i] );
+  }
+  fd.append('parentobjectid', continent.id );              
+  fd.append('parentobjectname', 'continent');
+  
+  $http.post( '/api/image/', fd, {
+    transformRequest: angular.identity,
+    headers: {'Content-Type': undefined }
+  }).then(function (response) {
+      $timeout(function () {
+          //file.result = response.data;
       });
-
-      file.upload.then(function (response) {
-          $timeout(function () {
-              file.result = response.data;
-          });
-      }, function (response) {
-          if (response.status > 0)
-              $scope.errorMsg = response.status + ': ' + response.data;
-      }, function (evt) {
-          file.progress = Math.min(100, parseInt(100.0 *
-                                   evt.loaded / evt.total));
-      });
+  }, function (response) {
+      if (response.status > 0)
+          $scope.errorMsg = response.status + ': ' + response.data;
+  }, function (evt) {
+      //file.progress = Math.min(100, parseInt(100.0 *
+        //                        evt.loaded / evt.total));
   });
 }
 

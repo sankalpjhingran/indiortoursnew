@@ -64,28 +64,27 @@ $scope.deleteUploadedFile = function(idx) {
 //Upload images
 $scope.uploadFiles = function(tempTour) {
   var files = $scope.parentTourData.images;
-  console.log($scope.parentTourData.images);
-  angular.forEach(files, function(file) {
-      file.upload = Upload.upload({
-          url: '/api/image/',
-          method: 'POST',
-          data: { file: file,
-                  'parentobjectid': tempTour.id,
-                  'parentobjectname':  'parenttour'
-                }
-      });
 
-      file.upload.then(function (response) {
-          $timeout(function () {
-              file.result = response.data;
-          });
-      }, function (response) {
-          if (response.status > 0)
-              $scope.errorMsg = response.status + ': ' + response.data;
-      }, function (evt) {
-          file.progress = Math.min(100, parseInt(100.0 *
-                                   evt.loaded / evt.total));
+  var fd = new FormData();
+  for( var i =0; i< files.length ; i++ ){
+      fd.append('file' , files[i] );
+  }
+  fd.append('parentobjectid', tempTour.id );              
+  fd.append('parentobjectname', 'parenttour');
+  
+  $http.post( '/api/image/', fd, {
+    transformRequest: angular.identity,
+    headers: {'Content-Type': undefined }
+  }).then(function (response) {
+      $timeout(function () {
+          //file.result = response.data;
       });
+  }, function (response) {
+      if (response.status > 0)
+          $scope.errorMsg = response.status + ': ' + response.data;
+  }, function (evt) {
+      //file.progress = Math.min(100, parseInt(100.0 *
+        //                        evt.loaded / evt.total));
   });
 }
 
@@ -235,7 +234,7 @@ $scope.ngModelOptionsSelected = function(value) {
         for (var i = 0; i < keys.length; i++) {
           var prop = keys[i];
           var text = props[prop].toLowerCase();
-          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+          if (item[prop] && item[prop].toString().toLowerCase().indexOf(text) !== -1) {
             itemMatches = true;
             break;
           }

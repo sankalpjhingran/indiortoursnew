@@ -70,28 +70,26 @@ $scope.deleteUploadedFile = function(idx) {
 //Upload images
 $scope.uploadFiles = function(tempTour) {
   var files = $scope.tourData.images;
-  console.log($scope.tourData.images);
-  angular.forEach(files, function(file) {
-      file.upload = Upload.upload({
-          url: '/api/image/',
-          method: 'POST',
-          data: { file: file,
-                  'parentobjectid': tempTour.id,
-                  'parentobjectname':  'tour'
-                }
+  var fd = new FormData();
+  for( var i =0; i< files.length ; i++ ){
+      fd.append('file' , files[i] );
+  }
+  fd.append('parentobjectid', tempTour.id );              
+  fd.append('parentobjectname', 'tour');
+  
+  $http.post( '/api/image/', fd, {
+    transformRequest: angular.identity,
+    headers: {'Content-Type': undefined }
+  }).then(function (response) {
+      $timeout(function () {
+          //file.result = response.data;
       });
-
-      file.upload.then(function (response) {
-          $timeout(function () {
-              file.result = response.data;
-          });
-      }, function (response) {
-          if (response.status > 0)
-              $scope.errorMsg = response.status + ': ' + response.data;
-      }, function (evt) {
-          file.progress = Math.min(100, parseInt(100.0 *
-                                   evt.loaded / evt.total));
-      });
+  }, function (response) {
+      if (response.status > 0)
+          $scope.errorMsg = response.status + ': ' + response.data;
+  }, function (evt) {
+      //file.progress = Math.min(100, parseInt(100.0 *
+        //                        evt.loaded / evt.total));
   });
 }
 
