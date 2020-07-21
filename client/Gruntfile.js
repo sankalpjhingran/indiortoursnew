@@ -450,6 +450,24 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    nginclude: {
+      options: {
+        discardReferencedFiles: false,
+        parserOptions: {
+          decodeEntities: false
+        },
+        replacementElementClass: '',
+        replacementElementTag: 'div'
+      },
+      dist: {
+        files: [{
+          cwd: '<%= yeoman.app %>',
+          src: 'views/*.html',
+          dest: '<%= yeoman.dist %>'
+        }]
+      }
     }
   });
 
@@ -460,6 +478,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('default', ['compass']);
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-nginclude');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -474,6 +493,7 @@ module.exports = function (grunt) {
       'connect:livereload',
       'watch',
       'uglify',
+      'nginclude'
     ]);
   });
 
@@ -504,13 +524,15 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'nginclude'
   ]);
 
   grunt.registerTask('default', [
     'newer:jshint',
     'newer:jscs',
     'test',
-    'build'
+    'build',
+    'nginclude'
   ]);
 };
