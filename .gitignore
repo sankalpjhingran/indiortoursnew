@@ -71,3 +71,4 @@ db1-backup-2018-09-21.sql
 # dist, it will be created by Jenkins grunt
 server/dist/
 server/dist/index.html
+.DS_Store
