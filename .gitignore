@@ -72,3 +72,5 @@ db1-backup-2018-09-21.sql
 server/dist/
 server/dist/index.html
 .DS_Store
+public/.DS_Store
+public/.DS_Store
