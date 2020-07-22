@@ -154,7 +154,7 @@ angular.module('clientApp')
 
                       //console.log(typeof RRule);
                       //var rule = rrulestr('RRULE:BYDAY=' + BYDAY.toString());
-                      var rule = RRule.fromString('BYDAY=' + BYDAY.toString())
+                      var rule = rrule.RRule.fromString('BYDAY=' + BYDAY.toString())
                       //console.log(rule);
                       //var rule = RRule.fromString('RRULE:BYDAY=' + BYDAY.toString());
                       //var rule = rrule.'RRULE:BYDAY=' + BYDAY.toString()));
@@ -172,7 +172,7 @@ angular.module('clientApp')
                           }
                         }],
                         RRule: {
-                          freq: date.repeatfrequency == 'Week' ? RRule.WEEKLY : date.repeatfrequency == 'Month' ? RRule.MONTHLY : date.repeatfrequency == 'Year' ? RRule.YEARLY : date.repeatfrequency == 'Day' ? RRule.DAILY : RRule.WEEKLY,
+                          freq: date.repeatfrequency == 'Week' ? rrule.RRule.WEEKLY : date.repeatfrequency == 'Month' ? rrule.RRule.MONTHLY : date.repeatfrequency == 'Year' ? rrule.RRule.YEARLY : date.repeatfrequency == 'Day' ? rrule.RRule.DAILY : rrule.RRule.WEEKLY,
                           bymonthday: date.repeatfrequency == 'Month' ? date.repeatondayofmonth : null,
                           count: date.repeatendsafteroccurrences,
                           dtstart: moment(date.startdate).toDate(),
@@ -382,7 +382,7 @@ angular.module('clientApp')
               //Convert first if saved currency is not USD
               if($scope.fromTo.to == 'USD' && $scope.fromTo.from == 'USD') {
                 if($scope.tourWithAllRelated[0].price) {
-                  $scope.tourWithAllRelated.price = accounting.formatMoney($scope.tourWithAllRelated[0].price, { symbol: $scope.fromTo.to,  format: "%v %s" });
+                  $scope.tourWithAllRelated[0].price = accounting.formatMoney($scope.tourWithAllRelated[0].price, { symbol: $scope.fromTo.to,  format: "%v %s" });
                 }
                 if($scope.tourWithAllRelated[0].offerprice) {
                   $scope.tourWithAllRelated[0].offerprice = accounting.formatMoney($scope.tourWithAllRelated[0].offerprice, { symbol: $scope.fromTo.to,  format: "%v %s" });
@@ -422,7 +422,7 @@ angular.module('clientApp')
         if ($scope._events && $scope._events.length) {
           $scope._events.forEach(function (event) {
             // Use the rrule library to generate recurring events: https://github.com/jkbrzt/rrule
-            var rule = new RRule(angular.extend({}, event.RRule, {
+            var rule = new rrule.RRule(angular.extend({}, event.RRule, {
               dtstart: moment(vm.viewDate).startOf(vm.calendarView).toDate(),
               until: moment(vm.viewDate).endOf(vm.calendarView).toDate()
             }));
