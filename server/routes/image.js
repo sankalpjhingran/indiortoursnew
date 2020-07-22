@@ -6,7 +6,8 @@ var router = express.Router();
 var imageController  = require('../controllers/images');
 const sharp = require('sharp')
 const fs = require('fs')
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid')
+
 const { nextTick } = require('process');
 
 //Mutler
