@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var jade = require('pug');
 var compression = require('compression');
+var prerender = require('prerender-node');
+
 
 var util = require('util');
 var fs = require('fs');
@@ -48,13 +50,16 @@ var tags = require('./routes/tag');
 var parenttours = require('./routes/parenttour');
 var bookings = require('./routes/booking');
 var search = require('./routes/search');
-
 //load passport strategies
 require('./config/passport')(passport, models.User);
 
 var app = express();
 console.log('images path is====> ', path.join(__dirname, '/../public'));
 app.use(express.static(path.join(__dirname, '/../public')));
+
+// Use pre-render for better SEO performance
+app.use(prerender);
+
 
 //Use Compression for gzip compression, for Production, use nginx gzip compression
 app.use(compression());
