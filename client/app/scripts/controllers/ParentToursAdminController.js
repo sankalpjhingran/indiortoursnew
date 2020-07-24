@@ -98,7 +98,6 @@ $scope.loadParentToursData = function(){
   $http.get('/api/tours/all/')
     .then(function(tours){
       $scope.allTours = tours.data;
-      console.log($scope.allTours);
     });
 
   //Load all tourss to be displayed
