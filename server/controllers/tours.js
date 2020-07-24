@@ -24,7 +24,8 @@ module.exports= {
     Tour.findAll({
       order: [
               ['createdAt', 'DESC'],
-      ]
+      ],
+      attributes: ['id', 'name', 'price', 'offerprice']
     })
       .then(function (authors) {
         res.status(200).json(authors);
@@ -370,7 +371,11 @@ module.exports= {
         let queryVars = req.query;
         console.log(queryVars);
         Tour.findAll({
-            include: [{ association : 'siteLocation' }, {association: 'accomodationHotel'}, {association: 'tourNote'}],
+            include: [
+              { association : 'siteLocation', attributes: ['id', 'city'] }, 
+              { association: 'accomodationHotel', attributes: ['id', 'name'] }, 
+              { association: 'tourNote', attributes: ['id', 'name'] }
+            ],
             order: [['createdAt', 'DESC']]
           })
           .then(function (authors) {
