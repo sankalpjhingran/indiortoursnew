@@ -11,6 +11,7 @@ module.exports= {
 
   index(req, res) {
     Hotel.findAll({
+      attributes: ['id', 'name', 'location'],
       order: [['createdAt', 'DESC']]
     })
       .then(function (authors) {

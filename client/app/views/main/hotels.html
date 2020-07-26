@@ -9,32 +9,31 @@
     <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
     <div ng-show="!(loading)">
       <div class="row">
-        <div ng-repeat="hotel in allHotels">
-          <div class="col-xs-12 col-sm-4 col-md-4">
-              <div class="productbox">
-                <!-- <img ng-src="/images/{{tour.images[0].filename}}" class="thumb-post img-responsive"> -->
-              <div ng-attr-id="myCarousel-{{$index}}" class="carousel slide" data-ride="carousel">
-                  <!-- Indicators
-                  <ol class="carousel-indicators">
-                    <li data-target="#myCarousel-{{$index}}" ng-repeat="img in tour.images" ng-class="{active: ($index === 0)}" data-slide-to="{{img}}"></li>
-                  </ol>
-                  -->
-                  <div class="carousel-inner">
-                    <div ng-class="{item: true, active: ($index === 0)}" ng-repeat="img in hotel.images">
-                      <img style="height:200px;" ng-src="/images/{{img.filename}}" alt="Slide number {{img.filename}}" class="img-responsive thumb-post scaleDestinationImg">
-                      <div class="container">
-                        <div class="carousel-caption">
+          <div class="row d-flex justify-content-between">
+            <div class="card-deck mx-auto" ng-repeat="hotel in allHotels">
+                <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
+                  <!-- ng-src="/images/{{tour.images[0].filename}}" -->
+                  <img class="card-img-top" ng-src="/images/{{hotel.images[0].filename}}" alt="Card image cap">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="card-title text-truncate">
+                          <h6 class="pull-left mb-0">
+                            <a href="/hotel?id={{hotel.id}}">{{ hotel.name }}</a>
+                          </h6>
+                          <div>
+                            <a style="text-decoration: none;">
+                              {{ hotel.location | truncate: 20 : '...' : false }}
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                    </div>
                   </div>
-                  <a class="left carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                  <a class="right carousel-control" ng-href="#myCarousel-{{$index}}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                </div>
-                <div class="producttitle text-center"><a ng-href="/hotel?id={{hotel.id}}&amp;name={{hotel.name | slugify}}">{{hotel.name}}, {{hotel.location}}</a></div>
                 </div>
             </div>
-          </div>
       </div>
     </div>
 </div>

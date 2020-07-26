@@ -18,6 +18,7 @@ module.exports= {
     if(req.body.tourids.length){
         console.log('Part1=====>');
         Image.findAll({
+          attributes: ['filename', 'parentobjectname', 'parentobjectid'],
           order: [['createdAt', 'DESC']],
           where: {
             [Op.and]: {
