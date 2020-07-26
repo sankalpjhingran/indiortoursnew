@@ -78,6 +78,7 @@ angular
     // load 'en' table on startup
     .fallbackLanguage('en')
     .preferredLanguage('en')
+    //.determinePreferredLanguage()
     .useSanitizeValueStrategy('escape')
     .forceAsyncReload(true)
     .useMissingTranslationHandlerLog()
