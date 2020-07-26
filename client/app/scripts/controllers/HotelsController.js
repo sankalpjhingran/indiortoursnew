@@ -27,6 +27,7 @@ angular.module('clientApp')
 
              $http.post('/api/image/all', {tourids: hotelids, parentobjectname: 'hotel'})
               .then(function(images){
+                  console.log('Images====> ', images);
                   angular.forEach(hotelids, function(hotelid){
                       var tempImages = [];
                       angular.forEach(images.data, function(image){
