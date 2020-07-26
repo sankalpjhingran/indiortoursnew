@@ -1,0 +1,82 @@
+{	
+  "INDIOR": {	
+    "HEADER": {	
+       "TAGLINE":	 "世界は私たちの家族です",
+       "SUPPORT":	 "サポート",
+       "HOME":	 "ホーム",
+       "DESTINATIONS":	 "目的地",
+       "VACATIONS": 	"「休暇」"
+    },	
+    "MENU": {	
+      "HOME":	 "ホーム",
+      "DESTINATIONS": 	"目的地",
+      "VACATIONS": 	"「休暇」"
+    },	
+    "BUTTONS": {	
+      "ENQUIRE":	 "問い合わせる",
+      "BOOK":	 "本",
+      "SEND_ENQUIRY":	 "「お問い合わせを送信」"
+    },	
+    "TOUR_LABELS": {	
+      "DAYS":	 "日々",
+      "STARTING_FROM":	 "から始まる",
+      "ITINERARY": 	"旅程",
+      "DATES_AND_PRICES":	 "日付と価格",
+      "HOTELS":	 "ホテル",
+      "DESTINATIONS": ".MENU.DESTINATIONS",	
+      "MORE_INFO":	 "より詳しい情報",
+      "CITY":	 "市",
+      "BUDGET":	 "予算",
+      "ECONOMY": 	"経済",
+      "ELEGANT":	 "エレガント",
+      "DELUXE": 	"デラックス",
+      "LUXURY": 	"ラグジュアリー",
+      "CITIES":	 "都市",
+      "STATES":	 "「州」"
+    },	
+    "MAIN": {	
+      "HEADING": 	"インディオールツアーでは、ラグジュアリーツアー、オーダーメイドのホリデーツアー、またはグループツアーを提供しています",
+      "SUBHEADING":	 "「最高の旅行会社の1つは、世界で最も魅力的な地域の1つであるインド、ネパール、ブータン、スリランカ、チベット、モルディブをカバーする高品質のグループツアー、プライベートツアー、オーダーメイドの休暇を提供しています。エコノミーツアーから豪華な休暇まで、幅広い選択肢があり、それぞれが専門家によって計画されています。」"
+    },	
+    "DESTINATIONS": {	
+      "HEADING":	 "Indior Destinations",
+      "SUBHEADING":	 "「Indior Toursの専門家と一緒にアジアに旅行し、文化や風景の豊かなタペストリーを深く探検してください。ブータンやチベットの神聖な寺院を探索したり、ヒマラヤを通るシェルパガイドと一緒にトレッキングしたりできます。インドを鉄道で旅したり、海岸線を探索したりできますスリランカとモルディブ、またはブータンやチベットへの写真遠征。すべての旅行で、魅力的な文化、古くからの伝統、そして現代生活のユニークな交差点を体験します。」"
+    },	
+    "VACATIONS": {	
+      "HEADING":	 "Indior Trips",
+      "SUBHEADING":	 "「インディオールツアーでは、グループツアーからオーダーメイドの旅まで、さまざまな豪華な休日のアイデアを提供しています。休日のインスピレーションを探している場合は、電車の旅や文化的なクルーズなどのテーマで検索することを検討してください。」"
+    },	
+    "GROUP_TOURS": {	
+      "HEADING": 	"グループツアー",
+      "SUBHEADING":	"「私たちのグループツアーはそれぞれ、オーダーメイドの旅行と同じ哲学に基づいて設計されています。本物の人々、場所、文化を発見するために水面下に潜りながら、国のハイライトを探索できるユニークな旅行です。詳細についてはグループ旅行の遠足、またはご不明な点がございましたら、お気軽にお問い合わせください。」"
+    },	
+    "FOOTER": {	
+      "ABOUT_US":	 "私たちに関しては",
+      "INDIOR_TOURS_EXCLUSIVE":	 "Indior Tours Exclusive",
+      "DATING_HONEYMOONS":	 "デートとハネムーン",
+      "TRAVEL_IN_LUXURY": 	"贅沢な旅",
+      "EXOTIC_BEACHES_AND_ISLANDS":	 "エキゾチックなビーチと島々",
+      "TRAVELLING_WITH_CHILDREN":	 "子供連れの旅行",
+      "FLY_AND_DRIVE":	 "フライアンドドライブ",
+      "GAY_FRIENDLY": 	"同性愛者に対して好意的な",
+      "CRUISES":	 "クルーズ",
+      "LUXURY_TRAIN_OF_INDIA":	 "インドの高級列車",
+      "HELICOPTER_TOURS": 	"ヘリコプターツアー",
+      "ROUND_THE_WORLD":	 "世界中",
+      "INDIAN_URBAN_TOURS":	 "インディアンアーバンツアー",
+      "MUSIC_TOURS": 	"音楽ツアー",
+      "SPORTING_EVENTS":	 "スポーツイベント",
+      "SKI_IN_WINTER": 	"冬のスキー",
+      "DEEP_SEA_DIVING":	 "ディープシーダイビング",
+      "TRIBAL_TOURS":	 "部族ツアー",
+      "GOLF_TOURS":	 "ゴルフツアー",
+      "SHOPPING_TOURS": 	"ショッピングツアー",
+      "YOGA_AND_MEDITATION": 	"ヨガと瞑想",
+      "INLAND_CRUISE_TOURS": 	 "内陸クルーズツアー",
+      "EARLY_BIRD_DISCOUNT":	 "早期割引",
+      "COPYRIGHT_LINE1":	 "Copyright @ 2017-2018 Indior Tours Pvt。Ltd. All Rights Reserved",
+      "COPYRIGHT_LINE2": 	"観光省、インド政府により承認",
+      "COPYRIGHT_LINE3":	 "「Indior Tours Pvt Ltdが開発および保守しているウェブサイト」"
+    }	
+  }	
+}	

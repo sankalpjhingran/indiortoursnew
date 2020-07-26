@@ -7,11 +7,6 @@
       </a>
       <div style="color: rgb(255, 255, 255);">
         <h4 translate class="display-2" style="font-size: 15px;">.HEADER.TAGLINE</h4>
-
-        <button ng-click="changeLanguage('es')">Spanish</button>
-        <button ng-click="changeLanguage('en')">English</button>
-
-        <!-- <span class="fa"></span> The World is Our Family -->
       </div>
       <button class="navbar-toggler navbar-toggler-right align-self-center my-2" type="button" data-toggle="collapse" data-target=".navbars">
         <span class="navbar-toggler-icon"></span>
@@ -48,14 +43,32 @@
               <a class="dropdown-item" ng-click="vm.selectCurrency(currency)" ng-repeat="currency in vm.currencyCodes">{{ currency }}</a>
             </div>
           </li>
-          <div class="input-group">
-            <input ng-model="vm.key" class="form-control" type="search" id="example-search-input">
-            <span class="input-group-append">
-              <button class="btn btn-outline-primary border-left-0" type="button" ng-click="vm.goToSearch()">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </span>
-          </div>
+
+          <li class="nav-item dropdown">
+            <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ vm.selectedLang }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
+                <li><a class="dropdown-item" ng-click="changeLanguage('en', 'English')" href=""><span class="flag-icon flag-icon-ar"> </span>  English</a></li>
+                <li><a class="dropdown-item" ng-click="changeLanguage('ar', 'اللغة')" href=""><span class="flag-icon flag-icon-ar"> </span>  اللغة</a></li>
+                <!-- <li><a class="dropdown-item" ng-click="changeLanguage('cn', '简体中文')" href=""><span class="flag-icon flag-icon-cn"> </span>  简体中文</a></li> -->
+                <li><a class="dropdown-item" ng-click="changeLanguage('de', 'Deutsch')" href=""><span class="flag-icon flag-icon-de"> </span>  Deutsch</a></li>
+                <li><a class="dropdown-item" ng-click="changeLanguage('fr', 'Francese')" href=""><span class="flag-icon flag-icon-fr"> </span>  Francese</a></li>
+                <li><a class="dropdown-item" ng-click="changeLanguage('it', 'Italiano')" href=""><span class="flag-icon flag-icon-it"> </span>  Italiano</a></li>
+                <li><a class="dropdown-item" ng-click="changeLanguage('jp', '日本語')" href=""><span class="flag-icon flag-icon-jp"> </span>  日本語</a></li>
+                <li><a class="dropdown-item" ng-click="changeLanguage('pt', 'Portuguese')" href=""><span class="flag-icon flag-icon-pt"> </span>  Portuguese</a></li>
+                <li><a class="dropdown-item" ng-click="changeLanguage('ru', 'русский')" href=""><span class="flag-icon flag-icon-ru"> </span>  русский</a></li>
+                <li><a class="dropdown-item" ng-click="changeLanguage('es', 'Español')" href=""><span class="flag-icon flag-icon-es"> </span>  Español</a></li>
+            </ul>
+        </li>
+        <div class="input-group">
+          <input ng-model="vm.key" class="form-control" type="search" id="example-search-input">
+          <span class="input-group-append">
+            <button class="btn btn-outline-primary border-left-0" type="button" ng-click="vm.goToSearch()">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </span>
+        </div>
         </ul>
       </div>
     </div>
