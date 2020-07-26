@@ -1,0 +1,82 @@
+{	
+  "INDIOR": {	
+    "HEADER": {	
+       "TAGLINE":	 "世界是我们的家庭",
+       "SUPPORT":	 "支持",
+       "HOME":	 "家",
+       "DESTINATIONS":	 "目的地",
+       "VACATIONS": 	"假期"
+    },	
+    "MENU": {	
+      "HOME":	 "家",
+      "DESTINATIONS": 	"目的地",
+      "VACATIONS": 	"假期"
+    },	
+    "BUTTONS": {	
+      "ENQUIRE":	 "查询",
+      "BOOK":	 "书",
+      "SEND_ENQUIRY":	 "发送查询"
+    },	
+    "TOUR_LABELS": {	
+      "DAYS":	 "天",
+      "STARTING_FROM":	 "从...开始",
+      "ITINERARY": 	"行程",
+      "DATES_AND_PRICES":	 "日期和价格",
+      "HOTELS":	 "酒店",
+      "DESTINATIONS": ".MENU.DESTINATIONS",	
+      "MORE_INFO":	 "更多信息",
+      "CITY":	 "市",
+      "BUDGET":	 "预算",
+      "ECONOMY": 	"经济",
+      "ELEGANT":	 "优雅",
+      "DELUXE": 	"豪华",
+      "LUXURY": 	"豪华",
+      "CITIES":	 "城市",
+      "STATES":	 "状态"
+    },	
+    "MAIN": {	
+      "HEADING": 	"个人旅游为您提供豪华旅游，度身定制的假期或团体旅游",
+      "SUBHEADING":	 "最佳旅游公司之一向世界上最迷人的地区之一提供高质量的团体旅游，私人旅行和度身定制的假期：印度次大陆，覆盖印度，尼泊尔，不丹，斯里兰卡，西藏和马尔代夫。我们为从经济旅行到豪华假期，有很多选择；每一项都是由专家计划的。"
+    },	
+    "DESTINATIONS": {	
+      "HEADING":	 "次要目的地",
+      "SUBHEADING":	 "与Indior Tours专家一起前往亚洲，深入研究丰富的文化和景观挂毯。在不丹或西藏探索神圣的寺庙，或与夏尔巴向导一起徒步穿越喜马拉雅山。出发穿越印度的铁路或探索海岸线斯里兰卡和马尔代夫，或到不丹或西藏的摄影探险之旅。在我们的所有行程中，您都会体验着迷人的文化，古老的传统和现代生活的独特交汇。"
+    },	
+    "VACATIONS": {	
+      "HEADING":	 "个人旅行",
+      "SUBHEADING":	 "从团体旅行到量身定制的旅程，Indior Tours提供了各种各样的豪华度假创意。如果您正在寻找度假灵感，您可能希望考虑按照主题进行搜索，例如火车旅行或文化游船。"
+    },	
+    "GROUP_TOURS": {	
+      "HEADING": 	"团体旅游",
+      "SUBHEADING":	"我们的每次团体旅行都按照与我们量身定制的旅行相同的理念进行设计：独特的旅行使您可以探索一个国家的亮点，同时潜入水下以发现真实的人，地方和文化。团体旅行郊游以获取更多信息，或者如果您有任何疑问，请随时与我们联系。"
+    },	
+    "FOOTER": {	
+      "ABOUT_US":	 "关于我们",
+      "INDIOR_TOURS_EXCLUSIVE":	 "独家巡回演出",
+      "DATING_HONEYMOONS":	 "约会和蜜月",
+      "TRAVEL_IN_LUXURY": 	"豪华旅行",
+      "EXOTIC_BEACHES_AND_ISLANDS":	 "异国海滩和岛屿",
+      "TRAVELLING_WITH_CHILDREN":	 "带孩子旅行",
+      "FLY_AND_DRIVE":	 "驾驶",
+      "GAY_FRIENDLY": 	"同志友好",
+      "CRUISES":	 "巡游",
+      "LUXURY_TRAIN_OF_INDIA":	 "印度豪华火车",
+      "HELICOPTER_TOURS": 	"直升机之旅",
+      "ROUND_THE_WORLD":	 "周游世界",
+      "INDIAN_URBAN_TOURS":	 "印度城市之旅",
+      "MUSIC_TOURS": 	"音乐之旅",
+      "SPORTING_EVENTS":	 "体育事件",
+      "SKI_IN_WINTER": 	"冬季滑雪",
+      "DEEP_SEA_DIVING":	 "深海潜水",
+      "TRIBAL_TOURS":	 "部落之旅",
+      "GOLF_TOURS":	 "高尔夫之旅",
+      "SHOPPING_TOURS": 	"购物之旅",
+      "YOGA_AND_MEDITATION": 	"瑜伽与冥想",
+      "INLAND_CRUISE_TOURS": 	 "内陆巡游",
+      "EARLY_BIRD_DISCOUNT":	 "早鸟优惠",
+      "COPYRIGHT_LINE1":	 "版权@ 2017-2018 Indior Tours Pvt。Ltd.保留所有权利",
+      "COPYRIGHT_LINE2": 	"印度政府旅游部认可",
+      "COPYRIGHT_LINE3":	 "由Indior Tours Pvt Ltd开发和维护的网站"
+    }	
+  }	
+}	

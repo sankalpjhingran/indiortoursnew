@@ -1,0 +1,82 @@
+{	
+  "INDIOR": {	
+    "HEADER": {	
+       "TAGLINE":	 "Die Welt ist unsere Familie",
+       "SUPPORT":	 "Unterstützung",
+       "HOME":	 "Zuhause",
+       "DESTINATIONS":	 "ZIELE",
+       "VACATIONS": 	"URLAUBE"
+    },	
+    "MENU": {	
+      "HOME":	 "Zuhause",
+      "DESTINATIONS": 	"Ziele",
+      "VACATIONS": 	"Urlaube"
+    },	
+    "BUTTONS": {	
+      "ENQUIRE":	 "Anfragen",
+      "BOOK":	 "Buch",
+      "SEND_ENQUIRY":	 "Anfrage absenden"
+    },	
+    "TOUR_LABELS": {	
+      "DAYS":	 "Tage",
+      "STARTING_FROM":	 "Ab",
+      "ITINERARY": 	"Route",
+      "DATES_AND_PRICES":	 "Termine & Preise",
+      "HOTELS":	 "Hotels",
+      "DESTINATIONS": ".MENU.DESTINATIONS",	
+      "MORE_INFO":	 "Mehr Info",
+      "CITY":	 "Stadt",
+      "BUDGET":	 "Budget",
+      "ECONOMY": 	"Wirtschaft",
+      "ELEGANT":	 "Elegant",
+      "DELUXE": 	"Deluxe",
+      "LUXURY": 	"Luxus",
+      "CITIES":	 "Städte",
+      "STATES":	 "Zustände"
+    },	
+    "MAIN": {	
+      "HEADING": 	"Indior Tour bietet Ihnen Luxus-Touren, maßgeschneiderte Urlaubs- oder Gruppenreisen",
+      "SUBHEADING":	 "Eines der besten Reiseunternehmen bietet hochwertige Gruppenreisen, Privatreisen und maßgeschneiderte Ferien in einer der faszinierendsten Regionen der Welt: dem indischen Subkontinent, der Indien, Nepal, Bhutan, Sri Lanka, Tibet und die Malediven abdeckt große Auswahl von Economy Tours bis hin zu Luxusferien, die jeweils von Experten geplant wurden. "
+    },	
+    "DESTINATIONS": {	
+      "HEADING":	 "Indior Destinations",
+      "SUBHEADING":	 "Reisen Sie mit Experten von Indior Tours nach Asien und tauchen Sie tief in ein reiches Spektrum an Kulturen und Landschaften ein. Erkunden Sie heilige Tempel in Bhutan oder Tibet oder wandern Sie mit Sherpa-Führern durch den Himalaya. Machen Sie eine Bahnreise durch Indien oder erkunden Sie die Küste von Sri Lanka und Malediven oder eine Fotoexpedition nach Bhutan oder Tibet. Auf all unseren Reisen erleben Sie eine einzigartige Schnittstelle zwischen faszinierenden Kulturen, jahrhundertealten Traditionen und modernem Leben. "
+    },	
+    "VACATIONS": {	
+      "HEADING":	 "Indior Trips",
+      "SUBHEADING":	 "Indior Tours bietet eine Vielzahl von Luxusurlaubsideen, von Gruppenreisen bis hin zu maßgeschneiderten Reisen. Wenn Sie nach Inspiration für Ihren Urlaub suchen, sollten Sie nach Themen wie Zugreisen oder Kulturkreuzfahrten suchen."
+    },	
+    "GROUP_TOURS": {	
+      "HEADING": 	"Gruppenreisen",
+      "SUBHEADING":	"Jede unserer Gruppenreisen basiert auf der gleichen Philosophie wie unsere maßgeschneiderten Reisen: einzigartige Reisen, mit denen Sie die Höhepunkte eines Landes erkunden können, während Sie unter der Oberfläche tauchen, um echte Menschen, Orte und Kulturen zu entdecken. Schauen Sie sich unsere an Gruppenreisen für weitere Informationen oder wenn Sie Fragen haben, wenden Sie sich bitte an uns." 
+    },	
+    "FOOTER": {	
+      "ABOUT_US":	 "Über uns",
+      "INDIOR_TOURS_EXCLUSIVE":	 "Indior Tours Exclusive",
+      "DATING_HONEYMOONS":	 "Dating und Flitterwochen",
+      "TRAVEL_IN_LUXURY": 	"Reisen im Luxus",
+      "EXOTIC_BEACHES_AND_ISLANDS":	 "Exotische Strände und Inseln",
+      "TRAVELLING_WITH_CHILDREN":	 "Reisen mit Kindern",
+      "FLY_AND_DRIVE":	 "Fliegen und fahren",
+      "GAY_FRIENDLY": 	"Schwulenfreundlich",
+      "CRUISES":	 "Kreuzfahrten",
+      "LUXURY_TRAIN_OF_INDIA":	 "Luxuszüge von Indien",
+      "HELICOPTER_TOURS": 	"Hubschraubertouren",
+      "ROUND_THE_WORLD":	 "Um die Welt",
+      "INDIAN_URBAN_TOURS":	 "Indian Urban Tours",
+      "MUSIC_TOURS": 	"Musiktouren",
+      "SPORTING_EVENTS":	 "Sportverantstaltungen",
+      "SKI_IN_WINTER": 	"Ski im Winter",
+      "DEEP_SEA_DIVING":	 "Tiefseetauchen",
+      "TRIBAL_TOURS":	 "Tribal Tours",
+      "GOLF_TOURS":	 "Golftouren",
+      "SHOPPING_TOURS": 	"Einkaufstouren",
+      "YOGA_AND_MEDITATION": 	"Yoga und Meditation",
+      "INLAND_CRUISE_TOURS": 	 "Inland Cruise Tours",
+      "EARLY_BIRD_DISCOUNT":	 "Frühbucherrabatt",
+      "COPYRIGHT_LINE1":	 "Copyright @ 2017-2018 Indior Tours Pvt. Ltd. Alle Rechte vorbehalten",
+      "COPYRIGHT_LINE2": 	"Anerkannt vom Ministerium für Tourismus der indischen Regierung",
+      "COPYRIGHT_LINE3":	 "Website entwickelt und gepflegt von Indior Tours Pvt Ltd"
+    }	
+  }	
+}	
