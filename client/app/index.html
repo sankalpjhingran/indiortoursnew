@@ -77,7 +77,7 @@
     <div class="container bg-light">
       <div class="row" style="margin-left:0px;" ng-show="$state.current.name.includes('admin') || $state.current.name.includes('trips')">
         <!--Dont show sidebar on home page-->
-        <div class="col-sm-2 hidden-xs hidden-sm bg-dark">
+        <div class="col-sm-2 hidden-xs hidden-sm indior-bg">
           <div ui-view="sidesection">
             <!--View for SIDEBAR LINKS -->
           </div>
@@ -90,7 +90,7 @@
       </div>
     </div>
 
-    <footer class="footer bg-dark">
+    <footer class="footer indior-bg">
       <!--Site's footer start-->
       <div ng-include src="'views/footer.html'">
       </div>
