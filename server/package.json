@@ -51,7 +51,7 @@
     "prerender-node": "^3.2.5",
     "pug": "^2.0.4",
     "randomstring": "^1.1.5",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "request": "^2.88.2",
     "sequelize": "^6.3.3",
     "serve-favicon": "^2.5.0",
