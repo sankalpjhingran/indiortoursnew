@@ -97,7 +97,6 @@
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-copy": "^0.1.0",
     "grunt-filerev": "^2.3.1",
     "grunt-google-cdn": "^0.4.3",
     "grunt-jscs": "^1.8.0",
