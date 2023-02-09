@@ -81,6 +81,7 @@
     "google-cdn": "^1.1.0",
     "google-cdn-data": "^0.1.25",
     "grunt": "^0.4.5",
+    "grunt-cli":"^1.4.3",
     "grunt-angular-templates": "^0.5.9",
     "grunt-concurrent": "^1.0.1",
     "grunt-connect": "^0.2.0",
