@@ -15,21 +15,10 @@ router.get('/', departureCostsController.show);
 ===Main Routes End===
 */
 
-
-/*
-===Admin Routes Start===
-*/
-router.post('/update/', departureCostsController.update);
+router.patch('/update/', departureCostsController.update);
 router.delete('/', departureCostsController.delete);
-router.post('/', departureCostsController.create);
 router.get('/all/', departureCostsController.index);
-/*
-===Admin Routes End===
-*/
 router.post('/', departureCostsController.create);
 router.get('/', departureCostsController.show);
-router.get('/all/', departureCostsController.index);
-router.delete('/', departureCostsController.delete);
-router.post('/update/', departureCostsController.update);
 
 module.exports = router;

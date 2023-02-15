@@ -10,5 +10,5 @@ router.post('/', TourNotesController.create);
 router.get('/', TourNotesController.show);
 router.get('/all/', TourNotesController.index);
 router.delete('/', TourNotesController.delete);
-router.post('/update/', TourNotesController.update);
+router.patch('/update/', TourNotesController.update);
 module.exports = router;

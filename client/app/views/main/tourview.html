@@ -1,83 +1,83 @@
 <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
 <div ng-show="!(loading)" style="padding:10px;">
-  <div class="d-flex justify-content-between" ng-init="getTourDetailsWithItinerary()">
-    <div class="mr-auto p-6">
-      <h3>{{ tourWithAllRelated[0].name }}</h3>
-      <div>
-        <div style="display:block;">
-          Regular | Group | Individual
+    <div class="d-flex justify-content-between" ng-init="getTourDetailsWithItinerary()">
+        <div class="mr-auto p-6">
+            <h3>{{ tourWithAllRelated[0].name }}</h3>
+            <div>
+                <div style="display:block;">
+                    Regular | Group | Individual
+                </div>
+                <div style="display:block;">
+                    {{ tourWithAllRelated[0].days }} days | {{ tourWithAllRelated[0].nights }} nights
+                </div>
+            </div>
+            <div>
+                <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
+                    <span>
+                        <a ui-sref="city({ id: location.id, countryid: location.country_id })">{{ location.city }}</a> <span ng-hide="$last">|</span>
+                    </span>
+                </span>
+            </div>
         </div>
-        <div style="display:block;">
-          {{ tourWithAllRelated[0].days }} days | {{ tourWithAllRelated[0].nights }} nights
+        <div class="px-md-2">
+            <div class="float-right">
+                <div style="display:block;">Starting from</div>
+                <div style="display:block;"><currency-direc price="{{ tourWithAllRelated[0].offerprice }}"></currency-direc></div>
+                <div style="display:block;"><currency-direc price="{{ tourWithAllRelated[0].price }}"></currency-direc></div>
+            </div>
         </div>
-      </div>
-      <div>
-        <span ng-repeat="location in tourWithAllRelated[0].siteLocation">
-          <span>
-            <a ui-sref="home.tour.city({ id: location.id, countryid: location.country_id })">{{ location.city }}</a> <span ng-hide="$last">|</span>
-          </span>
-        </span>
-      </div>
+        <div class="pl-2 px-md-2 mr-0 pr-0">
+            <div class="btn-group-vertical float-right">
+                <a ng-click="showEnquiryForm(tourWithAllRelated[0].id, tourWithAllRelated[0].name, tourWithAllRelated[0].price, tourWithAllRelated[0].days);" class="btn btn-sm btn-outline-primary"> Send Enquiry </a>
+                <a ng-click="showBookingForm(tourWithAllRelated[0].id, tourWithAllRelated[0].name, tourWithAllRelated[0].price, tourWithAllRelated[0].days);" class="btn btn-sm btn-primary text-white"> Book </a>
+            </div>
+        </div>
     </div>
-    <div class="px-md-2">
-      <div class="float-right">
-        <div style="display:block;">Starting from</div>
-        <div style="display:block;"><currency-direc price="{{ tourWithAllRelated[0].offerprice }}"></currency-direc></div>
-        <div style="display:block;"><currency-direc price="{{ tourWithAllRelated[0].price }}"></currency-direc></div>
-      </div>
-    </div>
-    <div class="pl-2 px-md-2 mr-0 pr-0">
-      <div class="btn-group-vertical float-right">
-        <a ng-click="showEnquiryForm(tourWithAllRelated[0].id, tourWithAllRelated[0].name, tourWithAllRelated[0].price, tourWithAllRelated[0].days);" class="btn btn-sm btn-outline-primary"> Send Enquiry </a>
-        <a ng-click="showBookingForm(tourWithAllRelated[0].id, tourWithAllRelated[0].name, tourWithAllRelated[0].price, tourWithAllRelated[0].days);" class="btn btn-sm btn-primary text-white"> Book </a>
-      </div>
-    </div>
-  </div>
 
     <!-- main div -->
     <div ng-init="getTourDetailsWithItinerary()">
-      <div class="row">
-        <div class="col-sm-12">
-          <!-- This is tour description -->
-          <p class="main">
-            {{tourWithAllRelated[0].description}}
-          </p>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- This is tour description -->
+                <p class="main">
+                    {{tourWithAllRelated[0].description}}
+                </p>
+            </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-sm-12">
-          <!-- tabs go here -->
-          <uib-tabset active="activeJustified" justified="true" vertical="true" style="margin-left:0px !important;">
-            <!-- Itinerary Start -->
-            <uib-tab index="0" heading="Itinerary">
-              <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-              <div class="col-sm-12 col-md-12 pl-0">
-                <ul class="timeline">
-                  <li class="pl-0" ng-show="itinerary.day" ng-repeat="itinerary in tourWithAllRelated[0].itinerary">
-                    <h6>{{itinerary.day}}</h6>
-                    <p style="white-space: pre-wrap;">{{itinerary.description}}</p>
-                  </li>
-                </ul>
-              </div>
-            </uib-tab>
-            <!-- Itinerary End -->
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- tabs go here -->
+                <uib-tabset active="activeJustified" justified="true" vertical="true" style="margin-left:0px !important;">
+                    <!-- Itinerary Start -->
+                    <uib-tab index="0" heading="Itinerary">
+                        <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+                        <div class="col-sm-12 col-md-12 pl-0">
+                            <ul class="timeline">
+                                <li class="pl-0" ng-show="itinerary.day" ng-repeat="itinerary in tourWithAllRelated[0].itinerary">
+                                    <h6>{{itinerary.day}}</h6>
+                                    <p style="white-space: pre-wrap;">{{itinerary.description}}</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </uib-tab>
+                    <!-- Itinerary End -->
 
-            <!-- Dates Start -->
-            <uib-tab index="2" heading="Dates & Prices" select="getDatesAndPrices(); tabShown = !tabShown" deselect="tabShown = !tabShown">
-              <div ng-class="{'loader': datesLoading, 'notLoading': !datesLoading}" id="loadingSpinner">Loading...</div>
-              <table class="table table-hover table-bordered" ng-show="!(error) && !(datesLoading)">
-                <thead>
-                  <tr>
-                    <td style="text-align:center;">
-                      <div ng-if="calendarDataAvailable" ng-controller="TourViewController as vm" class="col-lg-12 col-centered" style="width:100%;height:100%;margin: auto;">
-                        <h3 style="margin-top:10px;margin-bottom:10px;" class="text-center">{{ vm.calendarTitle }}</h3>
-                        <ng-include src="'views/main/calendarControls.html'"></ng-include>
-                        <mwl-calendar events="vm.events" view="vm.calendarView" view-date="vm.viewDate" cell-auto-open-disabled="true" view-title="vm.calendarTitle" custom-template-urls="{calendarMonthCell: 'customMonthCell.html'}">
-                        </mwl-calendar>
+                    <!-- Dates Start -->
+                    <uib-tab index="2" heading="Dates & Prices" select="getDatesAndPrices(); tabShown = !tabShown" deselect="tabShown = !tabShown">
+                        <div ng-class="{'loader': datesLoading, 'notLoading': !datesLoading}" id="loadingSpinner">Loading...</div>
+                        <table class="table table-hover table-bordered" ng-show="!(error) && !(datesLoading)">
+                            <thead>
+                                <tr>
+                                    <td style="text-align:center;">
+                                        <div ng-if="calendarDataAvailable" ng-controller="TourViewController as vm" class="col-lg-12 col-centered" style="width:100%;height:100%;margin: auto;">
+                                            <h3 style="margin-top:10px;margin-bottom:10px;" class="text-center">{{ vm.calendarTitle }}</h3>
+                                            <ng-include src="'views/main/calendarControls.html'"></ng-include>
+                                            <mwl-calendar events="vm.events" view="vm.calendarView" view-date="vm.viewDate" cell-auto-open-disabled="true" view-title="vm.calendarTitle" custom-template-urls="{calendarMonthCell: 'customMonthCell.html'}">
+                                            </mwl-calendar>
 
-                        <script id="customMonthCell.html" type="text/ng-template">
-                          <div class="cal-month-day {{day.cssClass}}">
+                                            <script id="customMonthCell.html" type="text/ng-template">
+                                                <div class="cal-month-day {{day.cssClass}}">
                               <span
                                 class="pull-right"
                                 data-cal-date
@@ -92,130 +92,133 @@
                               </small>
                             </div>
                           </script>
-                      </div>
-                    </td>
-                  </tr>
-                </thead>
-              </table>
-            </uib-tab>
-            <!-- Dates End -->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </uib-tab>
+                    <!-- Dates End -->
 
-            <!-- Hotels Start -->
-            <uib-tab index="3" heading="Hotels" select="getTourDetailsWithHotels()">
-              <div ng-class="{'loader': hotelsLoading, 'notLoading': !hotelsLoading}" id="loadingSpinner">Loading...</div>
-              <table class="table table-hover table-bordered" ng-show="!(error) && !(hotelsLoading)">
-                <thead>
-                  <tr>
-                    <th class="col-xs-2">City</th>
-                    <th class="col-xs-2">Budget</th>
-                    <th class="col-xs-2">Economy</th>
-                    <th class="col-xs-2">Elegant</th>
-                    <th class="col-xs-2">Deluxe</th>
-                    <th class="col-xs-2">Luxury</th>
-                  </tr>
-                </thead>
-                <tr ng-repeat="x in output">
-                  <td><a ng-href="/destination?id={{x.location_id}}&amp;name={{x.city | slugify}}">{{ x["city"] }}</a></td>
-                  <td>
-                    <div ng-repeat="budget in x.budget">
-                      <a ng-href="/hotel?id={{budget.hotelid}}&amp;name={{budget.name | slugify}}">{{ budget.name }}</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div ng-repeat="economy in x.economy">
-                      <a ng-href="/hotel?id={{economy.hotelid}}&amp;name={{economy.name | slugify}}">{{ economy.name }}</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div ng-repeat="elegant in x.elegant">
-                      <a ng-href="/hotel?id={{elegant.hotelid}}&amp;name={{elegant.name | slugify}}">{{ elegant.name }}</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div ng-repeat="deluxe in x.deluxe">
-                      <a ng-href="/hotel?id={{deluxe.hotelid}}&amp;name={{deluxe.name | slugify}}">{{ deluxe.name }}</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div ng-repeat="luxury in x.luxury">
-                      <a ng-href="/hotel?id={{luxury.hotelid}}&amp;name={{luxury.name | slugify}}">{{ luxury.name }}</a>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+                    <!-- Hotels Start -->
+                    <uib-tab index="3" heading="Hotels" select="getTourDetailsWithHotels()">
+                        <div ng-class="{'loader': hotelsLoading, 'notLoading': !hotelsLoading}" id="loadingSpinner">Loading...</div>
+                        <table class="table table-hover table-bordered" ng-show="!(error) && !(hotelsLoading)">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-2">City</th>
+                                    <th class="col-xs-2">Budget</th>
+                                    <th class="col-xs-2">Economy</th>
+                                    <th class="col-xs-2">Elegant</th>
+                                    <th class="col-xs-2">Deluxe</th>
+                                    <th class="col-xs-2">Luxury</th>
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="x in output">
+                                <td><a ng-href="/destination?id={{x.location_id}}&amp;name={{x.city | slugify}}">{{ x["city"] }}</a></td>
+                                <td>
+                                    <div ng-repeat="budget in x.budget">
+                                        <a ng-href="/hotel?id={{budget.hotelid}}&amp;name={{budget.name | slugify}}">{{ budget.name }}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div ng-repeat="economy in x.economy">
+                                        <a ng-href="/hotel?id={{economy.hotelid}}&amp;name={{economy.name | slugify}}">{{ economy.name }}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div ng-repeat="elegant in x.elegant">
+                                        <a ng-href="/hotel?id={{elegant.hotelid}}&amp;name={{elegant.name | slugify}}">{{ elegant.name }}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div ng-repeat="deluxe in x.deluxe">
+                                        <a ng-href="/hotel?id={{deluxe.hotelid}}&amp;name={{deluxe.name | slugify}}">{{ deluxe.name }}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div ng-repeat="luxury in x.luxury">
+                                        <a ng-href="/hotel?id={{luxury.hotelid}}&amp;name={{luxury.name | slugify}}">{{ luxury.name }}</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
 
-              <uib-accordion close-others="false">
-                <div uib-accordion-group class="panel-default" ng-repeat="(key, value) in tourWithAllRelated[0].accomodationHotel | groupBy: 'type'" heading="{{key}}" is-open="$first">
-                  <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="hotel in value">
-                    <div class="media">
-                      <div class="media-left" style="display:block !important; float: left !important;">
-                        <img style="height:150px; width:200px; display: block !important;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
-                      </div>
-                      <div class="media-body">
-                        <h4 class="media-heading">{{hotel.name}}</h4>
-                        <p>{{ hotel.description | truncate: 800 : '...' : true }}
-                          <a href="/hotel?id={{hotel.id}}&name={{hotel.name | slugify}}">Read more</a>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </uib-accordion>
+                        <uib-accordion close-others="false">
+                            <div uib-accordion-group class="panel-default" ng-repeat="(key, value) in tourWithAllRelated[0].accomodationHotel | groupBy: 'type'" heading="{{key}}" is-open="$first">
+                                <div style="margin-top:10px;margin-bottom:15px;" ng-repeat="hotel in value">
+                                    <div class="media">
+                                        <div class="media-left" style="display:block !important; float: left !important;">
+                                            <img style="height:150px; width:200px; display: block !important;" ng-src="/images/{{hotel.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object">
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{hotel.name}}</h4>
+                                            <p>{{ hotel.description | truncate: 800 : '...' : true }}
+                                                <a href="/hotel?id={{hotel.id}}&name={{hotel.name | slugify}}">Read more</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-accordion>
 
-            </uib-tab>
-            <!-- Hotels End -->
+                    </uib-tab>
+                    <!-- Hotels End -->
 
-            <!-- Destinations Start -->
-            <uib-tab index="4" heading="Destinations" select="getTourDetailsWithLocations();">
-              <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-              <div ng-show="!(loading)" class="mt-2 mb-2" ng-repeat="x in tourWithAllRelated[0].siteLocation">
-                <div class="row">
-                  <div class="col-sm-2 d-none d-sm-block">
-                    <div class="media-left pt-1" style="display:block !important; float: left !important;">
-                      <!-- <img style="display: block !important;" ng-src="/images/{{x.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object"> -->
-                      <img class="card-img-top-tour-destinations" ng-src="/images/{{x.image.filename}}">
-                    </div>
-                  </div>
+                    <!-- Destinations Start -->
+                    <uib-tab index="4" heading="Destinations" select="getTourDetailsWithLocations();">
+                        <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+                        <div ng-show="!(loading)" class="mt-2 mb-2" ng-repeat="x in tourWithAllRelated[0].siteLocation">
+                            <div class="row">
+                                <div class="col-sm-2 d-none d-sm-block">
+                                    <div class="media-left pt-1" style="display:block !important; float: left !important;">
+                                        <!-- <img style="display: block !important;" ng-src="/images/{{x.images[0].filename}}" class="img-responsive thumb-post scaleTourView media-object"> -->
+                                        <img class="card-img-top-tour-destinations" ng-src="/images/{{x.image.filename}}">
+                                    </div>
+                                </div>
 
-                  <div class="col-sm-10 pl-2">
-                    <div>
-                      <h6><a ng-href="/city?id={{ x.id }}&name={{ x.city }}, {{ x.country }}">{{x.city}}, {{x.country}}</a></h6>
-                        <p  class="text-justify" style="
+                                <div class="col-sm-10 pl-2">
+                                    <div>
+                                        <h6><a ng-href="/city?id={{ x.id }}&name={{ x.city }}, {{ x.country }}">{{x.city}}, {{x.country}}</a></h6>
+                                        <p class="text-justify" style="
                           overflow : hidden;
                           text-overflow: ellipsis;
                           display: -webkit-box;
                           -webkit-line-clamp: 4;
                           -webkit-box-orient: vertical;
                         ">
-                        {{ x.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                                            {{ x.description }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-            </uib-tab>
-            <!-- Destinations End -->
+                    </uib-tab>
+                    <!-- Destinations End -->
 
-            <!-- More Info Start -->
-            <uib-tab index="5" heading="More Info" select="getTourDetailsWithNotes()">
-              <div ng-class="{'loader': notesLoading, 'notLoading': !notesLoading}" id="loadingSpinner">Loading...</div>
-              <uib-accordion ng-show="!(notesLoading)" close-others="false">
-                <div uib-accordion-group class="panel-default mb-2" ng-repeat="x in tourWithAllRelated[0].tourNote | filternotes: 'important'" is-open="$first">
-                  <uib-accordion-heading><h6>{{x.type}}</h6></uib-accordion-heading>
-                  <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
-                </div>
-              </uib-accordion>
-            </uib-tab>
-            <!-- More Info End -->
-          </uib-tabset>
+                    <!-- More Info Start -->
+                    <uib-tab index="5" heading="More Info" select="getTourDetailsWithNotes()">
+                        <div ng-class="{'loader': notesLoading, 'notLoading': !notesLoading}" id="loadingSpinner">Loading...</div>
+                        <uib-accordion ng-show="!(notesLoading)" close-others="false">
+                            <div uib-accordion-group class="panel-default mb-2" ng-repeat="x in tourWithAllRelated[0].tourNote | filternotes: 'important'" is-open="$first">
+                                <uib-accordion-heading>
+                                    <h6>{{x.type}}</h6>
+                                </uib-accordion-heading>
+                                <div style="white-space: pre-wrap;" ng-bind-html="x.description"></div>
+                            </div>
+                        </uib-accordion>
+                    </uib-tab>
+                    <!-- More Info End -->
+                </uib-tabset>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- Tour Enquiry Modal begins -->
-  <div class="modal-demo">
+</div>
+<!-- Tour Enquiry Modal begins -->
+<div class="modal-demo">
     <script type="text/ng-template" id="myModalContent.html">
-      <div class="alert alert-success alert-dismissible fade in" ng-show="showSuccessBanner">
+        <div class="alert alert-success alert-dismissible fade in" ng-show="showSuccessBanner">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Success!</strong> Enquiry submitted, thanks!
           </div>
@@ -314,101 +317,101 @@
           </form>
       </script>
     <div class="modal-parent"></div>
-  </div>
+</div>
 
-  <div class="modal-booking">
+<div class="modal-booking">
     <script type="text/ng-template" id="bookingModal.html">
-      <!--
+        <!--
           <div class="alert alert-success alert-dismissible fade in" ng-show="showSuccessBanner">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Success!</strong> Enquiry submitted, thanks!
           </div>
           -->
-      <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">Booking</h3>
-        <h5>{{ tourName }} | Starting from <currency-direc price="{{tourPrice}}"></currency-direc> | {{ tourDays }} Days</h5>
-      </div>
-      <form role="form" method="POST" ng-submit="createEnquiry();">
-        <div class="modal-body" id="modal-body">
-          <div class="row" style="margin:0px !important;">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Title</label>
-                <select class="form-control input-sm" ng-model="contactusData.title">
-                  <option>Mr</option>
-                  <option>Miss</option>
-                  <option>Ms</option>
-                  <option>Mrs</option>
-                </select>
-              </div>
-              <div class="clearfix"></div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Name</label>
-                <input type="text" ng-model="contactusData.name" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Name">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Email Address</label>
-                <input type="email" ng-model="contactusData.email" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Email">
-              </div>
-              <div class="clearfix"></div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Phone</label>
-                <input type="phone" ng-model="contactusData.phone" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Phone">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputFile">Attach Files</label>
-                <div class="form-group">
-                  <div class="btn btn-primary" ngf-select ng-model="contactusData.images" ngf-multiple="true" accept="image/*" ngf-max-height="2000" ngf-max-size="10MB" ngf-keep="distinct" ngf-capture="camera" ngf-max-files="5">Select Files (max:5)
-                  </div>
-                  <p class="help-block">Click on the Attach Files button to attach files related to your query.</p>
-                </div>
-                <div>
-                  <span ng-repeat="f in contactusData.images">
-                    <img width=20% ngf-thumbnail="f || '/thumb.jpg'" class="thumb">
-                    {{f.$errorParam}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="exampleInputPassword1">Arrival Date</label>
-                <input type="Date" ng-model="contactusData.plannedarrival" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Arrival Date">
-              </div>
-              <div class="clearfix"></div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">No. of Days</label>
-                <input type="text" ng-model="contactusData.numdays" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Nunmber of People">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Type of Hotel</label>
-                <select class="form-control input-sm" ng-model="contactusData.preferredhoteltype">
-                  <option>Budget</option>
-                  <option>Economy</option>
-                  <option>Elegant</option>
-                  <option>Deluxe</option>
-                  <option>Luxury</option>
-                </select>
-              </div>
-              <div class="clearfix"></div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Message</label>
-                <textarea ng-model="contactusData.message" rows="3" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Message"></textarea>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="clearfix"></div>
-          </div>
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Booking</h3>
+            <h5>{{ tourName }} | Starting from <currency-direc price="{{tourPrice}}"></currency-direc> | {{ tourDays }} Days</h5>
         </div>
-        <div class="modal-footer">
-          <div class="btn-group" role="group" aria-label="footer buttons">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-outline-primary" ng-click="cancel()">Close</button>
-          </div>
-        </div>
-      </form>
+        <form role="form" method="POST" ng-submit="createEnquiry();">
+            <div class="modal-body" id="modal-body">
+                <div class="row" style="margin:0px !important;">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Title</label>
+                            <select class="form-control input-sm" ng-model="contactusData.title">
+                                <option>Mr</option>
+                                <option>Miss</option>
+                                <option>Ms</option>
+                                <option>Mrs</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="text" ng-model="contactusData.name" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Email Address</label>
+                            <input type="email" ng-model="contactusData.email" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Email">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Phone</label>
+                            <input type="phone" ng-model="contactusData.phone" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">Attach Files</label>
+                            <div class="form-group">
+                                <div class="btn btn-primary" ngf-select ng-model="contactusData.images" ngf-multiple="true" accept="image/*" ngf-max-height="2000" ngf-max-size="10MB" ngf-keep="distinct" ngf-capture="camera" ngf-max-files="5">Select Files (max:5)
+                                </div>
+                                <p class="help-block">Click on the Attach Files button to attach files related to your query.</p>
+                            </div>
+                            <div>
+                                <span ng-repeat="f in contactusData.images">
+                                    <img width=20% ngf-thumbnail="f || '/thumb.jpg'" class="thumb">
+                                    {{f.$errorParam}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Arrival Date</label>
+                            <input type="Date" ng-model="contactusData.plannedarrival" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Arrival Date">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">No. of Days</label>
+                            <input type="text" ng-model="contactusData.numdays" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Nunmber of People">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Type of Hotel</label>
+                            <select class="form-control input-sm" ng-model="contactusData.preferredhoteltype">
+                                <option>Budget</option>
+                                <option>Economy</option>
+                                <option>Elegant</option>
+                                <option>Deluxe</option>
+                                <option>Luxury</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Message</label>
+                            <textarea ng-model="contactusData.message" rows="3" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Message"></textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" role="group" aria-label="footer buttons">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-outline-primary" ng-click="cancel()">Close</button>
+                </div>
+            </div>
+        </form>
     </script>
     <div class="modal-parent"></div>
-  </div>
+</div>
 </div>

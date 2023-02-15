@@ -1,0 +1,16 @@
+<div class="mainContainer d-none d-lg-block clearfix">
+    <!--View for SUBHEADER -->
+    <div ui-view="subheader"></div>
+</div>
+
+<div role="main" class="container bg-light">
+    <div class="row">
+        <!--Dont show sidebar on home page-->
+        <div class="col-sm-12">
+            <!-- <div ncy-breadcrumb></div> -->
+            <div ui-view="mainsection">
+                <!--View for main html templates and partials -->
+            </div>
+        </div>
+    </div>
+</div>

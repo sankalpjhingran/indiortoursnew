@@ -10,7 +10,7 @@ router.post('/', userController.create);
 router.get('/', userController.show);
 router.get('/all/', userController.index);
 router.delete('/', userController.delete);
-router.post('/update/', userController.update);
+router.patch('/update/', userController.update);
 router.post('/verify/', userController.verifylink);
 router.post('/newverifylink/', userController.newverifylink);
 router.post('/forgotpassword/', userController.forgotpassword);

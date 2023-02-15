@@ -4,10 +4,7 @@
 <head>
   <base href="/" />
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images-static/indior_transperent_favicon4.gif">
-</head>
-
-<body class="bg-light" style="padding-top:150px;font-size:0.9rem!important">
+  <link rel="icon" type="image/png" href="images/indior_transperent_favicon4.gif">
 
   <!-- Meta content starts -->
   <meta charset="utf-8">
@@ -22,11 +19,11 @@
   <!-- Meta content ends -->
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images-static/indior_transperent_favicon4.gif">
+  <link rel="icon" type="image/png" href="images/indior_transperent_favicon4.gif">
 </head>
 
-<body class="bg-light" style="padding-top:150px;font-size:0.9rem!important">
-  
+<body class="bg-light" style="font-size:0.9rem!important">
+<div>
     <!-- build:css(.) styles/vendor.css -->
     <!-- npm:css -->
     <link rel="stylesheet" href="node_modules/ui-select/dist/select.min.css" />
@@ -47,54 +44,27 @@
     <link rel="stylesheet" href="styles/main.css" />
     <!-- Usemin block -->
     <!-- endbuild -->
-  
-  
+
+
     <!-- Add your site or application content here -->
     <header class="header clearfix" style="margin-bottom: 0px;">
       <!--Site's header start-->
-      <div ng-include src="'views/header.html'" >
-      </div>
+      <div ng-include src="'views/header.html'"></div>
+      <div ui-view="navbar"></div>
       <!--Header end -->
     </header>
-    <div ui-view="subheader" class="mainContainer d-none d-lg-block clearfix">
-      <!--View for SUBHEADER -->
-    </div>
 
-    <!--  -->
-    <div role="main" class="container bg-light" style="padding-right:0px;" ng-show="$state.current.name.includes('hotel') || $state.current.name.includes('hotels') || $state.current.name.includes('mice') || $state.current.name.includes('vacation') || $state.current.name.includes('vacations') || $state.current.name.includes('city') || $state.current.name.includes('region') || $state.current.name.includes('country') || $state.current.name.includes('destination') || $state.current.name.includes('destinations') || $state.current.name.includes('tourView') || $state.current.name.includes('home') || $state.current.name.includes('search') || $state.current.name.includes('signup') || $state.current.name.includes('myprofile')">
-      <div class="row">
-        <!--Dont show sidebar on home page-->
-        <div class="col-sm-12">
+    <div style="margin-top:140px;"></div>
 
-          <!-- <div ncy-breadcrumb></div> -->
-          <div ui-view="mainsection">
-            <!--View for main html templates and partials -->
-          </div>
-        </div>
-      </div>
-    </div>
+    <div ui-view="mainportal" class="mainContainer d-none d-lg-block clearfix"></div>
 
-    <div class="container bg-light">
-      <div class="row" style="margin-left:0px;" ng-show="$state.current.name.includes('admin') || $state.current.name.includes('trips')">
-        <!--Dont show sidebar on home page-->
-        <div class="col-sm-2 hidden-xs hidden-sm indior-bg">
-          <div ui-view="sidesection">
-            <!--View for SIDEBAR LINKS -->
-          </div>
-        </div>
-        <div class="col-sm-10" style="padding-right:0px;">
-          <div ui-view="mainsection">
-            <!--View for main html templates and partials -->
-          </div>
-        </div>
-      </div>
-    </div>
+    <div ui-view="adminportal" class="mainContainer d-none d-lg-block clearfix"></div>
 
     <footer class="footer indior-bg">
-      <!--Site's footer start-->
+      <!-- Footer start -->
       <div ng-include src="'views/footer.html'">
       </div>
-      <!--Footer end -->
+      <!-- Footer end -->
     </footer>
 
   <!-- build:js(.) scripts/vendor.js -->
@@ -145,7 +115,6 @@
   <script src="node_modules/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
   <!-- endnpm -->
   <!-- endbuild -->
-
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="scripts/app.js"></script>
@@ -216,5 +185,6 @@
     })();
     */
   </script>
+</div>
 </body>
 </html>

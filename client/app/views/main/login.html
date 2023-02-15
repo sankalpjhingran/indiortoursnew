@@ -1,27 +1,20 @@
-<head>
-  <style>
-    body {
-      padding-bottom: 40px;
-      background-color: #eee;
-    }
-  </style>
-</head>
-<body>
 <div id="loginPage">
-      <div>
-          <form class="form-signin" name="signin" method="post" role="form" ng-submit="signIn();">
+    <div>
+        <div class="alert alert-danger" role="alert" ng-if="loginError">
+          Error: {{ loginError }}
+        </div>
+        <form class="form-signin" name="signin" method="post" role="form" ng-submit="signIn();">
             <h2 class="form-signin-heading">Login</h2>
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
             <div class="checkbox">
-              <label>
-                <input type="checkbox" value="remember-me"> Remember me
-              </label>
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-          </form>
+        </form>
     </div>
 </div>
-</body>

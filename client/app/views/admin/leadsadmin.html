@@ -1,48 +1,48 @@
 <div id="allLocations" ng-init="loadLeadData()">
-  <div class="row align-items-center">
-    <div class="col-sm-6 col-auto mr-auto">
-      <h3 class="align-middle">Leads</h3>
+    <div class="row align-items-center">
+        <div class="col-sm-6 col-auto mr-auto">
+            <h3 class="align-middle">Leads</h3>
+        </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fa fa-search"></i></span>
-      </div>
-      <input type="text" class="form-control" placeholder="Search Leads..." ng-model="search">
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Search Leads..." ng-model="search">
+        </div>
     </div>
-  </div>
 
-  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-  <div ng-show="!(loading)">
-    <table class="table table-hover table-bordered" ng-show="!(error)">
-      <th>Id</th>
-      <th>Name</th>
-      <th>Related To</th>
-      <th>Related To ID</th>
-      <!-- <th>Email</th>
+    <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+    <div ng-show="!(loading)">
+        <table class="table table-hover table-bordered table-responsive" ng-show="!(error)">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Related To</th>
+            <th>Related To ID</th>
+            <!-- <th>Email</th>
       <th>Phone</th> -->
-      <th>Planned Arrival</th>
-      <th>Num. of Days</th>
-      <th>Preferred Hotel</th>
-      <!-- <th>Message</th> -->
-      <th>Created Date</th>
+            <th>Planned Arrival</th>
+            <th>Num. of Days</th>
+            <th>Preferred Hotel</th>
+            <!-- <th>Message</th> -->
+            <th>Created Date</th>
 
-      <tr ng-repeat="x in allLeads | filter:search">
-        <td>{{ x["id"] }}</td>
-        <td>{{ x["name"] }}</td>
-        <td>{{ x["relatedtotype"] }}</td>
-        <td>{{ x["relatedtoid"] }}</td>
-        <!-- <td>{{ x["email"] }}</td>
+            <tr ng-repeat="x in allLeads | filter:search">
+                <td>{{ x["id"] }}</td>
+                <td>{{ x["name"] }}</td>
+                <td>{{ x["relatedtotype"] }}</td>
+                <td>{{ x["relatedtoid"] }}</td>
+                <!-- <td>{{ x["email"] }}</td>
         <td>{{ x["phone"] }}</td> -->
-        <td>{{ x["plannedarrival"] | date: "short" }}</td>
-        <td>{{ x["numdays"] }}</td>
-        <td>{{ x["preferredhoteltype"] }}</td>
-        <!-- <td>{{ x["message"] }}</td> -->
-        <td>{{ x["createdAt"] | date: "short" }}</td>
-      </tr>
-    </table>
-  </div>
+                <td>{{ x["plannedarrival"] | date: "short" }}</td>
+                <td>{{ x["numdays"] }}</td>
+                <td>{{ x["preferredhoteltype"] }}</td>
+                <!-- <td>{{ x["message"] }}</td> -->
+                <td>{{ x["createdAt"] | date: "short" }}</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <!-- New MOdal code using angular-ui -->

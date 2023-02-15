@@ -1,9 +1,9 @@
 'use strict';
 
-var path = require('path');
-var express = require('express');
-var router = express.Router();
-var imageController  = require('../controllers/images');
+const path = require('path');
+const express = require('express');
+const router = express.Router();
+const imageController = require('../controllers/images');
 const sharp = require('sharp')
 const fs = require('fs')
 const { v4: uuidv4 } = require('uuid')
@@ -11,21 +11,22 @@ const { v4: uuidv4 } = require('uuid')
 const { nextTick } = require('process');
 
 //Mutler
-var multer  = require('multer');
+const multer = require('multer');
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '../public/temp')
+        cb(null, path.resolve(__dirname, "../../public/temp"));
     },
     filename: function (req, file, cb) {
-        var filename = uuidv4(); 
+        var filename = uuidv4();
         cb(null, filename)
     }
-})
+});
 
-var upload = multer({ storage: storage }).array('file', 5);
+const upload = multer({storage: storage}).array('file', 5);
 
 const uploadImages = (req, res, next) => {
+    console.log(path.resolve(__dirname, "../../public/temp"));
     console.log('Uploading files====> ', req.files);
     upload(req, res, err => {
         if (err instanceof multer.MulterError) { // A Multer error occurred when uploading.
@@ -43,13 +44,14 @@ const uploadImages = (req, res, next) => {
     });
 };
 
-const convertImagesToWebp = async (req, res, next) => {  
+const convertImagesToWebp = async (req, res, next) => {
+    console.log(req.files);
     await Promise.all(
       req.files.map(async file => {
         await sharp(file.path)
           .webp({ quality: 75 })
           .toFile(
-            path.resolve('../public/images', file.filename) + '.webp'
+            path.resolve(__dirname, "../../public/images", file.filename) + '.webp'
         )
         fs.unlinkSync(file.path);
       })
@@ -64,23 +66,6 @@ router.post(
     imageController.create
   );
 
-
-/*
-router.post('/', upload, async (req, res, next) => {
-    console.log('File is====> ', req.file);
-    const { filename: image } = req.file;
-
-    console.log('output path====> ', path.resolve('../public/images', image) + '.webp');
-
-    await sharp(req.file.path)
-     .webp({quality: 75})
-     .toFile(
-         path.resolve('../public/images', image) + '.webp'
-     )
-     fs.unlinkSync(req.file.path)
-     next();
- }, imageController.create);
-*/
 //router.get('/', imageController.show);
 //router.post('/all/', imageController.index);
 
@@ -90,7 +75,7 @@ router.post('/', upload, async (req, res, next) => {
 router.get('/', imageController.show);
 router.get('/search', imageController.search);
 router.post('/all/', imageController.index);
-router.post('/update/', imageController.update);
+router.patch('/update/', imageController.update);
 router.get('/allImages/', imageController.indexAll);
 router.delete('/', imageController.delete);
 router.post('/update/', imageController.update);

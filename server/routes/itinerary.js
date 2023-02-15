@@ -12,5 +12,5 @@ router.post('/bulkupdate/', itineraryController.bulkUpdate);
 router.get('/', itineraryController.show);
 router.get('/all/', itineraryController.index);
 router.delete('/', itineraryController.delete);
-router.post('/update/', itineraryController.update);
+router.patch('/update/', itineraryController.update);
 module.exports = router;

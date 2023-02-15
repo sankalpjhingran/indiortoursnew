@@ -35,7 +35,7 @@
     "wkx": "^0.4.1"
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "~0.4.1",
     "grunt-connect-proxy": "^0.2.0",
     "helmet": "^3.9.0"
   }

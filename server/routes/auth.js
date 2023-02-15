@@ -1,11 +1,11 @@
 'use strict';
 
-var path = require('path');
-var express = require('express');
-var passport = require('passport');
-var passportFacebook = require('passport-facebook');
-var router = express.Router();
-var users = require('../controllers/users');
+const path = require('path');
+const express = require('express');
+const passport = require('passport');
+const passportFacebook = require('passport-facebook');
+const router = express.Router();
+const users = require('../controllers/users');
 
 router.post("/", passport.authenticate('local-signin'), function(req, res) {
   console.log('In auth.js route=====>');

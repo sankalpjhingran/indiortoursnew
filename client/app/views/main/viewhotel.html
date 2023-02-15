@@ -6,17 +6,17 @@
   }
 </style-->
 <div ng-init="getHotelDetails()">
-          <h3>
-            Indior Accommodation
-          </h3>
-          <h4>
-            {{ hotel.name }}, {{ hotel.location }}
-          </h4>
-          <p class="main" style="white-space: pre-wrap;">
-              <img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ hotel.images.data[0].filename }}">
-              {{ hotel.description }}
-          </p>
-          <div class="row">
+    <h3>
+        Indior Accommodation
+    </h3>
+    <h4>
+        {{ hotel.name }}, {{ hotel.location }}
+    </h4>
+    <p class="main" style="white-space: pre-wrap;">
+        <img class="img-responsive scaleDestinationImg" style="height:140px;" ng-src="/images/{{ hotel.images.data[0].filename }}">
+        {{ hotel.description }}
+    </p>
+    <div class="row">
 
-          </div>
+    </div>
 </div>

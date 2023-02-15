@@ -1,3 +1,5 @@
+.idea
+
 # Logs
 logs
 *.log
@@ -64,6 +66,7 @@ server/public/images/
 
 # Images in public/images folder
 public/images/
+public/images-jpegs/
 
 # ignore sql backup
 db1-backup-2018-09-21.sql
