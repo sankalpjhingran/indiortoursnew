@@ -10,7 +10,7 @@ router.post('/', tourCostsController.create);
 router.get('/', tourCostsController.show);
 router.get('/all/', tourCostsController.index);
 router.delete('/', tourCostsController.delete);
-router.post('/update/', tourCostsController.update);
+router.patch('/update/', tourCostsController.update);
 
 router.post('/bulkcreate/', tourCostsController.bulkCreate);
 router.post('/bulkupdate/', tourCostsController.bulkUpdate);

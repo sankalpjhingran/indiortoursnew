@@ -1,67 +1,57 @@
 <div id="allPlaces" ng-init="loadImagesData()">
-  <div class="row align-items-center">
-    <div class="col-sm-6 col-auto mr-auto">
-      <h3 class="align-middle">Images</h3>
+    <div class="row align-items-center">
+        <div class="col-sm-6 col-auto mr-auto">
+            <h3 class="align-middle">Images</h3>
+        </div>
+        <div class="col-sm-6 col-auto">
+            <div class="text-right align-middle">
+                <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-6 col-auto">
-      <div class="text-right align-middle">
-        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:10px; margin-left:10px; margin-right:0px;" ng-click="showForm('new')">New</button>
-      </div>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Search Images..." ng-model="search" ng-change="filterData();">
+        </div>
+        <label class="checkbox-inline">
+            <input type="checkbox" name="searchBackend" ng-model="searchBackend"> Search Backend
+        </label>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fa fa-search"></i></span>
-      </div>
-      <input type="text" class="form-control" placeholder="Search Images..." ng-model="search" ng-change="filterData();">
-    </div>
-    <label class="checkbox-inline">
-          <input type="checkbox" name="searchBackend" ng-model="searchBackend"> Search Backend
-    </label>
-  </div>
 
-  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+    <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
 
-  <div ng-show="!(loading)">
-    <table class="table table-hover table-bordered table-condensed" ng-show="!(error)">
-      <th class="fixedWidthTableCol">Action</th>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Parent Name</th>
-      <th>Parent Id</th>
-      <th>Preview</th>
-      <th>Created Date</th>
-      <th>Updated Date</th>
-      <tr ng-repeat="x in aImages | filter:search">
-        <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateImageInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delImage(x.id)">Del</a></td>
-        <td>{{ x["id"] }}</td>
-        <td>{{ x["filename"] | truncate : 50 : '...' : false }}</td>
-        <td>{{ x["parentobjectname"] }}</td>
-        <td>{{ x["parentobjectid"] }}</td>
-        <td>
-          <img ng-src="/images/{{x.filename}}" class="thumb scaleMain">
-          </img>
-        </td>
-        <td>{{ x["createdAt"] | date: "short" }}</td>
-        <td>{{ x["updatedAt"] | date: "short" }}</td>
-      </tr>
-    </table>
-    <div style="text-align:center;">
-      <ul uib-pagination total-items="totalItems"
-          ng-model="currentPage"
-          items-per-page="itemsPerPage"
-          ng-change="pageChanged()"
-          max-size="maxSize"
-          class="pagination-md"
-          boundary-links="true"
-          num-pages="numPages"
-          boundary-link-numbers="true"
-          rotate="false"
-          force-ellipses="false">
-      </ul>
+    <div ng-show="!(loading)">
+        <table class="table table-hover table-bordered table-condensed table-responsive" ng-show="!(error)">
+            <th class="fixedWidthTableCol">Action</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Parent Name</th>
+            <th>Parent Id</th>
+            <th>Preview</th>
+            <th>Created Date</th>
+            <th>Updated Date</th>
+            <tr ng-repeat="x in aImages | filter:search">
+                <td><a href="" tourid="{{x.tour_id}}" locid="{{x.id}}" ng-click="populateImageInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="delImage(x.id)">Del</a></td>
+                <td>{{ x["id"] }}</td>
+                <td>{{ x["filename"] | truncate : 50 : '...' : false }}</td>
+                <td>{{ x["parentobjectname"] }}</td>
+                <td>{{ x["parentobjectid"] }}</td>
+                <td>
+                    <img ng-src="/images/{{x.filename}}" class="thumb scaleMain">
+                    </img>
+                </td>
+                <td>{{ x["createdAt"] | date: "short" }}</td>
+                <td>{{ x["updatedAt"] | date: "short" }}</td>
+            </tr>
+        </table>
+        <div style="text-align:center;">
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-md" boundary-links="true" num-pages="numPages" boundary-link-numbers="true" rotate="false" force-ellipses="false">
+            </ul>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- New MOdal code using angular-ui -->

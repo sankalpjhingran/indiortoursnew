@@ -1,31 +1,9 @@
 'use strict';
 
-const nodemailer = require('nodemailer');
+const sendgrid = require('@sendgrid/mail');
+const SENDGRID_API_KEY = "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";
+sendgrid.setApiKey(SENDGRID_API_KEY);
 const config = require('../config/config2');
-//create reusable transporter object using the default SMTP transport
-let transporter = nodemailer.createTransport({
-
-	/*
-	service: config.senderemail.service,
-	secure: false,
-	auth: {
-	  user: config.senderemail.email,
-	  pass: config.senderemail.password,
-	},
-	*/
-
-	host: config.senderemail.service,
-	port: 465,
-	secure: true, // use TLS
-  auth: {
-      user: config.senderemail.email, // generated ethereal user
-      pass: config.senderemail.password // generated ethereal password
-  },
-	tls: {
-        // do not fail on invalid certs
-        rejectUnauthorized: false
-    }
-});
 
 module.exports = {
 	sendNewUserEmail(emails, subject, text, html){
@@ -39,13 +17,13 @@ module.exports = {
 	    };
 
 	    // send mail with defined transport object
-	    transporter.sendMail(mailOptions, (error, info) => {
-	        if (error) {
-	            return console.log(error);
-	        }
-	        console.log('Message sent: %s', info.messageId);
-	        // Preview only available when sending through an Ethereal account
-	        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    });
+		sendgrid
+			.send(mailOptions)
+			.then((resp) => {
+				console.log('Email sent...');
+			})
+			.catch((error) => {
+				console.error(error);
+			});
   },
-}
+};

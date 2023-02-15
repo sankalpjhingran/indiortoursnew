@@ -1,60 +1,56 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors');
-var jade = require('pug');
-var compression = require('compression');
-var prerender = require('prerender-node');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const jade = require('pug');
+const compression = require('compression');
+const prerender = require('prerender-node');
 
 
-var util = require('util');
-var fs = require('fs');
-var debug = require('debug')('http'),
+const util = require('util');
+const fs = require('fs');
+const debug = require('debug')('http'),
   http = require('http'),
   name = 'IndiorTours';
 
-var fs = require('fs')
-var qs = require('querystring');
+const qs = require('querystring');
+const dotenv = require('dotenv');
+const redis = require('./config/redis-client');
 
-var dotenv = require('dotenv');
-
-var redis = require('./config/redis-client');
-
-var models = require('./models/index');
-var regusers = require('./routes/regusers');
-var contactus = require('./routes/contactus');
-var signup = require('./routes/signup');
-var auth = require('./routes/auth');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var FaceBookStrategy = require('passport-facebook').Strategy;
-var application = require('./routes/application');
-var logout = require('./routes/logout');
-var tours = require('./routes/tours');
-var locations = require('./routes/location');
-var continents = require('./routes/continent');
-var countries = require('./routes/country');
-var regions = require('./routes/region');
-var hotels = require('./routes/hotel');
-var itinerary = require('./routes/itinerary');
-var departuredates = require('./routes/departuredates');
-var tourcosts = require('./routes/tourcosts');
-var images = require('./routes/image');
-var notes = require('./routes/tournotes');
-var users = require('./routes/user');
-var places = require('./routes/place');
-var tags = require('./routes/tag');
-var parenttours = require('./routes/parenttour');
-var bookings = require('./routes/booking');
-var search = require('./routes/search');
+const models = require('./models/index');
+const regusers = require('./routes/regusers');
+const contactus = require('./routes/contactus');
+const signup = require('./routes/signup');
+const auth = require('./routes/auth');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const FaceBookStrategy = require('passport-facebook').Strategy;
+const application = require('./routes/application');
+const logout = require('./routes/logout');
+const tours = require('./routes/tours');
+const locations = require('./routes/location');
+const continents = require('./routes/continent');
+const countries = require('./routes/country');
+const regions = require('./routes/region');
+const hotels = require('./routes/hotel');
+const itinerary = require('./routes/itinerary');
+const departuredates = require('./routes/departuredates');
+const tourcosts = require('./routes/tourcosts');
+const images = require('./routes/image');
+const notes = require('./routes/tournotes');
+const users = require('./routes/user');
+const places = require('./routes/place');
+const tags = require('./routes/tag');
+const parenttours = require('./routes/parenttour');
+const bookings = require('./routes/booking');
+const search = require('./routes/search');
 //load passport strategies
 require('./config/passport')(passport, models.User);
 
-var app = express();
-console.log('images path is====> ', path.join(__dirname, '/../public'));
+const app = express();
 app.use(express.static(path.join(__dirname, '/../public')));
 
 // Use pre-render for better SEO performance
@@ -126,20 +122,20 @@ app.use(logger('production'));
 
 
 // Authenticated update paths start
-//app.use('/api/location/update', ensureAuthenticated, locations);
-//app.use('/api/booking/update', ensureAuthenticated, bookings);
-//app.use('/api/continent/update', ensureAuthenticated, continents);
-//app.use('/api/country/update', ensureAuthenticated, countries);
-//app.use('/api/region/update', regions);
-//app.use('/api/itinerary/update', ensureAuthenticated, itinerary);
-//app.use('/api/itinerary/bulkcreate', ensureAuthenticated, itinerary);
-//app.use('/api/itinerary/bulkupdate', ensureAuthenticated, itinerary);
-//app.use('/api/departuredates/update', ensureAuthenticated, departuredates);
-//app.use('/api/tourcosts/update', ensureAuthenticated, tourcosts);
-//app.use('/api/tourcosts/bulkcreate', ensureAuthenticated, tourcosts);
-//app.use('/api/tourcosts/bulkupdate', ensureAuthenticated, tourcosts);
-//app.use('/api/tours/update', ensureAuthenticated, tours);
+app.use('/api/location/update', ensureAuthenticated, locations);
+app.use('/api/booking/update', ensureAuthenticated, bookings);
+app.use('/api/continent/update', ensureAuthenticated, continents);
+app.use('/api/country/update', ensureAuthenticated, countries);
+app.use('/api/region/update', regions);
+app.use('/api/itinerary/update', ensureAuthenticated, itinerary);
+app.use('/api/itinerary/bulkcreate', ensureAuthenticated, itinerary);
+app.use('/api/itinerary/bulkupdate', ensureAuthenticated, itinerary);
+app.use('/api/departuredates/update', ensureAuthenticated, departuredates);
+app.use('/api/tourcosts/update', ensureAuthenticated, tourcosts);
+app.use('/api/tourcosts/bulkcreate', ensureAuthenticated, tourcosts);
+app.use('/api/tourcosts/bulkupdate', ensureAuthenticated, tourcosts);
 
+app.use('/api/tours/update', ensureAuthenticated, tours);
 app.use('/api/tournotes/update', ensureAuthenticated, notes);
 app.use('/api/regusers', ensureAuthenticated, regusers);
 
@@ -189,7 +185,7 @@ app.use('/api/departuredates/all', departuredates);
 app.use('/api/tourcosts', tourcosts);
 app.use('/api/tourcosts/all', tourcosts);
 app.use('/api/tours/all', tours);
-app.use('/api/tours', tours);
+app.use('/api/tours', ensureAuthenticated, tours);
 app.use('/api/tours/find', tours);
 app.use('/api/tours/tourwithlocations', tours);
 app.use('/api/tours/alltourswithlocations', tours);
@@ -255,7 +251,6 @@ if (app.get('env') === 'prod' || app.get('env') === 'dev') {
 app.get('/api/sitemap', function(request, res) {
   fs = require('fs');
   fs.readFile(path.join(__dirname + '/site-map.xml'), function(err, data) {
-    console.log('Sending response ====>');
     res.set('Content-Type', 'text/xml');
     res.set('vary', 'User-Agent');
     res.set('content-encoding', 'compress');
@@ -291,8 +286,8 @@ function ensureAuthenticated(req, res, next) {
   if (!req.isAuthenticated || !req.isAuthenticated()) {
     res.status(401).send({
       success: false,
-      message: 'You need to be authenticated to access this page!'
-    })
+      message: 'Authentication required'
+    });
   } else {
     console.log('Calling next, auth is true===>');
     next();

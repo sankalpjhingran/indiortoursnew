@@ -10,5 +10,5 @@ router.post('/', placeController.create);
 router.get('/', placeController.show);
 router.get('/all/', placeController.index);
 router.delete('/', placeController.delete);
-router.post('/update/', placeController.update);
+router.patch('/update/', placeController.update);
 module.exports = router;

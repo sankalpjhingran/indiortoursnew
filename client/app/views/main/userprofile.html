@@ -1,134 +1,134 @@
 <style>
-  .form-group.required .control-label:after {
-   content:"*";
-   color:red;
-  }
+    .form-group.required .control-label:after {
+        content: "*";
+        color: red;
+    }
 
-  .panel-info {
-    border-color: #f8f8f8;
-  }
+    .panel-info {
+        border-color: #f8f8f8;
+    }
 
-  .panel-headingnew {
-    background-color: #2d6fbd !important;
-    border-color: #bce8f1;
-    color: white !important;
+    .panel-headingnew {
+        background-color: #2d6fbd !important;
+        border-color: #bce8f1;
+        color: white !important;
 
-  }
+    }
 
-  .panel-headingtext {
-    color: white !important;
+    .panel-headingtext {
+        color: white !important;
 
-  }
+    }
 
-  a.panel-headinglink {
-    font-color: white;
-  }
+    a.panel-headinglink {
+        font-color: white;
+    }
 </style>
-  <div ng-init="loadUserData();">
-      <div class="pull-right">
+<div ng-init="loadUserData();">
+    <div class="pull-right">
         <div>
-          <a style="color:white;" href="edit.html">Edit Profile</a>
+            <a style="color:white;" href="edit.html">Edit Profile</a>
         </div>
-      </div>
-        <div>
-          <div class="panel panel-info">
+    </div>
+    <div>
+        <div class="panel panel-info">
             <div class="panel-heading panel-headingnew">
-              <h3 class="panel-title">{{loggedInUser.firstname | ucfirst}} {{loggedInUser.lastname | ucfirst}}</h3>
+                <h3 class="panel-title">{{loggedInUser.firstname | ucfirst}} {{loggedInUser.lastname | ucfirst}}</h3>
             </div>
             <div class="panel-body">
-              <div class="row">
-                <uib-tabset active="active">
-                  <uib-tab heading="Profile">
-                    <div class=" col-md-12 col-lg-12">
-                      <table class="table table-user-information">
-                        <tbody>
-                          <tr>
-                            <td>Name</td>
-                            <td>{{loggedInUser.firstname | ucfirst}} {{loggedInUser.lastname | ucfirst}}</td>
-                          </tr>
-                          <tr>
-                            <td>Date of Birth</td>
-                            <td>{{loggedInUser.dateofbirth | date: 'MMMM d, yyyy' }}</td>
-                          </tr>
-                          <tr>
-                            <td>Gender</td>
-                            <td>{{loggedInUser.gender}}</td>
-                          </tr>
-                          <tr>
-                            <td>Address</td>
-                            <td>
-                              <address>
-                                  {{ loggedInUser.addressline1 }}, {{ loggedInUser.addressline2 }}<br>
-                                  {{ loggedInUser.addresscity }}, {{ loggedInUser.addresstate }} {{ loggedInUser.addresscountry }} {{ loggedInUser.addresszippin }}
-                              </address>
-                            </td>
-                          </tr>
-                            <tr>
-                            <td>Last Login Date</td>
-                            <td> {{ loggedInUser.lastLogin | date:'medium' }}</td>
-                          </tr>
-                          <tr>
-                            <td>Email</td>
-                            <td><a href="{{ loggedInUser.email }}">{{ loggedInUser.email }}</a></td>
-                          </tr>
-                          <tr>
-                            <td>Phone Number</td>
-                            <td>{{ loggedInUser.phone }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </uib-tab>
-                  <uib-tab heading="Bookings">
-                    <div class=" col-md-12 col-lg-12">
-                      <table class="table table-user-information">
-                        <tbody>
-                          <tr>
-                            <td>Name</td>
-                            <td>{{loggedInUser.firstname | ucfirst}} {{loggedInUser.lastname | ucfirst}}</td>
-                          </tr>
-                          <tr>
-                            <td>Date of Birth</td>
-                            <td>{{loggedInUser.dateofbirth | date: 'MMMM d, yyyy' }}</td>
-                          </tr>
-                          <tr>
-                            <td>Gender</td>
-                            <td>{{loggedInUser.gender}}</td>
-                          </tr>
-                          <tr>
-                            <td>Address</td>
-                            <td>
-                              <address>
-                                  {{ loggedInUser.addressline1 }}, {{ loggedInUser.addressline2 }}<br>
-                                  {{ loggedInUser.addresscity }}, {{ loggedInUser.addresstate }} {{ loggedInUser.addresscountry }} {{ loggedInUser.addresszippin }}
-                              </address>
-                            </td>
-                          </tr>
-                            <tr>
-                            <td>Last Login Date</td>
-                            <td> {{ loggedInUser.lastLogin | date:'medium' }}</td>
-                          </tr>
-                          <tr>
-                            <td>Email</td>
-                            <td><a href="{{ loggedInUser.email }}">{{ loggedInUser.email }}</a></td>
-                          </tr>
-                          <tr>
-                            <td>Phone Number</td>
-                            <td>{{ loggedInUser.phone }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </uib-tab>
-                  <!-- <uib-tab index="1">
+                <div class="row">
+                    <uib-tabset active="active">
+                        <uib-tab heading="Profile">
+                            <div class=" col-md-12 col-lg-12">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>{{loggedInUser.firstname | ucfirst}} {{loggedInUser.lastname | ucfirst}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date of Birth</td>
+                                            <td>{{loggedInUser.dateofbirth | date: 'MMMM d, yyyy' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gender</td>
+                                            <td>{{loggedInUser.gender}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td>
+                                                <address>
+                                                    {{ loggedInUser.addressline1 }}, {{ loggedInUser.addressline2 }}<br>
+                                                    {{ loggedInUser.addresscity }}, {{ loggedInUser.addresstate }} {{ loggedInUser.addresscountry }} {{ loggedInUser.addresszippin }}
+                                                </address>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Last Login Date</td>
+                                            <td> {{ loggedInUser.lastLogin | date:'medium' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td><a href="{{ loggedInUser.email }}">{{ loggedInUser.email }}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phone Number</td>
+                                            <td>{{ loggedInUser.phone }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="Bookings">
+                            <div class=" col-md-12 col-lg-12">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>{{loggedInUser.firstname | ucfirst}} {{loggedInUser.lastname | ucfirst}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date of Birth</td>
+                                            <td>{{loggedInUser.dateofbirth | date: 'MMMM d, yyyy' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gender</td>
+                                            <td>{{loggedInUser.gender}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td>
+                                                <address>
+                                                    {{ loggedInUser.addressline1 }}, {{ loggedInUser.addressline2 }}<br>
+                                                    {{ loggedInUser.addresscity }}, {{ loggedInUser.addresstate }} {{ loggedInUser.addresscountry }} {{ loggedInUser.addresszippin }}
+                                                </address>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Last Login Date</td>
+                                            <td> {{ loggedInUser.lastLogin | date:'medium' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td><a href="{{ loggedInUser.email }}">{{ loggedInUser.email }}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phone Number</td>
+                                            <td>{{ loggedInUser.phone }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </uib-tab>
+                        <!-- <uib-tab index="1">
                     <uib-tab-heading>
                       My Tours
                     </uib-tab-heading>
                   </uib-tab>
                   -->
-                </uib-tabset>
-              </div>
+                    </uib-tabset>
+                </div>
             </div>
-          </div>
         </div>
-  </div>
+    </div>
+</div>

@@ -1,29 +1,29 @@
-{	
-  "INDIOR": {	
-    "HEADER": {	
+{
+  "INDIOR": {
+    "HEADER": {
        "TAGLINE":	 "Le monde est notre famille",
        "SUPPORT":	 "Soutien",
        "HOME":	 "Accueil",
        "DESTINATIONS":	 "DESTINATIONS",
        "VACATIONS": 	"LES VACANCES"
-    },	
-    "MENU": {	
+    },
+    "MENU": {
       "HOME":	 "Accueil",
       "DESTINATIONS": 	"Destinations",
       "VACATIONS": 	"Les vacances"
-    },	
-    "BUTTONS": {	
+    },
+    "BUTTONS": {
       "ENQUIRE":	 "Renseigner",
       "BOOK":	 "Livre",
       "SEND_ENQUIRY":	 "Envoyer la demande"
-    },	
-    "TOUR_LABELS": {	
+    },
+    "TOUR_LABELS": {
       "DAYS":	 "Journées",
       "STARTING_FROM":	 "A partir de",
       "ITINERARY": 	"Itinéraire",
       "DATES_AND_PRICES":	 "Dates et prix",
       "HOTELS":	 "Hôtels",
-      "DESTINATIONS": ".MENU.DESTINATIONS",	
+      "DESTINATIONS": ".MENU.DESTINATIONS",
       "MORE_INFO":	 "Plus d'informations",
       "CITY":	 "Ville",
       "BUDGET":	 "Budget",
@@ -33,24 +33,24 @@
       "LUXURY": 	"Luxe",
       "CITIES":	 "Villes",
       "STATES":	 "États"
-    },	
-    "MAIN": {	
+    },
+    "MAIN": {
       "HEADING": 	"Indior Tour vous propose des circuits de luxe, des séjours sur mesure ou des circuits en groupe",
       "SUBHEADING":	 "L'une des meilleures agences de voyages propose des voyages de groupe, des voyages privés et des vacances sur mesure de haute qualité dans l'une des régions les plus fascinantes du monde: le sous-continent indien couvrant l'Inde, le Népal, le Bhoutan, le Sri Lanka, le Tibet et les Maldives. large choix de circuits économiques aux vacances de luxe, chacun prévu par des experts."
-    },	
-    "DESTINATIONS": {	
+    },
+    "DESTINATIONS": {
       "HEADING":	 "Destinations intérieures",
       "SUBHEADING":	 "Voyagez en Asie avec les experts d'Indior Tours et plongez profondément dans une riche tapisserie de cultures et de paysages. Explorez les temples sacrés du Bhoutan ou du Tibet, ou faites une randonnée avec des guides Sherpa à travers l'Himalaya. Partez en voyage en train à travers l'Inde ou explorez le littoral de Sri Lanka et Maldives, ou une expédition photographique au Bhoutan ou au Tibet. Lors de tous nos voyages, vous découvrirez une intersection unique de cultures fascinantes, de traditions séculaires et de la vie moderne. "
-    },	
-    "VACATIONS": {	
+    },
+    "VACATIONS": {
       "HEADING":	 "Voyages intérieurs",
       "SUBHEADING":	 "Indior Tours propose une grande variété d'idées de vacances de luxe, des visites de groupe aux voyages sur mesure. Si vous recherchez l'inspiration pour les vacances, vous pouvez envisager de rechercher par thèmes tels que les voyages en train ou les croisières culturelles."
-    },	
-    "GROUP_TOURS": {	
+    },
+    "GROUP_TOURS": {
       "HEADING": 	"Visites en groupe",
-      "SUBHEADING":	"Chacune de nos visites de groupe est conçue avec la même philosophie que nos voyages sur mesure: des voyages uniques qui vous permettent d'explorer les points forts d'un pays tout en plongeant sous la surface pour découvrir de vraies personnes, des lieux et des cultures. Jetez un œil à notre sorties de groupe pour plus d'informations, ou si vous avez des questions, n'hésitez pas à nous contacter." 
-    },	
-    "FOOTER": {	
+      "SUBHEADING":	"Chacune de nos visites de groupe est conçue avec la même philosophie que nos voyages sur mesure: des voyages uniques qui vous permettent d'explorer les points forts d'un pays tout en plongeant sous la surface pour découvrir de vraies personnes, des lieux et des cultures. Jetez un œil à notre sorties de groupe pour plus d'informations, ou si vous avez des questions, n'hésitez pas à nous contacter."
+    },
+    "FOOTER": {
       "ABOUT_US":	 "À propos de nous",
       "INDIOR_TOURS_EXCLUSIVE":	 "Indior Tours Exclusive",
       "DATING_HONEYMOONS":	 "Rencontres et Lunes de Miel",
@@ -77,6 +77,6 @@
       "COPYRIGHT_LINE1":	 "Copyright @ 2017-2018 Indior Tours Pvt. Ltd. Tous droits réservés",
       "COPYRIGHT_LINE2": 	"Reconnu par le Ministère du Tourisme, Gouvernement de l'Inde",
       "COPYRIGHT_LINE3":	 "Site Web développé et maintenu par Indior Tours Pvt Ltd"
-    }	
-  }	
-}	
+    }
+  }
+}

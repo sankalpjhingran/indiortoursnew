@@ -1,134 +1,134 @@
 <div class="panel-group">
-  <div class="panel panel-default">
-    <div class="panel-heading">Customer Details</div>
-    <div class="panel-body">
-      <div class="col-sm-6">
-        <div class="form-group">
-            <label for="name">First Name</label>
-            {{ vm.formData.customer.firstname }}
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            {{ vm.formData.customer.email }}
-        </div>
-      </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Customer Details</div>
+        <div class="panel-body">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">First Name</label>
+                    {{ vm.formData.customer.firstname }}
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    {{ vm.formData.customer.email }}
+                </div>
+            </div>
 
-      <div class="col-sm-6">
-        <div class="form-group">
-            <label for="name">Last Name</label>
-            {{ vm.formData.customer.lastname }}
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">Last Name</label>
+                    {{ vm.formData.customer.lastname }}
+                </div>
+                <div class="form-group">
+                    <label for="name">Phone</label>
+                    {{ vm.formData.customer.phone }}
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="name">Phone</label>
-            {{ vm.formData.customer.phone }}
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="panel-group panel-default">
-    <div ng-repeat="traveller in vm.formData.travellers">
-        <div class="panel panel-default" id="traveller-{{$index+1}}">
-    <div class="panel-heading">Traveller {{$index+1}}</div>
-      <div class="panel-body">
-          <div class="col-sm-6">
-            <div class="form-group">
-                <label for="name">First Name</label>
-                {{ traveller.firstname }}
-            </div>
+    <div class="panel-group panel-default">
+        <div ng-repeat="traveller in vm.formData.travellers">
+            <div class="panel panel-default" id="traveller-{{$index+1}}">
+                <div class="panel-heading">Traveller {{$index+1}}</div>
+                <div class="panel-body">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name">First Name</label>
+                            {{ traveller.firstname }}
+                        </div>
 
-            <div class="form-group">
-                <label for="name">Country and Code</label>
-                {{ traveller.countryandcode.name }}({{ traveller.countryandcode.dial_code }})
-            </div>
-            <div class="form-group">
-                <label for="name">Passport</label>
-                {{ traveller.passport }}
-            </div>
+                        <div class="form-group">
+                            <label for="name">Country and Code</label>
+                            {{ traveller.countryandcode.name }}({{ traveller.countryandcode.dial_code }})
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Passport</label>
+                            {{ traveller.passport }}
+                        </div>
 
-            <div class="form-group">
-                <label for="name">Expiry Date</label>
-                {{ traveller.passportexpirydate | date }}
-            </div>
+                        <div class="form-group">
+                            <label for="name">Expiry Date</label>
+                            {{ traveller.passportexpirydate | date }}
+                        </div>
 
-          </div>
+                    </div>
 
-          <div class="col-sm-6">
-            <div class="form-group">
-                <label for="name">Last Name</label>
-                {{ traveller.lastname }}
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name">Last Name</label>
+                            {{ traveller.lastname }}
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Phone</label>
+                            {{ traveller.phone }}
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Issue Date</label>
+                            {{ traveller.passportissuedate | date }}
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            {{ traveller.gender }}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="name">Phone</label>
-                {{ traveller.phone }}
-            </div>
-            <div class="form-group">
-                <label for="name">Issue Date</label>
-                {{ traveller.passportissuedate | date }}
-            </div>
-            <div class="form-group">
-                <label>Gender</label>
-                {{ traveller.gender }}
-            </div>
-          </div>
+        </div>
     </div>
-  </div>
-</div>
-</div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Flight Details</div>
-    <div class="panel-body">
-      <div class="col-sm-6">
-        <div class="form-group">
-            <label for="name">Arrival Date/Time</label>
-            {{ vm.formData.flight.arrivaldatetime | date }}
-        </div>
-      </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Flight Details</div>
+        <div class="panel-body">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">Arrival Date/Time</label>
+                    {{ vm.formData.flight.arrivaldatetime | date }}
+                </div>
+            </div>
 
-      <div class="col-sm-6">
-        <div class="form-group">
-            <label for="email">Flight Number</label>
-            {{ vm.formData.flight.flightnumber }}
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="email">Flight Number</label>
+                    {{ vm.formData.flight.flightnumber }}
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Other Details</div>
-    <div class="panel-body">
-      <div class="col-sm-12">
-        <div class="form-group">
-            <label for="name">Any travelers have medical problems?</label>
-            {{ vm.formData.otherdetails.medicalproblems }}
+    <div class="panel panel-default">
+        <div class="panel-heading">Other Details</div>
+        <div class="panel-body">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="name">Any travelers have medical problems?</label>
+                    {{ vm.formData.otherdetails.medicalproblems }}
+                </div>
+                <div class="form-group">
+                    <label for="email">Food Restrictions</label>
+                    {{ vm.formData.otherdetails.foodrestrictions }}
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email">Food Restrictions</label>
-            {{ vm.formData.otherdetails.foodrestrictions }}
-        </div>
-      </div>
     </div>
-  </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Emergency Contact</div>
-    <div class="panel-body">
-      <div class="col-sm-6">
-        <div class="form-group">
-            <label for="name">Name</label>
-            {{ vm.formData.emergencycontact.name }}
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            {{ vm.formData.emergencycontact.email }}
-        </div>
-      </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Emergency Contact</div>
+        <div class="panel-body">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    {{ vm.formData.emergencycontact.name }}
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    {{ vm.formData.emergencycontact.email }}
+                </div>
+            </div>
 
-      <div class="col-sm-6">
-        <div class="form-group">
-            <label for="email">Phone</label>
-            {{ vm.formData.emergencycontact.phone }}
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="email">Phone</label>
+                    {{ vm.formData.emergencycontact.phone }}
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

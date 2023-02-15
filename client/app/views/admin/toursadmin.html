@@ -1,103 +1,103 @@
 <div id="allTours" ng-init="loadtoursData()">
-  <div class="row align-items-center">
-    <div class="col-sm-6 col-auto mr-auto">
-      <h3 class="align-middle">Tours</h3>
+    <div class="row align-items-center">
+        <div class="col-sm-6 col-auto mr-auto">
+            <h3 class="align-middle">Tours</h3>
+        </div>
+        <div class="col-sm-6 col-auto">
+            <div class="text-right align-middle">
+                <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:14px;" ng-click="showForm('new')">New</button>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-6 col-auto">
-      <div class="text-right align-middle">
-        <button type="button" class="btn btn-primary" style="margin-bottom:10px; margin-top:14px;" ng-click="showForm('new')">New</button>
-      </div>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Search Tours..." ng-model="search">
+        </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fa fa-search"></i></span>
-      </div>
-      <input type="text" class="form-control" placeholder="Search Tours..." ng-model="search">
+    <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+    <div ng-show="!(loading)">
+        <table class="table table-hover table-bordered table-responsive" ng-show="!(error)">
+            <thead>
+                <tr>
+                    <th class="fixedWidthTableCol">
+                        Action
+                    </th>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        <a href="" ng-click="sort('order')">
+                            Order
+                        </a>
+                    </th>
+                    <th>
+                        <a href="" ng-click="sort('name')">
+                            Name
+                        </a>
+                    </th>
+                    <th>
+                        <a href="" ng-click="sort('days')">
+                            Days
+                        </a>
+                    </th>
+                    <th>
+                        <a href="" ng-click="sort('nights')">
+                            Night
+                        </a>
+                    </th>
+                    <th>
+                        <a href="" ng-click="sort('price')">
+                            Price
+                        </a>
+                    </th>
+                    <th>
+                        <a href="" ng-click="sort('tourtype')">
+                            Tour Type
+                        </a>
+                    </th>
+                    <th>
+                        <a href="" ng-click="sort('isactive')">
+                            Active
+                        </a>
+                    </th>
+                    <th>
+                        <a href="" ng-click="sort('createdAt')">
+                            Created Date
+                        </a>
+                    </th>
+                    <th>
+                        <a href="" ng-click="sort('updatedAt')">
+                            Updated Date
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in allTours | orderBy:sortType:sortReverse | filter:search">
+                    <td><a href="" locid="{{x.id}}" ng-click="populatetoursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deltours(x.id)">Del</a></td>
+                    <td>{{ x["id"] }}</td>
+                    <td>{{ x["order"] }}</td>
+                    <td style="word-wrap:break-word;">{{ x["name"] }}</td>
+                    <td>{{ x["days"] }}</td>
+                    <td>{{ x["nights"] }}</td>
+                    <td>{{ x["price"] | currency }}</td>
+                    <td>{{ x["tourtype"] }}</td>
+                    <td>{{ x["isactive"] }}</td>
+                    <td>{{ x["createdAt"] | date: "short" }}</td>
+                    <td>{{ x["updatedAt"] | date: "short" }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-  </div>
-  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
-  <div ng-show="!(loading)">
-    <table class="table table-hover table-bordered" ng-show="!(error)">
-      <thead>
-        <tr>
-          <th class="fixedWidthTableCol">
-            Action
-          </th>
-          <th>
-            Id
-          </th>
-          <th>
-            <a href="" ng-click="sort('order')">
-              Order
-            </a>
-          </th>
-          <th>
-            <a href="" ng-click="sort('name')">
-              Name
-            </a>
-          </th>
-          <th>
-            <a href="" ng-click="sort('days')">
-              Days
-            </a>
-          </th>
-          <th>
-            <a href="" ng-click="sort('nights')">
-              Night
-            </a>
-          </th>
-          <th>
-            <a href="" ng-click="sort('price')">
-              Price
-            </a>
-          </th>
-          <th>
-            <a href="" ng-click="sort('tourtype')">
-              Tour Type
-            </a>
-          </th>
-          <th>
-            <a href="" ng-click="sort('isactive')">
-              Active
-            </a>
-          </th>
-          <th>
-            <a href="" ng-click="sort('createdAt')">
-              Created Date
-            </a>
-          </th>
-          <th>
-            <a href="" ng-click="sort('updatedAt')">
-              Updated Date
-            </a>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="x in allTours | orderBy:sortType:sortReverse | filter:search">
-          <td><a href="" locid="{{x.id}}" ng-click="populatetoursInstance(x.id)">Edit</a> | <a href="" locid="{{x.id}}" ng-click="deltours(x.id)">Del</a></td>
-          <td>{{ x["id"] }}</td>
-          <td>{{ x["order"] }}</td>
-          <td style="word-wrap:break-word;">{{ x["name"] }}</td>
-          <td>{{ x["days"] }}</td>
-          <td>{{ x["nights"] }}</td>
-          <td>{{ x["price"] | currency }}</td>
-          <td>{{ x["tourtype"] }}</td>
-          <td>{{ x["isactive"] }}</td>
-          <td>{{ x["createdAt"] | date: "short" }}</td>
-          <td>{{ x["updatedAt"] | date: "short" }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 </div>
 
 <!-- New Modal code using angular-ui -->
 <div class="modal-demo">
-  <script type="text/ng-template" id="myModalContent.html">
-    <div class="modal-header">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
             <h5 class="modal-title" id="modal-title">Create/Edit Tour</h5>
         </div>
         <form role="form" method="POST" ng-submit="createUpdatetours();">
@@ -314,7 +314,7 @@
           </div>
         </form>
     </script>
-  <div class="modal-parent">
-  </div>
+    <div class="modal-parent">
+    </div>
 </div>
 <!--Ends----->

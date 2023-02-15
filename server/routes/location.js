@@ -7,7 +7,7 @@ var locationController  = require('../controllers/location');
 
 console.log('In Location route===>');
 router.post('/', locationController.create);
-router.post('/update/', locationController.update);
+router.patch('/update/', locationController.update);
 router.get('/', locationController.show);
 router.get('/getGroupedLocations/', locationController.getGroupedLocations);
 router.get('/getContinents/', locationController.getContinents);

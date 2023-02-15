@@ -8,98 +8,94 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-.controller('authcontroller', function ($scope, $http, $location, $rootScope, $window) {
-      console.log('In Auth controller');
+    .controller('authcontroller', function($scope, $http, $location, $rootScope, $window) {
+        $scope.visibility = {
+            isLoginFormOpen: true,
+            isPasswordResetFormOpen: false,
+            isSignUpFormOpen: false
+        };
 
-      $scope.visibility = {
-        isLoginFormOpen: true,
-        isPasswordResetFormOpen: false,
-        isSignUpFormOpen: false
-      };
+        $scope.userinvalid = false;
 
-      $scope.userinvalid = false;
+        $scope.showForgotPasswordForm = function() {
+            $scope.visibility.isPasswordResetFormOpen = true;
+            $scope.visibility.isLoginFormOpen = false;
+            $scope.visibility.isSignUpFormOpen = false;
+        }
 
-      $scope.showForgotPasswordForm = function(){
-        $scope.visibility.isPasswordResetFormOpen = true;
-        $scope.visibility.isLoginFormOpen = false;
-        $scope.visibility.isSignUpFormOpen = false;
-      }
+        $scope.showLoginForm = function() {
+            $scope.visibility.isPasswordResetFormOpen = false;
+            $scope.visibility.isLoginFormOpen = true;
+            $scope.visibility.isSignUpFormOpen = false;
+        }
 
-      $scope.showLoginForm = function(){
-        $scope.visibility.isPasswordResetFormOpen = false;
-        $scope.visibility.isLoginFormOpen = true;
-        $scope.visibility.isSignUpFormOpen = false;
-      }
+        $scope.showRegistrationForm = function() {
+            $scope.visibility.isPasswordResetFormOpen = false;
+            $scope.visibility.isLoginFormOpen = false;
+            $scope.visibility.isSignUpFormOpen = true;
+        }
 
-      $scope.showRegistrationForm = function(){
-        $scope.visibility.isPasswordResetFormOpen = false;
-        $scope.visibility.isLoginFormOpen = false;
-        $scope.visibility.isSignUpFormOpen = true;
-      }
+        $scope.signUp = function() {
+            $http.post('/api/signup/', $scope.signupdata).then(function(res, err) {
+                if (res.status === 200) {
+                    $rootScope.firstname = res.firstname;
+                }
+            });
+        };
 
-      $scope.signUp = function(){
-        console.log('in Signup function...');
-        $http.post('/api/signup/', $scope.signupdata).then(function(res, err){
-          if(res.status == 200){
-                $rootScope.firstname = res.firstname;
-                console.log($scope.signupdata.firstname + ' Welcome to IndiorTours!!');
-          }
-        });
-      }
+        $scope.signIn = function() {
+          console.log('$scope.signIn===>');
+            $http.post('/api/signin/', $scope.signindata).then(function(res, err) {
+                if (res.status === 200) {
+                    $rootScope.loggedInUser = res.data;
+                    $rootScope.isLoggedIn = true;
+                    $rootScope.isAdminLoggedIn = res.data.type === 'Admin';
+                    $scope.loggedInUser = res.data;
+                    console.log(res);
+                    if (res.data.type === 'Admin') {
+                        $location.path('/admin');
+                    } else {
+                        $location.path('/');
+                    }
 
-      $scope.signIn = function(){
-        console.log('Signing in...');
-        $http.post('/api/signin/', $scope.signindata).then(function(res, err){
-          if(res.status == 200){
-              console.log('Authentication Successful...');
-              $rootScope.loggedInUser = res.data;
-              $rootScope.isLoggedIn = true;
-              $rootScope.isAdminLoggedIn = true;
-              $scope.loggedInUser = res.data;
-              $location.path('/');
-          }
-        }).catch(function(err){
-            console.log(err);
-            console.log('Invalid Username or Password...');
-        });
-      }
+                }
+            }).catch(function(err) {
+                console.log('Invalid Username or Password...');
+                $scope.loginError = "Authentication failed, invalid Username or Password.";
+            });
+        };
 
-      $scope.facebookSignIn = function() {
-        console.log('Signing in...');
-        $window.location.href = '/api/signin/auth/facebook?returnTo=/';
-      }
+        $scope.facebookSignIn = function() {
+            $window.location.href = '/api/signin/auth/facebook?returnTo=/';
+        };
 
-      $scope.forgotPassword = function(){
-        console.log('forgotpassword in...' + $scope.useremail);
-        var config = {
-              headers : {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-              }
-          }
+        $scope.forgotPassword = function() {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            };
 
-          var data = $.param({
+            const data = $.param({
                 email: $scope.useremail
-          });
+            });
 
-        $http.post('/api/users/forgotpassword/', data, config).then(function(res, err){
-          if(res.status == 200){
+            $http.post('/api/users/forgotpassword/', data, config).then(function(res, err) {
+                if (res.status === 200) {
 
-          }
-        }).catch(function(err){
-            console.log(err);
-            console.log('Invalid Username or Password...');
-        });
-      }
+                }
+            }).catch(function(err) {
+                console.log('Invalid Username or Password...');
+            });
+        }
 
-      $scope.logout = function(){
-        console.log('Logging out user...');
-        $http.post('/api/logout/').then(function(res, err){
-          if(res.status == 200){
-              console.log('Logged out...');
-              $window.location.reload();
-          }
-        }).catch(function(err){
-            console.log('Error logging out...');
-        });
-      }
-});
+        $scope.logout = function() {
+            $http.post('/api/logout/').then(function(res, err) {
+                if (res.status === 200) {
+                    $window.location.reload();
+                }
+            }).catch(function(err) {
+                console.log('Error logging out...');
+            });
+        };
+    });

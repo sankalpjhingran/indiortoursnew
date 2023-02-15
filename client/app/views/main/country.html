@@ -8,88 +8,87 @@
 -->
 <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
 <div ng-init="getCountryDetails()">
-  <div ng-show="!(loading)">
-    <h3>
-      {{ countryData.name }}
-    </h3>
-    <span>
-        {{ countryData.description }}
-    </span>
+    <div ng-show="!(loading)">
+        <h3>
+            {{ countryData.name }}
+        </h3>
+        <span>
+            {{ countryData.description }}
+        </span>
 
-    <uib-tabset active="activeJustified" justified="true">
-        <!-- Itineraries Start -->
-        <uib-tab index="1" heading="Popular Itineraries in {{ countryData.name }}" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
-          <div class="row d-flex justify-content-between">
-              <div class="card-deck mx-auto" ng-repeat="tour in popularItineraries">
-                <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
-                  <tour-box tour="tour"></tour-box>
+        <uib-tabset active="activeJustified" justified="true">
+            <!-- Itineraries Start -->
+            <uib-tab index="1" heading="Popular Itineraries in {{ countryData.name }}" select="tabShown = !tabShown" deselect="tabShown = !tabShown">
+                <div class="row d-flex justify-content-between">
+                    <div class="card-deck mx-auto" ng-repeat="tour in popularItineraries">
+                        <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
+                            <tour-box tour="tour"></tour-box>
+                        </div>
+                    </div>
                 </div>
-              </div>
-          </div>
-        </uib-tab>
+            </uib-tab>
 
-        <!-- Itinerary Start -->
-        <uib-tab index="0" heading="Destinations">
+            <!-- Itinerary Start -->
+            <uib-tab index="0" heading="Destinations">
 
-          <uib-accordion close-others="oneAtATime">
-            <div uib-accordion-group class="panel-default mb-2" heading="Regions" is-open="true">
-              <div class="row">
-                  <div class="card-deck mx-2" ng-repeat="region in countryData.regions">
-                      <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
-                        <!-- ng-src="/images/{{tour.images[0].filename}}" -->
-                        <!-- src="https://source.unsplash.com/user/erondu/300x200" -->
-                        <img class="card-img-top" ng-src="/images/{{region.images[0].filename}}" alt="Card image cap">
-                        <div class="card-body" style="padding:.5rem;">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <div class="card-title text-truncate" style="margin-bottom: 0rem;">
-                                <h6 class="pull-left mb-0">
-                                  <a style="text-decoration: none;" href='/region?id={{region.id}}&countryid={{region.country_id}}'>
-                                    {{ region.name | truncate: 20 : '...' : false }}
-                                  </a>
-                                </h6>
-                              </div>
+                <uib-accordion close-others="oneAtATime">
+                    <div uib-accordion-group class="panel-default mb-2" heading="Regions" is-open="true">
+                        <div class="row">
+                            <div class="card-deck mx-2" ng-repeat="region in countryData.regions">
+                                <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
+                                    <!-- ng-src="/images/{{tour.images[0].filename}}" -->
+                                    <!-- src="https://source.unsplash.com/user/erondu/300x200" -->
+                                    <img class="card-img-top" ng-src="/images/{{region.images[0].filename}}" alt="Card image cap">
+                                    <div class="card-body" style="padding:.5rem;">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card-title text-truncate" style="margin-bottom: 0rem;">
+                                                    <h6 class="pull-left mb-0">
+                                                        <a style="text-decoration: none;" href='/region?id={{region.id}}&countryid={{region.country_id}}'>
+                                                            {{ region.name | truncate: 20 : '...' : false }}
+                                                        </a>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                          <div class="row">
-
-                          </div>
                         </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-          </uib-accordion>
+                    </div>
+                </uib-accordion>
 
-          <uib-accordion close-others="oneAtATime">
-            <div uib-accordion-group class="panel-default mb-2" heading="Cities" is-open="true">
-              <div class="row d-flex justify-content-between">
-                  <div class="card-deck mx-auto" ng-repeat="city in countrylocations">
-                      <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
-                        <img class="card-img-top" ng-src="/images/{{city.images[0].filename}}" alt="Card image cap">
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <div class="card-title text-truncate">
-                                <h6 class="pull-left mb-0">
-                                  <a  style="text-decoration: none;"
-                                      href='/city?id={{city.id}}&countryid={{city.country_id}}'>
-                                      {{ city.city | truncate: 20 : '...' : false }}
-                                  </a>
-                                </h6>
-                              </div>
+                <uib-accordion close-others="oneAtATime">
+                    <div uib-accordion-group class="panel-default mb-2" heading="Cities" is-open="true">
+                        <div class="row d-flex justify-content-between">
+                            <div class="card-deck mx-auto" ng-repeat="city in countrylocations">
+                                <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
+                                    <img class="card-img-top" ng-src="/images/{{city.images[0].filename}}" alt="Card image cap">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card-title text-truncate">
+                                                    <h6 class="pull-left mb-0">
+                                                        <a style="text-decoration: none;" href='/city?id={{city.id}}&countryid={{city.country_id}}'>
+                                                            {{ city.city | truncate: 20 : '...' : false }}
+                                                        </a>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                          <div class="row">
-
-                          </div>
                         </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-          </uib-accordion>
-        </uib-tab>
-    </uib-tabset>
-</div>
+                    </div>
+                </uib-accordion>
+            </uib-tab>
+        </uib-tabset>
+    </div>
 </div>

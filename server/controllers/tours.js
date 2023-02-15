@@ -1,214 +1,256 @@
 'use strict';
 
-var models  = require('../models/index');
-var Tour = models.Tour;
-var Location = models.Location;
-var Notes = models.Notes;
-var Hotel = models.Hotel;
-var TourHotel = models.TourHotel;
-var TourLocation = models.TourLocation;
-var Tag = models.Tag;
-var redisClient = require('../config/redis-client');
+const models = require('../models/index');
+const Tour = models.Tour;
+const Location = models.Location;
+const Notes = models.Notes;
+const Hotel = models.Hotel;
+const Tag = models.Tag;
+const redisClient = require('../config/redis-client');
 
-var Sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-module.exports= {
-  //Get a list of all authors using model.findAll()
-  sync(){
-      Tour.sync();
-  },
+module.exports = {
+    //Get a list of all authors using model.findAll()
+    sync() {
+        Tour.sync();
+    },
 
-  index(req, res) {
-    console.log('Calling index method...');
-    Tour.findAll({
-      order: [
-              ['createdAt', 'DESC'],
-      ],
-      attributes: ['id', 'name', 'price', 'offerprice']
-    })
-      .then(function (authors) {
-        res.status(200).json(authors);
-      })
-      .catch(function (error) {
-        console.log(error);
-        res.status(500).json(error);
-      });
-  },
+    index(req, res) {
+        console.log('Calling index method...');
+        Tour.findAll({
+                order: [
+                    ['createdAt', 'DESC'],
+                ],
+                attributes: ['id', 'name', 'price', 'offerprice']
+            })
+            .then(function(authors) {
+                res.status(200).json(authors);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
+            });
+    },
 
-  getToursForRegion(req, res){
+    getToursForRegion(req, res) {
         let queryVars = req.query;
         Tour.findAll({
-          where: {id : queryVars.id},
-          include: [
-            { association : 'siteLocation', attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation'] }
-          ]
-          })
-          .then(function (authors) {
-            res.status(200).json(authors);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
-          });
-  },
+                where: {
+                    id: queryVars.id
+                },
+                include: [{
+                    association: 'siteLocation',
+                    attributes: ['id', 'city', 'state', 'country', 'continent', 'latitude', 'longitude', 'elevation']
+                }]
+            })
+            .then(function(authors) {
+                res.status(200).json(authors);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
+            });
+    },
 
-  getTourWithLocations(req, res){
+    getTourWithLocations(req, res) {
         let queryVars = req.query;
         Tour.findAll({
-          where: {id : queryVars.id},
-          include: [{ association : 'siteLocation' }]
-          })
-          .then(function (authors) {
-            res.status(200).json(authors);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
-          });
-  },
+                where: {
+                    id: queryVars.id
+                },
+                include: [{
+                    association: 'siteLocation'
+                }]
+            })
+            .then(function(authors) {
+                res.status(200).json(authors);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
+            });
+    },
 
-  getAllToursWithItineraries(req, res){
+    getAllToursWithItineraries(req, res) {
         Tour.findAll({
-          order: [
-                  ['createdAt', 'DESC'],
-          ],
-          include: [{ association : 'itinerary'}]
-          })
-          .then(function (authors) {
-            res.status(200).json(authors);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
-          });
-  },
+                order: [
+                    ['createdAt', 'DESC'],
+                ],
+                include: [{
+                    association: 'itinerary'
+                }]
+            })
+            .then(function(authors) {
+                res.status(200).json(authors);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
+            });
+    },
 
-  getAllToursWithCosts(req, res){
+    getAllToursWithCosts(req, res) {
         Tour.findAll({
-          order: [
-                  ['createdAt', 'DESC'],
-          ],
-          include: [{ association : 'tourcost'}]
-          })
-          .then(function (authors) {
-            res.status(200).json(authors);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
-          });
-  },
+                order: [
+                    ['createdAt', 'DESC'],
+                ],
+                include: [{
+                    association: 'tourcost'
+                }]
+            })
+            .then(function(authors) {
+                res.status(200).json(authors);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
+            });
+    },
 
-  getTourWithRelatedItineraries(req, res){
+    getTourWithRelatedItineraries(req, res) {
         let queryVars = req.query;
 
         redisClient.get('getTourWithRelatedItineraries:' + queryVars.id, function(error, tours) {
-            if (error) {throw error;}
-            if(tours) {
-              console.log('Available in cache so not querying again');
-              res.status(200).json(tours);
+            if (error) {
+                console.log('Error1====>', error);
+                throw error;
+            }
+            if (tours) {
+                console.log('Available in cache so not querying again');
+                res.status(200).json(tours);
             } else {
-              Tour.findAll({
-                where   : {id : queryVars.id},
-                include : [ { association : 'itinerary' }, { association : 'siteLocation', attributes: ['id', 'city']  } ]
-              })
-              .then(function (authors) {
-                console.log('Not available in cache so will set in cache first');
-                redisClient.set('getTourWithRelatedItineraries:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
-                  if (error) {throw error;}
-                });
-                res.status(200).json(authors);
-              })
-              .catch(function (error) {
-                console.log(error);
-                res.status(500).json(error);
-              })
+                Tour.findAll({
+                        where: {
+                            id: queryVars.id
+                        },
+                        include: [{
+                            association: 'itinerary'
+                        }, {
+                            association: 'siteLocation',
+                            attributes: ['id', 'city']
+                        }]
+                    })
+                    .then(function(authors) {
+                        console.log('Not available in cache so will set in cache first');
+                        redisClient.set('getTourWithRelatedItineraries:' + queryVars.id, JSON.stringify(authors), 'EX', 10 * 50, function(error) {
+                            if (error) {
+                                throw error;
+                            }
+                        });
+                        console.log(authors);
+                        res.status(200).json(authors);
+                    })
+                    .catch(function(error) {
+                        console.log('Error====>', error);
+                        res.status(500).json(error);
+                    })
             }
         });
-  },
+    },
 
-  getTourWithRelatedLocations(req, res){
+    getTourWithRelatedLocations(req, res) {
         let queryVars = req.query;
 
         redisClient.get('getTourWithRelatedLocations:' + queryVars.id, function(error, tours) {
-            if (error) {throw error;}
-            if(tours) {
-              console.log('Available in cache so not querying again');
-              res.status(200).json(tours);
+            if (error) {
+                throw error;
+            }
+            if (tours) {
+                console.log('Available in cache so not querying again');
+                res.status(200).json(tours);
             } else {
-              Tour.findAll({
-                where   : {id : queryVars.id},
-                include : [ { association : 'siteLocation' } ]
-              })
-              .then(function (authors) {
-                console.log('Not available in cache so will set in cache first');
-                redisClient.set('getTourWithRelatedLocations:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
-                  if (error) {throw error;}
-                });
-                res.status(200).json(authors);
-              })
-              .catch(function (error) {
-                console.log(error);
-                res.status(500).json(error);
-              })
+                Tour.findAll({
+                        where: {
+                            id: queryVars.id
+                        },
+                        include: [{
+                            association: 'siteLocation'
+                        }]
+                    })
+                    .then(function(authors) {
+                        console.log('Not available in cache so will set in cache first');
+                        redisClient.set('getTourWithRelatedLocations:' + queryVars.id, JSON.stringify(authors), 'EX', 10 * 50, function(error) {
+                            if (error) {
+                                throw error;
+                            }
+                        });
+                        res.status(200).json(authors);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        res.status(500).json(error);
+                    })
             }
         });
-  },
+    },
 
-  getTourWithRelatedHotels(req, res){
+    getTourWithRelatedHotels(req, res) {
         let queryVars = req.query;
 
         redisClient.get('getTourWithRelatedHotels:' + queryVars.id, function(error, tours) {
-            if (error) {throw error;}
-            if(tours) {
-              console.log('Available in cache so not querying again');
-              res.status(200).json(JSON.parse(tours));
+            if (error) {
+                throw error;
+            }
+            if (tours) {
+                console.log('Available in cache so not querying again');
+                res.status(200).json(JSON.parse(tours));
             } else {
-              Tour.findAll({
-                where   : {id : queryVars.id},
-                include : [ { association : 'accomodationHotel' } ]
-              })
-              .then(function (authors) {
-                console.log('Not available in cache so will set in cache first');
-                redisClient.set('getTourWithRelatedHotels:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
-                  if (error) {throw error;}
-                });
-                res.status(200).json(authors);
-              })
-              .catch(function (error) {
-                console.log(error);
-                res.status(500).json(error);
-              })
+                Tour.findAll({
+                        where: {
+                            id: queryVars.id
+                        },
+                        include: [{
+                            association: 'accomodationHotel'
+                        }]
+                    })
+                    .then(function(authors) {
+                        console.log('Not available in cache so will set in cache first');
+                        redisClient.set('getTourWithRelatedHotels:' + queryVars.id, JSON.stringify(authors), 'EX', 10 * 50, function(error) {
+                            if (error) {
+                                throw error;
+                            }
+                        });
+                        res.status(200).json(authors);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        res.status(500).json(error);
+                    })
             }
         });
-  },
+    },
 
-  getTourWithRelatedCosts(req, res){
+    getTourWithRelatedCosts(req, res) {
         let queryVars = req.query;
 
         //redisClient.get('getTourWithRelatedCosts:' + queryVars.id, function(error, tours) {
-            //if (error) {throw error;}
-            //if(tours) {
-            //  console.log('Available in cache so not querying again');
-            //  res.status(200).json(JSON.parse(tours));
-            //} else {
-              Tour.findAll({
-                where   : {id : queryVars.id},
-                include : [ { association : 'tourcost' } ]
-              })
-              .then(function (authors) {
+        //if (error) {throw error;}
+        //if(tours) {
+        //  console.log('Available in cache so not querying again');
+        //  res.status(200).json(JSON.parse(tours));
+        //} else {
+        Tour.findAll({
+                where: {
+                    id: queryVars.id
+                },
+                include: [{
+                    association: 'tourcost'
+                }]
+            })
+            .then(function(authors) {
                 console.log('Not available in cache so will set in cache first');
                 res.status(200).json(authors);
-              })
-              .catch(function (error) {
+            })
+            .catch(function(error) {
                 console.log(error);
                 res.status(500).json(error);
-              })
+            })
         //});
-  },
+    },
 
-  getTourWithRelatedDepartureDates(req, res){
+    getTourWithRelatedDepartureDates(req, res) {
         let queryVars = req.query;
 
         /*
@@ -219,433 +261,549 @@ module.exports= {
               res.status(200).json(JSON.parse(tours));
             } else {
         */
-              Tour.findAll({
-                where   : {id : queryVars.id},
-                include : [ { association : 'departuredates' } ]
-              })
-              .then(function (authors) {
+        Tour.findAll({
+                where: {
+                    id: queryVars.id
+                },
+                include: [{
+                    association: 'departuredates'
+                }]
+            })
+            .then(function(authors) {
                 console.log('Not available in cache so will set in cache first');
-                redisClient.set('getTourWithRelatedDepartureDates:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
-                  if (error) {throw error;}
+                redisClient.set('getTourWithRelatedDepartureDates:' + queryVars.id, JSON.stringify(authors), 'EX', 10 * 50, function(error) {
+                    if (error) {
+                        throw error;
+                    }
                 });
                 res.status(200).json(authors);
-              })
-              .catch(function (error) {
+            })
+            .catch(function(error) {
                 console.log(error);
                 res.status(500).json(error);
-              })
-            //}
+            })
+        //}
         //});
-  },
+    },
 
-  getTourWithRelatedNotes(req, res){
+    getTourWithRelatedNotes(req, res) {
         let queryVars = req.query;
 
         redisClient.get('getTourWithRelatedNotes:' + queryVars.id, function(error, tours) {
-            if (error) {throw error;}
-            if(tours) {
-              console.log('Available in cache so not querying again');
-              res.status(200).json(JSON.parse(tours));
+            if (error) {
+                throw error;
+            }
+            if (tours) {
+                console.log('Available in cache so not querying again');
+                res.status(200).json(JSON.parse(tours));
             } else {
-              Tour.findAll({
-                where   : {id : queryVars.id},
-                include : [ { association : 'tourNote' } ]
-              })
-              .then(function (authors) {
-                console.log('Not available in cache so will set in cache first');
-                redisClient.set('getTourWithRelatedNotes:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
-                  if (error) {throw error;}
-                });
-                res.status(200).json(authors);
-              })
-              .catch(function (error) {
-                console.log(error);
-                res.status(500).json(error);
-              })
+                Tour.findAll({
+                        where: {
+                            id: queryVars.id
+                        },
+                        include: [{
+                            association: 'tourNote'
+                        }]
+                    })
+                    .then(function(authors) {
+                        console.log('Not available in cache so will set in cache first');
+                        redisClient.set('getTourWithRelatedNotes:' + queryVars.id, JSON.stringify(authors), 'EX', 10 * 50, function(error) {
+                            if (error) {
+                                throw error;
+                            }
+                        });
+                        res.status(200).json(authors);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        res.status(500).json(error);
+                    })
             }
         });
-  },
+    },
 
-  getTourWithRelatedModels(req, res){
+    getTourWithRelatedModels(req, res) {
         let queryVars = req.query;
 
         redisClient.get('getTourWithRelatedModels:' + queryVars.id, function(error, tours) {
-            if (error) {throw error;}
-            if(tours) {
-              console.log('Available in cache so not querying again');
-              res.status(200).json(JSON.parse(tours));
+            if (error) {
+                throw error;
+            }
+            if (tours) {
+                console.log('Available in cache so not querying again');
+                res.status(200).json(JSON.parse(tours));
             } else {
-              Tour.findAll({
-                where   : {id : queryVars.id},
-                include : [ { association : 'siteLocation' },
-                            { association : 'accomodationHotel' },
-                            { association : 'tourcost' },
-                            { association : 'itinerary' },
-                            { association : 'tourNote' },
-                            { association : 'departuredates' }]
-              })
-              .then(function (authors) {
-                console.log('Not available in cache so will set in cache first');
-                redisClient.set('getTourWithRelatedModels:' + queryVars.id, JSON.stringify(authors), 'EX', 10*50, function (error) {
-                  if (error) {throw error;}
-                });
-                res.status(200).json(authors);
-              })
-              .catch(function (error) {
-                console.log(error);
-                res.status(500).json(error);
-              })
+                Tour.findAll({
+                        where: {
+                            id: queryVars.id
+                        },
+                        include: [{
+                                association: 'siteLocation'
+                            },
+                            {
+                                association: 'accomodationHotel'
+                            },
+                            {
+                                association: 'tourcost'
+                            },
+                            {
+                                association: 'itinerary'
+                            },
+                            {
+                                association: 'tourNote'
+                            },
+                            {
+                                association: 'departuredates'
+                            }
+                        ]
+                    })
+                    .then(function(authors) {
+                        console.log('Not available in cache so will set in cache first');
+                        redisClient.set('getTourWithRelatedModels:' + queryVars.id, JSON.stringify(authors), 'EX', 10 * 50, function(error) {
+                            if (error) {
+                                throw error;
+                            }
+                        });
+                        res.status(200).json(authors);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        res.status(500).json(error);
+                    })
             }
         });
-  },
+    },
 
-  getAllToursWithLocations(req, res){
-          redisClient.get('getAllToursWithLocations:', function(error, tours) {
-              if (error) {throw error;}
+    getAllToursWithLocations(req, res) {
+        redisClient.get('getAllToursWithLocations:', function(error, tours) {
+            if (error) {
+                throw error;
+            }
 
-              if(tours) {
+            if (tours) {
                 console.log('Available in cache so not querying again');
                 res.status(200).json(tours);
-              } else {
+            } else {
                 Tour.findAll({
-                  where: { showonhomepage: true, isactive : true },
-                  limit: 21,
-                  order: [
-                    Sequelize.fn('isnull', Sequelize.col('order')),
-                    ['order', 'ASC']
-                ],
-                  attributes: ['id', 'order', 'name', 'slug', 'tourtype', 'days', 'nights', 'price', 'offerprice', 'ismicetour', 'micecategory', 'isactive', 'showonhomepage'],
-                  include: [{ association : 'siteLocation', attributes: ['id', 'city', 'state', 'country'] }]
-                })
-                .then(function (authors) {
-                  console.log('Not available in cache so will set in cache first');
-                  redisClient.set('getAllToursWithLocations:', JSON.stringify(authors), 'EX', 10*60, function (error) {
-                    if (error) {throw error;}
-                  });
-                  res.status(200).json(JSON.stringify(authors));
-                })
-                .catch(function (error) {
-                  console.log(error);
-                  res.status(500).json(error);
-                })
-              }
-          });
-  },
+                        where: {
+                            showonhomepage: true,
+                            isactive: true
+                        },
+                        limit: 21,
+                        order: [
+                            Sequelize.fn('isnull', Sequelize.col('order')),
+                            ['order', 'ASC']
+                        ],
+                        attributes: ['id', 'order', 'name', 'slug', 'tourtype', 'days', 'nights', 'price', 'offerprice', 'ismicetour', 'micecategory', 'isactive', 'showonhomepage'],
+                        include: [{
+                            association: 'siteLocation',
+                            attributes: ['id', 'city', 'state', 'country']
+                        }]
+                    })
+                    .then(function(authors) {
+                        console.log('Not available in cache so will set in cache first');
+                        redisClient.set('getAllToursWithLocations:', JSON.stringify(authors), 'EX', 10 * 60, function(error) {
+                            if (error) {
+                                throw error;
+                            }
+                        });
+                        res.status(200).json(JSON.stringify(authors));
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        res.status(500).json(error);
+                    })
+            }
+        });
+    },
 
-  searchAllToursWithLocations(req, res){
+    searchAllToursWithLocations(req, res) {
         let queryVars = req.query;
         console.log('Request Query Vars====> ');
         console.log(queryVars);
         Tour.findAll({
-          where: { [Op.or]: {id: queryVars.id, name: queryVars.name}},
-          include: [{ association : 'siteLocation', where: { [Op.or]: { city : queryVars.location, city: {[Op.ne]:null} }}}]
-          })
-          .then(function (authors) {
-            res.status(200).json(authors);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
-          });
-  },
+                where: {
+                    [Op.or]: {
+                        id: queryVars.id,
+                        name: queryVars.name
+                    }
+                },
+                include: [{
+                    association: 'siteLocation',
+                    where: {
+                        [Op.or]: {
+                            city: queryVars.location,
+                            city: {
+                                [Op.ne]: null
+                            }
+                        }
+                    }
+                }]
+            })
+            .then(function(authors) {
+                res.status(200).json(authors);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
+            });
+    },
 
-  search(req, res){
-    
-    const searchKey = req.query.key.toLowerCase();
-    console.log('Request Query Vars for Search====> ', searchKey);
+    search(req, res) {
 
-    Tour.findAll({
-      where: { [Op.or]: {name: searchKey}},
-      include: [{ association : 'siteLocation'}]
-      })
-      .then(function (authors) {
-        res.status(200).json(authors);
-      })
-      .catch(function (error) {
-        console.log(error);
-        res.status(500).json(error);
-      });
-},
+        const searchKey = req.query.key.toLowerCase();
+        console.log('Request Query Vars for Search====> ', searchKey);
 
-  getAllToursWithLocationsAndHotels(req, res){
+        Tour.findAll({
+                where: {
+                    [Op.or]: {
+                        name: searchKey
+                    }
+                },
+                include: [{
+                    association: 'siteLocation'
+                }]
+            })
+            .then(function(authors) {
+                res.status(200).json(authors);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
+            });
+    },
+
+    getAllToursWithLocationsAndHotels(req, res) {
         let queryVars = req.query;
         console.log(queryVars);
         Tour.findAll({
-            include: [
-              { association : 'siteLocation', attributes: ['id', 'city'] }, 
-              { association: 'accomodationHotel', attributes: ['id', 'name'] }, 
-              { association: 'tourNote', attributes: ['id', 'name'] }
-            ],
-            order: [['createdAt', 'DESC']]
-          })
-          .then(function (authors) {
-            res.status(200).json(authors);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.status(500).json(error);
-          });
-  },
+                include: [{
+                        association: 'siteLocation',
+                        attributes: ['id', 'city']
+                    },
+                    {
+                        association: 'accomodationHotel',
+                        attributes: ['id', 'name']
+                    },
+                    {
+                        association: 'tourNote',
+                        attributes: ['id', 'name']
+                    }
+                ],
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
+            .then(function(authors) {
+                res.status(200).json(authors);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
+            });
+    },
 
-  showByName(req, res) {
-    console.log('Calling index method...');
-    let queryVars = req.query;
-    //console.log(Op);
-    Tour.findAll({ where: {
-                          name : queryVars.name
-                        }
-                      })
-      .then(function (authors) {
-        res.status(200).json(authors);
-      })
-      .catch(function (error) {
-        console.log(error);
-        res.status(500).json(error);
-      });
-  },
-
-  //Get an author by the unique ID using model.findById()
-  show(req, res) {
-    Tour.findByPk(req.query.tourid, {})
-    .then(function (author) {
-      res.status(200).json(author);
-    })
-    .catch(function (error){
-      res.status(500).json(error);
-    });
-  },
-
-  //Create a new author using model.create()
-  create(req, res) {
-    console.log('req.body====>');
-    Tour.create(
-      req.body,
-      {
-        include: [{ association : 'siteLocation' }, { association : 'accomodationHotel' }, {association: 'tourNote'}, {association: 'tourTags'} ],
-        individualHooks: true
-      }
-    )
-    .then(function(tourInstance){
-
-      if(req.body.notes && req.body.notes.length){
-          let noteids = [];
-          req.body.notes.forEach(function(note){
-            noteids.push({id:note.id});
-          });
-
-          console.log('Calling Note.findAll');
-          Notes.findAll({
-            where: {
-              [Op.or]: noteids
-            }
-          }).then(function(noteInst){
-                console.log('Note Instance====>');
-                tourInstance.setTourNote(noteInst);
-          });
-      }else{
-        tourInstance.setTourNote([]);
-      }
-
-      if(req.body.locations && req.body.locations.length){
-          console.log(req.body.locations);
-          let locationids = [];
-          req.body.locations.forEach(function(location){
-            locationids.push({id:location.id});
-          });
-
-          Location.findAll({
-            where: {
-              [Op.or]: locationids
-            }
-          }).then(function(locationInst){
-                console.log('Location Instance====>');
-                tourInstance.setSiteLocation(locationInst);
-          });
-      }else{
-          tourInstance.setSiteLocation([]);
-      }
-
-      if(req.body.hotels && req.body.hotels.length){
-          let hotelIds = [];
-          req.body.hotels.forEach(function(hotel){
-            hotelIds.push({id:hotel.id});
-          });
-
-          Hotel.findAll({
-            where: {
-              [Op.or]: hotelIds
-            }
-          }).then(function(hotels){
-                tourInstance.setAccomodationHotel(hotels);
-          });
-      }else{
-          tourInstance.setAccomodationHotel([]);
-      }
-
-      if(req.body.tags && req.body.tags.length){
-          let tagIds = [];
-          let newTags = [];
-
-          req.body.tags.forEach(function(tag){
-              if(tag.id){
-                  tagIds.push({id:tag.id});
-              }else {
-                  newTags.push({name:tag});
-              }
-          });
-
-          Tag.bulkCreate(newTags).then(function(TagInstances){
-              TagInstances.forEach(function(TagInstance){
-                  tagIds.push({id:TagInstance.id});
-              });
-
-              Tag.findAll({
+    showByName(req, res) {
+        console.log('Calling index method...');
+        let queryVars = req.query;
+        //console.log(Op);
+        Tour.findAll({
                 where: {
-                  [Op.or]: tagIds
+                    name: queryVars.name
                 }
-              }).then(function(tags){
-                    tourInstance.setTourTags(tags);
-              });
-          })
-          .catch(function (error){
-            res.status(500).json(error);
-          })
-      }else {
-          tourInstance.setTourTags([]);
-      }
-      res.status(200).json(tourInstance);
-    })
-    .catch(function (error){
-      console.log(error);
-      res.status(500).json(error);
-    })
-  },
-
-  //Edit an existing author details using model.update()
-  update(req, res) {
-    console.log('update req====>', req.body);
-    Tour.update(req.body, {
-      where: {
-        id: req.body.id
-      },
-      individualHooks: true
-    })
-    .then(function (updatedRecords) {
-      Tour.findByPk(req.body.id, {include: [{ association : 'siteLocation' }, { association : 'accomodationHotel' }, {association: 'tourNote'}, {association: 'tourTags'}]})
-      .then(function (updatedTour) {
-        console.log('Updated Tour is===> ');
-
-        if(req.body.notes.length){
-            let noteids = [];
-            req.body.notes.forEach(function(note){
-              noteids.push({id:note.id});
+            })
+            .then(function(authors) {
+                res.status(200).json(authors);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
             });
+    },
 
-            console.log('Calling Note.findAll');
-            Notes.findAll({
-              where: {
-                [Op.or]: noteids
-              }
-            }).then(function(noteInst){
-                  console.log('Note Instance====>');
-                  updatedTour.setTourNote(noteInst);
+    //Get an author by the unique ID using model.findById()
+    show(req, res) {
+        Tour.findByPk(req.query.tourid, {})
+            .then(function(author) {
+                res.status(200).json(author);
+            })
+            .catch(function(error) {
+                res.status(500).json(error);
             });
-        }else{
-            updatedTour.setTourNote([]);
-        }
+    },
 
-        if(req.body.locations.length){
-            let locationids = [];
-            req.body.locations.forEach(function(location){
-              locationids.push({id:location.id});
-            });
-
-            Location.findAll({
-              where: {
-                [Op.or]: locationids
-              }
-            }).then(function(locationInst){
-                  updatedTour.setSiteLocation(locationInst);
-            });
-        }else{
-            updatedTour.setSiteLocation([]);
-        }
-
-
-        if(req.body.hotels.length){
-            let hotelIds = [];
-            req.body.hotels.forEach(function(hotel){
-              hotelIds.push({id:hotel.id});
-            });
-
-            Hotel.findAll({
-              where: {
-                [Op.or]: hotelIds
-              }
-            }).then(function(hotels){
-                  updatedTour.setAccomodationHotel(hotels);
-            });
-        }else{
-            updatedTour.setAccomodationHotel([]);
-        }
-
-        if(req.body.tags && req.body.tags.length){
-            let tagIds = [];
-            let newTags = [];
-
-            req.body.tags.forEach(function(tag){
-                if(tag.id){
-                    tagIds.push({id:tag.id});
-                }else {
-                    newTags.push({name:tag});
+    //Create a new author using model.create()
+    create(req, res) {
+        console.log('req.body====>');
+        Tour.create(
+                req.body, {
+                    include: [{
+                        association: 'siteLocation'
+                    }, {
+                        association: 'accomodationHotel'
+                    }, {
+                        association: 'tourNote'
+                    }, {
+                        association: 'tourTags'
+                    }],
+                    individualHooks: true
                 }
+            )
+            .then(function(tourInstance) {
+                if (req.body.notes && req.body.notes.length) {
+                    let noteids = [];
+                    req.body.notes.forEach(function(note) {
+                        noteids.push({
+                            id: note.id
+                        });
+                    });
+
+                    console.log('Calling Note.findAll');
+                    Notes.findAll({
+                        where: {
+                            [Op.or]: noteids
+                        }
+                    }).then(function(noteInst) {
+                        console.log('Note Instance====>');
+                        tourInstance.setTourNote(noteInst);
+                    });
+                } else {
+                    tourInstance.setTourNote([]);
+                }
+
+                if (req.body.locations && req.body.locations.length) {
+                    console.log(req.body.locations);
+                    let locationids = [];
+                    req.body.locations.forEach(function(location) {
+                        locationids.push({
+                            id: location.id
+                        });
+                    });
+
+                    Location.findAll({
+                        where: {
+                            [Op.or]: locationids
+                        }
+                    }).then(function(locationInst) {
+                        console.log('Location Instance====>');
+                        tourInstance.setSiteLocation(locationInst);
+                    });
+                } else {
+                    tourInstance.setSiteLocation([]);
+                }
+
+                if (req.body.hotels && req.body.hotels.length) {
+                    let hotelIds = [];
+                    req.body.hotels.forEach(function(hotel) {
+                        hotelIds.push({
+                            id: hotel.id
+                        });
+                    });
+
+                    Hotel.findAll({
+                        where: {
+                            [Op.or]: hotelIds
+                        }
+                    }).then(function(hotels) {
+                        tourInstance.setAccomodationHotel(hotels);
+                    });
+                } else {
+                    tourInstance.setAccomodationHotel([]);
+                }
+
+                if (req.body.tags && req.body.tags.length) {
+                    let tagIds = [];
+                    let newTags = [];
+
+                    req.body.tags.forEach(function(tag) {
+                        if (tag.id) {
+                            tagIds.push({
+                                id: tag.id
+                            });
+                        } else {
+                            newTags.push({
+                                name: tag
+                            });
+                        }
+                    });
+
+                    Tag.bulkCreate(newTags).then(function(TagInstances) {
+                            TagInstances.forEach(function(TagInstance) {
+                                tagIds.push({
+                                    id: TagInstance.id
+                                });
+                            });
+
+                            Tag.findAll({
+                                where: {
+                                    [Op.or]: tagIds
+                                }
+                            }).then(function(tags) {
+                                tourInstance.setTourTags(tags);
+                            });
+                        })
+                        .catch(function(error) {
+                            res.status(500).json(error);
+                        })
+                } else {
+                    tourInstance.setTourTags([]);
+                }
+                res.status(200).json(tourInstance);
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
+            })
+    },
+
+    //Edit an existing author details using model.update()
+    update(req, res) {
+        console.log('update req====>', req.body);
+        Tour.update(req.body, {
+                where: {
+                    id: req.body.id
+                },
+                individualHooks: true
+            })
+            .then(function(updatedRecords) {
+                console.log('updatedRecords===> ' + updatedRecords);
+                Tour.findByPk(req.body.id, {
+                        include: [{
+                            association: 'siteLocation'
+                        }, {
+                            association: 'accomodationHotel'
+                        }, {
+                            association: 'tourNote'
+                        }, {
+                            association: 'tourTags'
+                        }]
+                    })
+                    .then(function(updatedTour) {
+                        console.log('Updated Tour is===> ');
+
+                        if (req.body.notes.length) {
+                            let noteids = [];
+                            req.body.notes.forEach(function(note) {
+                                noteids.push({
+                                    id: note.id
+                                });
+                            });
+
+                            console.log('Calling Note.findAll');
+                            Notes.findAll({
+                                where: {
+                                    [Op.or]: noteids
+                                }
+                            }).then(function(noteInst) {
+                                console.log('Note Instance====>');
+                                updatedTour.setTourNote(noteInst);
+                            });
+                        } else {
+                            updatedTour.setTourNote([]);
+                        }
+
+                        if (req.body.locations.length) {
+                            let locationids = [];
+                            req.body.locations.forEach(function(location) {
+                                locationids.push({
+                                    id: location.id
+                                });
+                            });
+
+                            Location.findAll({
+                                where: {
+                                    [Op.or]: locationids
+                                }
+                            }).then(function(locationInst) {
+                                updatedTour.setSiteLocation(locationInst);
+                            });
+                        } else {
+                            updatedTour.setSiteLocation([]);
+                        }
+
+
+                        if (req.body.hotels.length) {
+                            let hotelIds = [];
+                            req.body.hotels.forEach(function(hotel) {
+                                hotelIds.push({
+                                    id: hotel.id
+                                });
+                            });
+
+                            Hotel.findAll({
+                                where: {
+                                    [Op.or]: hotelIds
+                                }
+                            }).then(function(hotels) {
+                                updatedTour.setAccomodationHotel(hotels);
+                            });
+                        } else {
+                            updatedTour.setAccomodationHotel([]);
+                        }
+
+                        if (req.body.tags && req.body.tags.length) {
+                            let tagIds = [];
+                            let newTags = [];
+
+                            req.body.tags.forEach(function(tag) {
+                                if (tag.id) {
+                                    tagIds.push({
+                                        id: tag.id
+                                    });
+                                } else {
+                                    newTags.push({
+                                        name: tag
+                                    });
+                                }
+                            });
+
+                            Tag.bulkCreate(newTags).then(function(TagInstances) {
+                                    TagInstances.forEach(function(TagInstance) {
+                                        tagIds.push({
+                                            id: TagInstance.id
+                                        });
+                                    });
+
+                                    Tag.findAll({
+                                        where: {
+                                            [Op.or]: tagIds
+                                        }
+                                    }).then(function(tags) {
+                                        updatedTour.setTourTags(tags);
+                                    });
+                                })
+                                .catch(function(error) {
+                                    res.status(500).json(error);
+                                })
+                        } else {
+                            updatedTour.setTourTags([]);
+                        }
+
+                    });
+
+                res.status(200).json(updatedRecords);
+
+            })
+            .catch(function(error) {
+                console.log(error);
+                res.status(500).json(error);
             });
+    },
 
-            Tag.bulkCreate(newTags).then(function(TagInstances){
-                TagInstances.forEach(function(TagInstance){
-                    tagIds.push({id:TagInstance.id});
-                });
-
-                Tag.findAll({
-                  where: {
-                    [Op.or]: tagIds
-                  }
-                }).then(function(tags){
-                      updatedTour.setTourTags(tags);
-                });
+    //Delete an existing author by the unique ID using model.destroy()
+    delete(req, res) {
+        let queryVars = req.query;
+        Tour.destroy({
+                where: {
+                    id: queryVars.id
+                },
+                individualHooks: true
             })
-            .catch(function (error){
-              res.status(500).json(error);
+            .then(function(deletedRecords) {
+                res.status(200).json(deletedRecords);
             })
-        }else {
-            updatedTour.setTourTags([]);
-        }
-
-      });
-
-      res.status(200).json(updatedRecords);
-
-    })
-    .catch(function (error){
-      console.log(error);
-      res.status(500).json(error);
-    });
-  },
-
-  //Delete an existing author by the unique ID using model.destroy()
-  delete(req, res) {
-    let queryVars = req.query;
-    Tour.destroy({
-      where: {
-        id: queryVars.id
-      },
-      individualHooks: true
-    })
-    .then(function (deletedRecords) {
-      res.status(200).json(deletedRecords);
-    })
-    .catch(function (error){
-      res.status(500).json(error);
-    });
-  }
+            .catch(function(error) {
+                res.status(500).json(error);
+            });
+    }
 };

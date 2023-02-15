@@ -1,4 +1,4 @@
-var isAuthenticated = function(req, res, next) {
+const isAuthenticated = function (req, res, next) {
   if (!req.isAuthenticated || !req.isAuthenticated()) {
     res.status(401).send({
       success: false,
@@ -7,5 +7,7 @@ var isAuthenticated = function(req, res, next) {
   } else {
     next();
   }
-}
+};
+
 module.exports isAuthenticated;
+

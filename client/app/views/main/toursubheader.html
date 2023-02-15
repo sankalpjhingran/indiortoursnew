@@ -1,13 +1,13 @@
 <div class="col-sm-12 carouselCol hidden-xs pl-0 pr-0" ng-init="allImagesForTour()" style="margin-top: -10px;">
-  <div style="height:400px;">
-    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides" class="carousel-fade d-none d-lg-block">
-      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-        <img ng-src="{{slide.image}}" style="margin:auto;">
-        <div class="carousel-caption">
-          <h4>Slide {{slide.id}}</h4>
-          <p>{{slide.text}}</p>
+    <div style="height:400px;">
+        <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides" class="carousel-fade d-none d-lg-block">
+            <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+                <img ng-src="{{slide.image}}" style="margin:auto;">
+                <div class="carousel-caption">
+                    <h4>Slide {{slide.id}}</h4>
+                    <p>{{slide.text}}</p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

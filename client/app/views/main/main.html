@@ -1,26 +1,26 @@
 <div ng-init="allToursWithLocations()" translate-namespace="INDIOR">
-  <h3 translate>
-    .MAIN.HEADING
-  </h3>
-  <p class="main" translate>
-    .MAIN.SUBHEADING
-  </p>
-  <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
+    <h3 translate>
+        .MAIN.HEADING
+    </h3>
+    <p class="main" translate>
+        .MAIN.SUBHEADING
+    </p>
+    <div ng-class="{'loader': loading, 'notLoading': !loading}" id="loadingSpinner">Loading...</div>
     <div ng-show="!(loading)">
-      <div class="row">
-          <div class="card-deck mx-2" ng-repeat="tour in allTours">
-              <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
-                <tour-box tour="tour"></tour-box>
-              </div>
-          </div>
-      </div>
+        <div class="row">
+            <div class="card-deck mx-2" ng-repeat="tour in allTours">
+                <div class="card m-2" style="min-width: 21.5rem; max-width: 21.5rem;">
+                    <tour-box tour="tour"></tour-box>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <!-- Tour Enquiry Modal begins -->
 <div class="modal-demo">
-  <script type="text/ng-template" id="myModalContent.html">
-      <div class="alert alert-success alert-dismissible fade in" ng-show="showSuccessBanner">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="alert alert-success alert-dismissible fade in" ng-show="showSuccessBanner">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Success!</strong> Enquiry submitted, thanks!
       </div>
@@ -118,111 +118,101 @@
         </div>
       </form>
   </script>
-  <div class="modal-parent"></div>
+    <div class="modal-parent"></div>
 </div>
 
-
 <div class="modal-booking">
-  <script type="text/ng-template" id="bookingModal.html">
-      <!--
+    <script type="text/ng-template" id="bookingModal.html">
+        <!--
       <div class="alert alert-success alert-dismissible fade in" ng-show="showSuccessBanner">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Success!</strong> Enquiry submitted, thanks!
       </div>
       -->
-      <div class="modal-header">
-          <h3 class="modal-title" id="modal-title">Booking</h3>
-          <h5>{{ tourName }} | Starting from <currency-direc price="{{tourPrice}}"></currency-direc> | {{ tourDays }} Days</h5>
-      </div>
-      <form role="form" method="POST" ng-submit="createEnquiry();">
-        <div class="modal-body" id="modal-body">
-          <div class="row" style="margin:0px !important;">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Title</label>
-                        <select class="form-control input-sm" ng-model="contactusData.title">
-                            <option>Mr</option>
-                            <option>Miss</option>
-                            <option>Ms</option>
-                            <option>Mrs</option>
-                        </select>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Name</label>
-                        <input type="text" ng-model="contactusData.name" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Email Address</label>
-                        <input type="email"  ng-model="contactusData.email"  class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Email">
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Phone</label>
-                        <input type="phone" ng-model="contactusData.phone"  class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputFile">Attach Files</label>
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Booking</h3>
+            <h5>{{ tourName }} | Starting from <currency-direc price="{{tourPrice}}"></currency-direc> | {{ tourDays }} Days</h5>
+        </div>
+        <form role="form" method="POST" ng-submit="createEnquiry();">
+            <div class="modal-body" id="modal-body">
+                <div class="row" style="margin:0px !important;">
+                    <div class="col-sm-6">
                         <div class="form-group">
-                          <div  class="btn btn-primary"
-                                ngf-select
-                                ng-model="contactusData.images"
-                                ngf-multiple="true"
-                                accept="image/*"
-                                ngf-max-height="2000"
-                                ngf-max-size="10MB"
-                                ngf-keep="distinct"
-                                ngf-capture="camera"
-                                ngf-max-files="5">Select Files (max:5)
-                          </div>
-                          <p class="help-block">Click on the Attach Files button to attach files related to your query.</p>
+                            <label for="exampleInputEmail1">Title</label>
+                            <select class="form-control input-sm" ng-model="contactusData.title">
+                                <option>Mr</option>
+                                <option>Miss</option>
+                                <option>Ms</option>
+                                <option>Mrs</option>
+                            </select>
                         </div>
-                        <div>
-                            <span ng-repeat="f in contactusData.images">
-                              <img width=20% ngf-thumbnail="f || '/thumb.jpg'" class="thumb">
-                              {{f.$errorParam}}
-                            </span>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="text" ng-model="contactusData.name" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Email Address</label>
+                            <input type="email" ng-model="contactusData.email" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Email">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Phone</label>
+                            <input type="phone" ng-model="contactusData.phone" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">Attach Files</label>
+                            <div class="form-group">
+                                <div class="btn btn-primary" ngf-select ng-model="contactusData.images" ngf-multiple="true" accept="image/*" ngf-max-height="2000" ngf-max-size="10MB" ngf-keep="distinct" ngf-capture="camera" ngf-max-files="5">Select Files (max:5)
+                                </div>
+                                <p class="help-block">Click on the Attach Files button to attach files related to your query.</p>
+                            </div>
+                            <div>
+                                <span ng-repeat="f in contactusData.images">
+                                    <img width=20% ngf-thumbnail="f || '/thumb.jpg'" class="thumb">
+                                    {{f.$errorParam}}
+                                </span>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Arrival Date</label>
+                            <input type="Date" ng-model="contactusData.plannedarrival" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Arrival Date">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">No. of Days</label>
+                            <input type="text" ng-model="contactusData.numdays" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Nunmber of People">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Type of Hotel</label>
+                            <select class="form-control input-sm" ng-model="contactusData.preferredhoteltype">
+                                <option>Budget</option>
+                                <option>Economy</option>
+                                <option>Elegant</option>
+                                <option>Deluxe</option>
+                                <option>Luxury</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Message</label>
+                            <textarea ng-model="contactusData.message" rows="3" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Message"></textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Arrival Date</label>
-                    <input type="Date" ng-model="contactusData.plannedarrival"  class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Arrival Date">
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" role="group" aria-label="footer buttons">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-outline-primary" ng-click="cancel()">Close</button>
                 </div>
-                <div class="clearfix"></div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">No. of Days</label>
-                    <input type="text"  ng-model="contactusData.numdays"  class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Nunmber of People">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Type of Hotel</label>
-                    <select class="form-control input-sm" ng-model="contactusData.preferredhoteltype">
-                      <option>Budget</option>
-                      <option>Economy</option>
-                      <option>Elegant</option>
-                      <option>Deluxe</option>
-                      <option>Luxury</option>
-                    </select>
-                </div>
-                <div class="clearfix"></div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Message</label>
-                    <textarea ng-model="contactusData.message" rows="3" class="form-control input-sm" id="exampleInputEmail1" placeholder="Enter Message"></textarea>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-                <div class="clearfix"></div>
-                <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div class="btn-group" role="group" aria-label="footer buttons">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-outline-primary" ng-click="cancel()">Close</button>
-          </div>
-        </div>
-      </form>
-  </script>
-  <div class="modal-parent"></div>
+            </div>
+        </form>
+    </script>
+    <div class="modal-parent"></div>
 </div>

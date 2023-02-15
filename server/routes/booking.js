@@ -10,5 +10,5 @@ router.post('/', bookingController.create);
 router.get('/', bookingController.show);
 router.get('/all/', bookingController.index);
 router.delete('/', bookingController.delete);
-router.post('/update/', bookingController.update);
+router.patch('/update/', bookingController.update);
 module.exports = router;

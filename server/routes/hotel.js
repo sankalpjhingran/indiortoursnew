@@ -10,6 +10,6 @@ router.post('/', hotelController.create);
 router.get('/all/', hotelController.index);
 router.get('/', hotelController.show);
 router.delete('/', hotelController.delete);
-router.post('/update/', hotelController.update);
+router.patch('/update/', hotelController.update);
 
 module.exports = router;

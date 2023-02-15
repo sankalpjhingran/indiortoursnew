@@ -8,6 +8,6 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('BlogController', ['$http','$state', '$rootScope', '$scope', function ($http, $state, $rootScope, $scope) {
+    .controller('BlogController', ['$http', '$state', '$rootScope', '$scope', function($http, $state, $rootScope, $scope) {
 
-}]);
+    }]);

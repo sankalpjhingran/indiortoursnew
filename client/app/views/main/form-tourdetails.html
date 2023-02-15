@@ -1,54 +1,54 @@
 <div class="panel-group">
-<div class="panel panel-default">
-  <div class="panel-heading">Tour Details</div>
-  <div class="panel-body">
-    <div class="col-sm-6">
-      <div class="form-group">
-          <label for="name">Date of Arrival</label>
-          <input type="date" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.startdate">
-      </div>
-      <div class="form-group">
-            <label for="name">Hotel Category</label>
-            <select class="form-control input-sm input-sm" id="hoteltype" ng-model="vm.formData.tourinfo.hotelcategory" placeholder="Hotel Type">
-              <option>Budget</option>
-              <option>Economy</option>
-              <option>Elegant</option>
-              <option>Deluxe</option>
-              <option>Luxury</option>
-            </select>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-            <label for="email">Date of Departure</label>
-            <input type="date" class="form-control input-sm" name="email" ng-model="vm.formData.tourinfo.enddate">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Total number of rooms (single, double, twin, triple)</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Tour Details</div>
         <div class="panel-body">
-          <div class="col-sm-6">
-            <div class="form-group">
-                <label for="name">Single</label>
-                <input type="number" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.totalrooms_single">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">Date of Arrival</label>
+                    <input type="date" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.startdate">
+                </div>
+                <div class="form-group">
+                    <label for="name">Hotel Category</label>
+                    <select class="form-control input-sm input-sm" id="hoteltype" ng-model="vm.formData.tourinfo.hotelcategory" placeholder="Hotel Type">
+                        <option>Budget</option>
+                        <option>Economy</option>
+                        <option>Elegant</option>
+                        <option>Deluxe</option>
+                        <option>Luxury</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="name">Twin</label>
-                <input type="number" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.totalrooms_twin">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="email">Date of Departure</label>
+                    <input type="date" class="form-control input-sm" name="email" ng-model="vm.formData.tourinfo.enddate">
+                </div>
             </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-                <label for="name">Double</label>
-                <input type="number" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.totalrooms_double">
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Total number of rooms (single, double, twin, triple)</div>
+        <div class="panel-body">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">Single</label>
+                    <input type="number" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.totalrooms_single">
+                </div>
+                <div class="form-group">
+                    <label for="name">Twin</label>
+                    <input type="number" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.totalrooms_twin">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="name">Triple</label>
-                <input type="number" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.totalrooms_triple">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">Double</label>
+                    <input type="number" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.totalrooms_double">
+                </div>
+                <div class="form-group">
+                    <label for="name">Triple</label>
+                    <input type="number" class="form-control input-sm" name="name" ng-model="vm.formData.tourinfo.totalrooms_triple">
+                </div>
             </div>
-          </div>
         </div>
     </div>
 </div>

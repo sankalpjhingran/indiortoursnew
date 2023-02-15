@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-sm-2">
+            <!--View for SIDEBAR LINKS -->
+            <div ui-view="sidesection"></div>
+        </div>
+
+        <!--Dont show sidebar on home page-->
+        <div class="col col-sm-10">
+            <!--View for main html templates and partials -->
+            <div ui-view="mainsection"></div>
+        </div>
+    </div>
+</div>
