@@ -10,7 +10,7 @@ pipeline {
 
         stage('build') {
             steps {
-                sh 'cd client && npm install grunt-cli && npm install && grunt build'
+                sh 'cd client && npm install grunt-cli && npm install grunt --save-dev && npm install && grunt build'
                 echo 'Build finished'
             }
         }
