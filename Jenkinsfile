@@ -10,6 +10,8 @@ pipeline {
 
         stage('build') {
             steps {
+                echo 'Path is====> '
+                echo $PATH
                 sh 'cd client && npm install grunt-cli && npm install grunt --save-dev && npm install && grunt build'
                 echo 'Build finished'
             }
