@@ -4,7 +4,7 @@ pipeline {
         stage('checkout') {
             steps {
                 echo 'Checking out SCM'
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/sankalpjhingran/indiortoursnew']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/jenkins']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/sankalpjhingran/indiortoursnew']]])
             }
         }
 
