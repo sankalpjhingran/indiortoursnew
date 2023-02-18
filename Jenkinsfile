@@ -10,8 +10,8 @@ pipeline {
 
         stage('build') {
             steps {
-                sh 'chown -R root:$(whoami) /usr/local/lib/node_modules/'
-                sh 'chmod -R 775 /usr/local/lib/node_modules/'
+                sh 'chown -R root:$(whoami) /usr/local/lib/'
+                sh 'chmod -R 775 /usr/local/lib/'
                 sh 'cd client && npm install grunt-cli -g && npm install && grunt build'
                 echo 'Build finished'
             }
