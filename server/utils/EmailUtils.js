@@ -1,7 +1,7 @@
 'use strict';
 
 const sendgrid = require('@sendgrid/mail');
-const SENDGRID_API_KEY = "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";
+const SENDGRID_API_KEY = "";
 sendgrid.setApiKey(SENDGRID_API_KEY);
 const config = require('../config/config2');
 
