@@ -64,6 +64,7 @@ server/public/images/
 
 # Images in public/images folder
 public/images/
+public/
 
 # ignore sql backup
 db1-backup-2018-09-21.sql
@@ -74,3 +75,9 @@ server/dist/index.html
 .DS_Store
 public/.DS_Store
 public/.DS_Store
+dump.rdb
+.python-version
+
+/client/app/.DS_Store
+client/app/.DS_Store
+.gitignore
